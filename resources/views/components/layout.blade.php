@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -32,8 +32,8 @@
 
         @guest
             <div class="space-x-6 font-semibold">
-                <a href="/register" class="bg-black p-2 px-4 text-white border rounded-lg">Get Started</a>
-                <a href="/login">Sign in</a>
+                <a href="/register" class="btn btn-primary">Get Started</a>
+                <a href="/login" class="text-base-content">Sign in</a>
             </div>
         @endguest
     </nav>
