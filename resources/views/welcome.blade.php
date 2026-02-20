@@ -9,7 +9,7 @@
                         quality accommodations in Apostol Compound, Balogo. Simple,
                         secure, and transparent.</p>
                     <x-forms.form action="/search" class="mt-5">
-                        <x-forms.input :label="false" name="q" placeholder="Search here..."></x-forms.input>
+                        <x-forms.input :label="false" name="q" placeholder="Search here..." class="input input-primary"></x-forms.input>
                     </x-forms.form>
                 </div>
                 {{--   Photo right side   --}}

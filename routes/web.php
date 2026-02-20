@@ -7,13 +7,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::get('/login', function () {
 
-   dd('login');
+   return view('auth.login');
 });
 
 Route::get('/register', function() {
-   dd('register');
+   return view('auth.register');
 });
 
 Route::get('/search', function() {

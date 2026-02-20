@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -11,32 +11,35 @@
     @vite(['resources/js/app.js'])
 </head>
 <body class="text-black">
-<div class="px-10">
-    <nav class="flex justify-between items-center py-4 border-b border-white/10">
-        <div>
-            <a href="/">
-                <img src="{{ asset('images/logo-only.svg') }}" alt="" class="w-10 h-auto">
-            </a>
-        </div>
-
-        @auth
-            <div class="space-x-6 font-bold flex">
-                <a href="/jobs/create">Post a job</a>
-                <form method="POST" action="/logout">
-                    @csrf
-                    @method('DELETE')
-                    <button class="hover:cursor-pointer">Log Out</button>
-                </form>
+<div class="{{ isset($noPadding) ? '' : 'px-6' }}">
+    @if (!isset($hideNavbar))
+        <nav class="flex justify-between items-center py-4 border-b border-white/10">
+            <div>
+                <a href="/">
+                    <img src="{{ asset('images/logo-only.svg') }}" alt="" class="w-10 h-auto">
+                </a>
             </div>
-        @endauth
 
-        @guest
-            <div class="space-x-6 font-semibold">
-                <a href="/register" class="btn btn-primary">Get Started</a>
-                <a href="/login" class="text-base-content">Sign in</a>
-            </div>
-        @endguest
-    </nav>
+            @auth
+                <div class="space-x-6 font-bold flex">
+                    <a href="/jobs/create">Post a job</a>
+                    <form method="POST" action="/logout">
+                        @csrf
+                        @method('DELETE')
+                        <button class="hover:cursor-pointer">Log Out</button>
+                    </form>
+                </div>
+            @endauth
+
+            @guest
+                <div class="space-x-6 font-semibold">
+                    <a href="/register" class="btn btn-primary">Get Started</a>
+                    <a href="/login" class="text-base-content">Sign in</a>
+                </div>
+            @endguest
+        </nav>
+    @endif
+
 
     <main>
         {{ $slot }}
