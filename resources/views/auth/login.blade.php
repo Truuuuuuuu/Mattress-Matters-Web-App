@@ -32,7 +32,7 @@
                         Login with Facebook
                     </button>
                 </div>
-                <p class="text-center text-sm mt-5">Don't have an account? <a href="/register" class="text-blue-600">Sign up</a></p>
+                <p class="text-center text-sm mt-5">Don't have an account? <a href="/user-option" class="text-blue-600">Sign up</a></p>
             </div>
         </div>
     </div>

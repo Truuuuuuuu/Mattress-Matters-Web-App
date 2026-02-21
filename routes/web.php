@@ -13,8 +13,8 @@ Route::get('/login', function () {
    return view('auth.login');
 });
 
-Route::get('/register', function() {
-   return view('auth.register');
+Route::get('/user-option', function() {
+   return view('auth.user-option');
 });
 
 Route::get('/search', function() {
