@@ -7,14 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Property extends Model
+class Listing extends Model
 {
     use HasFactory;
 
 
     public function owner(): BelongsTo
     {
-        return $this->belongsTo(PropertyOwner::class);
+        return $this->belongsTo(Host::class);
     }
 
     public function rentals(): HasMany

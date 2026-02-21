@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\PropertyOwner;
+use App\Models\Host;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,9 +12,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('properties', function (Blueprint $table) {
+        Schema::create('listings', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(PropertyOwner::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(Host::class)->constrained()->cascadeOnDelete();
             $table->string('name');
             $table->string('address');
             $table->string('description');
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('properties');
+        Schema::dropIfExists('listings');
     }
 };

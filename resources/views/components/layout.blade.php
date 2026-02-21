@@ -33,7 +33,7 @@
 
             @guest
                 <div class="space-x-6 font-semibold">
-                    <a href="/register" class="btn btn-primary">Get Started</a>
+                    <a href="/user-option" class="btn btn-primary">Get Started</a>
                     <a href="/login" class="text-base-content">Sign in</a>
                 </div>
             @endguest

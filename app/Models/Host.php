@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class PropertyOwner extends Model
+class Host extends Model
 {
     use HasFactory;
 
@@ -18,6 +18,6 @@ class PropertyOwner extends Model
 
     public function properties(): HasMany
     {
-        return $this->hasMany(Property::class, 'property_owner_id');
+        return $this->hasMany(Listing::class, 'property_owner_id');
     }
 }

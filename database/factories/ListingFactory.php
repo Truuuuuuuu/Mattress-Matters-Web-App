@@ -2,12 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\Property;
+use App\Models\Listing;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class PropertyFactory extends Factory
+class ListingFactory extends Factory
 {
-    protected $model = Property::class;
+    protected $model = Listing::class;
 
     public function definition(): array
     {
