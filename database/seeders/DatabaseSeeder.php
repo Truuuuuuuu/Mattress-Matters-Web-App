@@ -37,7 +37,8 @@ class DatabaseSeeder extends Seeder
 
         $tenant = User::factory()->create([
            'name' => 'Tru Aguilar',
-           'email' => 'tru@gmail.com'
+           'email' => 'tru@gmail.com',
+            'password' => bcrypt('123456')
         ]);
         $tenant->assignRole('tenant');
 

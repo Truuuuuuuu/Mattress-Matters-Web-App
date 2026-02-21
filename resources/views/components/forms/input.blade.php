@@ -6,7 +6,7 @@
         'id' => $name,
         'name' => $name,
         'class' => 'rounded-xl bg-white/10 text-base-content border border-black/50  w-full shadow-md',
-        'value' => old($name)
+        'value' => old($name),
     ];
 @endphp
 
