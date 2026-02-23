@@ -1,7 +1,7 @@
 <x-layout :hideNavbar="false" >
     <x-slot:heading>Choose</x-slot:heading>
         <div class="flex justify-center items-center h-screen py-50 gap-10">
-            <a href="/renter">
+            <a href="/register">
                 <div class="group card bg-base-100 w-96 shadow-sm flex flex-col border border-black drop-shadow-lg hover:border-blue-900
                     hover:border-2 transition-colors duration-300">
                     <div class="flex justify-center pt-10">
@@ -15,7 +15,7 @@
                 </div>
             </a>
 
-            <a href="/host">
+            <a href="/register">
                 <div class="group host card bg-base-100 w-96 shadow-sm flex flex-col border border-black drop-shadow-lg hover:border-blue-900
                     hover:border-2 transition-colors duration-300">
                     <div class="flex justify-center pt-10">
