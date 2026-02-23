@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -37,7 +38,11 @@ class SessionController extends Controller
                 'email' => 'Email does not exist.',
             ]);
         }
-
+        if ($user->password == null){
+            throw ValidationException::withMessages([
+               'email' => 'This account does not support password sign-in, please try another sign-in method'
+            ]);
+        }
         // Check password
         if (! Hash::check($attributes['password'], $user->password)) {
             throw ValidationException::withMessages([

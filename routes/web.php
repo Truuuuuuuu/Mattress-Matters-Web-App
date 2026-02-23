@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\SessionController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\SessionController;
+use App\Http\Controllers\Auth\SocialiteController;
 use Illuminate\Support\Facades\Route;
 
 //landing page
@@ -31,4 +32,11 @@ Route::get('/user-option', function() {
 
 Route::get('/search', function() {
    dd('search triggered');
+});
+
+
+
+Route::group(['prefix' => 'auth'], function () {
+    Route::get('{provider}/redirect', [SocialiteController::class, 'redirectToProvider'])->name('social.redirect');
+    Route::get('{provider}/callback', [SocialiteController::class, 'handleProviderCallback'])->name('social.callback');
 });
