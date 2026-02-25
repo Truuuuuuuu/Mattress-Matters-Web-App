@@ -8,10 +8,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Password;
 
-class RegisterController extends Controller
+class EmailRegisterController extends Controller
 {
     public function create(){
-        return view('auth.register');
+        return view('auth.email-register');
     }
 
     public function store(Request $request){
@@ -19,10 +19,18 @@ class RegisterController extends Controller
         $attributes = $request->validate([
             'name'  => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'unique:users,email'],
-            'password' => ['required', 'confirmed', Password::min(6)]
+            'password' => ['required', 'confirmed', Password::min(6)],
+            'role' => ['required', 'in:host,tenant']
         ]);
 
-        $user = User::create($attributes);
+        $user = User::create([
+            'name' => $attributes['name'],
+            'email' => $attributes['email'],
+            'password' => $attributes['password'],
+        ]);
+
+        /*Assign the user*/
+        $user->assignRole($attributes['role']);
 
         Auth::login($user);
 

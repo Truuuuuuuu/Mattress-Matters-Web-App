@@ -1,18 +1,48 @@
 <x-layout :hideNavbar="false" >
     <x-slot:heading>Register</x-slot:heading>
-    <div class="h-screen flex items-center justify-center">
+    <div class="min-h-[calc(100vh-4rem)] flex items-center justify-center">
 
         <div class="w-full max-w-md p-10">
             <h1 class="text-center text-3xl mb-6 font-bold">Sign up</h1>
-            <x-forms.form method="POST" action="/register">
+            <x-forms.form method="POST" action="/email-register">
                 <x-forms.input :label="false" name="name" type="text" class="rounded-xl input input-primary input-lg lg:input-md" placeholder="Full Name" />
                 <x-forms.input :label="false" name="email" type="email" class="rounded-xl input input-primary input-lg lg:input-md" placeholder="Email" />
                 <x-forms.input :label="false" name="password" type="password" class="rounded-xl input input-primary input-lg lg:input-md" placeholder="Password" />
                 <x-forms.input :label="false" name="password_confirmation" type="password" class="rounded-xl input input-primary input-lg lg:input-md" placeholder="Confirm Password" />
-                <x-forms.button class="btn btn-primary w-full">Sign up</x-forms.button>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <label class="card bg-base-200 shadow-sm p-6 cursor-pointer hover:bg-base-300 transition">
+                        <input type="radio" name="role" value="host" class="hidden peer" />
+                        <div class="peer-checked:font-bold">
+                            Host
+                        </div>
+                        <p class="text-sm text-base-content/70">
+                            List and manage your property
+                        </p>
+                    </label>
+
+                    <label class="card bg-base-200 shadow-sm p-6 cursor-pointer hover:bg-base-300 transition">
+                        <input type="radio" name="role" value="tenant" class="hidden peer" />
+                        <div class="peer-checked:font-bold">
+                            Tenant
+                        </div>
+                        <p class="text-sm text-base-content/70">
+                            Find and rent properties
+                        </p>
+                    </label>
+                </div>
+                @error('role')
+                <p class="text-red-500 text-sm">Please select a role</p>
+                @enderror
+
+                <p class="text-sm">By selecting <strong>Agree and Continue</strong>, I agree to Mattress Matters's <span class="text-blue-800 underline">Terms of Service,
+                    </span >and <span class="text-blue-800 underline">Nondiscrimation Policy</span > and acknowledge the <span class="text-blue-800 underline"> Privacy Policy.</span></p>
+
+
+                <x-forms.button class="btn btn-primary w-full">Agree and Continue</x-forms.button>
             </x-forms.form>
 
-            <x-divider class="bg-blue-900"/>
+            <x-divider class="bg-blue-900 mt-10"/>
 
             <div class="flex flex-col gap-2 mt-5">
                 <!-- Google -->
@@ -28,8 +58,6 @@
                 </button>
             </div>
             <p class="lg:text-sm mt-2">Already have an account? <a href="/login" class="text-blue-800 ">Sign in</a></p>
-
-
         </div>
     </div>
 </x-layout>

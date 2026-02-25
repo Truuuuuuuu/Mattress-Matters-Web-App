@@ -49,7 +49,7 @@ class SocialiteController extends Controller
      * Obtain the user information from the OAuth Provider and handle login/creation.
      *
      * @param string $provider
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function handleProviderCallback(string $provider)
     {
@@ -66,12 +66,25 @@ class SocialiteController extends Controller
         }
 
         // Centralized logic to find or create the user and assign the role
-        $user = $this->findOrCreateUser($socialiteUser, $provider);
+        [$user, $isNewUser] = $this->findOrCreateUser($socialiteUser, $provider);
+
+        if($isNewUser){
+
+            $fullName = $socialiteUser->getName();
+            return redirect()->route('google-register')->with([
+                'fullName' => $fullName ?? '',
+                'email' => $socialiteUser->getEmail(),
+                'provider_id'=> $socialiteUser->getId(),
+            ]);
+        }
+
 
         // Log the user into the application
         Auth::login($user, true);
 
-        return redirect()->intended('/auth.homepage'); // Add your dashboard link
+
+
+        return redirect()->intended('/auth.homepage');
     }
 
     /**
@@ -81,7 +94,7 @@ class SocialiteController extends Controller
      * @param string $provider
      * @return User
      */
-    protected function findOrCreateUser(SocialiteUser $socialiteUser, string $provider): User
+    protected function findOrCreateUser(SocialiteUser $socialiteUser, string $provider): array
     {
         // Normalize the provider key for database column names (e.g., 'twitter-openid' becomes 'twitter_openid_id')
         $providerKey = str_replace('-', '_', $provider);
@@ -93,7 +106,7 @@ class SocialiteController extends Controller
         if ($user) {
             // User exists and is linked to this social account.
             // DO NOT assign any role as per requirement.
-            return $user;
+            return [$user, false];
         }
 
         // 2. Check if user exists via email (for account linking)
@@ -105,11 +118,11 @@ class SocialiteController extends Controller
             $user->update([
                 $providerIdField => $socialiteUser->getId(),
             ]);
-            return $user;
+            return [$user, false];
         }
 
         // 3. User does not exist, so create a new one.
-        $user = User::create([
+       /* $user = [
             'name' => $socialiteUser->getName() ?? $socialiteUser->getNickname() ?? 'New Social User',
             'email' => $socialiteUser->getEmail(),
             // Create a random password since social login is primary
@@ -117,12 +130,12 @@ class SocialiteController extends Controller
             $providerIdField => $socialiteUser->getId(),
             // You may need to verify the email address here based on provider data
             'email_verified_at' => now(),
-        ]);
+        ];*/
 
         // SPATIE ROLE LOGIC: Assign 'subscriber' role only on first creation
         // IMPORTANT: Ensure the 'subscriber' role is seeded in your database!
         // $user->assignRole('subscriber');  // this is optional if using spatie role permission package
 
-        return $user;
+        return [null, true];
     }
 }
