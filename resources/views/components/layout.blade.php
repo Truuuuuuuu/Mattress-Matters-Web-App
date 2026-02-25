@@ -11,9 +11,10 @@
     @vite(['resources/js/app.js'])
 </head>
 <body class="text-black">
-<div class="{{ isset($noPadding) ? '' : 'px-6' }}">
+<div>
     @if (!isset($hideNavbar))
-        <nav class="flex justify-between items-center py-4 border-b border-white/10">
+        <nav class=" sticky top-0 z-50 bg-base-100 shadow flex justify-between items-center py-4 border-b border-white/10 p-5">
+            {{-- Logo --}}
             <div>
                 <a href="/">
                     <img src="{{ asset('images/logo-only.svg') }}" alt="" class="w-10 h-auto">
@@ -21,13 +22,39 @@
             </div>
 
             @auth
-                <div class="space-x-6 font-bold flex">
-                    <a href="/jobs/create">Post a job</a>
-                    <form method="POST" action="/logout">
-                        @csrf
-                        @method('DELETE')
-                        <button class="hover:cursor-pointer">Log Out</button>
-                    </form>
+                {{--Middle links--}}
+                <div class="text-base-content flex gap-10 font-semibold">
+                    <a href="">Browse</a>
+                    <a href="">My Home</a>
+                </div>
+
+                <!-- Search -->
+                <div class="w-100 text-base-content">
+                    @include('components.search-bar')
+                </div>
+
+                <div class="space-x-3 font-bold flex">
+                    <div class="btn btn-ghost btn-circle bg-blue-200">
+                            <h1>{{Auth::user()->name[0]}}</h1>
+                    </div>
+                    <div class="dropdown dropdown-end" >
+                        <div class="btn btn-ghost btn-circle bg-gray-200" tabindex="0" role="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+
+                            </svg>
+                        </div>
+                        <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm font-normal">
+                            <li><a >Settings</a></li>
+                            <li><a><form method="POST" action="/logout">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="hover:cursor-pointer">Log Out</button>
+                                    </form>
+                            </a></li>
+                        </ul>
+                    </div>
+
                 </div>
             @endauth
 

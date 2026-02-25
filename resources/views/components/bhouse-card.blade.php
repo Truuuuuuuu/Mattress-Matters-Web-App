@@ -4,7 +4,7 @@
         <div class="w-full aspect-4/3">
             <x-bhouse-photo/>
         </div>
-        <h3 class="text-sm text-base-content lg:text-xl group-hover:text-blue-800 font-bold transition-colors duration-300">
+        <h3 class="text-sm text-base-content lg:group-hover:text-blue-800 font-bold transition-colors duration-300">
             <a href="#" target="_blank">
                 Mago Residence
             </a>

@@ -1,7 +1,7 @@
 <x-layout>
     <x-slot:heading>Mattress Matters | Boarding House Listings</x-slot:heading>
     <div class="space-y-10">
-        <section class="pt-10 mt-10 ">
+        <section class="pt-10 mt-10 px-10">
             <div class="grid lg:grid-cols-2 gap-8 items-start">
                 <div class="place-self-start self-center">
                     <h1 class="text-5xl font-bold text-base-content">Find Your Perfect Boarding House Now!</h1>
@@ -9,7 +9,7 @@
                         quality accommodations in Apostol Compound, Balogo. Simple,
                         secure, and transparent.</p>
                     <x-forms.form action="/search" class="mt-5">
-                        <x-forms.input :label="false" name="q" placeholder="Search here..." class="input input-primary"></x-forms.input>
+                        <x-forms.input :label="false" name="q" placeholder="Search here..." class="rounded-xl input input-primary"></x-forms.input>
                     </x-forms.form>
                 </div>
                 {{--   Photo right side   --}}
@@ -20,7 +20,7 @@
         </section>
 
         {{-- Featured listings--}}
-        <section class="mt-5 lg:mt-20  -mx-10 px-10 py-5">
+        <section class="mt-5 lg:mt-20   px-10 py-5">
             <div>
                 <h1 class="text-3xl text-base-content font-semibold">Featured Listings</h1>
             </div>
@@ -35,7 +35,7 @@
         </section>
 
         {{-- CTA--}}
-        <section class="mt-5 lg:mt-20 relative bg-cover bg-center -mx-10 py-30" style="background-image: url('{{ asset('images/cta-bg.jpg') }}');">
+        <section class="mt-5 lg:mt-20 relative bg-cover bg-center  py-30" style="background-image: url('{{ asset('images/cta-bg.jpg') }}');">
             <div class="place-self-center">
                 <div>
                     <h1 class="text-3xl px-10 lg:text-5xl font-bold text-center">Start Your Journey With Us</h1>
@@ -49,7 +49,7 @@
         </section>
 
         {{--Testimonials--}}
-        <section class="my-20">
+        <section class="my-20 px-10">
             <h1 class="text-3xl text-base-content font-bold text-center mb-5">Hear From Our Community</h1>
             <div class=" grid grid-rows lg:grid-cols-3 gap-7">
                 <x-testimonial/>
@@ -59,7 +59,7 @@
         </section>
 
         {{--  Footer--}}
-        <section class="bg-black/50 -mx-10 p-10 pt-30 text-base-content">
+        <section class="bg-black/50 p-10 pt-30 text-base-content">
             <div class="grid gap-6">
                 <div class="grid grid-cols lg:grid-cols-2">
                     <div class="lg:pr-40 text-justify">

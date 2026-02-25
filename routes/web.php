@@ -10,8 +10,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/auth.placeholder', function () {
-    return view('auth.placeholder');
+Route::get('/auth.homepage', function () {
+    return view('auth.homepage');
 })->middleware('auth');
 
 

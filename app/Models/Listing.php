@@ -12,7 +12,7 @@ class Listing extends Model
     use HasFactory;
 
 
-    public function owner(): BelongsTo
+    public function host(): BelongsTo
     {
         return $this->belongsTo(Host::class);
     }
@@ -21,4 +21,6 @@ class Listing extends Model
     {
         return $this->hasMany(Rental::class);
     }
+
+
 }

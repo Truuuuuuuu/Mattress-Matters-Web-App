@@ -71,7 +71,7 @@ class SocialiteController extends Controller
         // Log the user into the application
         Auth::login($user, true);
 
-        return redirect()->intended('/auth.placeholder'); // Add your dashboard link
+        return redirect()->intended('/auth.homepage'); // Add your dashboard link
     }
 
     /**
