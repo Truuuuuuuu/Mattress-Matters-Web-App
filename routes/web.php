@@ -4,16 +4,30 @@ use App\Http\Controllers\Auth\EmailRegisterController;
 use App\Http\Controllers\Auth\GoogleRegisterController;
 use App\Http\Controllers\Auth\SessionController;
 use App\Http\Controllers\Auth\SocialiteController;
+use App\Http\Controllers\Host\DashboardController;
+use App\Http\Controllers\Tenant\HomeController;
 use Illuminate\Support\Facades\Route;
+use function Pest\Laravel\get;
 
 //landing page
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/auth.homepage', function () {
-    return view('auth.homepage');
-})->middleware('auth');
+//tenant homepage
+Route::middleware(['auth'])
+    ->get('/home', [HomeController::class, 'index'])
+    ->name('tenant.homepage');
+
+//host dashboard
+Route::middleware(['auth', 'role:host'])
+    ->prefix('host')
+    ->name('host.')
+    ->group(function () {
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->name('dashboard');
+});
 
 
 Route::middleware('guest')->group(function () {

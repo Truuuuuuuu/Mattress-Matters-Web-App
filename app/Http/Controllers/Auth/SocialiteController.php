@@ -83,8 +83,10 @@ class SocialiteController extends Controller
         Auth::login($user, true);
 
 
-
-        return redirect()->intended('/auth.homepage');
+        if($user->hasRole('host')){
+            return redirect()->route('host.dashboard');
+        }
+        return redirect()->route('tenant.homepage');
     }
 
     /**

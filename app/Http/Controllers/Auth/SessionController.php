@@ -54,7 +54,7 @@ class SessionController extends Controller
 
         Auth::login($user);
 
-        return redirect('auth.homepage');
+        return redirect()->route('tenant.homepage');
     }
 
     public function destroy(){

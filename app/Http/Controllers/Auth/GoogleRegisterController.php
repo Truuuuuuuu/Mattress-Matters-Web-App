@@ -37,7 +37,9 @@ class GoogleRegisterController extends Controller
         $user->assignRole($attributes['role']);
 
         Auth::login($user);
-
-        return redirect('/auth.homepage');
+        if($user->hasRole('host')){
+            return redirect()->route('host.dashboard');
+        }
+        return redirect()->route('tenant.homepage');
     }
 }
