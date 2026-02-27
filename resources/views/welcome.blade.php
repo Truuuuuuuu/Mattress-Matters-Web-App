@@ -26,10 +26,22 @@
             </div>
 
             <div class="gap-y-2 grid grid-cols-2 lg:grid-cols-4 gap-x-2 mt-6">
-                <x-bhouse-card />
-                <x-bhouse-card />
-                <x-bhouse-card />
-                <x-bhouse-card />
+                @for($i = 0; $i < 4; $i++)
+                    <x-panel class="flex flex-col text-start">
+                        <div class="py-2 ">
+                            <div class="w-full aspect-4/3">
+                                <x-bhouse-photo/>
+                            </div>
+                            <h3 class="text-sm text-base-content lg:group-hover:text-blue-800 font-bold transition-colors duration-300">
+                                <a href="#" target="_blank">
+                                    Name
+                                </a>
+                            </h3>
+                            <p class="text-xs text-base-content lg:text-sm mt-1">P2,000 monthly</p>
+                        </div>
+                    </x-panel>
+
+                @endfor
 
             </div>
         </section>
@@ -58,52 +70,6 @@
             </div>
         </section>
 
-        {{--  Footer--}}
-        <section class="bg-black/50 p-10 pt-30 text-base-content">
-            <div class="grid gap-6">
-                <div class="grid grid-cols lg:grid-cols-2">
-                    <div class="lg:pr-40 text-justify">
-                        <h1 class="text-lg font-bold">Mattress Matters</h1>
-                        <p class="mt-3">Your trusted platform for quality boarding house listings in Balogo,
-                            Sorsogon City. Connecting renters with verified property owners
-                            since 2026.</p>
-                    </div>
-                    <div class="gap-x-10 mt-5 lg:gap-x-30 flex justify-end ">
-                        <div>
-                            <h1 class="font-bold">Platform</h1>
-                            <ul class="mt-3">
-                                <li>Browser Listing</li>
-                                <li>How It Works</li>
-                                <li>Pricing</li>
-                                <li>FAQ</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h1 class="font-bold">Company</h1>
-                            <ul class="mt-3">
-                                <li>About Us</li>
-                                <li>Contact</li>
-                                <li>Careers</li>
-                                <li>Blog</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h1 class="font-bold">Legal</h1>
-                            <ul class="mt-3">
-                                <li>Terms of Service</li>
-                                <li>Privacy & Policy</li>
-                                <li>Cookie Policy</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                </div>
-                <x-divider/>
-                <div class="lg:flex justify-between text-xs">
-                    <p >© 2026 Mattress Matters. All rights reserved.</p>
-                    <p>Apostol Compound, Alegre St. Purok 1, Balogo, Sorsogon City</p>
-                </div>
-            </div>
-        </section>
+        <x-footer/>
     </div>
 </x-layout>

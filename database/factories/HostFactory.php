@@ -13,8 +13,9 @@ class HostFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name,
             'user_id' => User::factory(),
+            'created_at' => fake()->dateTime(),
+            'updated_at' => fake()->dateTime(),
         ];
     }
 }
