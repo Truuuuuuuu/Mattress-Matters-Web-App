@@ -9,6 +9,6 @@
                 {{$listing->name}}
             </a>
         </h3>
-        <p class="text-xs text-base-content lg:text-sm mt-1">P{{number_format($listing->price)}} monthly</p>
+        <p class="text-xs text-base-content lg:text-sm mt-1"><strong>₱{{number_format($listing->price)}}</strong> monthly</p>
     </div>
 </x-panel>

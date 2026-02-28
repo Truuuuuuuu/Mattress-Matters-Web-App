@@ -8,7 +8,7 @@
                     <p class="mt-5 font-normal text-base-content">Connect with verified property owners offering
                         quality accommodations in Apostol Compound, Balogo. Simple,
                         secure, and transparent.</p>
-                    <x-forms.form action="/search" class="mt-5">
+                    <x-forms.form action="/all-listings" class="mt-5">
                         <x-forms.input :label="false" name="q" placeholder="Search here..." class="rounded-xl input input-primary"></x-forms.input>
                     </x-forms.form>
                 </div>
