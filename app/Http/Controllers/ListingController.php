@@ -15,7 +15,9 @@ class ListingController extends Controller
         ]);
     }
 
-    public function show(){
-        return view('listings.show');
+    public function show(Listing $listing){
+        $listing->load('host.user');
+
+        return view('listings.show', compact('listing'));
     }
 }

@@ -81,7 +81,7 @@
 
                                     </svg>
                                 </div>
-                                <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm font-normal">
+                                <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-50 mt-13 w-52 p-2 shadow-sm font-normal">
                                     <li><a >Settings</a></li>
                                     <li><a><form method="POST" action="/logout">
                                                 @csrf

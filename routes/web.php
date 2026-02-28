@@ -63,6 +63,6 @@ Route::middleware(['auth', 'role:host'])
     });
 
 //Listings results
-Route::get('/all-listings',[ListingController::class,'index'])->name('all.listings');
-Route::get('/show-listing',[ListingController::class,'show'])->name('show.listing');
+Route::get('/listings',[ListingController::class,'index'])->name('listings.index');
 
+Route::get('/listings/{listing}', [ListingController::class, 'show'])->name('listings.show');
