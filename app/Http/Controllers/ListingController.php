@@ -9,7 +9,7 @@ class ListingController extends Controller
 {
     public function index()
     {
-        $listings = Listing::with('host.user')->latest()->simplePaginate(21);
+        $listings = Listing::with('host.user')->latest()->paginate(21);
         return view('listings.index', [
             'listings' => $listings
         ]);

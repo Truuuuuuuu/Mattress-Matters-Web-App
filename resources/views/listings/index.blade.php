@@ -32,8 +32,9 @@
                 </div>
 
             </div>
-            <div class="p-5">
-                {{$listings->links()}}
+
+            <div class="flex justify-center mt-15 mb-10 ">
+                {{ $listings->links() }}
             </div>
 
         </section>
