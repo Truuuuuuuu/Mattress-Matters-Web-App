@@ -7,6 +7,8 @@ use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Host\DashboardController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\Tenant\HomeController;
+use App\Http\Controllers\Tenant\ReservationController;
+use App\Http\Controllers\Tenant\UnitController;
 use Illuminate\Support\Facades\Route;
 use function Pest\Laravel\get;
 
@@ -50,6 +52,11 @@ Route::middleware(['auth', 'role:tenant'])
         Route::get('/home', [HomeController::class, 'index'])
             ->name('homepage');
 
+        Route::get('/my-unit', [UnitController::class, 'index'])
+            ->name('unit');
+
+        Route::get('/reservation', [ReservationController::class, 'index'])
+            ->name('reservation');
 
     });
 //host routes
