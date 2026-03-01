@@ -7,12 +7,15 @@ use Illuminate\Http\Request;
 
 class ListingController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $listings = Listing::with('host.user')->latest()->paginate(21);
-        return view('listings.index', [
-            'listings' => $listings
-        ]);
+       $listings = Listing::with('host.user')
+           ->latest()
+           ->filter($request->only(['search', 'min_price', 'max_price']))
+           ->paginate(21)
+           ->withQueryString();
+
+       return view('listings.index', compact('listings'));
     }
 
     public function show(Listing $listing){

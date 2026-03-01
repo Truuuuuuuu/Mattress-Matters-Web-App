@@ -36,7 +36,7 @@
                     <div class="hidden lg:flex text-base-content  gap-8 items-center whitespace-nowrap font-semibold lg:absolute left-1/2 -translate-x-1/2">
                         <div>
                             <a href="{{route('tenant.homepage')}}" class="text-center block" >Explore</a>
-                            <div class="{{request()->routeIs('tenant.homepage') ? 'bg-black w-17 h-1 rounded-xl' : ''}}"></div>
+                            <div class="{{request()->routeIs('tenant.homepage', 'listings.index') ? 'bg-black w-17 h-1 rounded-xl' : ''}}"></div>
                         </div>
                         <div>
                             <a href="{{route('tenant.unit')}}" class="text-center block" >My Unit</a>
