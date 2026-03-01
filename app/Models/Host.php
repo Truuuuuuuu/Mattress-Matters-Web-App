@@ -11,6 +11,10 @@ class Host extends Model
 {
     use HasFactory;
 
+    public $fillable = [
+        'user_id',
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -20,4 +24,7 @@ class Host extends Model
     {
         return $this->hasMany(Listing::class, 'host_id');
     }
+
+
+
 }

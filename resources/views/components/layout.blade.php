@@ -32,7 +32,7 @@
                             </div>
                         </div>--}}
 
-                    {{-- links --}}
+                    {{-- Tenant links --}}
                     <div class="hidden lg:flex text-base-content  gap-8 items-center whitespace-nowrap font-semibold lg:absolute left-1/2 -translate-x-1/2">
                         <div>
                             <a href="{{route('tenant.homepage')}}" class="text-center block" >Explore</a>
@@ -54,11 +54,22 @@
                     @endrole
 
                     @role('host')
-                    {{-- links --}}
+                    {{-- Host links --}}
                     <div class="hidden lg:flex text-base-content  gap-10 font-semibold lg:absolute left-1/2 -translate-x-1/2">
-                        <a href="">Reservations</a>
-                        <a href="">Listings</a>
+                       <div>
+                           <a href="{{route('host.dashboard')}}" class="text-center block">Dashboard</a>
+                           <div class="{{request()->routeIs('host.dashboard') ? 'bg-black w-23 h-1 rounded-xl' : ''}}"></div>
+                       </div>
 
+                        <div>
+                            <a href="{{route('host.listings')}}" class="text-center block">Listings</a>
+                            <div class="{{request()->routeIs('host.listings') ? 'bg-black w-17 h-1 rounded-xl' : ''}}"></div>
+                        </div>
+
+                        <div>
+                            <a href="" class="text-center block">Requests</a>
+                            <div class="{{request()->routeIs('') ? 'bg-black w-17 h-1 rounded-xl' : ''}}"></div>
+                        </div>
                     </div>
                     @endrole
                 @endauth

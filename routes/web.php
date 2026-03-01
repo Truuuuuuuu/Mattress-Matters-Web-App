@@ -5,7 +5,8 @@ use App\Http\Controllers\Auth\GoogleRegisterController;
 use App\Http\Controllers\Auth\SessionController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Host\DashboardController;
-use App\Http\Controllers\ListingController;
+use App\Http\Controllers\Host\ListingController;
+use App\Http\Controllers\ResultListingController;
 use App\Http\Controllers\Tenant\HomeController;
 use App\Http\Controllers\Tenant\ReservationController;
 use App\Http\Controllers\Tenant\UnitController;
@@ -67,9 +68,13 @@ Route::middleware(['auth', 'role:host'])
 
         Route::get('/dashboard', [DashboardController::class, 'index'])
             ->name('dashboard');
+        Route::get('/host-listings', [ListingController::class, 'index'])
+            ->name('listings');
+        Route::get('/host-create', [ListingController::class, 'create'])
+            ->name('create');
     });
 
 //Listings results
-Route::get('/listings',[ListingController::class,'index'])->name('listings.index');
+Route::get('/listings',[ResultListingController::class,'index'])->name('listings.index');
 
-Route::get('/listings/{listing}', [ListingController::class, 'show'])->name('listings.show');
+Route::get('/listings/{listing}', [ResultListingController::class, 'show'])->name('listings.show');

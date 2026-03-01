@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Host;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,7 +37,15 @@ class GoogleRegisterController extends Controller
         /*Assign the user*/
         $user->assignRole($attributes['role']);
 
+        /*Create in Host table*/
+        if($attributes['role'] === 'host'){
+            Host::create([
+                'user_id' => $user->id,
+            ]);
+        }
+
         Auth::login($user);
+
         if($user->hasRole('host')){
             return redirect()->route('host.dashboard');
         }

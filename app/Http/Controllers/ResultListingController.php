@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Listing;
 use Illuminate\Http\Request;
 
-class ListingController extends Controller
+class ResultListingController extends Controller
 {
     public function index(Request $request)
     {
@@ -23,4 +23,5 @@ class ListingController extends Controller
 
         return view('listings.show', compact('listing'));
     }
+
 }
