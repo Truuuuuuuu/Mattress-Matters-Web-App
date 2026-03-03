@@ -13,30 +13,24 @@ class AmenitySeeder extends Seeder
      */
     public function run(): void
     {
-        Amenity::firstOrCreate([
-            'name' => 'wifi',
-            'icon' => 'wifi'
-        ]);
 
-        Amenity::firstOrCreate([
-            'name' => 'bed',
-            'icon' => 'bed-single'
-        ]);
+        $amenities = [
+            ['name' => 'wifi', 'icon' => 'wifi'],
+            ['name' => 'single_bed', 'icon' => 'bed-single'],
+            ['name' => 'bunk_bed', 'icon' => 'bed'],
+            ['name' => 'water_supply', 'icon' => 'droplet'],
+            ['name' => 'electricity', 'icon' => 'zap'],
+            ['name' => 'parking', 'icon' => 'circle-parking'],
+            ['name' => 'study_table', 'icon' => 'book-open'],
+            ['name' => 'exterior_cctv', 'icon' => 'cctv'],
+        ];
 
-        Amenity::firstOrCreate([
-            'name' => 'water_supply',
-            'icon' => 'droplet'
-        ]);
-
-        Amenity::firstOrCreate([
-            'name' => 'study_table',
-            'icon' => 'book-open'
-        ]);
-
-        Amenity::firstOrCreate([
-            'name' => 'parking',
-            'icon' => 'circle-parking'
-        ]);
-
+       foreach ($amenities as $amenity)
+       {
+           Amenity::firstOrCreate([
+               'name' => $amenity['name'],
+               'icon' => $amenity['icon']
+           ]);
+       }
     }
 }

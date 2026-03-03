@@ -1,4 +1,4 @@
-<div class="space-y-20">
+<div class="space-y-20 px-25">
 
     <section class="mt-10">
         {{--Gender Policy--}}

@@ -5,7 +5,7 @@
         'type' => 'text',
         'id' => $name,
         'name' => $name,
-        'class' => 'text-base-content border border-black/50  w-full shadow-md',
+        'class' => 'text-base-content border border-black/50  w-full shadow-md ',
         'value' => old($name, request($name)),
     ];
 @endphp
