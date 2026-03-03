@@ -22,6 +22,45 @@
         </div>
     </section>
 
+    {{--additional fee--}}
+    <section>
+        <h1 class="text-3xl font-semibold mt-5">Additional fee</h1>
+        <div class="grid lg:grid-cols-2 mt-10 ">
+
+            <div class=" px-10 py-6 flex flex-col justify-center  items-center">
+                <div>
+                    <label for="price" class="text-base-content/50 text-lg ">Electric</label>
+                    <div class="flex justify-start gap-5">
+                        <H1 class="text-3xl font-bold leading-none">PHP</H1>
+                        <input type="number" id="price" name="price" min="0"
+                               class="text-3xl w-64 border-b-3 border-black focus:ring-0 focus:outline-none block"
+                               required>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-2">
+                        Enter the monthly rent amount for this listing.
+                    </p>
+                </div>
+            </div>
+
+            <div class=" px-10 py-6 flex flex-col justify-center items-center">
+                <div>
+                    <label for="price" class="text-base-content/50 text-lg text-start">Water</label>
+                    <div class="flex justify-start gap-5">
+                        <H1 class="text-3xl font-bold leading-none">PHP</H1>
+                        <input type="number" id="price" name="price" min="0"
+                               class="text-3xl w-64 border-b-3 border-black focus:ring-0 focus:outline-none block"
+                               required>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-2">
+                        Enter the monthly rent amount for this listing.
+                    </p>
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+
     {{--Amenities--}}
     <section>
         <div>

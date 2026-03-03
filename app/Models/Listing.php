@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Listing extends Model
@@ -38,6 +39,11 @@ class Listing extends Model
         $query->when($filters['max_price'] ?? false, fn ($q, $maxPrice) =>
             $q->where('price', '<=', $maxPrice)
         );
+    }
+
+    public function amenities(): BelongsToMany
+    {
+        return $this->belongsTomany(Amenity::class);
     }
 
 }
