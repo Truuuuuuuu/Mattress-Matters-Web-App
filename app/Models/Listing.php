@@ -46,4 +46,9 @@ class Listing extends Model
         return $this->belongsTomany(Amenity::class);
     }
 
+    public function rules(): BelongsToMany
+    {
+        return $this->belongsToMany(Rule::class);
+    }
+
 }
