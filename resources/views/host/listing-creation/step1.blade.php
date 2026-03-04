@@ -5,12 +5,12 @@
         <div class="lg:w-xl mt-5">
 
             <x-forms.form {{--method="POST" action="" --}}class="mt-5">
-                <x-forms.input :label="false" name="name" type="text"
-                               class="rounded-xl input input-neutral input-lg lg:input-md" placeholder="Name" required/>
+                <x-forms.input :label="false" name="title" type="text"
+                               class="rounded-xl input input-neutral input-lg lg:input-md" placeholder="Title" required/>
                 <x-forms.input :label="false" name="address" type="text"
                                class="rounded-xl input input-neutral input-lg lg:input-md mt-2" placeholder="Address"
                                required/>
-                <textarea name="description" rows="7"
+                <textarea name="description" rows="7" id="description"
                           class="textarea border-base-content/50 mt-3 rounded-xl resize-none w-full overflow-y-auto"
                           placeholder="Description"></textarea>
             </x-forms.form>

@@ -7,18 +7,16 @@
                 <img src="{{asset('images/house-rent.svg')}}" alt="" class="w-full h-full object-fit">
             </div>
             <div class=" px-10 py-6 flex flex-col justify-center">
-                <label for="price" class="text-base-content/50 text-lg ">Monthy</label>
+                <label for="price" class="text-base-content/50 text-lg ">Monthly</label>
                 <div class="flex justify-start gap-5">
                     <H1 class="text-3xl font-bold leading-none">PHP</H1>
-                    <input type="number" id="price" name="rent_price" min="1"
+                    <input type="number" id="rent_cost" name="rent_cost" min="1"
                            class="text-3xl w-64 border-b-3 border-black focus:ring-0 focus:outline-none block" required>
                 </div>
                 <p class="text-sm text-gray-500 mt-2">
                     Enter the monthly rent amount for this listing.
                 </p>
             </div>
-
-
         </div>
     </section>
 
@@ -60,7 +58,7 @@
                     <label for="water_suppl_cost" class="text-base-content/50 text-lg text-start">Water</label>
                     <div class="flex justify-start gap-5">
                         <H1 class="text-3xl font-bold leading-none">PHP</H1>
-                        <input type="number" id="water_suppl_cost" name="water_suppl_cost" min="0"
+                        <input type="number" id="water_supply_cost" name="water_supply_cost" min="0"
                                class="text-3xl w-64 border-b-3 border-black focus:ring-0 focus:outline-none block">
                     </div>
                     <div class="flex felx-col-2 items-center justify-start gap-1 mt-2">
@@ -86,7 +84,7 @@
             <div class="grid grid-cols-4 gap-4 mt-15">
 
                 @foreach($amenities as $amenity)
-                    <x-option-card type="checkbox" name="amenities[]" value="{{$amenity->id}}" icon="{{$amenity->icon}}">{{ucfirst($amenity->name)}}</x-option-card>
+                    <x-option-card type="checkbox" name="amenities[]" value="{{$amenity->id}}" icon="{{$amenity->icon}}" label="{{ ucfirst($amenity->name) }}" >{{ucfirst($amenity->name)}}</x-option-card>
                 @endforeach
 
             </div>
