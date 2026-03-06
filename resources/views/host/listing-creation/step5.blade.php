@@ -158,4 +158,44 @@
 
     </section>
 
+    {{--Setp 3--}}
+    <section>
+        <section>
+            <div class="space-y-10 px-25 text-base-content/50">
+                <div class="flex items-center gap-4 my-6">
+                    <div class="flex-1 h-px bg-base-content"></div>
+                    <span class="text-sm font-semibold text-base-content">
+                        STEP 3
+                    </span>
+                    <div class="flex-1 h-px bg-base-content"></div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    {{--Step 4--}}
+    <section>
+        @php
+            $review_rules = ['review_gender_rule' => 'Gender', 'review_guest_rule' => 'Guest', 'review_pet_rule' => 'Pet', 'review_curfew_rule' => 'Curfew', 'review_smoking_rule' => 'Smoking'];
+        @endphp
+        <div class="space-y-10 px-25 text-base-content/50">
+            <div class="flex items-center gap-4 my-6">
+                <div class="flex-1 h-px bg-base-content"></div>
+                <span class="text-sm font-semibold text-base-content">
+                        STEP 4
+                </span>
+                <div class="flex-1 h-px bg-base-content"></div>
+            </div>
+            @foreach($review_rules as $review_rule => $header)
+                <section>
+                    <div>
+                        <h1 class="text-3xl font-semibold">{{$header}}</h1>
+                        <div id="{{$review_rule}}" class="grid grid-cols-4 gap-4 mt-5">
+                            <span class="text-stone-400 text-sm">—</span>
+                        </div>
+                    </div>
+                </section>
+            @endforeach
+        </div>
+    </section>
 </div>

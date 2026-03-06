@@ -3,6 +3,10 @@ import { createIcons, icons } from 'lucide';
 let currentStep = 1;
 const totalSteps = 5;
 
+// ─── Get current user ID from meta tag ────────────────────
+const userId = document.querySelector('meta[name="user-id"]')?.content || 'guest';
+const wKey = (id) => `wizard_${userId}_${id}`;
+
 // ─── Step Navigation ───────────────────────────────────────
 window.showStep = function(step) {
     for (let i = 1; i <= totalSteps; i++) {
@@ -16,7 +20,7 @@ window.nextStep = function() {
     if (currentStep < totalSteps) {
         currentStep++;
         showStep(currentStep);
-        localStorage.setItem('wizard_step', currentStep); // ← save step
+        localStorage.setItem(wKey('step'), currentStep);
     }
     if (currentStep === 5) {
         populateReview();
@@ -27,7 +31,7 @@ window.prevStep = function() {
     if (currentStep > 1) {
         currentStep--;
         showStep(currentStep);
-        localStorage.setItem('wizard_step', currentStep); // ← save step
+        localStorage.setItem(wKey('step'), currentStep);
     }
 }
 
@@ -54,7 +58,7 @@ function populateReview() {
         if (!source) return console.warn(`Input not found: #${sourceId}`);
 
         const hasValue = source.value.trim() !== '';
-        target.value = hasValue ? source.value : fallback; // ← all use .value
+        target.value = hasValue ? source.value : fallback;
         target.classList.toggle('text-stone-400', !hasValue);
         target.classList.toggle('text-stone-700', hasValue);
     };
@@ -67,6 +71,7 @@ function populateReview() {
     setText('review_water_supply_cost', 'water_supply_cost');
     setText('review_electricity_cost', 'electricity_cost');
 
+    //Checkboxes in amenities ────────────────────────────────────────
     const checked = document.querySelectorAll('input[name="amenities[]"]:checked');
     const reviewAmenities = document.getElementById('review_amenities');
 
@@ -75,7 +80,6 @@ function populateReview() {
     if (checked.length === 0) {
         reviewAmenities.innerHTML = '<span class="text-stone-400 text-sm">—</span>';
     } else {
-
         checked.forEach(cb => {
             const tag = document.createElement('div');
             tag.className = 'card bg-base-200 border border-gray-500 px-4 py-3 flex flex-row items-center gap-3';
@@ -89,6 +93,28 @@ function populateReview() {
         createIcons({ icons });
     }
 
+    // ─── Radio buttons rules & restriction ────────────────────────────────────────
+    ['gender_rule', 'guest_rule', 'pet_rule', 'curfew_rule', 'smoking_rule'].forEach(name => {
+        const selectedRadio = document.querySelector(`input[type="radio"][name="${name}"]:checked`);
+        const reviewEl = document.getElementById(`review_${name}`);
+        if (!reviewEl) return;
+
+        reviewEl.innerHTML = '';
+
+        if (!selectedRadio) {
+            reviewEl.innerHTML = '<span class="text-stone-400 text-sm">—</span>';
+        } else {
+            const tag = document.createElement('div');
+            tag.className = 'card bg-base-200 border border-gray-500 px-4 py-3 flex flex-row items-center gap-3';
+            tag.innerHTML = `
+            <i data-lucide="${selectedRadio.dataset.icon}" class="w-5 h-5"></i>
+            <span class="text-sm font-medium">${selectedRadio.dataset.label}</span>
+        `;
+            reviewEl.appendChild(tag);
+        }
+    });
+    createIcons({ icons }); // ← moved outside loop, only needs to run once
+
 }
 
 // ─── localStorage ──────────────────────────────────────────
@@ -97,31 +123,38 @@ function saveToLocalStorage() {
     fields.forEach(id => {
         const el = document.getElementById(id);
         if (el) el.addEventListener('input', () => {
-            localStorage.setItem('wizard_' + id, el.value);
+            localStorage.setItem(wKey(id), el.value);
+        });
+    });
+    // ─── Checkboxes amenities ────────────────────────────────────────
+    document.querySelectorAll('input[name="amenities[]"]').forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+            const checked = Array.from(document.querySelectorAll('input[name="amenities[]"]:checked'))
+                .map(cb => cb.value);
+            localStorage.setItem(wKey('amenities'), JSON.stringify(checked));
         });
     });
 
-    // ─── Checkboxes (amenities) ───────────────────────────
-    document.querySelectorAll('input[name="amenities[]"]').forEach(checkbox => {
-        checkbox.addEventListener('change', () => {
-            // Save all checked values as a JSON array
-            const checked = Array.from(document.querySelectorAll('input[name="amenities[]"]:checked'))
-                .map(cb => cb.value);
-            localStorage.setItem('wizard_amenities', JSON.stringify(checked));
+    // ─── Radio buttons rules & restriction ────────────────────────────────────────
+    ['gender_rule', 'guest_rule', 'pet_rule', 'curfew_rule', 'smoking_rule'].forEach(name => {
+        document.querySelectorAll(`input[type="radio"][name="${name}"]`).forEach(radio => {
+            radio.addEventListener('change', () => {
+                localStorage.setItem(wKey(name), radio.value);
+            });
         });
     });
 }
 
 function restoreFromLocalStorage() {
-    const fields = ['title', 'address', 'description', 'slot', 'rent_cost', 'water_supply_cost', 'electricity_cost', 'amenities[]'];
+    const fields = ['title', 'address', 'description', 'slot', 'rent_cost', 'water_supply_cost', 'electricity_cost'];
     fields.forEach(id => {
-        const saved = localStorage.getItem('wizard_' + id);
+        const saved = localStorage.getItem(wKey(id));
         const el = document.getElementById(id);
         if (el && saved) el.value = saved;
     });
 
-    // ─── Checkboxes (amenities) ───────────────────────────
-    const savedAmenities = localStorage.getItem('wizard_amenities');
+    // ─── Checkboxes amenities ────────────────────────────────────────
+    const savedAmenities = localStorage.getItem(wKey('amenities'));
     if (savedAmenities) {
         const checked = JSON.parse(savedAmenities);
         document.querySelectorAll('input[name="amenities[]"]').forEach(checkbox => {
@@ -129,8 +162,16 @@ function restoreFromLocalStorage() {
         });
     }
 
-    // Restore last active step
-    const savedStep = localStorage.getItem('wizard_step');
+    // ─── Radio buttons rules & restriction ────────────────────────────────────────
+    ['gender_rule', 'guest_rule', 'pet_rule', 'curfew_rule', 'smoking_rule'].forEach(name => {
+        const saved = localStorage.getItem(wKey(name));
+        if (saved) {
+            const radio = document.querySelector(`input[type="radio"][name="${name}"][value="${saved}"]`);
+            if (radio) radio.checked = true;
+        }
+    });
+
+    const savedStep = localStorage.getItem(wKey('step'));
     if (savedStep) {
         currentStep = parseInt(savedStep);
         showStep(currentStep);
@@ -143,9 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
     saveToLocalStorage();
 
     document.querySelector('form').addEventListener('submit', () => {
-        const fields = ['title', 'address', 'description', 'slot', 'rent_cost', 'water_supply_cost', 'electricity_cost', 'amenities[]'];
-        fields.forEach(id => localStorage.removeItem('wizard_' + id));
-        localStorage.removeItem('wizard_amenities');
-        localStorage.removeItem('wizard_step');
+        const fields = ['title', 'address', 'description', 'slot', 'rent_cost', 'water_supply_cost', 'electricity_cost', 'amenities', 'step', 'gender_rule', 'guest_rule', 'pet_rule', 'curfew_rule', 'smoking_rule'];
+        fields.forEach(id => localStorage.removeItem(wKey(id)));
     });
 });
