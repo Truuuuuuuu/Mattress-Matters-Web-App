@@ -2,7 +2,7 @@
     <x-slot:heading>Add new listing</x-slot:heading>
 
     <div class="px-10 mt-5 pb-30">
-        <form method="POST" action="" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('host.store') }}" enctype="multipart/form-data"  onsubmit="console.log('FORM SUBMITTED'); return true;">
             @csrf
 
             <!-- Steps Indicator -->
@@ -39,8 +39,12 @@
                     Back
                 </button>
 
-                <button type="button" onclick="nextStep()" class="btn btn-neutral px-10">
+                <button type="button" id="nextBtn" onclick="nextStep()" class="btn btn-neutral px-10">
                     Next
+                </button>
+
+                <button type="submit" id="submitBtn" class="btn btn-primary px-8 hidden">
+                    Submit
                 </button>
             </div>
         </form>

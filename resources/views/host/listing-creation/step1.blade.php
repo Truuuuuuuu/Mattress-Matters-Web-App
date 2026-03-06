@@ -4,16 +4,20 @@
         <h1 class="text-3xl font-semibold mt-5 ">Basic Information</h1>
         <div class="lg:w-xl mt-5">
 
-            <x-forms.form {{--method="POST" action="" --}}class="mt-5">
-                <x-forms.input :label="false" name="title" type="text"
-                               class="rounded-xl input input-neutral input-lg lg:input-md" placeholder="Title" required/>
-                <x-forms.input :label="false" name="address" type="text"
-                               class="rounded-xl input input-neutral input-lg lg:input-md mt-2" placeholder="Address"
+                <input name="title" type="text" id="title"
+                               class="w-full rounded-xl input input-neutral input-lg lg:input-md" placeholder="Title" required/>
+                <p id="error-title" class="text-red-500 text-xs mt-1 hidden">Please enter a title</p>
+
+                <input  name="address" type="text" id="address"
+                               class="w-full rounded-xl input input-neutral input-lg lg:input-md mt-2" placeholder="Address"
                                required/>
+                <p id="error-address" class="text-red-500 text-xs mt-1 hidden">Address is required.</p>
+
                 <textarea name="description" rows="7" id="description"
                           class="textarea border-base-content/50 mt-3 rounded-xl resize-none w-full overflow-y-auto"
                           placeholder="Description"></textarea>
-            </x-forms.form>
+                <p id="error-description" class="text-red-500 text-xs mt-1 hidden">Description cannot be empty</p>
+
         </div>
     </section>
 
@@ -34,6 +38,7 @@
                 <p class="text-sm text-gray-500 mt-2">
                     Specify how many tenants this listing can accommodate.
                 </p>
+                <p id="error-slot" class="text-red-500 text-xs mt-1 hidden">Please enter how many slots are available for this listing</p>
             </div>
 
 

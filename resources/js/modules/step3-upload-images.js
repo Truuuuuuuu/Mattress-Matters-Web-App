@@ -64,7 +64,7 @@ window.validatePhotoStep = function() {
     if (!uploaded.cover) {
         const hint = document.getElementById('photoCount');
         hint.classList.add('text-red-500');
-        hint.textContent = '⚠ Cover photo is required before continuing.';
+        hint.textContent = 'Cover photo is required';
         return false;
     }
     return true;

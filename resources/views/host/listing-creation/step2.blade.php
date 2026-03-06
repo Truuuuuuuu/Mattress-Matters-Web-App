@@ -13,9 +13,12 @@
                     <input type="number" id="rent_cost" name="rent_cost" min="1"
                            class="text-3xl w-64 border-b-3 border-black focus:ring-0 focus:outline-none block" required>
                 </div>
+
                 <p class="text-sm text-gray-500 mt-2">
                     Enter the monthly rent amount for this listing.
                 </p>
+                <p id="error-rent_cost" class="text-red-500 text-xs mt-1 hidden">Enter an exact amount of monthly rent</p>
+
             </div>
         </div>
     </section>
@@ -84,10 +87,12 @@
             <div class="grid grid-cols-4 gap-4 mt-15">
 
                 @foreach($amenities as $amenity)
-                    <x-option-card type="checkbox" name="amenities[]" value="{{$amenity->id}}" icon="{{$amenity->icon}}" label="{{ ucfirst($amenity->name) }}" >{{ucfirst($amenity->name)}}</x-option-card>
+                    <x-option-card id="amenities" type="checkbox" name="amenities[]" value="{{$amenity->id}}" icon="{{$amenity->icon}}" label="{{ ucfirst($amenity->name) }}" >{{ucfirst($amenity->name)}}</x-option-card>
                 @endforeach
 
             </div>
         </div>
+        <p id="error-amenities" class="text-red-500 text-xs mt-1 hidden">Please select at least one amenity</p>
+
     </section>
 </div>

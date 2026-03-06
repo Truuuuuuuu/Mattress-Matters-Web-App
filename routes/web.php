@@ -72,6 +72,8 @@ Route::middleware(['auth', 'role:host'])
             ->name('listings');
         Route::get('/host-create', [ListingController::class, 'create'])
             ->name('create');
+        Route::post('/host-store', [ListingController::class, 'store'])
+            ->name('store');
     });
 
 //Listings results

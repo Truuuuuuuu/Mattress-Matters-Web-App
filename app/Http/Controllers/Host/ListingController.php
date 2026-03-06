@@ -25,4 +25,8 @@ class ListingController extends Controller
         $guestRules = Rule::where('category', 'guest')->get();
         return view('host.create', compact('amenities', 'petRules', 'curfewRules', 'smokingRules', 'guestRules'));
     }
+
+    public function store(Request $request){
+        dd('store logic');
+    }
 }

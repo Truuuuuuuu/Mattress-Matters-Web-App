@@ -160,7 +160,6 @@
 
     {{-- Step 3 --}}
     <section>
-        <h1 class="text-3xl font-semibold">Uploaded Images</h1>
         <div class="flex justify-center">
             <div class="flex items-center gap-4 my-6 lg:w-xl ">
                 <div class="flex-1 h-px bg-base-content"></div>
