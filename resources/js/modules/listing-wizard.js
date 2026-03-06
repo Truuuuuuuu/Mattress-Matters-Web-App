@@ -17,6 +17,8 @@ window.showStep = function(step) {
 }
 
 window.nextStep = function() {
+
+    if (currentStep === 3 && !validatePhotoStep()) return;
     if (currentStep < totalSteps) {
         currentStep++;
         showStep(currentStep);
@@ -108,13 +110,32 @@ function populateReview() {
             tag.className = 'card bg-base-200 border border-gray-500 px-4 py-3 flex flex-row items-center gap-3';
             tag.innerHTML = `
             <i data-lucide="${selectedRadio.dataset.icon}" class="w-5 h-5"></i>
-            <span class="text-sm font-medium">${selectedRadio.dataset.label}</span>
+            <span class="text-sm font-medium py-1">${selectedRadio.dataset.label}</span>
         `;
             reviewEl.appendChild(tag);
         }
     });
     createIcons({ icons }); // ← moved outside loop, only needs to run once
 
+    // ─── Images review ────────────────────────────────────────
+    ['cover', 'photo1', 'photo2'].forEach(zone => {
+        const src = document.getElementById('preview-' + zone)?.src;
+        const reviewImg = document.getElementById('review-' + zone);
+        const reviewEmpty = document.getElementById('review-' + zone + '-empty');
+
+        if (src && src !== window.location.href) { // non-empty src
+            reviewImg.src = src;
+            reviewImg.classList.remove('hidden');
+            reviewEmpty.classList.add('hidden');
+
+            if (zone === 'cover') {
+                document.getElementById('review-cover-badge').classList.remove('hidden');
+            }
+        } else {
+            reviewImg.classList.add('hidden');
+            reviewEmpty.classList.remove('hidden');
+        }
+    });
 }
 
 // ─── localStorage ──────────────────────────────────────────
@@ -184,6 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
     saveToLocalStorage();
 
     document.querySelector('form').addEventListener('submit', () => {
+        window.onbeforeunload = null;
         const fields = ['title', 'address', 'description', 'slot', 'rent_cost', 'water_supply_cost', 'electricity_cost', 'amenities', 'step', 'gender_rule', 'guest_rule', 'pet_rule', 'curfew_rule', 'smoking_rule'];
         fields.forEach(id => localStorage.removeItem(wKey(id)));
     });
