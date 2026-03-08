@@ -10,7 +10,8 @@
                 <label for="price" class="text-base-content/50 text-lg ">Monthly</label>
                 <div class="flex justify-start gap-5">
                     <H1 class="text-3xl font-bold leading-none">PHP</H1>
-                    <input type="number" id="rent_cost" name="rent_cost" min="1"
+                    <input type="number" id="rent_cost" name="rent_cost" min="1" max="99999"
+                           oninput="if(this.value.length > 5) this.value = this.value.slice(0,5);"
                            class="text-3xl w-64 border-b-3 border-black focus:ring-0 focus:outline-none block" required>
                 </div>
 
@@ -36,7 +37,8 @@
                     <label for="electricity_cost" class="text-base-content/50 text-lg ">Electric</label>
                     <div class="flex justify-start gap-5">
                         <H1 class="text-3xl font-bold leading-none">PHP</H1>
-                        <input type="number" id="electricity_cost" name="electricity_cost" min="0"
+                        <input type="number" id="electricity_cost" name="electricity_cost" min="0"  max="99999"
+                               oninput="if(this.value.length > 5) this.value = this.value.slice(0,5);"
                                class="text-3xl w-64 border-b-3 border-black focus:ring-0 focus:outline-none block">
                     </div>
                     <div class="flex felx-col-2 items-center justify-start gap-1 mt-2">
@@ -61,7 +63,8 @@
                     <label for="water_suppl_cost" class="text-base-content/50 text-lg text-start">Water</label>
                     <div class="flex justify-start gap-5">
                         <H1 class="text-3xl font-bold leading-none">PHP</H1>
-                        <input type="number" id="water_supply_cost" name="water_supply_cost" min="0"
+                        <input type="number" id="water_supply_cost" name="water_supply_cost" min="0"  max="99999"
+                               oninput="if(this.value.length > 5) this.value = this.value.slice(0,5);"
                                class="text-3xl w-64 border-b-3 border-black focus:ring-0 focus:outline-none block">
                     </div>
                     <div class="flex felx-col-2 items-center justify-start gap-1 mt-2">

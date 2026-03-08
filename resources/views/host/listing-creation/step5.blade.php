@@ -221,4 +221,8 @@
             </div>
         </div>
     </section>
+
+    <div class="bg-green-100 py-5">
+        <p class="text-center font-semibold italic">Please ensure that all information provided is accurate and true before submitting.</p>
+    </div>
 </div>

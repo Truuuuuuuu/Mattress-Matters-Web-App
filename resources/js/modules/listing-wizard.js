@@ -14,6 +14,7 @@ window.showStep = function(step) {
     }
     document.getElementById(`step-${step}`).classList.remove('hidden');
     updateStepsIndicator(step);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 
     // Toggle Next / Submit
     const nextBtn = document.getElementById('nextBtn');
@@ -189,7 +190,10 @@ function restoreFromLocalStorage() {
     fields.forEach(id => {
         const saved = localStorage.getItem(wKey(id));
         const el = document.getElementById(id);
-        if (el && saved) el.value = saved;
+        if (el && saved) {
+            const maxLength = el.maxLength;
+            el.value = maxLength > 0 ? saved.slice(0, maxLength) : saved;
+        }
     });
 
     // ─── Checkboxes amenities ────────────────────────────────────────
@@ -222,11 +226,19 @@ document.addEventListener('DOMContentLoaded', () => {
     restoreFromLocalStorage();
     saveToLocalStorage();
 
-    document.querySelector('form[action*="host-store"]').addEventListener('submit', () => {
+    document.querySelector('form[action*="/host-store"]').addEventListener('submit', () => {
         window.onbeforeunload = null; // ← remove guard before submit
         const fields = ['title', 'address', 'description', 'slot', 'rent_cost', 'water_supply_cost', 'electricity_cost', 'amenities', 'step', 'gender_rule', 'tenant_rule', 'guest_rule', 'pet_rule', 'curfew_rule', 'smoking_rule'];
         fields.forEach(id => localStorage.removeItem(wKey(id)));
     });
+
+    /*Confirm modal*/
+    document.getElementById('confirmSubmitBtn').addEventListener('click', () => {
+        document.getElementById('confirmModal').close();
+        window.onbeforeunload = null;
+        document.querySelector('form[action*="/host-store"]').requestSubmit();
+    });
+
 });
 
 function validateStep(step) {
@@ -246,12 +258,13 @@ function validateStep(step) {
         const title = document.getElementById('title').value.trim();
         const address = document.getElementById('address').value.trim();
         const description = document.getElementById('description').value.trim();
-        const slot = document.getElementById('slot').value.trim();
+        const slotInput = document.getElementById('slot');
+        const slotValue = Number(slotInput.value);
 
-        if (!title) { showError('title'); valid = false; }
-        if (!address) { showError('address'); valid = false; }
-        if (!description) { showError('description'); valid = false; }
-        if (!slot) { showError('slot'); valid = false; }
+        if (!title || title.length < 8) { showError('title'); valid = false; }
+        if (!address || address.length < 10) { showError('address'); valid = false; }
+        if (!description || description.length < 20) { showError('description'); valid = false; }
+        if (!slotInput.value ||  isNaN(slotValue) || slotValue < 1 || slotValue > 15) { showError('slot'); valid = false; }
     }
 
     if (step === 2) {
@@ -276,3 +289,4 @@ function validateStep(step) {
 
     return valid;
 }
+

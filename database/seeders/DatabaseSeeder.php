@@ -19,9 +19,12 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             RolePermissionSeeder::class,
+            AmenitySeeder::class,
+            RuleSeeder::class,
+
         ]);
 
-        //create admin
+        /*//create admin
         $admin = User::factory()->create([
             'name' => 'Admin User',
             'email' => 'admin@gmail.com'
@@ -36,11 +39,11 @@ class DatabaseSeeder extends Seeder
         $host->assignRole('host');
 
         $tenant = User::factory()->create([
-           'name' => 'Tru Aguilar',
-           'email' => 'tru@gmail.com',
+            'name' => 'Tru Aguilar',
+            'email' => 'tru@gmail.com',
             'password' => bcrypt('123456')
         ]);
-        $tenant->assignRole('tenant');
+        $tenant->assignRole('tenant');*/
 
     }
 }

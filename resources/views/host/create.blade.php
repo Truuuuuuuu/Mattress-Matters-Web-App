@@ -43,10 +43,29 @@
                     Next
                 </button>
 
-                <button type="submit" id="submitBtn" class="btn btn-primary px-8 hidden">
+                <button type="button" id="submitBtn" onclick="document.getElementById('confirmModal').showModal()" class="btn btn-primary px-8 hidden">
                     Submit
                 </button>
             </div>
+
+            <dialog id="confirmModal" class="modal">
+                <div class="modal-box">
+                    <h3 class="text-lg font-bold">Confirm Submission</h3>
+                    <p class="py-4 text-base-content/70 text-sm">Please make sure all your details are correct. You can still edit your listing after submitting.</p>
+                    <div class="modal-action">
+                        <button type="button" onclick="document.getElementById('confirmModal').close()" class="btn">
+                            Cancel
+                        </button>
+                        <button type="button" id="confirmSubmitBtn" class="btn btn-primary">
+                            Confirm
+                        </button>
+                    </div>
+                </div>
+                {{-- Backdrop click closes modal, no nested form --}}
+                <div class="modal-backdrop" onclick="document.getElementById('confirmModal').close()"></div>
+            </dialog>
         </form>
     </div>
 </x-layout>
+
+

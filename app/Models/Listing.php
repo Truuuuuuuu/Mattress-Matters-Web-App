@@ -12,6 +12,18 @@ class Listing extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'host_id',
+        'title',
+        'address',
+        'description',
+        'slot',
+        'rent_cost',
+        'water_supply_cost',
+        'electricity_cost',
+        'status',
+
+    ];
 
     public function host(): BelongsTo
     {
@@ -51,4 +63,8 @@ class Listing extends Model
         return $this->belongsToMany(Rule::class);
     }
 
+    public function listingImages(): HasMany
+    {
+        return $this->hasMany(ListingImage::class);
+    }
 }

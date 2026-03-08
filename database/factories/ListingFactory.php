@@ -14,7 +14,7 @@ class ListingFactory extends Factory
     {
         return [
             'host_id' => Host::factory(),
-            'name' => fake()->company(),
+            'title' => fake()->company(),
             'address' => fake()->address(),
             'description' => fake()->text(10),
             'price' => fake()->randomFloat(2, 1500, 3000),
