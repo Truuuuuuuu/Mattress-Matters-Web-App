@@ -10,12 +10,18 @@ use App\Http\Controllers\ResultListingController;
 use App\Http\Controllers\Tenant\HomeController;
 use App\Http\Controllers\Tenant\ReservationController;
 use App\Http\Controllers\Tenant\UnitController;
+use App\Models\Listing;
 use Illuminate\Support\Facades\Route;
 use function Pest\Laravel\get;
 
 //landing page
 Route::get('/', function () {
-    return view('welcome');
+    $listings = Listing::with('ListingImages')
+        ->take(4)
+        ->get();
+    return view('welcome',[
+        'listings' => $listings
+    ]);
 });
 
 

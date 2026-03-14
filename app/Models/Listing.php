@@ -39,7 +39,7 @@ class Listing extends Model
     public function scopeFilter($query, array $filters){
         $query->when($filters['search'] ?? false, function ($query, $search){
            $query->where(function ($q) use ($search){
-               $q->where('name', 'like', '%'.$search.'%')
+               $q->where('title', 'like', '%'.$search.'%')
                    ->orWhere('description', 'like', '%'.$search.'%');
            });
         });

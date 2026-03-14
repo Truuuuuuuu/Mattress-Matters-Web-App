@@ -66,7 +66,8 @@
         </div>
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-x-2 gap-y-1 lg:gap-x-4 lg:gap-y-4 mt-5">
             @forelse($listings as $listing)
-                <x-bhouse-card :$listing/>
+
+                <x-bhouse-card :$listing />
             @empty
                 <p class="col-span-full text-center text-gray-500">
                     No listings available.

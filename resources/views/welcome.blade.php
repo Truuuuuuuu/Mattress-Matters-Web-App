@@ -19,7 +19,7 @@
             </div>
         </section>
 
-        {{-- Featured listings--}}
+        {{-- Featured listings--}}{{--
         <section class="mt-5 lg:mt-20   px-10 py-5">
             <div>
                 <h1 class="text-3xl text-base-content font-semibold">Featured Listings</h1>
@@ -42,6 +42,25 @@
                     </x-panel>
 
                 @endfor
+
+            </div>
+        </section>--}}
+
+
+        {{--Display Listings--}}
+        <section class="p-7 text-base-content">
+            <div>
+                <h1 class="text-xl font-semibold"> Find Your Perfect Stay</h1>
+            </div>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-x-2 gap-y-1 lg:gap-x-4 lg:gap-y-4 mt-5">
+                @forelse($listings as $listing)
+
+                    <x-bhouse-card :$listing />
+                @empty
+                    <p class="col-span-full text-center text-gray-500">
+                        No listings available.
+                    </p>
+                @endforelse
 
             </div>
         </section>

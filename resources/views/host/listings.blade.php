@@ -3,21 +3,28 @@
     <section class="py-10">
         <div class="px-15 ">
             <div class="flex justify-between items-center ">
-                <h1 class="text-3xl font-semibold">My Listing</h1>
+                <h1 class="text-3xl font-semibold">My Listings</h1>
                 <a href="{{route('host.create')}}" class="btn btn-circle w-50 border border-black">
                     <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                             class="lucide lucide-plus-icon lucide-plus">
-                            <path d="M5 12h14"/>
-                            <path d="M12 5v14"/>
-                        </svg>
+                        <x-lucide-plus class="w-6 h-6" />
                     </div>
                     <span>Add Listing</span>
                 </a>
             </div>
         </div>
 
+        <div class="grid place-items-center mt-20   ">
+            <div class="w-full lg:max-w-6xl  h-screen grid grid-cols-3 gap-10">
+                @forelse($listings as $listing)
 
+                    <x-bhouse-card :$listing  />
+                @empty
+                    <p class="col-span-full text-center text-gray-500">
+                        No listings available.
+                    </p>
+                @endforelse
+            </div>
+
+        </div>
     </section>
 </x-layout>

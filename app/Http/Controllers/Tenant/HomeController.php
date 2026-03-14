@@ -9,8 +9,8 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $listings = Listing::latest()
-            ->with('host')
+
+        $listings = Listing::with('listingImages')
             ->take(20)
             ->get();
         return view('tenant.homepage', [
