@@ -108,4 +108,11 @@ class ListingController extends Controller
         return redirect()->route('host.listings');
 
     }
+
+    public function show(Listing $listing)
+    {
+        $listing = Listing::with(['listingImages','amenities', 'rules'])->findOrFail($listing->id);
+
+        return view('host.show', compact('listing'));
+    }
 }

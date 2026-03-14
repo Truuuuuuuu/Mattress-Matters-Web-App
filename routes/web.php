@@ -80,6 +80,8 @@ Route::middleware(['auth', 'role:host'])
             ->name('create');
         Route::post('/host-store', [ListingController::class, 'store'])
             ->name('store');
+        Route::get('/host-show/{listing}', [ListingController::class, 'show'])
+            ->name('show');
     });
 
 //Listings results
