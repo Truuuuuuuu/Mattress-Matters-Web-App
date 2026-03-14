@@ -4,7 +4,10 @@
     <div class="px-20">
         {{--Main content--}}
         <section class="mb-10">
-            <h1 class="text-2xl font-bold mt-10 text-base-content">Mattress Matters in Sorsogon City</h1>
+            <div class="flex justify-between  items-center mt-15">
+                <h1 class="text-2xl font-bold text-base-content">Mattress Matters in Sorsogon City</h1>
+                <a href="{{route('host.edit', $listing)}}" class="btn btn-neutral">Edit Listing</a>
+            </div>
             <div class="grid grid-cols-2 mt-5 gap-10">
                 <div class=" rounded-2xl overflow-hidden">
 
@@ -25,23 +28,21 @@
                         </div>
                         @empty
                             {{-- Empty State --}}
-                            <div id="empty-cover" class="flex flex-col items-center justify-center gap-2 text-stone-400 group-hover:text-primary transition-colors duration-200 border border-black/50 p-5 mb-5">
+                            <div id="empty-cover" class="flex flex-col items-center justify-center gap-2 text-stone-400 group-hover:text-primary transition-colors duration-200 border border-black/20 p-5 mb-5">
                                 <div class="w-14 h-14 rounded-full bg-stone-200 group-hover:bg-primary/20 transition-colors duration-200 flex items-center justify-center">
-                                    <x-lucide-image-plus class="w-6 h-6"></x-lucide-image-plus>
+                                    <x-lucide-image class="w-6 h-6"/>
                                 </div>
                                 <div class="text-center px-4">
-                                    <p class="font-semibold text-sm">Upload Cover Photo</p>
-                                    <p class="text-xs text-stone-400 mt-0.5">Click or drag & drop</p>
+                                    <p class="font-semibold text-sm">Additional Photo</p>
                                 </div>
                             </div>
                             {{-- Empty State --}}
-                            <div id="empty-cover" class="flex flex-col items-center justify-center gap-2 text-stone-400 group-hover:text-primary transition-colors duration-200 border border-black/50 p-5 mb-5">
+                            <div id="empty-cover" class="flex flex-col items-center justify-center gap-2 text-stone-400 group-hover:text-primary transition-colors duration-200 border border-black/20 p-5 mb-5">
                                 <div class="w-14 h-14 rounded-full bg-stone-200 group-hover:bg-primary/20 transition-colors duration-200 flex items-center justify-center">
-                                    <x-lucide-image-plus class="w-6 h-6"></x-lucide-image-plus>
+                                    <x-lucide-image class="w-6 h-6"/>
                                 </div>
                                 <div class="text-center px-4">
-                                    <p class="font-semibold text-sm">Upload Cover Photo</p>
-                                    <p class="text-xs text-stone-400 mt-0.5">Click or drag & drop</p>
+                                    <p class="font-semibold text-sm">Additional Photo</p>
                                 </div>
                             </div>
                         @endforelse
@@ -50,6 +51,11 @@
                 </div>
                 <div class="px-5 text-base-content">
                     <h1 class="text-2xl font-semibold">{{$listing->title}}</h1>
+                    <div class="flex gap-1  items-center ">
+                        <x-lucide-map-pin class="w-4 h-4"/>
+                        <p class="text-base-content/70"><span>{{$listing->address}}</p>
+                    </div>
+
                     <div class="flex items-center gap-1 mb-5">
                         <x-lucide-star class="w-3 h-3 fill-black"/>
                         <p><strong>4.9</strong> • <span class="underline text-base-content/50 cursor-pointer">10 reviews</span></p>

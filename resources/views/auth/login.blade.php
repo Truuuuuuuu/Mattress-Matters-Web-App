@@ -11,9 +11,9 @@
                 <x-divider class="bg-gray-300 mt-5"></x-divider>
                 <h1 class="font-semibold mt-5  text-xl ">Welcome to Mattress Matters</h1>
                 <x-forms.form method="POST" action="/login" class="mt-5" >
-                    <x-forms.input :label="false" name="email" type="email" class="rounded-xl input input-primary input-lg lg:input-md" placeholder="Email" />
+                    <x-forms.input label="Email" name="email" type="email" class="rounded-xl input input-primary input-lg lg:input-md" placeholder="Email" />
                     <x-forms.error name="email"/>
-                    <x-forms.input :label="false" name="password" type="password" class="rounded-xl input input-primary input-lg lg:input-md" placeholder="Password" />
+                    <x-forms.input label="Password" name="password" type="password" class="rounded-xl input input-primary input-lg lg:input-md" placeholder="Password" />
                     <x-forms.error name="password"/>
                     <a href="#" class="block text-end -mt-5 hover:text-blue-700">Forgot Password?</a>
 

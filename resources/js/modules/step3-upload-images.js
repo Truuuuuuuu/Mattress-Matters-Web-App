@@ -2,6 +2,9 @@ const uploaded = { cover: false, photo1: false, photo2: false };
 
 // ─── Guard against refresh/close on ANY step once photos are uploaded ─────────
 function updateBeforeUnloadGuard() {
+    // Only guard on create page
+    if (!document.querySelector('form[action*="/host-store"]')) return;
+
     const hasAnyPhoto = Object.values(uploaded).some(Boolean);
     if (hasAnyPhoto) {
         window.onbeforeunload = (e) => {
@@ -55,6 +58,10 @@ window.clearImage = function(zone) {
     const zoneEl = document.getElementById('zone-' + zone);
     zoneEl.classList.add('border-dashed', 'border-stone-300', 'bg-stone-50');
     zoneEl.classList.remove('border-transparent');
+
+
+    const removeInput = document.getElementById('remove-' + zone);
+    if (removeInput) removeInput.value = '1';
 
     uploaded[zone] = false;
     updateUI();

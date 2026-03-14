@@ -82,6 +82,10 @@ Route::middleware(['auth', 'role:host'])
             ->name('store');
         Route::get('/host-show/{listing}', [ListingController::class, 'show'])
             ->name('show');
+        Route::get('/host-edit/{listing}', [ListingController::class, 'edit'])
+            ->name('edit');
+        Route::patch('/host-update/{listing}', [ListingController::class, 'update'])
+            ->name('update');
     });
 
 //Listings results

@@ -223,6 +223,10 @@ function restoreFromLocalStorage() {
 
 // ─── Init ──────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
+
+    // ← Only run wizard logic on the create page
+    if (!document.querySelector('form[action*="/host-store"]')) return;
+
     restoreFromLocalStorage();
     saveToLocalStorage();
 

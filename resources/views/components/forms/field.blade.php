@@ -1,13 +1,12 @@
 @props(['label', 'name'])
 
 <div class="w-full">
-    @if ($label)
-        <x-forms.label :$name :$label />
-    @endif
-
-    <div class="mt-1">
+    <label class="floating-label w-full">
         {{ $slot }}
+        @if ($label)
+            <span>{{ $label }}</span>
+        @endif
+    </label>
 
-        <x-forms.error :error="$errors->first($name)" />
-    </div>
+    <x-forms.error :error="$errors->first($name)" />
 </div>
