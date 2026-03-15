@@ -263,4 +263,12 @@ class ListingController extends Controller
 
         return redirect()->route('host.show', $listing)->with('success', 'Listing updated successfully.');
     }
+
+    public function destroy(Listing $listing)
+    {
+
+        $listing->delete();
+
+        return redirect(route('host.listings'))->with('success', 'Listing deleted successfully.');
+    }
 }

@@ -17,6 +17,7 @@ use function Pest\Laravel\get;
 //landing page
 Route::get('/', function () {
     $listings = Listing::with('ListingImages')
+        ->latest()
         ->take(4)
         ->get();
     return view('welcome',[
@@ -86,6 +87,8 @@ Route::middleware(['auth', 'role:host'])
             ->name('edit');
         Route::patch('/host-update/{listing}', [ListingController::class, 'update'])
             ->name('update');
+        Route::delete('/host-delete/{listing}', [ListingController::class, 'destroy'])
+            ->name('delete');
     });
 
 //Listings results

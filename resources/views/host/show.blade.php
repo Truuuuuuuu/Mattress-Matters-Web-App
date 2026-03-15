@@ -4,9 +4,26 @@
     <div class="px-20">
         {{--Main content--}}
         <section class="mb-10">
-            <div class="flex justify-between  items-center mt-15">
+            <div class="flex justify-between  items-center mt-15  ">
                 <h1 class="text-2xl font-bold text-base-content">Mattress Matters in Sorsogon City</h1>
-                <a href="{{route('host.edit', $listing)}}" class="btn btn-neutral">Edit Listing</a>
+                {{--<a href="{{route('host.edit', $listing)}}" class="btn btn-neutral">Edit Listing</a>--}}
+                <div class="hidden lg:flex dropdown dropdown-end" >
+                    <div class="btn btn-ghost  rounded-xl " tabindex="0" role="button">
+                        <x-lucide-ellipsis-vertical class="w-5 h-5"/>
+                    </div>
+                    <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-50 mt-13 w-52 p-2 shadow-sm font-normal">
+                        <li><a href="{{route('host.edit', $listing)}}" >Edit</a></li>
+                        <li >
+                                <form method="POST" action="{{route('host.delete', $listing)}} " class="hover:bg-red-100 hover:text-red-900">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="hover:cursor-pointer">Delete</button>
+                                </form>
+
+                        </li>
+                    </ul>
+                </div>
+
             </div>
             <div class="grid grid-cols-2 mt-5 gap-10">
                 <div class=" rounded-2xl overflow-hidden">
