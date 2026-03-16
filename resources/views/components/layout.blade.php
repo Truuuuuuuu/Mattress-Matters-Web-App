@@ -104,12 +104,13 @@
                                 </div>
                                 <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-50 mt-13 w-52 p-2 shadow-sm font-normal">
                                     <li><a >Settings</a></li>
-                                    <li><a><form method="POST" action="/logout">
+                                    <li>
+                                            <form method="POST" action="/logout" class="hover:bg-red-100 hover:text-red-900" >
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="hover:cursor-pointer">Log Out</button>
                                             </form>
-                                        </a>
+
                                     </li>
                                 </ul>
                             </div>

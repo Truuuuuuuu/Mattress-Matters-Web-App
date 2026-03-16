@@ -1,53 +1,28 @@
 <x-layout>
     <x-slot:heading>Mattress Matters | Boarding House Listings</x-slot:heading>
     <div class="space-y-10">
-        <section class="pt-10 mt-10 px-10">
-            <div class="grid lg:grid-cols-2 gap-8 items-start">
-                <div class="place-self-start self-center">
-                    <h1 class="text-5xl font-bold text-base-content">Find Your Perfect Boarding House Now!</h1>
-                    <p class="mt-5 font-normal text-base-content">Connect with verified property owners offering
+        <section class="flex pt-10  px-10   h-[calc(100vh-73px)] justify-center items-center">
+            <div class=" flex justify-center gap-8 items-start ">
+                <div class="flex flex-col justify-center items-center">
+                    <h1 class="text-5xl font-bold text-base-content w-lg text-center"><span class="text-base-content/50">Find Your Perfect</span> Boarding House Now!</h1>
+                    <p class="mt-2 font-normal text-base-content w-xl text-center">Connect with verified property owners offering
                         quality accommodations in Apostol Compound, Balogo. Simple,
                         secure, and transparent.</p>
-                    <x-forms.form action="/all-listings" class="mt-5">
-                        <x-forms.input :label="false" name="q" placeholder="Search here..." class="rounded-xl input input-primary"></x-forms.input>
-                    </x-forms.form>
+                    <div class=" w-full max-w-xs lg:max-w-lg  text-base-content mt-5">
+                        @include('components.search-bar')
+                    </div>
                 </div>
                 {{--   Photo right side   --}}
-                <div class="hidden lg:flex items-center justify-center px-5">
+                {{--<div class="hidden lg:flex items-center justify-center px-5">
                     <img src="{{ asset('images/bhouse-placeholder.jpg') }}" alt="" class="w-132 h-auto rounded-2xl">
-                </div>
+                </div>--}}
             </div>
         </section>
 
-        {{-- Featured listings--}}{{--
-        <section class="mt-5 lg:mt-20   px-10 py-5">
-            <div>
-                <h1 class="text-3xl text-base-content font-semibold">Featured Listings</h1>
-            </div>
-
-            <div class="gap-y-2 grid grid-cols-2 lg:grid-cols-4 gap-x-2 mt-6">
-                @for($i = 0; $i < 4; $i++)
-                    <x-panel class="flex flex-col text-start">
-                        <div class="py-2 ">
-                            <div class="w-full aspect-4/3">
-                                <x-bhouse-photo/>
-                            </div>
-                            <h3 class="text-sm text-base-content lg:group-hover:text-blue-800 font-bold transition-colors duration-300">
-                                <a href="#" target="_blank">
-                                    Name
-                                </a>
-                            </h3>
-                            <p class="text-xs text-base-content lg:text-sm mt-1">P2,000 monthly</p>
-                        </div>
-                    </x-panel>
-
-                @endfor
-
-            </div>
-        </section>--}}
 
 
-        {{--Display Listings--}}
+
+        {{--Display Latest Listings--}}
         <section class="p-7 text-base-content">
             <div>
                 <h1 class="text-xl font-semibold"> Find Your Perfect Stay</h1>
@@ -55,7 +30,7 @@
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-x-2 gap-y-1 lg:gap-x-4 lg:gap-y-4 mt-5">
                 @forelse($listings as $listing)
 
-                    <x-bhouse-card :$listing />
+                    <x-bhouse-card :$listing width="72"/>
                 @empty
                     <p class="col-span-full text-center text-gray-500">
                         No listings available.

@@ -39,11 +39,14 @@ class Listing extends Model
 
     /*filter search*/
     public function scopeFilter($query, array $filters){
-        $query->when($filters['search'] ?? false, function ($query, $search){
-           $query->where(function ($q) use ($search){
-               $q->where('title', 'like', '%'.$search.'%')
-                   ->orWhere('description', 'like', '%'.$search.'%');
-           });
+        $query->when($filters['search'] ?? false, function ($query, $search) {
+            $terms = explode(' ', $search); // split by space into individual words
+
+            foreach ($terms as $term) {
+                $query->where(function ($q) use ($term) {
+                    $q->where('title', 'like', '%' . $term . '%');
+                });
+            }
         });
 
         $query->when($filters['min_price'] ?? false, fn ($q, $minPrice) =>

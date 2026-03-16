@@ -45,7 +45,7 @@
 
         </div>
 
-
+      {{--Content--}}
     </div>
         <div class="flex  w-full justify-center mt-5 ">
             <!-- Search -->
@@ -64,7 +64,7 @@
                 </svg>
             </a>
         </div>
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-x-2 gap-y-1 lg:gap-x-4 lg:gap-y-4 mt-5">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-x-2 gap-y-2 lg:gap-x-4 lg:gap-y-4 mt-5">
             @forelse($listings as $listing)
 
                 <x-bhouse-card :$listing />

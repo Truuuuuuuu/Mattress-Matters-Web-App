@@ -5,10 +5,10 @@
         <div class="w-full max-w-md p-10">
             <h1 class="text-center text-3xl mb-6 font-bold">Sign up</h1>
             <x-forms.form method="POST" action="/email-register">
-                <x-forms.input :label="false" name="name" type="text" class="rounded-xl input input-primary input-lg lg:input-md" placeholder="Full Name" />
-                <x-forms.input :label="false" name="email" type="email" class="rounded-xl input input-primary input-lg lg:input-md" placeholder="Email" />
-                <x-forms.input :label="false" name="password" type="password" class="rounded-xl input input-primary input-lg lg:input-md" placeholder="Password" />
-                <x-forms.input :label="false" name="password_confirmation" type="password" class="rounded-xl input input-primary input-lg lg:input-md" placeholder="Confirm Password" />
+                <x-forms.input label="Full Name" name="name" type="text" class="rounded-xl input input-primary input-lg lg:input-md" placeholder="Full Name" />
+                <x-forms.input label="Email" name="email" type="email" class="rounded-xl input input-primary input-lg lg:input-md" placeholder="Email" />
+                <x-forms.input label="Password" name="password" type="password" class="rounded-xl input input-primary input-lg lg:input-md" placeholder="Password" />
+                <x-forms.input label="Confirm Password" name="password_confirmation" type="password" class="rounded-xl input input-primary input-lg lg:input-md" placeholder="Confirm Password" />
 
                 <div class="grid grid-cols-2 gap-4">
                     <label class="card bg-base-200 shadow-sm p-6 cursor-pointer hover:bg-base-300 transition">

@@ -385,7 +385,7 @@
             </section>
 
             <div class="flex justify-end gap-3">
-                <button type="button" onclick="history.back()" class="btn btn-neutral w-25">Cancel</button>
+                    <button type="button" onclick="history.back()" class="btn btn-neutral w-25">Cancel</button>
                 <button type="submit" class="btn btn-primary w-25">Save</button>
             </div>
         </x-forms.form>

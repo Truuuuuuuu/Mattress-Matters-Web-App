@@ -3,6 +3,12 @@
 
     <div class="px-10 mt-10">
         {{--Content--}}
+        <div class="mb-8">
+            <a onclick="history.back()" class=" flex gap-1 items-center cursor-pointer group w-18 ">
+                <x-lucide-chevron-left class="w-7 h-7 group-hover:text-blue-800"/>
+                <p class="group-hover:text-blue-800">Back</p>
+            </a>
+        </div>
         <section>
             <div>
                 {{--search bar w filter--}}
@@ -38,9 +44,9 @@
                 </div>
 
                 {{--Listings cards--}}
-                <div class="grid grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-1 lg:gap-x-4 lg:gap-y-4 mt-5">
+                <div class="grid grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-1 lg:gap-x-2 lg:gap-y-6 mt-5">
                     @forelse($listings as $listing)
-                        <x-bhouse-card :$listing/>
+                        <x-bhouse-card :$listing width="94"/>
                     @empty
                         <p class="col-span-full text-center text-gray-500">
                             No listings available.

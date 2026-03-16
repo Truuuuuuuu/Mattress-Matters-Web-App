@@ -1,7 +1,7 @@
 
-<x-panel class="flex flex-col text-start">
+<x-panel class="flex flex-col text-start hover:scale-[1.02] transition-transform duration-200" width="92">
 
-    <div class="max-w-4xl mx-auto px-4 text-center ">
+    <div class="max-w-4xl mx-auto px-4 text-center block ">
 
         <div class="text-9xl text-gray-200 font-serif leading-none">
             “

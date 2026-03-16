@@ -13,11 +13,11 @@
             </div>
         </div>
 
-        <div class="grid place-items-center mt-20   ">
+        <div class="grid place-items-center mt-15   ">
             <div class="w-full lg:max-w-6xl  grid grid-cols-3 gap-10">
                 @forelse($listings as $listing)
 
-                    <x-bhouse-card :$listing  />
+                    <x-bhouse-card :$listing width="92" />
                 @empty
                     <p class="col-span-full text-center text-gray-500">
                         No listings available.
