@@ -200,7 +200,7 @@
                     <h2 class="font-semibold mt-4">Safety & Property</h2>
                     <div class="text-base-content/60">
                         @forelse($listing->amenities->where('id', 8) as $safety)
-                            <p>{{$safety->name}}</p>
+                            <p>Exterior CCTV</p>
 
                         @empty
                             <p>Not specified</p>

@@ -142,7 +142,7 @@
                                         label="{{ ucfirst($amenity->name) }}"
                                         :checked="in_array($amenity->id, $listingAmenityIds)"
                                     >
-                                        {{ ucfirst($amenity->name) }}
+                                        {{ ucfirst($amenity->description) }}
                                     </x-option-card>
                                 @endforeach
 

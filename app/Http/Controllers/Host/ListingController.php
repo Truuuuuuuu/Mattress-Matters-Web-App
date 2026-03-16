@@ -107,7 +107,7 @@ class ListingController extends Controller
 
 
 
-        return redirect()->route('host.listings')->with('sucess', 'Listing successfully created');
+        return redirect()->route('host.listings')->with('success', 'Listing successfully created');
 
     }
 

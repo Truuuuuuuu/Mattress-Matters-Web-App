@@ -90,7 +90,7 @@
                 <div class="grid grid-cols-4 gap-4 mt-15">
 
                     @foreach($amenities as $amenity)
-                        <x-option-card id="amenities" type="checkbox" name="amenities[]" value="{{$amenity->id}}" icon="{{$amenity->icon}}" label="{{ ucfirst($amenity->name) }}" >{{ucfirst($amenity->name)}}</x-option-card>
+                        <x-option-card id="amenities" type="checkbox" name="amenities[]" value="{{$amenity->id}}" icon="{{$amenity->icon}}" label="{{ ucfirst($amenity->name) }}"> {{ ucfirst($amenity->description )}} </x-option-card>
                     @endforeach
 
                 </div>
