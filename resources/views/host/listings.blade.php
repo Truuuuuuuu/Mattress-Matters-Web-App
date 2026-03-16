@@ -1,5 +1,6 @@
 <x-layout>
     <x-slot:heading>Listings</x-slot:heading>
+
     <section class="py-10">
         <div class="px-15 ">
             <div class="flex justify-between items-center ">

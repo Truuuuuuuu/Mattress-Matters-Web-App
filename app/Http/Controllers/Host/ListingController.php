@@ -107,7 +107,7 @@ class ListingController extends Controller
 
 
 
-        return redirect()->route('host.listings');
+        return redirect()->route('host.listings')->with('sucess', 'Listing successfully created');
 
     }
 
@@ -169,17 +169,47 @@ class ListingController extends Controller
             'smoking_rule' => ['required', 'integer', 'exists:rules,id'],
         ]);
 
+        /*makes sure the cover is not null*/
+        if ($request->remove_cover == '1' && !$request->hasFile('cover_photo')) {
+            return back()->withErrors(['cover_photo' => 'Cover photo is required.'])->withInput();
+        }
 
+        /*Fill model fields to check for changes*/
+        $fields = ['title', 'address', 'description', 'slot', 'rent_cost', 'water_supply_cost', 'electricity_cost'];
+        $listing->fill(array_intersect_key($listingAttributes, array_flip($fields)));
 
-        $listing->update([
-            'title' => $listingAttributes['title'],
-            'address' => $listingAttributes['address'],
-            'description' => $listingAttributes['description'],
-            'slot'              => $listingAttributes['slot'],
-            'rent_cost'         => $listingAttributes['rent_cost'],
-            'water_supply_cost' => $listingAttributes['water_supply_cost'],
-            'electricity_cost'  => $listingAttributes['electricity_cost'],
-        ]);
+        /*Check if amenities changed*/
+        $currentAmenities = $listing->amenities()->pluck('amenities.id')->map(fn($id) => (int) $id)->sort()->values()->toArray();
+        $newAmenities     = collect($listingAttributes['amenities'])->map(fn($id) => (int) $id)->sort()->values()->toArray();
+
+        /*Check if rules changed*/
+        $currentRules = $listing->rules()->pluck('rules.id')->map(fn($id) => (int) $id)->sort()->values()->toArray();
+        $newRules     = collect([
+            $listingAttributes['gender_rule'],
+            $listingAttributes['tenant_rule'],
+            $listingAttributes['guest_rule'],
+            $listingAttributes['pet_rule'],
+            $listingAttributes['curfew_rule'],
+            $listingAttributes['smoking_rule'],
+        ])->map(fn($id) => (int) $id)->sort()->values()->toArray();
+
+        /*Check if anything changed*/
+        $isDirty = $listing->isDirty($fields) ||
+            $currentAmenities !== $newAmenities ||
+            $currentRules !== $newRules ||
+            $request->hasFile('cover_photo') ||
+            $request->hasFile('image_photo1') ||
+            $request->hasFile('image_photo2') ||
+            $request->remove_cover == '1' ||
+            $request->remove_photo1 == '1' ||
+            $request->remove_photo2 == '1';
+
+        if (!$isDirty) {
+            return redirect()->route('host.show', $listing);
+        }
+
+        /*Save model fields*/
+        $listing->save();
 
         /*Sync pivot tables — sync() replaces old with new*/
         $listing->amenities()->sync($listingAttributes['amenities']);
@@ -192,20 +222,13 @@ class ListingController extends Controller
             $listingAttributes['smoking_rule'],
         ]);
 
-        /*makes sure the cover is not null*/
-        if ($request->remove_cover == '1' && !$request->hasFile('cover_photo')) {
-            return back()->withErrors(['cover_photo' => 'Cover photo is required.'])->withInput();
-        }
-
         /*Handle cover photo*/
         if ($request->hasFile('cover_photo')) {
-            // Delete old cover from storage
             $oldCover = $listing->listingImages()->where('is_cover', true)->first();
             if ($oldCover) {
                 Storage::disk('public')->delete($oldCover->image_path);
                 $oldCover->delete();
             }
-            // Store new cover
             $listing->listingImages()->create([
                 'image_path' => $request->file('cover_photo')->store('listing-images', 'public'),
                 'is_cover'   => true,
@@ -217,9 +240,9 @@ class ListingController extends Controller
                 $oldCover->delete();
             }
         }
-        // Handle photo1
+
+        /*Handle photo1*/
         if ($request->hasFile('image_photo1')) {
-            // Delete old if exists (replacing)
             if ($request->existing_photo1_id) {
                 $old = ListingImage::find($request->existing_photo1_id);
                 if ($old) {
@@ -227,7 +250,6 @@ class ListingController extends Controller
                     $old->delete();
                 }
             }
-            // Store new — works for both adding new and replacing
             $listing->listingImages()->create([
                 'image_path' => $request->file('image_photo1')->store('listing-images', 'public'),
                 'is_cover'   => false,
@@ -240,7 +262,7 @@ class ListingController extends Controller
             }
         }
 
-        // Handle photo2
+        /*Handle photo2*/
         if ($request->hasFile('image_photo2')) {
             if ($request->existing_photo2_id) {
                 $old = ListingImage::find($request->existing_photo2_id);
@@ -261,7 +283,7 @@ class ListingController extends Controller
             }
         }
 
-        return redirect()->route('host.show', $listing)->with('success', 'Listing updated successfully.');
+        return redirect()->route('host.show', $listing)->with('success', 'Listing updated successfully');
     }
 
     public function destroy(Listing $listing)

@@ -120,6 +120,27 @@
         </nav>
     @endif
 
+    {{--toast--}}
+        @if(session()->hasAny(['success', 'error', 'info', 'warning']))
+            <div id="toast-container" class="toast toast-top toast-center z-[100] mt-16">
+                @foreach(['success', 'error', 'info', 'warning'] as $type)
+                    @if(session($type))
+                        @php
+                            $class = match($type) {
+                                'success' => 'alert alert-success',
+                                'error'   => 'alert alert-error',
+                                'warning' => 'alert alert-warning',
+                                'info'    => 'alert alert-info',
+                            };
+                        @endphp
+                        <div class="{{ $class }} px-5">
+                            <span class="text-white ">{{ session($type) }}</span>
+                        </div>
+                    @endif
+                @endforeach
+            </div>
+        @endif
+
 
     <main>
         {{ $slot }}
