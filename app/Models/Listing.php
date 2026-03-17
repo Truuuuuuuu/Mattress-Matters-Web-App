@@ -72,4 +72,9 @@ class Listing extends Model
     {
         return $this->hasMany(ListingImage::class);
     }
+
+    public function reservations(): HasMany
+    {
+        return $this->hasMany(Reservation::class);
+    }
 }

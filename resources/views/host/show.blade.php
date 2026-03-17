@@ -163,17 +163,7 @@
 
         <x-divider class="bg-gray-200"/>
 
-        {{--Reviews--}}
-        <section>
-            <div class="grid grid-cols-2 mt-10 gap-x-30 gap-y-10 mb-10">
-                <x-review-card/>
-                <x-review-card/>
-                <x-review-card/>
-                <x-review-card/>
-                <x-review-card/>
-                <x-review-card/>
-            </div>
-        </section>
+
 
         <x-divider class="bg-gray-200"/>
 
@@ -208,6 +198,18 @@
                         <p class="underline cursor-pointer text-blue-900">Learn more</p>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        {{--Reviews--}}
+        <section>
+            <div class="grid grid-cols-2 mt-10 gap-x-30 gap-y-10 mb-10">
+                <x-review-card/>
+                <x-review-card/>
+                <x-review-card/>
+                <x-review-card/>
+                <x-review-card/>
+                <x-review-card/>
             </div>
         </section>
 

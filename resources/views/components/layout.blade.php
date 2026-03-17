@@ -44,8 +44,8 @@
                             <div class="{{request()->routeIs('tenant.unit') ? 'bg-black w-17 h-1 rounded-xl' : ''}}"></div>
                         </div>
                         <div>
-                            <a href="{{route('tenant.reservation')}}" class="text-center block" >Reservation</a>
-                            <div class="{{request()->routeIs('tenant.reservation') ? 'bg-black w-24 h-1 rounded-xl' : ''}}"></div>
+                            <a href="{{route('tenant.reservations.index')}}" class="text-center block" >Reservation</a>
+                            <div class="{{request()->routeIs('tenant.reservations.index') ? 'bg-black w-24 h-1 rounded-xl' : ''}}"></div>
                         </div>
 
 
@@ -140,6 +140,7 @@
                 @endforeach
             </div>
         @endif
+
 
 
     <main>

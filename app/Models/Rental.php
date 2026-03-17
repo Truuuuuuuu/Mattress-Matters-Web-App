@@ -25,10 +25,11 @@ class Rental extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function property(): BelongsTo
+    public function listing(): BelongsTo
     {
         return $this->belongsTo(Listing::class);
     }
+
 
     public function isActive(): bool
     {

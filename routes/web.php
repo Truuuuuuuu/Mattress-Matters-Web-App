@@ -6,9 +6,9 @@ use App\Http\Controllers\Auth\SessionController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Host\DashboardController;
 use App\Http\Controllers\Host\ListingController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ResultListingController;
 use App\Http\Controllers\Tenant\HomeController;
-use App\Http\Controllers\Tenant\ReservationController;
 use App\Http\Controllers\Tenant\UnitController;
 use App\Models\Listing;
 use Illuminate\Support\Facades\Route;
@@ -63,8 +63,12 @@ Route::middleware(['auth', 'role:tenant'])
         Route::get('/my-unit', [UnitController::class, 'index'])
             ->name('unit');
 
-        Route::get('/reservation', [ReservationController::class, 'index'])
-            ->name('reservation');
+        Route::get('/reservations', [ReservationController::class, 'index'])
+            ->name('reservations.index');
+
+        Route::post('/reservations/store/{listing}', [ReservationController::class, 'store'])
+            ->name('reservations.store');
+
 
     });
 //host routes

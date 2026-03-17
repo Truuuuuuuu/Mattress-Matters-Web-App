@@ -1,5 +1,5 @@
 <x-layout>
-    <x-slot:heading>Mattress Matters | {{$listing->name}}</x-slot:heading>
+    <x-slot:heading>Mattress Matters | {{$listing->title}}</x-slot:heading>
 
     <div class="px-20">
         {{--Main content--}}
@@ -62,7 +62,13 @@
                         </div>
                         <p class="text-base-content/50 text-sm">Only {{$listing->slot}} slot/s remaining</p>
                         <div class="mt-3">
-                            <a href="#" class="btn btn-neutral w-full">Reserve</a>
+                            @if($listing->slot >= 1)
+                                <button onclick="document.getElementById('reservationModal').showModal()" class="btn btn-neutral w-full">Reserve</button>
+                                @include('tenant.reservation.create', ['listing' => $listing])
+                            @else
+                                <a href="#" class="btn btn-soft w-full">Not available</a>
+                            @endif
+
                             <p class="text-sm text-base-content/60 text-center mt-5">You won't be charged yet</p>
                         </div>
                     </div>
@@ -81,13 +87,23 @@
                     <x-divider class="bg-gray-300"/>
 
                     {{--Description--}}
-                    <h1 class="text-2xl font-semibold mt-5">Description</h1>
+                    <h1 class="text-2xl font-semibold mt-7">Description</h1>
                     <p class="text-justify mt-3">
                         {{$listing->description}}
                     </p>
 
+                    {{--Prefered Tenant--}}
+                    <div class=" mt-7">
+                        <h1 class="text-2xl font-semibold ">Preferred Tenants</h1>
+                        <div class="grid grid-cols-2 mt-3 gap-y-5">
+                            @foreach($listing->rules->whereIn('name', ['gender_rule', 'tenant_rule']) as $rule)
+                                <x-rule-small-card :$rule/>
+                            @endforeach
+                        </div>
+                    </div>
+
                     {{--Amenities--}}
-                    <div>
+                    <div class=" mt-7">
                         <h1 class="text-2xl font-semibold ">Amenities</h1>
                         <div class="grid grid-cols-2 mt-3 gap-y-5">
                             @foreach($listing->amenities as $amenity)
@@ -139,19 +155,7 @@
             </div>
         </section>
 
-        <x-divider class="bg-gray-200"/>
 
-        {{--Reviews--}}
-        <section>
-            <div class="grid grid-cols-2 mt-10 gap-x-30 gap-y-10 mb-10">
-                <x-review-card/>
-                <x-review-card/>
-                <x-review-card/>
-                <x-review-card/>
-                <x-review-card/>
-                <x-review-card/>
-            </div>
-        </section>
 
         <x-divider class="bg-gray-200"/>
 
@@ -189,9 +193,26 @@
             </div>
         </section>
 
+        <x-divider class="bg-gray-200"/>
+
+        {{--Reviews--}}
+        <section>
+            <div class="grid grid-cols-2 mt-10 gap-x-30 gap-y-10 mb-10">
+                <x-review-card/>
+                <x-review-card/>
+                <x-review-card/>
+                <x-review-card/>
+                <x-review-card/>
+                <x-review-card/>
+            </div>
+        </section>
+
     </div>
 
     <x-footer/>
 </x-layout>
+
+
+
 
 

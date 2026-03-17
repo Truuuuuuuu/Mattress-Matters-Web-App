@@ -68,14 +68,12 @@ class SocialiteController extends Controller
         // Centralized logic to find or create the user and assign the role
         [$user, $isNewUser] = $this->findOrCreateUser($socialiteUser, $provider);
 
-        if($isNewUser){
+        if ($isNewUser) {
+            session()->put('google_fullName', $socialiteUser->getName());
+            session()->put('google_email', $socialiteUser->getEmail());
+            session()->put('google_provider_id', $socialiteUser->getId());
 
-            $fullName = $socialiteUser->getName();
-            return redirect()->route('google-register')->with([
-                'fullName' => $fullName ?? '',
-                'email' => $socialiteUser->getEmail(),
-                'provider_id'=> $socialiteUser->getId(),
-            ]);
+            return redirect()->route('google-register');
         }
 
 
