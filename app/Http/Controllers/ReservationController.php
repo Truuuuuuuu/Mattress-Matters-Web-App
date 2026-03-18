@@ -18,10 +18,19 @@ class ReservationController extends Controller
             return view('host.reservations', compact('reservations'));
         }
 
-        $reservations = Reservation::where('tenant_id', $user->id)
-        ->latest()->first();
+        $pendingReservation = Reservation::with(['listing.listingImages' => fn($q) => $q->where('is_cover', true)])
+        ->where('tenant_id', $user->tenant->id)
+        ->where('status', 'pending')
+        ->latest()
+        ->first();
 
-        return view('tenant.reservation.index', compact('reservations'));
+        $allReservations = Reservation::with(['listing.listingImages' => fn($q) => $q->where('is_cover', true)])
+            ->where('tenant_id', $user->tenant->id)
+            ->whereIn('status', ['approved', 'rejected', 'cancelled'])
+            ->latest()
+            ->paginate(10);
+
+        return view('tenant.reservation.index', compact('pendingReservation', 'allReservations'));
     }
 
     public function show()

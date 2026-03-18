@@ -1,0 +1,32 @@
+@props(['pendingReservation'])
+
+@php
+    $cover = $pendingReservation->listing->listingImages->first();
+@endphp
+
+<div class="flex border rounded-3xl w-full p-2 gap-4 items-end pr-5">
+
+    <a href="{{ route('listings.show', $pendingReservation->listing) }}"
+       class="flex gap-4 items-center flex-1 min-w-0 ">
+        <div class="w-24 h-24 shrink-0">
+            <img src="{{ asset('storage/' . $cover->image_path) }}"
+                 alt=""
+                 class="w-full h-full object-cover rounded-2xl">
+        </div>
+        <div class="min-w-0">
+            <h1 class="text-lg font-semibold line-clamp-1"
+                title="{{ $pendingReservation->listing->title }}">
+                {{ $pendingReservation->listing->title }}
+            </h1>
+            <p class="text-sm text-gray-500">₱{{ number_format($pendingReservation->listing->rent_cost, 2) }}</p>
+        </div>
+    </a>
+
+    {{--<form method="POST" action="{{ route('tenant.reservations.cancel', $reservation) }}">--}}
+        <form method="POST" action="#" >
+            @csrf
+            @method('DELETE')
+            <button class="btn btn-error btn-sm shrink-0 w-24">Cancel</button>
+        </form>
+
+</div>
