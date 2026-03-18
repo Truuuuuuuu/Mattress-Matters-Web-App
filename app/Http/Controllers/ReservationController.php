@@ -44,8 +44,7 @@ class ReservationController extends Controller
         }
 
         $genderRule = $listing->rules()
-            ->where('title', 'male_only')
-            ->orWhere('title', 'female_only')
+            ->whereIn('title', ['male_only', 'female_only'])
             ->first();
 
         if($genderRule){
@@ -54,6 +53,19 @@ class ReservationController extends Controller
             if($requiredGender !== $tenant->gender){
                 return redirect()->route('listings.show', $listing)
                     ->with('error', 'Gender mismatched');
+            }
+        }
+
+        $occupationRule = $listing->rules()
+            ->whereIn('title', ['students_only', 'working_individuals'])
+            ->first();
+
+        if($occupationRule){
+            $requiredOccupation = $occupationRule->title === 'students_only' ? 'student' : 'working_individual';
+
+            if($requiredOccupation !== $tenant->occupation){
+                return redirect()->route('listings.show', $listing)
+                    ->with('error', 'Occupation mismatched');
             }
         }
 
