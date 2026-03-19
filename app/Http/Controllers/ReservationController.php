@@ -151,7 +151,7 @@ class ReservationController extends Controller
            'status' => 'rejected'
         ]);
 
-        return back()->with('success', 'Reservation rejected');
+        return redirect()->route('reservation.index')->with('success', 'Reservation rejected');
 
     }
 

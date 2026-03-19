@@ -1,6 +1,7 @@
-@props(['reservation'])
+@props(['reservation' => null, 'historyReservation' => null])
 
 @php
+    $reservation = $historyReservation ?? $reservation;
     $cover = $reservation->listing->listingImages->first();
 @endphp
 
