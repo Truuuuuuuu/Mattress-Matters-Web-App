@@ -9,14 +9,14 @@
                     {{--pending tab--}}
                     <label  class="tab w-42 ">
 
-                        @if($activeReservation->status === 'pending')
+                        @if($activeReservation?->status === 'pending')
                             <x-lucide-dot class="w-7 h-7 text-orange-500"/>
                             <input type="radio" name="my_tabs_4" checked="checked"/>
                             Pending
-                        @elseif($activeReservation->status === 'approved')
+                        @elseif($activeReservation?->status === 'approved' || $activeReservation?->status === 'checked_in')
                             <x-lucide-dot class="w-7 h-7 text-green-500"/>
                             <input type="radio" name="my_tabs_4" checked="checked"/>
-                            Approved
+                            {{$activeReservation?->status === 'approved' ? 'Approved' : 'Active' }}
                         @else
                             <x-lucide-dot class="w-7 h-7 text-gray-500"/>
                             <input type="radio" name="my_tabs_4" checked="checked"/>
@@ -26,11 +26,11 @@
                     <div class="tab-content bg-base-100 border-base-300 p-6">
                         @if($activeReservation)
                             <div>
-                                <x-pending-reservation-card :$activeReservation />
+                                <x-active-reservation-card :$activeReservation />
                             </div>
                         @else
                             <div>
-                                <p class="text-base-content/70 text-center italic">You have no pending reservation</p>
+                                <p class="text-base-content/70 text-center italic">You have no active reservation</p>
                             </div>
                         @endif
 

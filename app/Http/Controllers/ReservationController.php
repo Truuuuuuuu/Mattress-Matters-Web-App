@@ -20,13 +20,13 @@ class ReservationController extends Controller
 
         $activeReservation = Reservation::with(['listing.listingImages' => fn($q) => $q->where('is_cover', true)])
         ->where('tenant_id', $user->tenant->id)
-        ->whereIn('status', ['pending', 'approved'])
+        ->whereIn('status', ['pending', 'approved', 'checked_in'])
         ->latest()
         ->first();
 
         $allReservations = Reservation::with(['listing.listingImages' => fn($q) => $q->where('is_cover', true)])
             ->where('tenant_id', $user->tenant->id)
-            ->whereIn('status', ['rejected', 'cancelled'])
+            ->whereIn('status', ['rejected', 'cancelled', 'completed'])
             ->latest()
             ->paginate(10);
 

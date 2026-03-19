@@ -13,8 +13,4 @@ class Amenity extends Model
         return $this->belongsToMany(Listing::class);
     }
 
-    public function rules()
-    {
-        return null;
-    }
 }

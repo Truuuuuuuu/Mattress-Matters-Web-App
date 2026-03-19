@@ -29,10 +29,11 @@
             @method('DELETE')
             <button class="btn btn-error btn-sm shrink-0 w-24">Cancel</button>
         </form>
-    @else
+    @elseif($activeReservation->status === 'approved')
         <a href="#" class="btn btn-primary btn-sm shrink-0 w-24">
             Message
         </a>
+
     @endif
 
 
