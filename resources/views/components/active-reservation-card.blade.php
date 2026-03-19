@@ -30,7 +30,7 @@
             <button class="btn btn-error btn-sm shrink-0 w-24">Cancel</button>
         </form>
     @elseif($activeReservation->status === 'approved')
-        <a href="#" class="btn btn-primary btn-sm shrink-0 w-24">
+        <a href="{{route()}}" class="btn btn-primary btn-sm shrink-0 w-24">
             Message
         </a>
 

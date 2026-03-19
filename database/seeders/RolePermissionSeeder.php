@@ -29,8 +29,8 @@ class RolePermissionSeeder extends Seeder
             'view own listings',
             'manage users',
             'create reservations',
-            'view own reservations',
-            'cancel own reservations',
+            'view reservations',
+            'cancel reservations',
         ];
 
         foreach ($permissions as $permission){
@@ -50,14 +50,16 @@ class RolePermissionSeeder extends Seeder
             'create listings',
             'edit own listings',
             'delete own listings',
-            'view own listings'
+            'view own listings',
+            'cancel reservations',
+            'view reservations'
         ]);
 
         $tenantRole = Role::firstOrCreate(['name' => 'tenant']);
         $tenantRole->givePermissionTo([
            'create reservations',
-           'view own reservations',
-           'cancel own reservations'
+           'view reservations',
+           'cancel reservations'
         ]);
     }
 }

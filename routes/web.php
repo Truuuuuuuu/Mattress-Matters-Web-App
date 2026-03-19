@@ -95,6 +95,16 @@ Route::middleware(['auth', 'role:host'])
             ->name('delete');
     });
 
+/*Cancel Reservation*/
+Route::middleware(['auth', 'permission:cancel reservations'])
+    ->prefix('reservation')
+    ->name('reservation.')
+    ->group(function () {
+        Route::get('/{reservation}', [ReservationController::class, 'cancel'])
+            ->name('cancel');
+    });
+
+
 //Listings results
 Route::get('/listings',[ResultListingController::class,'index'])->name('listings.index');
 
