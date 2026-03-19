@@ -10,6 +10,10 @@ class Reservation extends Model
 
     protected $guarded = [];
 
+    protected $casts = [
+        'start_date' => 'datetime',
+        'end_date' => 'datetime',
+    ];
     public function listing(): BelongsTo
     {
         return $this->belongsTo(Listing::class);

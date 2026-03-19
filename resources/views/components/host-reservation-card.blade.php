@@ -34,7 +34,7 @@
         </div>
     </a>
 
-    @if($reservation->status === 'pending')
+   {{-- @if($reservation->status === 'pending')
         <button onclick="confirmAction(
             '{{route('reservation.reject', $reservation)}}',
             'Reject Reservation?',
@@ -47,7 +47,11 @@
         Reject
         </button>
 
-    @endif
+    @endif--}}
+
+    <a href="{{route('reservation.show', $reservation)}}" class = "btn btn-primary">
+        Review
+    </a>
 
 
 </div>

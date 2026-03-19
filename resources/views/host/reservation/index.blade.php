@@ -36,7 +36,7 @@
                     @forelse($approvedReservations as $approvedReservation)
                         <x-host-reservation-card :$approvedReservation />
                     @empty
-                        <p class="text-base-content/70 italic text-center">You have no pending reservations today</p>
+                        <p class="text-base-content/70 italic text-center">You have no approved reservations today</p>
                     @endforelse
                 </div>
 

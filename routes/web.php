@@ -101,6 +101,8 @@ Route::middleware(['auth', 'permission:cancel reservations'])
     ->group(function () {
         Route::get('/reservations', [ReservationController::class, 'index'])
             ->name('index');
+        Route::get('/{reservation}', [ReservationController::class, 'show'])
+            ->name('show');
         Route::patch('/{reservation}', [ReservationController::class, 'cancel'])
             ->name('cancel');
         Route::patch('/{reservation}', [ReservationController::class, 'reject'])

@@ -64,9 +64,14 @@ class ReservationController extends Controller
         return view('tenant.reservation.index', compact('activeReservation', 'allReservations'));
     }
 
-    public function show()
+    public function show(Reservation $reservation)
     {
+        $reservation->load([
+            'listing.listingImages' => fn($q) => $q->where('is_cover', true),
+            'tenant.user'
+        ]);
 
+        return view('host.reservation.show', compact('reservation'));
     }
 
     public function store(Listing $listing , Request $request)
