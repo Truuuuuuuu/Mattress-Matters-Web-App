@@ -14,4 +14,9 @@ class Reservation extends Model
     {
         return $this->belongsTo(Listing::class);
     }
+
+    public function tenant(): BelongsTo
+    {
+        return $this->belongsTo(Tenant::class);
+    }
 }

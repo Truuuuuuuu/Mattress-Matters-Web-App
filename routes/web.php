@@ -63,8 +63,7 @@ Route::middleware(['auth', 'role:tenant'])
         Route::get('/my-unit', [UnitController::class, 'index'])
             ->name('unit');
 
-        Route::get('/reservations', [ReservationController::class, 'index'])
-            ->name('reservations.index');
+
 
         Route::post('/reservations/store/{listing}', [ReservationController::class, 'store'])
             ->name('reservations.store');
@@ -100,8 +99,13 @@ Route::middleware(['auth', 'permission:cancel reservations'])
     ->prefix('reservation')
     ->name('reservation.')
     ->group(function () {
+        Route::get('/reservations', [ReservationController::class, 'index'])
+            ->name('index');
         Route::patch('/{reservation}', [ReservationController::class, 'cancel'])
             ->name('cancel');
+        Route::patch('/{reservation}', [ReservationController::class, 'reject'])
+            ->name('reject');
+
     });
 
 

@@ -1,3 +1,5 @@
+{{--Tenant uses this!--}}
+
 @props(['activeReservation'])
 
 @php

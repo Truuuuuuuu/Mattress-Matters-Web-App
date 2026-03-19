@@ -50,7 +50,7 @@
                             </div>
                         @empty
                             <div>
-                                <p class="text-base-content/70 text-center italic">You have history of reservation</p>
+                                <p class="text-base-content/70 text-center italic">You have no history of reservation</p>
                             </div>
                         @endforelse
                     </div>

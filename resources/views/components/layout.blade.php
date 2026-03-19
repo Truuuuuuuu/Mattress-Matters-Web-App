@@ -18,7 +18,7 @@
 
 
                 {{-- Logo --}}
-                <div class="flex-shrink-0 ">
+                <div class="shrink-0 ">
                     <a href="/">
                         <img src="{{ asset('images/logo-only.svg') }}" alt="" class="w-10 h-auto" >
                     </a>
@@ -68,8 +68,8 @@
                         </div>
 
                         <div>
-                            <a href="" class="text-center block">Requests</a>
-                            <div class="{{request()->routeIs('') ? 'bg-black w-17 h-1 rounded-xl' : ''}}"></div>
+                            <a href="{{route('reservation.index')}}" class="text-center block">Reservations</a>
+                            <div class="{{request()->routeIs('reservation.index') ? 'bg-black w-27 h-1 rounded-xl' : ''}}"></div>
                         </div>
                     </div>
                     @endrole
@@ -144,6 +144,7 @@
 
 
     <main>
+        @include('components.confirm-modal')
         {{ $slot }}
     </main>
 </div>

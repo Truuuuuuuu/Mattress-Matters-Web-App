@@ -17,9 +17,37 @@ class ReservationController extends Controller
         $user = auth()->user();
 
         if($user->hasRole('host')){
-            $reservations = Reservation::latest()->paginate(10);
-            return view('host.reservations', compact('reservations'));
+            $pendingReservations = Reservation::with([
+                'listing',
+                'tenant.user'
+            ])
+            ->whereHas('listing', fn($q) => $q->where('host_id', $user->id))
+            ->where('status', 'pending')
+            -> latest()
+            ->paginate(10);
+
+            $approvedReservations = Reservation::with([
+                'listing',
+                'tenant.user'
+            ])
+                ->whereHas('listing', fn($q) => $q->where('host_id', $user->id))
+                ->where('status', 'approved')
+                -> latest()
+                ->paginate(10);
+
+            $historyReservations = Reservation::with([
+                'listing',
+                'tenant.user'
+            ])
+                ->whereHas('listing', fn($q) => $q->where('host_id', $user->id))
+                ->whereIn('status', ['rejected', 'cancelled', 'completed'])
+                -> latest()
+                ->paginate(10);
+
+            return view('host.reservation.index', compact('pendingReservations', 'approvedReservations', 'historyReservations'));
         }
+
+
 
         $activeReservation = Reservation::with(['listing.listingImages' => fn($q) => $q->where('is_cover', true)])
         ->where('tenant_id', $user->tenant->id)
@@ -112,15 +140,22 @@ class ReservationController extends Controller
         return back()->with('success', 'Reservation cancelled');
     }
 
+    public function reject(Reservation $reservation)
+    {
+        $reservation->update([
+           'status' => 'rejected'
+        ]);
+
+        return back()->with('success', 'Reservation rejected');
+
+    }
+
     public function approve()
     {
 
     }
 
-    public function reject()
-    {
 
-    }
 
 
 
