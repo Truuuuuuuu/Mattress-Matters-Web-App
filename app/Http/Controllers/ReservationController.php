@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Listing;
 use App\Models\Reservation;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
 class ReservationController extends Controller
 {
+
+    use AuthorizesRequests;
 
     public function index()
     {
@@ -98,9 +101,15 @@ class ReservationController extends Controller
     }
 
 
-    public function cancel()
+    public function cancel(Reservation $reservation)
     {
+        $this->authorize('cancel reservations');
 
+        $reservation->update([
+            'status' => 'cancelled'
+        ]);
+
+        return back()->with('success', 'Reservation cancelled');
     }
 
     public function approve()

@@ -22,15 +22,21 @@
         </div>
     </a>
 
-    {{--<form method="POST" action="{{ route('tenant.reservations.cancel', $reservation) }}">--}}
     @if($activeReservation->status === 'pending')
-        <form method="POST" action="#" >
-            @csrf
-            @method('DELETE')
-            <button class="btn btn-error btn-sm shrink-0 w-24">Cancel</button>
-        </form>
+        <button onclick="confirmAction(
+            '{{route('reservation.cancel', $activeReservation)}}',
+            'Cancel Reservation?',
+            'Are you sure you want to cancel this reservation? This cannot be undone.',
+            'Yes, Cancel',
+            'Keep Reservation'
+
+        )"
+        class="btn btn-error btn-sm shrink-0 w-24">
+        Cancel
+        </button>
+        @include('components.confirm-modal')
     @elseif($activeReservation->status === 'approved')
-        <a href="{{route()}}" class="btn btn-primary btn-sm shrink-0 w-24">
+        <a href="#" class="btn btn-primary btn-sm shrink-0 w-24">
             Message
         </a>
 
