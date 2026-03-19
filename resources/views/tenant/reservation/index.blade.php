@@ -5,15 +5,28 @@
         <div class="flex items-start justify-center h-screen py-10 ">
 
                 <div class="tabs tabs-lift   max-w-2xl w-full ">
+
+                    {{--pending tab--}}
                     <label  class="tab w-42 ">
-                        <x-lucide-dot class="w-7 h-7 text-orange-500"/>
-                        <input type="radio" name="my_tabs_4" checked="checked"/>
-                        Pending
+
+                        @if($activeReservation->status === 'pending')
+                            <x-lucide-dot class="w-7 h-7 text-orange-500"/>
+                            <input type="radio" name="my_tabs_4" checked="checked"/>
+                            Pending
+                        @elseif($activeReservation->status === 'approved')
+                            <x-lucide-dot class="w-7 h-7 text-green-500"/>
+                            <input type="radio" name="my_tabs_4" checked="checked"/>
+                            Approved
+                        @else
+                            <x-lucide-dot class="w-7 h-7 text-gray-500"/>
+                            <input type="radio" name="my_tabs_4" checked="checked"/>
+                            Inactive
+                        @endif
                     </label>
                     <div class="tab-content bg-base-100 border-base-300 p-6">
-                        @if($pendingReservation)
+                        @if($activeReservation)
                             <div>
-                                <x-pending-reservation-card :$pendingReservation />
+                                <x-pending-reservation-card :$activeReservation />
                             </div>
                         @else
                             <div>
@@ -22,7 +35,7 @@
                         @endif
 
                     </div>
-
+                    {{--History tab--}}
                     <label class="tab w-42 gap-2">
                         <x-lucide-history class="w-4 h-4 "/>
 

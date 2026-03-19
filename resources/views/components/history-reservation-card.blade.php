@@ -22,7 +22,6 @@
             <p class="text-sm text-gray-500 -mt-1.5">₱{{ number_format($reservation->listing->rent_cost, 2) }}</p>
             @php
                 $statusConfig = match($reservation->status) {
-                    'approved'  => ['class' => 'badge-success',  'label' => 'Approved'],
                     'rejected'  => ['class' => 'badge-error',    'label' => 'Rejected'],
                     'cancelled' => ['class' => 'badge-warning',  'label' => 'Cancelled'],
                     default     => ['class' => 'badge-ghost',    'label' => ucfirst($reservation->status)],
