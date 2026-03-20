@@ -15,12 +15,16 @@
                  alt=""
                  class="w-full h-full object-cover rounded-2xl">
         </div>
+
         <div class="min-w-0">
+            <div class=" w-full px-2 rounded-xl bg-green-500">
+                <p class="text-xs italic text-base-content/80 ">Please prepare the exact amount upon arrival</p>
+            </div>
             <h1 class="text-lg font-semibold line-clamp-1"
                 title="{{ $activeReservation->listing->title }}">
                 {{ $activeReservation->listing->title }}
             </h1>
-            <p class="text-sm text-gray-500">₱{{ number_format($activeReservation->listing->rent_cost, 2) }}</p>
+            <p class="text-sm text-gray-500 -mt-1">₱{{ number_format($activeReservation->listing->rent_cost, 2) }}</p>
         </div>
     </a>
 
@@ -38,10 +42,14 @@
         </button>
         @include('components.confirm-modal')
     @elseif($activeReservation->status === 'approved')
-        <a href="#" class="btn btn-primary btn-sm shrink-0 w-24">
-            Message
-        </a>
-
+        <div class="flex flex-col space-y-2">
+            <a href="#" class="btn btn-primary btn-sm shrink-0 w-24">
+                Message
+            </a>
+            <a href="{{route('reservation.show', $activeReservation)}}" class="btn btn-neutral btn-sm">
+                View details
+            </a>
+        </div>
     @endif
 
 

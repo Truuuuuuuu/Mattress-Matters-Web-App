@@ -84,7 +84,7 @@ class ReservationController extends Controller
 
 
         if($hasActive){
-            return redirect()->route('tenant.reservations.index')
+            return redirect()->route('reservation.index')
                 ->with('error', 'You already have an active reservation');
         }
 
