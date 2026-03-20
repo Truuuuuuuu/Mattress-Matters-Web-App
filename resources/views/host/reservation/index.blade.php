@@ -24,19 +24,19 @@
 
             </div>
 
-            {{--Approved tab--}}
+            {{--Accepted tab--}}
             <label  class="tab w-42 ">
 
                 <x-lucide-dot class="w-7 h-7 text-green-500"/>
                 <input type="radio" name="my_tabs_4" />
-                Approved
+                Accepted
             </label>
             <div class="tab-content bg-base-100 border-base-300 p-6">
                 <div>
-                    @forelse($approvedReservations as $approvedReservation)
-                        <x-host-reservation-card :$approvedReservation />
+                    @forelse($acceptedReservations as $acceptedReservation)
+                        <x-host-reservation-card :$acceptedReservation />
                     @empty
-                        <p class="text-base-content/70 italic text-center">You have no approved reservations today</p>
+                        <p class="text-base-content/70 italic text-center">You have no accepted reservations today</p>
                     @endforelse
                 </div>
 

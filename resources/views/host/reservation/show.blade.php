@@ -71,72 +71,26 @@
                     <div class="flex-1 font-semibold">
                         <p>Start Date:</p>
                         <p>End Date:</p>
+                        <p class="mt-10">Payment Status:</p>
                     </div>
                     <div class="flex-1 flex flex-col items-end">
                         <p>{{$reservation->start_date->format('M j, Y')}}</p>
                         <p>{{$reservation->end_date?->format('M j, Y') ?? 'Not specified'}}</p>
+                        <p class="mt-10">{{ucfirst($reservation->payment_status)}}</p>
                     </div>
+
                 </div>
                 <div class="flex justify-end items-center gap-2 mt-5">
-                    @role('host')
-                        @if($reservation->status === 'pending')
-                            <button onclick="confirmAction(
-                            '{{route('reservation.reject', $reservation)}}',
-                            'Reject Reservation?',
-                            'Are you sure you want to reject this reservation? This cannot be undone.',
-                            'Yes, Reject',
-                            'Cancel'
 
-                            )"
-                                    class="btn btn-error  shrink-0 w-24">
-                                Reject
-                            </button>
-                            <button onclick="confirmAction(
-                            '{{route('reservation.approve', $reservation)}}',
-                            'Approve Reservation?',
-                            'Are you sure you want to approve this reservation? This cannot be undone.',
-                            'Yes, Approve',
-                            'Cancel',
-                            'btn-success'
-
-                            )"
-                                    class="btn btn-success shrink-0 w-24">
-                                Approve
-                            </button>
-                        @else
-                        <button onclick="confirmAction(
-                            '{{route('reservation.cancel', $reservation)}}',
-                            'Cancel Reservation?',
-                            'Are you sure you want to cancel this reservation? This cannot be undone.',
-                            'Yes, Cancel',
-                            'Keep Reservation'
-
-                            )"
-                                class="btn btn-error ">
-                            Cancel Reservation
-                        </button>
-                        <button onclick="confirmAction(
-                            '{{route('reservation.approve', $reservation)}}',
-                            'Approve Reservation?',
-                            'Are you sure you want to approve this reservation? This cannot be undone.',
-                            'Yes, Approve',
-                            'Cancel',
-                            'btn-success'
-
-                            )"
-                                class="btn btn-success shrink-0 w-24">
-                            Check In
-                        </button>
-                        @endif
-
-                    @endrole
 
                     @role('tenant')
                     <div class="w-full bg-green-500 text-center py-2 rounded-xl italic">
-                        <p>Please prepare the exact amount upon arrival</p>
+                        <p>Please complete your payment within 48 hours</p>
                     </div>
-
                     @endrole
+
+
+
 
                 </div>
             </div>

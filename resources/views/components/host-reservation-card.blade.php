@@ -1,9 +1,9 @@
 {{--Host uses this!--}}
 
-@props(['pendingReservation' => null , 'approvedReservation' => null])
+@props(['pendingReservation' => null , 'acceptedReservation' => null])
 
 @php
-    $reservation = $pendingReservation ?? $approvedReservation;
+    $reservation = $pendingReservation ?? $acceptedReservation;
 @endphp
 
 

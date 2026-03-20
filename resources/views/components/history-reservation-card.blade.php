@@ -22,17 +22,12 @@
             </div>
             <p class="text-sm text-gray-500 -mt-1.5">₱{{ number_format($reservation->listing->rent_cost, 2) }}</p>
             @php
-                if($reservation->status === 'cancelled' && $reservation->cancelled_by === 'host')
-                     $statusConfig = ['class' => 'badge-warning', 'label' => 'Cancelled by Host'];
-                elseif($reservation->status === 'cancelled' && $reservation->cancelled_by === 'tenant')
-                     $statusConfig = ['class' => 'badge-warning', 'label' => 'Cancelled by User'];
-                else
-                    $statusConfig = match($reservation->status) {
-                        'rejected'  => ['class' => 'badge-error',    'label' => 'Rejected'],
-                        'cancelled' => ['class' => 'badge-warning',  'label' => 'Cancelled'],
-                        'completed' => ['class' => 'badge-neutral', 'label' => 'Completed'],
-                        default     => ['class' => 'badge-ghost',    'label' => ucfirst($reservation->status)],
-                    };
+                $statusConfig = match($reservation->status) {
+                    'declined'  => ['class' => 'badge-error',    'label' => 'Declined'],
+                    'cancelled' => ['class' => 'badge-warning',  'label' => 'Cancelled'],
+                    'completed' => ['class' => 'badge-neutral', 'label' => 'Completed'],
+                    default     => ['class' => 'badge-ghost',    'label' => ucfirst($reservation->status)],
+                };
             @endphp
             <div class="badge {{ $statusConfig['class'] }} mt-2">
                 {{ $statusConfig['label'] }}

@@ -5,17 +5,17 @@
 
                 <div class="tabs tabs-lift   max-w-2xl w-full ">
 
-                    {{--pending tab--}}
+                    {{--active tab--}}
                     <label  class="tab w-42 ">
 
                         @if($activeReservation?->status === 'pending')
                             <x-lucide-dot class="w-7 h-7 text-orange-500"/>
                             <input type="radio" name="my_tabs_4" checked="checked"/>
                             Pending
-                        @elseif($activeReservation?->status === 'approved' || $activeReservation?->status === 'checked_in')
+                        @elseif($activeReservation?->status === 'accepted' || $activeReservation?->status === 'checked_in')
                             <x-lucide-dot class="w-7 h-7 text-green-500"/>
                             <input type="radio" name="my_tabs_4" checked="checked"/>
-                            {{$activeReservation?->status === 'approved' ? 'Approved' : 'Active' }}
+                            {{$activeReservation?->status === 'accepted' ? 'Accepted' : 'Active' }}
                         @else
                             <x-lucide-dot class="w-7 h-7 text-gray-500"/>
                             <input type="radio" name="my_tabs_4" checked="checked"/>

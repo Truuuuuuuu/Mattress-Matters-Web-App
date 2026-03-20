@@ -105,10 +105,10 @@ Route::middleware(['auth', 'permission:cancel reservations'])
             ->name('show');
         Route::patch('/{reservation}/cancel', [ReservationController::class, 'cancel'])
             ->name('cancel');
-        Route::patch('/{reservation}/reject', [ReservationController::class, 'reject'])
-            ->name('reject');
-        Route::patch('/{reservation}/approve', [ReservationController::class, 'approve'])
-            ->name('approve');
+        Route::patch('/{reservation}/decline', [ReservationController::class, 'decline'])
+            ->name('decline');
+        Route::patch('/{reservation}/accept', [ReservationController::class, 'accept'])
+            ->name('accept');
 
     });
 

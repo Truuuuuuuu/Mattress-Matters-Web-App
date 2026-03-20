@@ -27,12 +27,12 @@ class ReservationController extends Controller
             -> latest()
             ->paginate(10);
 
-            $approvedReservations = Reservation::with([
+            $acceptedReservations = Reservation::with([
                 'listing',
                 'tenant.user'
             ])
                 ->whereHas('listing', fn($q) => $q->where('host_id', $user->id))
-                ->where('status', 'approved')
+                ->where('status', 'accepted')
                 -> latest()
                 ->paginate(10);
 
@@ -41,24 +41,24 @@ class ReservationController extends Controller
                 'tenant.user'
             ])
                 ->whereHas('listing', fn($q) => $q->where('host_id', $user->id))
-                ->whereIn('status', ['rejected', 'cancelled', 'completed'])
+                ->whereIn('status', ['declined', 'cancelled', 'completed', 'expired', 'checked_in'])
                 -> latest()
                 ->paginate(10);
 
-            return view('host.reservation.index', compact('pendingReservations', 'approvedReservations', 'historyReservations'));
+            return view('host.reservation.index', compact('pendingReservations', 'acceptedReservations', 'historyReservations'));
         }
 
 
 
         $activeReservation = Reservation::with(['listing.listingImages' => fn($q) => $q->where('is_cover', true)])
         ->where('tenant_id', $user->tenant->id)
-        ->whereIn('status', ['pending', 'approved', 'checked_in'])
+        ->whereIn('status', ['pending', 'accepted', 'checked_in'])
         ->latest()
         ->first();
 
         $allReservations = Reservation::with(['listing.listingImages' => fn($q) => $q->where('is_cover', true)])
             ->where('tenant_id', $user->tenant->id)
-            ->whereIn('status', ['rejected', 'cancelled', 'completed'])
+            ->whereIn('status', ['declined', 'cancelled', 'completed' , 'expired'])
             ->latest()
             ->paginate(10);
 
@@ -80,7 +80,7 @@ class ReservationController extends Controller
         $tenant = auth()->user()->tenant;
 
         $hasActive = Reservation::where('tenant_id', $tenant->id)
-            ->whereIn('status',['pending', 'approved'])
+            ->whereIn('status',['pending', 'accepted', 'checked_in'])
             ->exists();
 
 
@@ -141,30 +141,28 @@ class ReservationController extends Controller
 
         $reservation->update([
             'status' => 'cancelled',
-            'cancelled_by' => Auth::user()->getRoleNames()->first()
-
         ]);
 
         return redirect()->route('reservation.index')->with('success', 'Reservation cancelled');
     }
 
-    public function reject(Reservation $reservation)
+    public function decline(Reservation $reservation)
     {
         $reservation->update([
-           'status' => 'rejected'
+           'status' => 'declined'
         ]);
 
-        return redirect()->route('reservation.index')->with('success', 'Reservation rejected');
+        return redirect()->route('reservation.index')->with('success', 'Reservation declined');
 
     }
 
-    public function approve(Reservation $reservation)
+    public function accept(Reservation $reservation)
     {
         $reservation->update([
-           'status' => 'approved'
+           'status' => 'accepted'
         ]);
 
-        return redirect()->route('reservation.index')->with('success', 'Reservation approved');
+        return redirect()->route('reservation.index')->with('success', 'Reservation accepted');
     }
 
 
