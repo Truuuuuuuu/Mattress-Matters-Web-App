@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\SessionController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Host\DashboardController;
 use App\Http\Controllers\Host\ListingController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ResultListingController;
 use App\Http\Controllers\Tenant\HomeController;
@@ -111,6 +112,12 @@ Route::middleware(['auth', 'permission:cancel reservations'])
             ->name('accept');
 
     });
+
+/*Payment Sandbox using XENDIT*/
+Route::post('/payment/{reservation}/gcash', [PaymentController::class, 'createGcashPayment'])->name('payment.gcash');
+Route::get('/payment/success', [PaymentController::class, 'success'])->name('payment.success');
+Route::get('/payment/failed', [PaymentController::class, 'failed'])->name('payment.failed');
+Route::post('/payment/webhook', [PaymentController::class, 'webhook'])->name('payment.webhook');
 
 
 //Listings results

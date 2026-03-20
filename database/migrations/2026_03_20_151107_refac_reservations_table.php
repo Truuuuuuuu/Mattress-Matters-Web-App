@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('reservations', function (Blueprint $table) {
             $table->enum('status', ['pending', 'cancelled', 'accepted', 'declined', 'checked_in', 'completed', 'expired'])->default('pending')->change();
-            $table->enum('payment_status',['unpaid', 'paid', 'failed'])->default('unpaid')->after('status');
+            $table->enum('payment_status',['unpaid', 'paid', 'failed'])->default('unpaid')->after('status')->change();
         });
     }
 

@@ -80,13 +80,27 @@
                     </div>
 
                 </div>
-                <div class="flex justify-end items-center gap-2 mt-5">
+                <div class="flex flex-col justify-end items-center gap-2 mt-5">
 
 
                     @role('tenant')
                     <div class="w-full bg-green-500 text-center py-2 rounded-xl italic">
                         <p>Please complete your payment within 48 hours</p>
+
+                        <div id="error-msg" class="hidden text-red-500 mt-2"></div>
+
                     </div>
+
+                    <button
+                        id="pay-btn"
+                        class="btn btn-primary w-full mt-3"
+                        data-url="/payment/{{ $reservation->id }}/gcash"
+                        data-amount="{{ $reservation->listing->rent_cost }}"
+                        data-description="Reservation for {{ $reservation->listing->title }}">
+                        Pay with GCash
+                    </button>
+
+
                     @endrole
 
 
