@@ -13,7 +13,7 @@
             <form method="POST" id="modal_form">
                 @csrf
                 <input type="hidden" name="_method" value="PATCH">
-                <button type="submit" class="btn btn-error" id="modal_confirm_btn"></button>
+                <button type="submit" class="btn" id="modal_confirm_btn"></button>
             </form>
         </div>
     </div>
@@ -25,12 +25,13 @@
 </dialog>
 
 <script>
-    function confirmAction(action, title, message, confirmLabel, closeLabel , method = 'PATCH') {
+    function confirmAction(action, title, message, confirmLabel, closeLabel, type = 'btn-error' , method = 'PATCH') {
         document.getElementById('modal_title').textContent = title;
         document.getElementById('modal_message').textContent = message;
         document.getElementById('modal_form').action = action;
         document.getElementById('modal_confirm_btn').textContent = confirmLabel;
         document.getElementById('modal_close_btn').textContent = closeLabel;
+        document.getElementById('modal_confirm_btn').className = `btn ${type}`;
         document.querySelector('#modal_form input[name="_method"]').value = method;
         document.getElementById('confirm_modal').showModal();
     }

@@ -155,9 +155,13 @@ class ReservationController extends Controller
 
     }
 
-    public function approve()
+    public function approve(Reservation $reservation)
     {
+        $reservation->update([
+           'status' => 'approved'
+        ]);
 
+        return redirect()->route('reservation.index')->with('success', 'Reservation approved');
     }
 
 

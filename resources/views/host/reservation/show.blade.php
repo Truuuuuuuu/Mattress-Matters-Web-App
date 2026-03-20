@@ -65,7 +65,18 @@
                             class="btn btn-error  shrink-0 w-24">
                         Reject
                     </button>
-                    <button class="btn btn-success">Approve</button>
+                    <button onclick="confirmAction(
+                        '{{route('reservation.approve', $reservation)}}',
+                        'Approve Reservation?',
+                        'Are you sure you want to approve this reservation? This cannot be undone.',
+                        'Yes, Approve',
+                        'Cancel',
+                        'btn-success'
+
+                    )"
+                            class="btn btn-success shrink-0 w-24">
+                        Approve
+                    </button>
                 </div>
             </div>
         </div>

@@ -94,7 +94,7 @@ Route::middleware(['auth', 'role:host'])
             ->name('delete');
     });
 
-/*Cancel Reservation*/
+/*Reservation*/
 Route::middleware(['auth', 'permission:cancel reservations'])
     ->prefix('reservation')
     ->name('reservation.')
@@ -103,10 +103,12 @@ Route::middleware(['auth', 'permission:cancel reservations'])
             ->name('index');
         Route::get('/{reservation}', [ReservationController::class, 'show'])
             ->name('show');
-        Route::patch('/{reservation}', [ReservationController::class, 'cancel'])
+        Route::patch('/{reservation}/cancel', [ReservationController::class, 'cancel'])
             ->name('cancel');
-        Route::patch('/{reservation}', [ReservationController::class, 'reject'])
+        Route::patch('/{reservation}/reject', [ReservationController::class, 'reject'])
             ->name('reject');
+        Route::patch('/{reservation}/approve', [ReservationController::class, 'approve'])
+            ->name('approve');
 
     });
 
