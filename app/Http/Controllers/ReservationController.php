@@ -6,6 +6,7 @@ use App\Models\Listing;
 use App\Models\Reservation;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
 {
@@ -139,7 +140,9 @@ class ReservationController extends Controller
         $this->authorize('cancel reservations');
 
         $reservation->update([
-            'status' => 'cancelled'
+            'status' => 'cancelled',
+            'cancelled_by' => Auth::user()->getRoleNames()->first()
+
         ]);
 
         return back()->with('success', 'Reservation cancelled');

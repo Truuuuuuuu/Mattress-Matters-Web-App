@@ -61,7 +61,7 @@
                                 Joined {{$reservation->tenant->user->created_at->format('Y')}}</p>
                         </div>
                     </div>
-                    
+
                 </div>
                 @endrole
 

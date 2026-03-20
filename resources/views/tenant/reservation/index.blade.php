@@ -1,7 +1,6 @@
     <x-layout>
         <x-slot:heading>Reservation</x-slot:heading>
 
-
         <div class="flex items-start justify-center h-screen py-10 ">
 
                 <div class="tabs tabs-lift   max-w-2xl w-full ">
