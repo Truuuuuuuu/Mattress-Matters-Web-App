@@ -79,29 +79,56 @@
                 </div>
                 <div class="flex justify-end items-center gap-2 mt-5">
                     @role('host')
-                        <button onclick="confirmAction(
-                        '{{route('reservation.reject', $reservation)}}',
-                        'Reject Reservation?',
-                        'Are you sure you want to reject this reservation? This cannot be undone.',
-                        'Yes, Reject',
-                        'Cancel'
+                        @if($reservation->status === 'pending')
+                            <button onclick="confirmAction(
+                            '{{route('reservation.reject', $reservation)}}',
+                            'Reject Reservation?',
+                            'Are you sure you want to reject this reservation? This cannot be undone.',
+                            'Yes, Reject',
+                            'Cancel'
 
-                        )"
-                                class="btn btn-error  shrink-0 w-24">
-                            Reject
+                            )"
+                                    class="btn btn-error  shrink-0 w-24">
+                                Reject
+                            </button>
+                            <button onclick="confirmAction(
+                            '{{route('reservation.approve', $reservation)}}',
+                            'Approve Reservation?',
+                            'Are you sure you want to approve this reservation? This cannot be undone.',
+                            'Yes, Approve',
+                            'Cancel',
+                            'btn-success'
+
+                            )"
+                                    class="btn btn-success shrink-0 w-24">
+                                Approve
+                            </button>
+                        @else
+                        <button onclick="confirmAction(
+                            '{{route('reservation.cancel', $reservation)}}',
+                            'Cancel Reservation?',
+                            'Are you sure you want to cancel this reservation? This cannot be undone.',
+                            'Yes, Cancel',
+                            'Keep Reservation'
+
+                            )"
+                                class="btn btn-error ">
+                            Cancel Reservation
                         </button>
                         <button onclick="confirmAction(
-                        '{{route('reservation.approve', $reservation)}}',
-                        'Approve Reservation?',
-                        'Are you sure you want to approve this reservation? This cannot be undone.',
-                        'Yes, Approve',
-                        'Cancel',
-                        'btn-success'
+                            '{{route('reservation.approve', $reservation)}}',
+                            'Approve Reservation?',
+                            'Are you sure you want to approve this reservation? This cannot be undone.',
+                            'Yes, Approve',
+                            'Cancel',
+                            'btn-success'
 
-                        )"
+                            )"
                                 class="btn btn-success shrink-0 w-24">
-                            Approve
+                            Check In
                         </button>
+                        @endif
+
                     @endrole
 
                     @role('tenant')

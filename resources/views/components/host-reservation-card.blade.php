@@ -48,10 +48,16 @@
         </button>
 
     @endif--}}
+    @if($reservation->status === 'pending')
+        <a href="{{route('reservation.show', $reservation)}}" class = "btn btn-primary">
+            Review
+        </a>
 
-    <a href="{{route('reservation.show', $reservation)}}" class = "btn btn-primary">
-        Review
-    </a>
+    @else
+        <a href="{{route('reservation.show', $reservation)}}" class = "btn btn-primary">
+            View
+        </a>
+    @endif
 
 
 </div>

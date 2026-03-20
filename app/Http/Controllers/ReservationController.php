@@ -145,7 +145,7 @@ class ReservationController extends Controller
 
         ]);
 
-        return back()->with('success', 'Reservation cancelled');
+        return redirect()->route('reservation.index')->with('success', 'Reservation cancelled');
     }
 
     public function reject(Reservation $reservation)
