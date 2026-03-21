@@ -130,7 +130,7 @@ class ReservationController extends Controller
         ]);
 
 
-        return redirect()->route('listings.show', $listing)
+        return redirect()->route('reservation.index')
             ->with('success', 'Reservation created');
     }
 

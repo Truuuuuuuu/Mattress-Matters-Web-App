@@ -80,10 +80,11 @@
                     </div>
 
                 </div>
+                @role('tenant')
                 <div class="flex flex-col justify-end items-center gap-2 mt-5">
 
 
-                    @role('tenant')
+
                     <div class="w-full bg-green-500 text-center py-2 rounded-xl italic">
                         <p>Please complete your payment within 48 hours</p>
 
@@ -102,15 +103,24 @@
                         <img src="{{asset('images/Gcash-logo.svg')}}" alt="">
                         Pay with GCash
                     </button>
-
-
-                    @endrole
-
-
-
-
                 </div>
+                <div>
+                    <x-divider class="border border-black/20 my-5"/>
+                    <button onclick="confirmAction(
+                            '{{route('reservation.cancel', $reservation)}}',
+                            'Cancel Reservation?',
+                            'Are you sure you want to cancel this reservation? You are one step closer to securing this place',
+                            'Yes, Cancel',
+                            'Keep Reservation'
+
+                        )"
+                            class="btn btn-error  w-full">
+                        Cancel
+                    </button>
+                </div>
+                @endrole
             </div>
+
         </div>
     </section>
 
