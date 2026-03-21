@@ -65,11 +65,10 @@ class PaymentController extends Controller
             'amount'         => $request->amount,
             'description'    => $request->description,
             'payment_method' => 'GCASH',
+            'created_at'     => now(),
         ]);
 
-        $reservation->update([
-            'payment_status' => 'unpaid',
-        ]);
+
 
         session(['payment_reference' => $referenceId]);
 

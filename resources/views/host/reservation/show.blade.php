@@ -91,12 +91,15 @@
 
                     </div>
 
+
                     <button
+
                         id="pay-btn"
-                        class="btn btn-primary w-full mt-3"
-                        data-url="/payment/{{ $reservation->id }}/gcash"
+                        class="btn btn-white btn-xl py-10 w-full mt-3 rounded-xl border-blue-900"
+                        data-url="/payment/{{ $reservation->id}}/gcash"
                         data-amount="{{ $reservation->listing->rent_cost }}"
                         data-description="Reservation for {{ $reservation->listing->title }}">
+                        <img src="{{asset('images/Gcash-logo.svg')}}" alt="">
                         Pay with GCash
                     </button>
 
