@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Host\DashboardController;
 use App\Http\Controllers\Host\ListingController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ResultListingController;
 use App\Http\Controllers\Tenant\HomeController;
@@ -119,7 +120,16 @@ Route::get('/payment/success', [PaymentController::class, 'success'])->name('pay
 Route::get('/payment/failed', [PaymentController::class, 'failed'])->name('payment.failed');
 Route::post('/payment/webhook', [PaymentController::class, 'webhook'])->name('payment.webhook');
 
-
+/*Profile*/
+Route::middleware(['auth', 'role:host|role:tenant'])
+    ->prefix('profile')
+    ->name('profile.')
+    ->group(function () {
+        Route::get('/{user}', [ProfileController::class, 'index'])
+            ->name('index');
+        Route::get('/{user}/show', [ProfileController::class, 'show'])
+            ->name('show');
+    });
 //Listings results
 Route::get('/listings',[ResultListingController::class,'index'])->name('listings.index');
 

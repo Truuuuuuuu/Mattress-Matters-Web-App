@@ -1,0 +1,6 @@
+when testing the xendit payment sandbox uncomment codes in this files
+
+.env
+vite.config.js
+AppServiceProvider
+
