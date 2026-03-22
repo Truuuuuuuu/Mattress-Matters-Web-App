@@ -20,11 +20,11 @@
                 @role('host')
                 <h1 class="text-lg font-semibold italic text-base-content/70 mb-2">Reserved by</h1>
                 <div class="flex ">
-                    <div class=" flex flex-2 gap-2 items-center">
+                    <a href="{{route('profile.show', $reservation->tenant->user)}}" class="flex flex-2  items-center gap-2">
                         <div class="p-10 btn btn-circle bg-purple-700">
                             <p class="text-center text-3xl">{{$reservation->tenant->user->name[0]}}</p>
                         </div>
-                        <div >
+                        <div>
                             <h1 class="text-lg font-semibold line-clamp-1"
                                 title="{{ $reservation->tenant->user->name }}">
                                 {{ $reservation->tenant->user->name }}
@@ -32,7 +32,7 @@
                             <p class="text-base-content/70 -mt-2 text-sm">
                                 Joined {{$reservation->tenant->user->created_at->format('Y')}}</p>
                         </div>
-                    </div>
+                    </a>
                     <div class=" flex flex-col flex-1 px-2">
                         <div class="flex-1">
                             <p class="text-sm text-base-content/70">Gender</p>

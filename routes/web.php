@@ -121,11 +121,11 @@ Route::get('/payment/failed', [PaymentController::class, 'failed'])->name('payme
 Route::post('/payment/webhook', [PaymentController::class, 'webhook'])->name('payment.webhook');
 
 /*Profile*/
-Route::middleware(['auth', 'role:host|role:tenant'])
+Route::middleware(['auth', 'permission:view profile'])
     ->prefix('profile')
     ->name('profile.')
     ->group(function () {
-        Route::get('/{user}', [ProfileController::class, 'index'])
+        Route::get('/profile', [ProfileController::class, 'index'])
             ->name('index');
         Route::get('/{user}/show', [ProfileController::class, 'show'])
             ->name('show');
