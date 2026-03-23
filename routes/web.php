@@ -10,6 +10,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ResultListingController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\Tenant\HomeController;
 use App\Http\Controllers\Tenant\UnitController;
 use App\Models\Listing;
@@ -134,3 +135,17 @@ Route::middleware(['auth', 'permission:view profile'])
 Route::get('/listings',[ResultListingController::class,'index'])->name('listings.index');
 
 Route::get('/listings/{listing}', [ResultListingController::class, 'show'])->name('listings.show');
+
+//Settings
+Route::middleware('auth')
+    ->prefix('settings')
+    ->name('settings.')
+    ->group(function (){
+       Route::get('/settings/index', [SettingsController::class, 'index'])
+           ->name('index');
+       Route::post('/theme', [SettingsController::class, 'updateTheme'])
+           ->name('theme');
+    });
+
+
+Route::get('/settings', [SettingsController::class, 'index'])->name('settings');

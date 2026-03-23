@@ -1,5 +1,5 @@
-<!doctype html>
-<html lang="en" data-theme="light">
+<!doctype html >
+<html lang="en" data-theme="{{ auth()->user()->theme ?? 'light' }}">
 <head>
     <meta charset="UTF-8">
     <meta name="user-id" content="{{ Auth::id() ?? '' }}">
@@ -11,6 +11,7 @@
         rel="stylesheet">
     <title>{{$heading}}</title>
     @vite(['resources/js/app.js'])
+
 </head>
 <body class="text-black">
 <div>
@@ -106,7 +107,7 @@
                                     </svg>
                                 </div>
                                 <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-50 mt-13 w-52 p-2 shadow-sm font-normal">
-                                    <li><a >Settings</a></li>
+                                    <li><a href="{{route('settings.index')}}">Settings</a></li>
                                     <li>
                                             <form method="POST" action="/logout" class="hover:bg-red-100 hover:text-red-900" >
                                                 @csrf
