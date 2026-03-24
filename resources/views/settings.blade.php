@@ -11,17 +11,16 @@
                     <div>
                         <fieldset class="fieldset">
                             <label class="flex gap-2 cursor-pointer items-center">
-                                <input type="radio" name="theme-radios" class="radio radio-sm theme-controller" value="dark"/>
+                                <input type="radio" name="theme-radios" class="radio radio-sm theme-controller"
+                                       value="dark"  @checked($theme === 'dark')/>
                                 On
                             </label>
                             <label class="flex gap-2 cursor-pointer items-center">
-                                <input type="radio" name="theme-radios" class="radio radio-sm theme-controller" value="light"/>
+                                <input type="radio" name="theme-radios" class="radio radio-sm theme-controller"
+                                       value="light"   @checked($theme === 'light')/>
                                 Off
                             </label>
                         </fieldset>
-
-
-
                     </div>
                 </div>
 
