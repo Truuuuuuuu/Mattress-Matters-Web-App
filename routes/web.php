@@ -67,7 +67,6 @@ Route::middleware(['auth', 'role:tenant'])
             ->name('unit');
 
 
-
         Route::post('/reservations/store/{listing}', [ReservationController::class, 'store'])
             ->name('reservations.store');
 
@@ -112,6 +111,8 @@ Route::middleware(['auth', 'permission:cancel reservations'])
             ->name('decline');
         Route::patch('/{reservation}/accept', [ReservationController::class, 'accept'])
             ->name('accept');
+        Route::patch('/{reservation}/checkedIn', [ReservationController::class, 'checkedIn'])
+            ->name('checkedIn');
 
     });
 

@@ -25,6 +25,7 @@
                 $statusConfig = match($reservation->status) {
                     'declined'  => ['class' => 'badge-error',    'label' => 'Declined'],
                     'cancelled' => ['class' => 'badge-warning',  'label' => 'Cancelled'],
+                    'checked_in' => ['class' => 'badge-primary', 'label' => 'Checked In'],
                     'completed' => ['class' => 'badge-neutral', 'label' => 'Completed'],
                     default     => ['class' => 'badge-ghost',    'label' => ucfirst($reservation->status)],
                 };

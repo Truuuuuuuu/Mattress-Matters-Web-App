@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Listing;
 use App\Models\Payment;
+use App\Models\Rental;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -112,8 +114,19 @@ class PaymentController extends Controller
                 $payment->update(['status' => $status]);
 
                 if ($status === 'SUCCEEDED') {
-                    Reservation::where('id', $payment->reservation_id)
-                        ->update(['payment_status' => 'paid']);
+
+                        Reservation::where('id', $payment->reservation_id)
+                            ->update(['payment_status' => 'paid']);
+
+                        Rental::create([
+                            'user_id' => $payment->reservation->tenant_id,
+                            'listing_id' => $payment->reservation->listing_id,
+                            'reservation_id' => $payment->reservation_id,
+                            'status' => 'active'
+                        ]);
+
+                        Listing::where('id', $payment->reservation->listing_id)
+                            ->decrement('slot' , 1);
                 }
 
                 Log::info("Xendit webhook: {$chargeId} → {$status}");

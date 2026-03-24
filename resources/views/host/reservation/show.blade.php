@@ -80,19 +80,12 @@
                     </div>
 
                 </div>
-                @role('tenant')
+                @if(auth()->user()->hasRole('tenant') && $reservation->status === 'accepted' && $reservation->payment_status === 'unpaid' )
                 <div class="flex flex-col justify-end items-center gap-2 mt-5">
-
-
-
                     <div class="w-full bg-green-500 text-center py-2 rounded-xl italic">
                         <p>Please complete your payment within 48 hours</p>
-
                         <div id="error-msg" class="hidden text-red-500 mt-2"></div>
-
                     </div>
-
-
                     <button
 
                         id="pay-btn"
@@ -118,7 +111,59 @@
                         Cancel
                     </button>
                 </div>
-                @endrole
+
+                @elseif(auth()->user()->hasRole('tenant') && $reservation->status === 'accepted' && $reservation->payment_status === 'paid')
+
+                    <div>
+                        <x-divider class="border border-black/20 my-5"/>
+                        <button onclick="confirmAction(
+                            '{{route('reservation.checkedIn', $reservation)}}',
+                            'Confirm Check In?',
+                            'Are you sure you want to check in? Your stay begins once confirmed.',
+                            'Yes, I\'m here!',
+                            'Not Yet',
+                            'success'
+
+                        )"
+                                class="btn btn-success  w-full">
+                            Check In
+                        </button>
+                    </div>
+                @endif
+
+                @if(auth()->user()->hasRole('host') && $reservation->status === 'pending')
+                <x-divider class="border border-black/20 my-5"/>
+                <div class="flex justify-stretch  gap-5">
+                    <div class="w-full">
+                        <button onclick="confirmAction(
+                            '{{route('reservation.decline', $reservation)}}',
+                            'Decline Reservation?',
+                            'Are you sure you want to decline this reservation? You are one step closer to securing this place',
+                            'Yes, Decline',
+                            'Cancel'
+
+                        )"
+                                class="btn btn-error w-full">
+                            Decline
+                        </button>
+                    </div>
+                    <div class="w-full">
+
+                        <button onclick="confirmAction(
+                            '{{route('reservation.accept', $reservation)}}',
+                            'Accept Reservation?',
+                            'Are you sure you want to accept this reservation? You are one step closer to securing this place',
+                            'Yes, Accept',
+                            'Cancel',
+                            'primary'
+
+                        )"
+                                class="btn btn-primary  w-full">
+                            Accept
+                        </button>
+                    </div>
+                </div>
+                @endif
             </div>
 
         </div>

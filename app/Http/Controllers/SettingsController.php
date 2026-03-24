@@ -19,6 +19,6 @@ class SettingsController extends Controller
 
         auth()->user()->update(['theme' => $request->theme]);
 
-        return response()->json(['success' => true]);
+        return redirect()->route('settings.index');
     }
 }

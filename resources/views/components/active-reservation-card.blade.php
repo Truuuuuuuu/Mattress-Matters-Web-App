@@ -17,9 +17,14 @@
         </div>
 
         <div class="min-w-0">
-            @if($activeReservation->status === 'accepted')
+            @if($activeReservation->status === 'accepted' && $activeReservation->payment_status === 'unpaid')
                 <div class=" w-full px-2 py-1 rounded-xl bg-orange-500">
                     <p class="text-xs italic text-base-content/80 "> Please complete your payment within 48 hours.</p>
+                </div>
+
+            @elseif($activeReservation->status === 'accepted' && $activeReservation->payment_status === 'paid')
+                <div class=" w-full px-2 py-1 rounded-xl bg-green-500">
+                    <p class="text-xs italic text-base-content/80 "> You're all set! Please check in upon arrival.</p>
                 </div>
             @endif
 

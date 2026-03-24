@@ -52,13 +52,13 @@ class ReservationController extends Controller
 
         $activeReservation = Reservation::with(['listing.listingImages' => fn($q) => $q->where('is_cover', true)])
         ->where('tenant_id', $user->tenant->id)
-        ->whereIn('status', ['pending', 'accepted', 'checked_in'])
+        ->whereIn('status', ['pending', 'accepted'])
         ->latest()
         ->first();
 
         $allReservations = Reservation::with(['listing.listingImages' => fn($q) => $q->where('is_cover', true)])
             ->where('tenant_id', $user->tenant->id)
-            ->whereIn('status', ['declined', 'cancelled', 'completed' , 'expired'])
+            ->whereIn('status', ['declined', 'cancelled','checked_in',  'completed' , 'expired'])
             ->latest()
             ->paginate(10);
 
@@ -165,9 +165,13 @@ class ReservationController extends Controller
         return redirect()->route('reservation.index')->with('success', 'Reservation accepted');
     }
 
+    public function checkedIn(Reservation $reservation)
+    {
+        $reservation->update([
+            'status' => 'checked_in'
+        ]);
 
-
-
-
+        return redirect()->route('reservation.index')->with('success', 'Enjoy your stay!');
+    }
 
 }

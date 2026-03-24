@@ -12,12 +12,9 @@ class Rental extends Model
 
     protected $fillable = [
         'user_id',
-        'property_id',
-        'start_date',
-        'end_date',
+        'listing_id',
+        'reservation_id',
         'status',
-        'payment_status',
-        'price',
     ];
 
     public function user(): BelongsTo
