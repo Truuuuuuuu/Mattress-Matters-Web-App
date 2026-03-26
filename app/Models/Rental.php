@@ -17,9 +17,9 @@ class Rental extends Model
         'status',
     ];
 
-    public function user(): BelongsTo
+    public function tenant(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Tenant::class);
     }
 
     public function listing(): BelongsTo

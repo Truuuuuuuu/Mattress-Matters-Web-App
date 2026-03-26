@@ -65,13 +65,18 @@
                        </div>
 
                         <div>
+                            <a href="{{route('reservation.index')}}" class="text-center block">Reservations</a>
+                            <div class="{{request()->routeIs('reservation.index') ? 'bg-black w-27 h-1 rounded-xl' : ''}}"></div>
+                        </div>
+
+                        <div>
                             <a href="{{route('host.listings')}}" class="text-center block">Listings</a>
                             <div class="{{request()->routeIs('host.listings') ? 'bg-black w-17 h-1 rounded-xl' : ''}}"></div>
                         </div>
 
                         <div>
-                            <a href="{{route('reservation.index')}}" class="text-center block">Reservations</a>
-                            <div class="{{request()->routeIs('reservation.index') ? 'bg-black w-27 h-1 rounded-xl' : ''}}"></div>
+                            <a href="{{route('host.tenants.index')}}" class="text-center block">Tenants</a>
+                            <div class="{{request()->routeIs('host.tenants.index') ? 'bg-black w-17 h-1 rounded-xl' : ''}}"></div>
                         </div>
                     </div>
                     @endrole

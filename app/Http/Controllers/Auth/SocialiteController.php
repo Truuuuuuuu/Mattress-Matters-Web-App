@@ -73,7 +73,7 @@ class SocialiteController extends Controller
             session()->put('google_email', $socialiteUser->getEmail());
             session()->put('google_provider_id', $socialiteUser->getId());
 
-            return redirect()->route('google-register');
+            return redirect()->route('google.register');
         }
 
 

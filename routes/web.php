@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\SessionController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Host\DashboardController;
 use App\Http\Controllers\Host\ListingController;
+use App\Http\Controllers\Host\ManageTenant;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
@@ -94,6 +95,10 @@ Route::middleware(['auth', 'role:host'])
             ->name('update');
         Route::delete('/host-delete/{listing}', [ListingController::class, 'destroy'])
             ->name('delete');
+        Route::get('/tenants/index', [ManageTenant::class, 'index'])
+            ->name('tenants.index');
+        Route::get('/tenants/show', [ManageTenant::class, 'show'])
+            ->name('tenants.show');
     });
 
 /*Reservation*/
