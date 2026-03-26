@@ -30,10 +30,10 @@ Route::get('/', function () {
 
 
 Route::middleware('guest')->group(function () {
-    Route::get('/google-register', [GoogleRegisterController::class, 'create'])->name('google-register');
+    Route::get('/google-register', [GoogleRegisterController::class, 'create'])->name('google.register');
     Route::post('/google-register', [GoogleRegisterController::class, 'store']);
 
-    Route::get('/email-register', [EmailRegisterController::class, 'create']);
+    Route::get('/email-register', [EmailRegisterController::class, 'create'])->name('email.register');
     Route::post('/email-register', [EmailRegisterController::class, 'store']);
 
     Route::get('/login', [SessionController::class, 'create'])->name('login');

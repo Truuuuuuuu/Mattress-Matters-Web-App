@@ -16,6 +16,7 @@
 
         </div>
 
+        @role('tenant')
         <form action="{{ route('tenant.reservations.store', $listing) }}" method="POST" class="mt-4">
             @csrf
             <input type="hidden" name="tenant_id" value="{{ auth()->user()->id}}">
@@ -39,6 +40,8 @@
                 <button type="submit" class="btn btn-neutral">Confirm</button>
             </div>
         </form>
+        @endrole
+
     </div>
 </dialog>
 
