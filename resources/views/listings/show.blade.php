@@ -80,13 +80,19 @@
 
                     <x-divider class="bg-gray-300"/>
                     {{--host profile--}}
+
                     <a href="{{route('profile.show', $listing->host->user)}}">
                         <div class="py-5 flex justify-start gap-5">
                             <div class="btn btn-lg btn-circle btn-secondary ">
                                 {{$listing->host->user->name[0]}}
                             </div>
                             <div>
-                                <h1 class="font-semibold">Hosted by {{$listing->host->user->name}}</h1>
+                                @if(auth()->user()->id === $listing->host->user->id)
+                                    <h1 class="font-semibold">Hosted by YOU</h1>
+                                @else
+                                    <h1 class="font-semibold">Hosted by {{$listing->host->user->name}}</h1>
+                                @endif
+
                                 <p class="text-base-content/70">Joined {{$listing->host->user->created_at->format('Y')}}</p>
                             </div>
                         </div>

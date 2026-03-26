@@ -11,7 +11,7 @@
         <p class="text-xs text-base-content/60  line-clamp-1 w-full  text-center"
            title="{{$myTenant->tenant->user->email}}">{{$myTenant->tenant->user->email}}</p>
         <div class="card-actions w-full">
-            <button class="btn btn-primary btn-sm w-full">Details</button>
+            <a href="{{route('host.tenants.show', $myTenant->tenant)}}" class="btn btn-primary btn-sm w-full">Details</a>
         </div>
     </div>
 </div>

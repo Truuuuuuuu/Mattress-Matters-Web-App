@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Listing;
+use App\Models\Rental;
 use App\Models\Reservation;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
@@ -169,6 +170,10 @@ class ReservationController extends Controller
     {
         $reservation->update([
             'status' => 'checked_in'
+        ]);
+
+        Rental::update([
+            'updated_at' => now()
         ]);
 
         return redirect()->route('reservation.index')->with('success', 'Enjoy your stay!');

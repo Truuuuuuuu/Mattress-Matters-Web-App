@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Host;
 use App\Http\Controllers\Controller;
 use App\Models\Rental;
 use App\Models\Reservation;
+use App\Models\Tenant;
 use Illuminate\Http\Request;
 
 class ManageTenant extends Controller
@@ -22,9 +23,14 @@ class ManageTenant extends Controller
         return view('host.tenants.index', compact('myTenants'));
     }
 
-    public function show()
+    public function show(Tenant $tenant)
     {
-        return view('host.tenants.show');
+        $tenant->load([
+            'user',
+            'rentals' => fn($q) => $q->where('status', 'active')->with('listing')
+        ]);
+
+        return view('host.tenants.show', compact('tenant'));
     }
 
 }

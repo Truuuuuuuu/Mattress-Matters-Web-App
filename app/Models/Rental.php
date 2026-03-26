@@ -15,6 +15,7 @@ class Rental extends Model
         'listing_id',
         'reservation_id',
         'status',
+        'updated_at'
     ];
 
     public function tenant(): BelongsTo

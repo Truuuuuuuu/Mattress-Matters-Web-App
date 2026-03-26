@@ -24,7 +24,7 @@
     <td>₱{{number_format($myTenant->listing->rent_cost,2)}}</td>
 
     <th>
-        <button class="btn btn-ghost btn-xs">details</button>
+        <a href="{{route('host.tenants.show', $myTenant->tenant)}}" class="btn btn-ghost btn-xs">details</a>
     </th>
 </tr>
 
