@@ -3,12 +3,15 @@
 
     <div class="px-10 mt-10">
         {{--Content--}}
-        <div class="mb-8">
-            <a onclick="history.back()" class=" flex gap-1 items-center cursor-pointer group w-18 ">
-                <x-lucide-chevron-left class="w-7 h-7 group-hover:text-blue-800"/>
-                <p class="group-hover:text-blue-800">Back</p>
-            </a>
-        </div>
+        @guest
+            <div class="mb-8">
+                <a onclick="history.back()" class=" flex gap-1 items-center cursor-pointer group w-18 ">
+                    <x-lucide-chevron-left class="w-7 h-7 group-hover:text-blue-800"/>
+                    <p class="group-hover:text-blue-800">Back</p>
+                </a>
+            </div>
+        @endguest
+
         <section>
             <div>
                 {{--search bar w filter--}}
