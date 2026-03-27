@@ -63,11 +63,11 @@
                             @endphp
                             <div>
                                 <h1 class="text-sm font-bold text-base-content/70 -mb-2">Electricity Cost</h1>
-                                <h1 class=" {{$electric_cost ? 'text-3xl text-bold ' : 'text-thin text-xl text-base-content/70 '}}">{{$myUnit->listing->electricity_cost ? number_format('₱'. $myUnit->listing->electricity_cost,2) : 'N/A' }}</h1>
+                                <h1 class=" {{$electric_cost ? 'text-3xl text-bold ' : 'text-thin text-xl text-base-content/70 '}}">{{$myUnit->listing->electricity_cost ? '₱'. number_format( $myUnit->listing->electricity_cost,2) : 'N/A' }}</h1>
                             </div>
                             <div>
                                 <h1 class="text-sm font-bold text-base-content/70 -mb-2">Water Supply Cost</h1>
-                                <h1 class=" {{$water_cost ? 'text-3xl text-bold ' : 'text-thin text-xl text-base-content/70'}}">{{$myUnit->listing->water_supply_cost_cost ? number_format('₱'. $myUnit->listing->water_supply_cost,2) : 'N/A' }}</h1>
+                                <h1 class=" {{$water_cost ? 'text-3xl text-bold ' : 'text-thin text-xl text-base-content/70'}}">{{$myUnit->listing->water_supply_cost_cost ? '₱'. number_format( $myUnit->listing->water_supply_cost,2) : 'N/A' }}</h1>
                             </div>
                         </div>
                         <div class="border rounded-xl px-2 py-4 flex flex-col items-center">

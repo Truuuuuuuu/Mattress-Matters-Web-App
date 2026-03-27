@@ -172,6 +172,9 @@ class ReservationController extends Controller
             'status' => 'checked_in'
         ]);
 
+        /*update the updated_at*/
+        $reservation->rental->touch();
+
 
 
         return redirect()->route('reservation.index')->with('success', 'Enjoy your stay!');

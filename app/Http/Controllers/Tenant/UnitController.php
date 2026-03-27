@@ -12,9 +12,10 @@ class UnitController extends Controller
         $user = auth()->user()->tenant->id;
 
         $myUnit = Rental::where('tenant_id', $user)
-        ->where('status', 'active')
-        ->with(['listing.listingImages', 'listing.amenities', 'listing.rules'])
-        ->first();
+            ->whereHas('reservation', fn($q) => $q->where('status', 'checked_in'))
+            ->where('status', 'active')
+            ->with(['listing.listingImages', 'listing.amenities', 'listing.rules'])
+            ->first();
 
 
         return view('tenant.my-unit', compact('myUnit'));

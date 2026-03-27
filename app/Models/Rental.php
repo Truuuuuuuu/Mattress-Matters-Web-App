@@ -28,6 +28,12 @@ class Rental extends Model
         return $this->belongsTo(Listing::class);
     }
 
+    public function reservation(): BelongsTo
+    {
+        return $this->belongsTo(Reservation::class);
+    }
+
+
 
     public function isActive(): bool
     {
