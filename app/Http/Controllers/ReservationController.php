@@ -172,9 +172,7 @@ class ReservationController extends Controller
             'status' => 'checked_in'
         ]);
 
-        Rental::update([
-            'updated_at' => now()
-        ]);
+
 
         return redirect()->route('reservation.index')->with('success', 'Enjoy your stay!');
     }

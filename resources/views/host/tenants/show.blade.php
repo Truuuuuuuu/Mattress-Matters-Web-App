@@ -10,7 +10,7 @@
                </div>
                <div class="flex flex-col items-center">
                    <p class="text-lg font-semibold line-clamp-1" title="{{$rental->listing->title}}">{{$rental->listing->title}}</p>
-                   <a href="{{route('listings.show', $rental->listing)}}" class="btn btn-neutral btn-sm px-10">Visit </a>
+                   <a href="{{route('host.show', $rental->listing)}}" class="btn btn-neutral btn-sm px-10">Visit </a>
                </div>
 
            </div>

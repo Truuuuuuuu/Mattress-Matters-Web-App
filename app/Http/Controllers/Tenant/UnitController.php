@@ -17,7 +17,6 @@ class UnitController extends Controller
         ->first();
 
 
-
         return view('tenant.my-unit', compact('myUnit'));
     }
 }

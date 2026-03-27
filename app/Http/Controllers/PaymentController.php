@@ -116,17 +116,14 @@ class PaymentController extends Controller
                 if ($status === 'SUCCEEDED') {
 
                         Reservation::where('id', $payment->reservation_id)
-                            ->update(['payment_status' => 'paid']);
+                                ->update(['payment_status' => 'paid']);
 
                         Rental::create([
-                            'user_id' => $payment->reservation->tenant_id,
-                            'listing_id' => $payment->reservation->listing_id,
-                            'reservation_id' => $payment->reservation_id,
-                            'status' => 'active'
-                        ]);
-
-                        Listing::where('id', $payment->reservation->listing_id)
-                            ->decrement('slot' , 1);
+                           'tenant_id' => $payment->reservation->tenant_id,
+                           'listing_id' => $payment->reservation->listing_id,
+                           'reservation_id' => $payment->reservation_id,
+                           'status' => 'active'
+                       ]);
                 }
 
                 Log::info("Xendit webhook: {$chargeId} → {$status}");

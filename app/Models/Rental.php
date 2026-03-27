@@ -11,7 +11,7 @@ class Rental extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
+        'tenant_id',
         'listing_id',
         'reservation_id',
         'status',
