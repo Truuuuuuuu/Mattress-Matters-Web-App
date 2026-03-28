@@ -88,12 +88,16 @@
                     <div class="border border-red-900 rounded-xl px-4">
                         <div class="flex my-3">
                             <div class="flex-3 flex flex-col justify-center">
-                                <h1 class="font-semibold -mb-2 text-red-700">Request move-out?</h1>
-                                <p class="text-sm">This will notify the landlord and may end your stay.</p>
+                                <h1 class="font-semibold -mb-2 text-red-700">Leave this rental?</h1>
+                                <p class="text-sm">Your landlord will be notified and your rental will end on your selected date.</p>
                             </div>
+
                             <div class="flex-1 w-full">
-                                <button class="btn btn-outline btn-error w-full">Leave</button>
+                                <btn onclick="move_out_modal.showModal()" class="btn btn-outline btn-error w-full">Move Out</btn>
                             </div>
+
+                            @include('components.confirm-move-out', ['rental' => $myUnit])
+
 
                         </div>
                     </div>

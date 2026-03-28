@@ -66,7 +66,8 @@ Route::middleware(['auth', 'role:tenant'])
 
         Route::get('/my-unit', [UnitController::class, 'index'])
             ->name('unit');
-
+        Route::post('/my-unit/{rental}/move-out', [UnitController::class, 'store'])
+            ->name('moveOutNotice.store');
 
         Route::post('/reservations/store/{listing}', [ReservationController::class, 'store'])
             ->name('reservations.store');

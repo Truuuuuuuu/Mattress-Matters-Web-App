@@ -288,7 +288,7 @@ class ListingController extends Controller
 
     public function destroy(Listing $listing)
     {
-        
+
         if($listing->rentals()->where('status', 'active')->exists()) {
             return redirect(route('host.listings'))->with('warning', 'Active listing cannot be deleted.');
         }

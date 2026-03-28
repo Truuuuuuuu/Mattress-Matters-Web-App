@@ -1,0 +1,31 @@
+<?php
+
+use App\Models\Rental;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('move_out_notices', function (Blueprint $table) {
+            $table->id();
+            $table->foreignIdFor(Rental::class)->constrained()->cascadeOnDelete();
+            $table->date('move_out_date');
+            $table->text('reason')->nullable();
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('move_out_notices');
+    }
+};

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Rental extends Model
 {
@@ -33,11 +34,21 @@ class Rental extends Model
         return $this->belongsTo(Reservation::class);
     }
 
+    public function moveOutNotice(): HasOne
+    {
+        return $this->hasOne(MoveOutNotice::class);
+    }
+
 
 
     public function isActive(): bool
     {
         return $this->status === 'active';
+    }
+
+    public function isEnded(): bool
+    {
+        return $this->status === 'ended';
     }
 
     //scope to get active rentals only
