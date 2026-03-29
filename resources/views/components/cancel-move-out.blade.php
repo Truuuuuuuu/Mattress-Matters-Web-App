@@ -4,7 +4,7 @@
         <p class="py-2 text-sm text-gray-500">
             Are you sure you want to cancel your move out notice? Your landlord will be notified.
         </p>
-        <form method="POST" action="{{ route('tenant.moveOutNotice.update', $rental) }}">
+        <form method="POST" action="{{ route('tenant.moveOutNotice.cancel', $rental) }}">
             @csrf
             @method('PATCH')
             <div class="modal-action">

@@ -11,6 +11,7 @@ class MoveOutNotice extends Model
         'rental_id',
         'move_out_date',
         'reason',
+        'status',
         'cancelled_at'
     ];
 
@@ -37,12 +38,17 @@ class MoveOutNotice extends Model
     public function isCancellable(): bool
     {
 
-        return $this->cancelled_at === null && $this->created_at->diffInHours(now()) <= 24;
+        return $this->status === 'active'  && $this->created_at->diffInHours(now()) <= 24;
     }
 
     public function canSubmitMoveOut(): bool
     {
-        return $this->cancelled_at === null || $this->cancelled_at->diffInDays(now()) >= 7;
+        if ($this->status === 'active') {
+            return false;
+        }
+
+        return $this->status === 'cancelled'
+            && $this->cancelled_at->diffInDays(now()) >= 7;
     }
 
     public function daysUntilCanResubmit(): int

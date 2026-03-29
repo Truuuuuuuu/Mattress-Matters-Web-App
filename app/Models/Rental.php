@@ -36,7 +36,7 @@ class Rental extends Model
 
     public function moveOutNotice(): HasOne
     {
-        return $this->hasOne(MoveOutNotice::class);
+        return $this->hasOne(MoveOutNotice::class)->latestOfMany();
     }
 
 

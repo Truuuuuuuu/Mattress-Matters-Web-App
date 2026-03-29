@@ -45,6 +45,7 @@ class UnitController extends Controller
 
     public function update(Rental $rental){
         $rental->moveOutNotice->update([
+            'status' => 'cancelled',
             'cancelled_at' => now()
         ]);
 
