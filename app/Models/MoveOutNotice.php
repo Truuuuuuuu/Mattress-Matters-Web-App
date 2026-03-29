@@ -49,4 +49,9 @@ class MoveOutNotice extends Model
     {
         return max(0, 7 - (int) $this->cancelled_at->diffInDays(now()));
     }
+
+    public function hoursUntilCanCancel(): int
+    {
+        return max(0, 24 - (int) $this->created_at->diffInHours(now()));
+    }
 }

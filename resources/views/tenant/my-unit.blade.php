@@ -110,6 +110,17 @@
                         <div>
                             @if ($myUnit->moveOutNotice?->isActive() && !$myUnit->moveOutNotice->isCancellable())
                                 <p class="text-sm text-gray-500 mt-2">Your move out notice can no longer be cancelled. Contact your landlord directly.</p>
+                            @elseif($myUnit->moveOutNotice?->isActive() && $myUnit->moveOutNotice->isCancellable())
+                                @if($myUnit->moveOutNotice->hoursUntilCanCancel() <= 4 )
+                                    <div class="rounded-xl bg-red-300 px-4 mt-2">
+                                        <p class="text-base-content text-sm">Cancellation window closing soon — only {{ $myUnit->moveOutNotice->hoursUntilCanCancel() }} hour(s) left.</p>
+                                    </div>
+                                @else
+                                    <div class="rounded-xl bg-yellow-300 px-4 mt-2">
+                                        <p class="text-base-content text-sm">You have {{ $myUnit->moveOutNotice->hoursUntilCanCancel() }} hour(s) left to
+                                            cancel this notice.</p>
+                                    </div>
+                                @endif
                             @elseif ($myUnit->moveOutNotice?->isCancelled() && !$myUnit->moveOutNotice->canSubmitMoveOut())
                                 <p class="text-sm text-gray-500 mt-2">You recently cancelled a move out notice. Please wait {{$myUnit->moveOutNotice->daysUntilCanResubmit()}} days before submitting a new one.</p>
                             @endif
