@@ -16,7 +16,7 @@
             </div>
             <div class=" flex-2 h-full px-5">
                 <div class=" w-full max-w-lg mt-10 text-3xl font-bold">
-                    Your Safe Place
+                    My Safe Place
                 </div>
 
                 <div class=" flex gap-2">

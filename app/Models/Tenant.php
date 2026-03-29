@@ -29,5 +29,10 @@ class Tenant extends Model
         return $this->hasMany(Rental::class);
     }
 
+    public function hasActiveRental(): bool
+    {
+        return $this->rentals()->exists();
+    }
+
 
 }

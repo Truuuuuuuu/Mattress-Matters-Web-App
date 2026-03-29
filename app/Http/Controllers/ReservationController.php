@@ -84,6 +84,10 @@ class ReservationController extends Controller
             ->whereIn('status',['pending', 'accepted', 'checked_in'])
             ->exists();
 
+        if($tenant->hasActiveRental()){
+            return redirect()->route('tenant.unit')
+                ->with('error', 'You already have an active rental');
+        }
 
         if($hasActive){
             return redirect()->route('reservation.index')
