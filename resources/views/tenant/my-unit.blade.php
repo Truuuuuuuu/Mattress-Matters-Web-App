@@ -83,25 +83,48 @@
                         </div>
                     </div>
                 </div>
+                {{--Danger Zone--}}
                 <div class="w-full my-10">
                     <h1 class="text-xl font-bold mb-2">Danger Zone</h1>
-                    <div class="border border-red-900 rounded-xl px-4">
-                        <div class="flex my-3">
-                            <div class="flex-3 flex flex-col justify-center">
+                    <div class="border border-red-900 rounded-xl px-4 py-3">
+
+                        <div class="flex items-center gap-4">
+                            <div class="flex-1 flex flex-col justify-center">
                                 <h1 class="font-semibold -mb-2 text-red-700">Leave this rental?</h1>
                                 <p class="text-sm">Your landlord will be notified and your rental will end on your selected date.</p>
                             </div>
-
-                            <div class="flex-1 w-full">
-                                <btn onclick="move_out_modal.showModal()" class="btn btn-outline btn-error w-full">Move Out</btn>
-                            </div>
-
-                            @include('components.confirm-move-out', ['rental' => $myUnit])
-
-
+                            {{-- Button column - only show if action is available --}}
+                           <div>
+                               @if ($myUnit->moveOutNotice?->isActive() && $myUnit->moveOutNotice->isCancellable())
+                                   <button onclick="cancel_move_out_modal.showModal()" class="btn btn-outline btn-error shrink-0">
+                                       Cancel Notice
+                                   </button>
+                               @elseif (!$myUnit->moveOutNotice?->isActive() && (!$myUnit->moveOutNotice || $myUnit->moveOutNotice->canSubmitMoveOut()))
+                                   <button onclick="confirm_move_out_modal.showModal()" class="btn btn-outline btn-error shrink-0">
+                                       Move Out
+                                   </button>
+                               @endif
+                           </div>
+                        </div>
+                        {{-- Warning messages span full width below --}}
+                        <div>
+                            @if ($myUnit->moveOutNotice?->isActive() && !$myUnit->moveOutNotice->isCancellable())
+                                <p class="text-sm text-gray-500 mt-2">Your move out notice can no longer be cancelled. Contact your landlord directly.</p>
+                            @elseif ($myUnit->moveOutNotice?->isCancelled() && !$myUnit->moveOutNotice->canSubmitMoveOut())
+                                <p class="text-sm text-gray-500 mt-2">You recently cancelled a move out notice. Please wait 7 days before submitting a new one.</p>
+                            @endif
                         </div>
                     </div>
                 </div>
+
+                @if ($myUnit->moveOutNotice?->isActive() && $myUnit->moveOutNotice->isCancellable())
+                    @include('components.cancel-move-out', ['rental' => $myUnit])
+                @endif
+
+                @if (!$myUnit->moveOutNotice?->isActive() && (!$myUnit->moveOutNotice || $myUnit->moveOutNotice->canSubmitMoveOut()))
+                    @include('components.confirm-move-out', ['rental' => $myUnit])
+                @endif
+
             </div>
         @else
             <div>

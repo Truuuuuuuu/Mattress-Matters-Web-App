@@ -68,6 +68,8 @@ Route::middleware(['auth', 'role:tenant'])
             ->name('unit');
         Route::post('/my-unit/{rental}/move-out', [UnitController::class, 'store'])
             ->name('moveOutNotice.store');
+        Route::patch('/my-unit/{rental}/cancel-move-out', [UnitController::class, 'update'])
+            ->name('moveOutNotice.update');
 
         Route::post('/reservations/store/{listing}', [ReservationController::class, 'store'])
             ->name('reservations.store');

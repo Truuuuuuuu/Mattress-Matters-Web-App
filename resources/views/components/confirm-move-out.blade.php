@@ -1,4 +1,4 @@
-<dialog id="move_out_modal" class="modal">
+<dialog id="confirm_move_out_modal" class="modal">
     <div class="modal-box">
         <h3 class="font-bold text-lg">Move Out</h3>
         <p class="py-2 text-sm text-gray-500">

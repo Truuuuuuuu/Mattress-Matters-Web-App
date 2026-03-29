@@ -15,7 +15,7 @@ class UnitController extends Controller
         $myUnit = Rental::where('tenant_id', $user)
             ->whereHas('reservation', fn($q) => $q->where('status', 'checked_in'))
             ->where('status', 'active')
-            ->with(['listing.listingImages', 'listing.amenities', 'listing.rules'])
+            ->with(['listing.listingImages', 'listing.amenities', 'listing.rules', 'moveOutNotice'])
             ->first();
 
 
@@ -41,6 +41,14 @@ class UnitController extends Controller
         MoveOutNotice::create(array_merge($attributes, ['rental_id' => $rental->id]));
 
         return redirect()->route('tenant.unit')->with('success', 'Move out notice has been created.');
+    }
+
+    public function update(Rental $rental){
+        $rental->moveOutNotice->update([
+            'cancelled_at' => now()
+        ]);
+
+        return redirect()->route('tenant.unit')->with('success', 'Move out notice has been cancelled.');
     }
 
 
