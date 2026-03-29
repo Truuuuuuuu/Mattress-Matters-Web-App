@@ -21,13 +21,25 @@ class ManageTenant extends Controller
             ->latest()
             ->paginate(3);
 
-        $movingOutTenants = Rental::with(['listing', 'tenant.user', 'moveOutNotice'])
-            ->whereHas('listing', fn($q) => $q->where('host_id', $user->id))
-            ->whereHas('moveOutNotice')
+        $movingOutTenants = Rental::with(['moveOutNotice','listing', 'tenant.user'])
+            ->whereHas('moveOutNotice', fn($q) => $q->where('status', 'active'))
             ->get()
             ->sortBy('moveOutNotice.move_out_date');
 
-        return view('host.tenants.index', compact(['myTenants', 'movingOutTenants']));
+
+        $moveOutHistory = Rental::with([
+            'moveOutNotices' => fn($q) => $q->whereIn('status', ['cancelled', 'completed'])
+                ->with(['rental.listing', 'rental.tenant.user']), // eager load rental relationships
+            'tenant.user',
+            'listing'
+        ])
+            ->whereHas('moveOutNotices', fn($q) => $q->whereIn('status', ['cancelled', 'completed']))
+            ->get()
+            ->flatMap(fn($rental) => $rental->moveOutNotices)
+            ->sortByDesc('move_out_date');
+
+
+        return view('host.tenants.index', compact(['myTenants', 'movingOutTenants', 'moveOutHistory']));
     }
 
     public function show(Tenant $tenant)

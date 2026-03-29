@@ -21,7 +21,7 @@
         {{$movingOutTenant->listing->title}}
     </td>
     {{--notice filed--}}
-    <td>{{ $movingOutTenant->created_at->format('M d, Y') }}</td>
+    <td>{{ $movingOutTenant->moveOutNotice->created_at->format('M d, Y') }}</td>
 
     {{--Move out date--}}
     <td>{{ $movingOutTenant->moveOutNotice->move_out_date->format('M d, Y') }}</td>

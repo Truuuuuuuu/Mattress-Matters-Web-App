@@ -4,7 +4,7 @@
     <!-- name of each tab group should be unique -->
     <div class="tabs tabs-lift px-15 mt-5">
         <label class="tab">
-            <input type="radio" name="my_tabs_4" checked="checked"/>
+            <input type="radio" name="my_tabs_4" />
             <span class="size-2 rounded-full bg-success mr-3"></span>
             Active
         </label>
@@ -117,12 +117,56 @@
         </div>
 
         <label class="tab">
-            <input type="radio" name="my_tabs_4" />
-            <x-lucide-history class="size-4 mr-3 text-base-content"/>
+            <input type="radio" name="my_tabs_4" checked="checked" />
+            <x-lucide-history class="size-4 mr-3 text-base-content" />
             History
         </label>
         <div class="tab-content bg-base-100 border-base-300 p-6">
-            History
+            <section>
+                <div class="flex justify-between ">
+                    <div class="flex items-center ">
+                        <h1 class="text-3xl font-semibold">History</h1>
+                    </div>
+                    <div>
+                        <x-search-bar />
+                    </div>
+                </div>
+                <!-- Toggle Buttons -->
+                <div class="join mb-4 flex justify-end  mt-4">
+                    <button class="btn join-item" onclick="setView3('card')"><x-lucide-layout-grid class="h-4 w-4"/> Cards</button>
+                    <button class="btn join-item" onclick="setView3('list')"><x-lucide-list class="h-4 w-4"/> List</button>
+                </div>
+                <!-- Card View -->
+                <div id="history-move-out-card-view" class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                    @forelse($moveOutHistory as $moveOutNoticeHistory)
+                        <x-move-out-notice-history-card :$moveOutNoticeHistory/>
+                    @empty
+                        <p>You have no history of move out notice</p>
+                    @endforelse
+                </div>
+
+                <!-- List View -->
+                <div id="history-move-out-list-view" class="hidden flex flex-col gap-2 ">
+                    <div class="overflow-x-auto">
+                        <table class="table w-full">
+                            <!-- head -->
+                            <thead>
+                            <tr>
+                                <th class="w-2/3">Tenant</th>
+                                <th class="w-1/3"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @forelse($moveOutHistory as $moveOutNoticeHistory)
+                                <x-move-out-notice-history-list :$moveOutNoticeHistory/>
+                            @empty
+                                <td colspan="5" class="text-center mt-10">No history of move out notice </td>
+                            @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
         </div>
     </div>
 
@@ -145,5 +189,12 @@
         document.getElementById('move-out-card-view').classList.toggle('hidden', type !== 'card');
         document.getElementById('move-out-list-view').classList.toggle('hidden', type !== 'list');
     }
+
+    function setView3(type) {
+        document.getElementById('history-move-out-card-view').classList.toggle('hidden', type !== 'card');
+        document.getElementById('history-move-out-list-view').classList.toggle('hidden', type !== 'list');
+    }
+
+
 
 </script>

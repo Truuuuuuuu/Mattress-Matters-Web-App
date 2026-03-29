@@ -19,6 +19,10 @@ class Rental extends Model
         'updated_at'
     ];
 
+    protected $casts = [
+        'updated_at' => 'datetime'
+    ];
+
     public function tenant(): BelongsTo
     {
         return $this->belongsTo(Tenant::class);
@@ -37,6 +41,10 @@ class Rental extends Model
     public function moveOutNotice(): HasOne
     {
         return $this->hasOne(MoveOutNotice::class)->latestOfMany();
+    }
+    public function moveOutNotices()
+    {
+        return $this->hasMany(MoveOutNotice::class);
     }
 
 

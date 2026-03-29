@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -59,5 +60,31 @@ class MoveOutNotice extends Model
     public function hoursUntilCanCancel(): int
     {
         return max(0, 24 - (int) $this->created_at->diffInHours(now()));
+    }
+
+
+
+    public function stayedFormatted(): string
+    {
+        if (!$this->rental || !$this->move_out_date) {
+            return '0 days';
+        }
+
+        $start = Carbon::parse($this->rental->updated_at)->startOfDay();
+        $end = Carbon::parse($this->move_out_date)->startOfDay();
+        $diff = $start->diff($end);
+
+        $parts = [];
+        if ($diff->m > 0 || $diff->y > 0) {
+            // Include years as months
+            $totalMonths = $diff->y * 12 + $diff->m;
+            $parts[] = "$totalMonths month" . ($totalMonths > 1 ? "s" : "");
+        }
+
+        if ($diff->d > 0) {
+            $parts[] = "$diff->d day" . ($diff->d > 1 ? "s" : "");
+        }
+
+        return implode(' ', $parts) ?: '0 days';
     }
 }
