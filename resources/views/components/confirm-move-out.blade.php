@@ -16,7 +16,7 @@
                 <textarea name="reason" class="textarea textarea-bordered w-full"></textarea>
             </div>
             <div class="modal-action">
-                <button type="button" class="btn" onclick="move_out_modal.close()">Cancel</button>
+                <button type="button" class="btn" onclick="confirm_move_out_modal.close()">Cancel</button>
                 <button type="submit" class="btn btn-error">Confirm Move Out</button>
             </div>
         </form>

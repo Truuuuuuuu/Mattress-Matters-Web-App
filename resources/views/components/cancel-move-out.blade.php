@@ -8,8 +8,8 @@
             @csrf
             @method('PATCH')
             <div class="modal-action">
-                <button type="button" class="btn" onclick="cancel_move_out_modal.close()">Cancel</button>
-                <button type="submit" class="btn btn-error">Confirm Move Out</button>
+                <button type="button" class="btn" onclick="cancel_move_out_modal.close()">Keep Move Out Notice</button>
+                <button type="submit" class="btn btn-error">Cancel Move Out Notice</button>
             </div>
         </form>
     </div>

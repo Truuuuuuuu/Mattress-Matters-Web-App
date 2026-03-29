@@ -44,4 +44,9 @@ class MoveOutNotice extends Model
     {
         return $this->cancelled_at === null || $this->cancelled_at->diffInDays(now()) >= 7;
     }
+
+    public function daysUntilCanResubmit(): int
+    {
+        return max(0, 7 - (int) $this->cancelled_at->diffInDays(now()));
+    }
 }
