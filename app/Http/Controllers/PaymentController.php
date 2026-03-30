@@ -130,10 +130,7 @@ class PaymentController extends Controller
 
         $listing = $invoice->rental->listing;
 
-        $breakdown = ["Rent: ₱{$listing->rent_cost}"];
-        if ($listing->electricity_cost) $breakdown[] = "Electricity: ₱{$listing->electricity_cost}";
-        if ($listing->water_supply_cost) $breakdown[] = "Water: ₱{$listing->water_supply_cost}";
-        $description = implode(' + ', $breakdown) . " — {$invoice->period_month}";
+        $description = "Monthly Rent — {$invoice->rental->listing->title}";
 
         $referenceId = 'RENT-' . strtoupper(Str::random(10));
 
@@ -189,7 +186,9 @@ class PaymentController extends Controller
     public function success()
     {
         $reference = session('payment_reference');
-        $payment = Payment::where('reference_id', $reference)->first();
+        $payment = Payment::with(['reservation.listing', 'invoice.rental.listing'])
+            ->where('reference_id', $reference)
+            ->first();
 
         return view('payment.success', compact('payment'));
     }
@@ -294,7 +293,7 @@ class PaymentController extends Controller
         }
     }
 
-    private function handleRentPayment(Payment $payment): void
+   /* private function handleRentPayment(Payment $payment): void
     {
         $invoice = $payment->invoice;
 
@@ -303,8 +302,50 @@ class PaymentController extends Controller
         $invoice->update(['status' => 'paid']);
 
         // optional: notify tenant their payment was confirmed
-        /*$invoice->rental->tenant->user->notify(new RentPaidNotification($invoice));*/
+        $invoice->rental->tenant->user->notify(new RentPaidNotification($invoice));
+    }*/
+
+    public function soa()
+    {
+        $tenant  = auth()->user()->tenant;
+        $rental  = $tenant->rental;
+
+        if (!$rental) {
+            return view('tenant.soa', ['invoices' => collect(), 'rental' => null, 'nextDue' => null]);
+        }
+
+        $moveInDay = \Carbon\Carbon::parse($rental->reservation->start_date)->day;
+        $today     = \Carbon\Carbon::today();
+        $dueDate   = $today->copy()->startOfMonth()->setDay($moveInDay);
+
+        // If due date already passed this month, next due is next month
+        $nextDue = $today->gt($dueDate)
+            ? $dueDate->copy()->addMonth()
+            : $dueDate;
+
+        $invoices = Invoice::where('tenant_id', $tenant->id)
+            ->orderBy('due_date', 'desc')
+            ->get();
+
+        return view('tenant.soa', compact('invoices', 'rental', 'nextDue'));
     }
 
+    public function payRent(Invoice $invoice)
+    {
+        $tenant = auth()->user()->tenant;
 
+        // Guard: only the tenant who owns this invoice
+        if ($invoice->tenant_id !== $tenant->id) {
+            abort(403);
+        }
+
+        if ($invoice->status === 'paid') {
+            return back()->with('info', 'This invoice is already paid.');
+        }
+
+        // Delegate to existing createRentPayment
+        return $this->createRentPayment(request()->merge([
+            'amount' => $invoice->amount_due,
+        ]), $invoice);
+    }
 }
