@@ -3,7 +3,7 @@
 
     <div class="w-full flex items-center justify-center h-[calc(100vh-72.67px)]  px-10 mb-50">
 
-        @if($myUnit)
+        @if($myUnit?->reservation?->status === 'checked_in')
             <div class=" flex-1">
                 <div class="w-full p-5 ">
                     <img src="{{asset('images/3D-bhouse-model.svg')}}" alt="3D" class="cursor-pointer  object-contain transition-transform duration-300 hover:scale-110" >
@@ -135,6 +135,36 @@
                 @if (!$myUnit->moveOutNotice?->isActive() && (!$myUnit->moveOutNotice || $myUnit->moveOutNotice->canSubmitMoveOut()))
                     @include('components.confirm-move-out', ['rental' => $myUnit])
                 @endif
+
+            </div>
+        @elseif($myUnit?->reservation?->status === 'accepted')
+            <div class="w-full flex justify-center items-center py-10">
+                <div class="w-full max-w-lg  flex flex-col items-center">
+                    <div class=" w-full text-center text-2xl font-semibold mb-8">
+                        <h1>Are you here?</h1>
+                    </div>
+                    <div class="w-xs  ">
+                        <img src="{{asset('images/3D-bhouse-model.svg')}}" alt="3D" class="cursor-pointer w-full h-auto object-contain transition-transform duration-300 hover:scale-110" >
+                    </div>
+                    <div class="w-full mt-3">
+                        <button onclick="confirmAction(
+                            '{{route('reservation.checkedIn', $myUnit->reservation)}}',
+                            'Confirm Check In?',
+                            'Are you sure you want to check in? Your stay begins once confirmed.',
+                            'Yes, I\'m here!',
+                            'Not Yet',
+                            'success'
+
+                        )"
+                                class="btn btn-success  w-full">
+                            Check In
+                        </button>
+                    </div>
+
+
+
+
+                </div>
 
             </div>
         @else

@@ -181,7 +181,7 @@ class ReservationController extends Controller
 
 
 
-        return redirect()->route('reservation.index')->with('success', 'Enjoy your stay!');
+        return redirect()->route('tenant.unit')->with('success', 'Enjoy your stay!');
     }
 
 }
