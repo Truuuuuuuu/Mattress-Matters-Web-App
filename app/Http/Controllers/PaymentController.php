@@ -27,10 +27,16 @@ class PaymentController extends Controller
         $request->validate([
             'amount'      => 'required|numeric|min:1',
             'description' => 'required|string|max:255',
+            'amountElectric' => 'nullable|numeric|min:0',
+            'amountWater' => 'nullable|numeric|min:0',
         ]);
 
+
         $depositAmount = $reservation->listing->rent_cost;
-        $totalAmount = (float) $request->amount + (float) $depositAmount;
+        $amountUtilities = (float) $request->amountElectric + (float) $request->amountWater;
+        $totalAmount = (float) $request->amount + (float) $depositAmount + $amountUtilities;
+
+
 
         $referenceId = 'ORDER-' . strtoupper(Str::random(10));
         $depositRefId = 'DEPOSIT-' . strtoupper(Str::random(10));
@@ -84,7 +90,7 @@ class PaymentController extends Controller
             'xendit_id'      => $charge['id'],
             'reference_id'   => $referenceId,
             'status'         => $charge['status'],
-            'amount'         => $request->amount,
+            'amount'         => $request->amount + $amountUtilities,
             'description'    => $request->description,
             'payment_method' => 'GCASH',
             'created_at'     => now(),

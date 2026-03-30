@@ -4,6 +4,7 @@
     <section class="w-full flex justify-center space-y-5">
         <div class="max-w-xl w-full  my-10">
             <h1 class="text-2xl font-semibold">Reservation Details</h1>
+
             <div class="border border-black/40 rounded-lg p-4">
                 <div >
                     <img src="{{ asset('storage/' . $reservation->listing->listingImages->first()->image_path) }}"
@@ -105,12 +106,15 @@
                             <p>Please complete your payment within 48 hours</p>
                             <div id="error-msg" class="hidden text-red-500 mt-2"></div>
                         </div>
+
                         <button
 
                             id="pay-btn"
                             class="btn btn-white btn-xl py-10 w-full mt-3 rounded-xl border-blue-900"
                             data-url="/payment/{{ $reservation->id}}/gcash"
                             data-amount="{{ $reservation->listing->rent_cost }}"
+                            data-amount-electric="{{ $reservation->listing->electricity_cost ?? '' }}"
+                            data-amount-water="{{ $reservation->listing->water_supply_cost ?? '' }}"
                             data-description="Reservation for {{ $reservation->listing->title }}">
                             <img src="{{asset('images/Gcash-logo.svg')}}" alt="">
                             Pay with GCash

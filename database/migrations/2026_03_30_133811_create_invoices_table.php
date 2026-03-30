@@ -14,7 +14,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('invoices', function (Blueprint $table) {
-           /* $table->id();
+            $table->id();
             $table->foreignIdFor(Rental::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Tenant::class)->constrained()->cascadeOnDelete();
             $table->string('period_month', 7);                    // "2026-04"
@@ -28,7 +28,7 @@ return new class extends Migration
             $table->enum('status', ['unpaid', 'paid', 'overdue'])->default('unpaid');
             $table->timestamps();
 
-            $table->unique(['rental_id', 'period_month']);*/
+            $table->unique(['rental_id', 'period_month']);
         });
     }
 

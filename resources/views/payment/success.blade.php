@@ -34,14 +34,21 @@
                     <div class="flex-1 text-base-content/70  font-bold">
                         <p>Date</p>
                         <p>Payment Method</p>
+                        <p class="mt-3 text-xs font-semibold">Montly rent cost</p>
+                        <p class="text-xs font-semibold">Security deposit</p>
+                        <p class="text-xs font-semibold">Electricity cost</p>
+                        <p class="text-xs font-semibold">Water supply cost</p>
                         <p class="text-2xl mt-5">AMOUNT</p>
                     </div>
                     <div class="flex-2 ">
                         <p class="text-end">{{$payment->created_at->format('F j, Y g:i A')}}</p>
                         <p class="text-end">{{$payment->payment_method}}</p>
-                        <p class="text-end text-2xl font-bold mt-5">₱{{ number_format($payment->amount * 2, 2) }}</p>
+                        <p class="text-end text-xs font-semibold mt-3">{{$payment->reservation->listing->rent_cost}}</p>
+                        <p class="text-end text-xs font-semibold">{{$payment->reservation->listing->rent_cost}}</p>
+                        <p class="text-end text-xs font-semibold">{{$payment->reservation->listing->electricity_cost ?? '0.00'}}</p>
+                        <p class="text-end text-xs font-semibold">{{$payment->reservation->listing->water_supply_cost ?? '0.00'}}</p>
+                        <p class="text-end text-2xl font-bold mt-5">₱{{ number_format($payment->totalAmount(), 2) }}</p>
                     </div>
-
                 </div>
 
 

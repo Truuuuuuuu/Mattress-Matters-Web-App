@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        /*Schema::table('payments', function (Blueprint $table) {
+        Schema::table('payments', function (Blueprint $table) {
             $table->enum('payment_type', ['reservation_fee', 'security_deposit', 'rent'])
                 ->default('reservation_fee')
                 ->after('reservation_id');
             $table->foreignIdFor(Invoice::class)->nullable()->after('payment_type')->constrained();
             $table->foreignIdFor(Reservation::class)->nullable()->change();
-        });*/
+        });
     }
 
     /**

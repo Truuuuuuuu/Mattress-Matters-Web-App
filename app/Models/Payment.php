@@ -28,4 +28,9 @@ class Payment extends Model
     {
         return $this->belongsTo(Invoice::class);
     }
+
+    public function totalAmount(): float
+    {
+        return self::where('xendit_id', $this->xendit_id)->sum('amount');
+    }
 }
