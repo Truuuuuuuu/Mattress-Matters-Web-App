@@ -52,4 +52,15 @@ class Invoice extends Model
     {
         return $this->status !== 'paid' && $this->due_date->isPast();
     }
+
+
+    protected $appends = ['computed_status'];
+
+    public function getComputedStatusAttribute()
+    {
+        if ($this->status === 'unpaid' && now()->gt($this->due_date)) {
+            return 'overdue';
+        }
+        return $this->status;
+    }
 }

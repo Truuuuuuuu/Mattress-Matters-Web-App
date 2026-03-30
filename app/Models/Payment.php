@@ -33,4 +33,9 @@ class Payment extends Model
     {
         return self::where('xendit_id', $this->xendit_id)->sum('amount');
     }
+
+    public function monthlyRentalAmount(): float
+    {
+        return (float) $this->amount;
+    }
 }
