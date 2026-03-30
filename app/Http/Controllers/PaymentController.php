@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Invoice;
 use App\Models\Listing;
 use App\Models\Payment;
 use App\Models\Rental;
@@ -23,20 +24,23 @@ class PaymentController extends Controller
 
     public function createGcashPayment(Request $request, Reservation $reservation)
     {
-
-
         $request->validate([
             'amount'      => 'required|numeric|min:1',
             'description' => 'required|string|max:255',
         ]);
 
-        $referenceId = 'ORDER-' . strtoupper(Str::random(10));
+        $depositAmount = $reservation->listing->rent_cost;
+        $totalAmount = (float) $request->amount + (float) $depositAmount;
 
+        $referenceId = 'ORDER-' . strtoupper(Str::random(10));
+        $depositRefId = 'DEPOSIT-' . strtoupper(Str::random(10));
+
+        // Single Xendit charge for both reservation fee and security deposit
         $response = Http::withHeaders($this->headers())
             ->post('https://api.xendit.co/ewallets/charges', [
                 'reference_id'        => $referenceId,
                 'currency'            => 'PHP',
-                'amount'              => (float) $request->amount,
+                'amount'              => $totalAmount,
                 'checkout_method'     => 'ONE_TIME_PAYMENT',
                 'channel_code'        => 'PH_GCASH',
                 'channel_properties' => [
@@ -45,22 +49,38 @@ class PaymentController extends Controller
                     'cancel_redirect_url'  => route('payment.failed'),
                 ],
                 'metadata' => [
-                    'description' => $request->description,
+                    'description' => $request->description . ' + Security Deposit',
                 ],
             ]);
 
         if ($response->failed()) {
-            Log::error('Xendit GCash error', $response->json());
+            Log::error('Xendit GCash error', [
+                'status' => $response->status(),
+                'body' => $response->body(),
+            ]);
             return response()->json([
                 'error'   => 'Failed to initiate GCash payment.',
-                'details' => $response->json('message'),
+                'details' => $response->status(),
             ], 422);
         }
 
-        $charge = $response->json();
+        try {
+            $charge = $response->json();
+        } catch (\Exception $e) {
+            Log::error('Failed to parse response as JSON', [
+                'body' => $response->body(),
+                'exception' => $e->getMessage(),
+            ]);
+            return response()->json([
+                'error'   => 'Invalid response from payment gateway.',
+                'details' => 'Failed to parse response',
+            ], 422);
+        }
 
+        // Create reservation fee payment record with xendit charge id
         Payment::create([
             'reservation_id' => $reservation->id,
+            'payment_type'   => 'reservation_fee',
             'xendit_id'      => $charge['id'],
             'reference_id'   => $referenceId,
             'status'         => $charge['status'],
@@ -68,6 +88,86 @@ class PaymentController extends Controller
             'description'    => $request->description,
             'payment_method' => 'GCASH',
             'created_at'     => now(),
+        ]);
+
+        // Create security deposit payment record with SAME xendit charge id
+        Payment::create([
+            'reservation_id' => $reservation->id,
+            'payment_type'   => 'security_deposit',
+            'xendit_id'      => $charge['id'],
+            'reference_id'   => $depositRefId,
+            'status'         => $charge['status'],
+            'amount'         => $depositAmount,
+            'description'    => 'Security Deposit',
+            'payment_method' => 'GCASH',
+            'created_at'     => now(),
+        ]);
+
+        session(['payment_reference' => $referenceId]);
+
+        return response()->json([
+            'checkout_url' => $charge['actions']['desktop_web_checkout_url']
+                ?? $charge['actions']['mobile_web_checkout_url'],
+        ]);
+    }
+
+    public function createRentPayment(Request $request, Invoice $invoice)
+    {
+        // Guard: only the tenant on this invoice can pay
+        if ($invoice->tenant_id !== auth()->user()->tenant->id) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        if ($invoice->status === 'paid') {
+            return response()->json(['error' => 'Invoice already paid.'], 422);
+        }
+
+        $listing = $invoice->rental->listing;
+
+        $breakdown = ["Rent: ₱{$listing->rent_cost}"];
+        if ($listing->electricity_cost) $breakdown[] = "Electricity: ₱{$listing->electricity_cost}";
+        if ($listing->water_supply_cost) $breakdown[] = "Water: ₱{$listing->water_supply_cost}";
+        $description = implode(' + ', $breakdown) . " — {$invoice->period_month}";
+
+        $referenceId = 'RENT-' . strtoupper(Str::random(10));
+
+        $response = Http::withHeaders($this->headers())
+            ->post('https://api.xendit.co/ewallets/charges', [
+                'reference_id'       => $referenceId,
+                'currency'           => 'PHP',
+                'amount'             => (float) $invoice->amount_due,
+                'checkout_method'    => 'ONE_TIME_PAYMENT',
+                'channel_code'       => 'PH_GCASH',
+                'channel_properties' => [
+                    'success_redirect_url' => route('payment.success'),
+                    'failure_redirect_url' => route('payment.failed'),
+                    'cancel_redirect_url'  => route('payment.failed'),
+                ],
+                'metadata' => [
+                    'description' => $description,
+                ],
+            ]);
+
+        if ($response->failed()) {
+            Log::error('Xendit rent payment error', $response->json());
+            return response()->json([
+                'error'   => 'Failed to initiate rent payment.',
+                'details' => $response->json('message'),
+            ], 422);
+        }
+
+        $charge = $response->json();
+
+        Payment::create([
+            'invoice_id'     => $invoice->id,
+            'reservation_id' => null,
+            'payment_type'   => 'rent',
+            'xendit_id'      => $charge['id'],
+            'reference_id'   => $referenceId,
+            'status'         => $charge['status'],
+            'amount'         => $invoice->amount_due,
+            'description'    => $description,
+            'payment_method' => 'GCASH',
         ]);
 
 
@@ -93,7 +193,7 @@ class PaymentController extends Controller
         return view('payment.failed');
     }
 
-    public function webhook(Request $request)
+    /*public function webhook(Request $request)
     {
         $token = $request->header('x-callback-token');
         if ($token !== config('services.xendit.webhook_token')) {
@@ -131,5 +231,74 @@ class PaymentController extends Controller
         }
 
         return response()->json(['received' => true]);
+    }*/
+
+    public function webhook(Request $request)
+    {
+        $token = $request->header('x-callback-token');
+        if ($token !== config('services.xendit.webhook_token')) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        $payload     = $request->all();
+        $status      = $payload['data']['status'] ?? null;
+        $chargeId    = $payload['data']['id'] ?? null;
+        $referenceId = $payload['data']['reference_id'] ?? null;
+
+        if (!$chargeId) return response()->json(['received' => true]);
+
+        // Get all payments with this xendit_id
+        $payments = Payment::where('xendit_id', $chargeId)
+            ->orWhere('reference_id', $referenceId)
+            ->get();
+
+        if ($payments->isEmpty()) return response()->json(['received' => true]);
+
+        // Update all matching payments
+        foreach ($payments as $payment) {
+            $payment->update(['status' => $status]);
+
+            if ($status === 'SUCCEEDED') {
+                match ($payment->payment_type) {
+                    'reservation_fee', 'security_deposit' => $this->handleReservationPayment($payment),
+                    'rent' => $this->handleRentPayment($payment),
+                };
+            }
+
+            Log::info("Xendit webhook: {$chargeId} → {$status} [{$payment->payment_type}]");
+        }
+
+        return response()->json(['received' => true]);
     }
+
+    private function handleReservationPayment(Payment $payment): void
+    {
+        $reservation = $payment->reservation;
+
+        $reservation->update(['payment_status' => 'paid']);
+
+        // Only create rental if it doesn't already exist for this reservation
+        if (!$reservation->rental) {
+            Rental::create([
+                'tenant_id'      => $reservation->tenant_id,
+                'listing_id'     => $reservation->listing_id,
+                'reservation_id' => $reservation->id,
+                'status'         => 'active',
+            ]);
+        }
+    }
+
+    private function handleRentPayment(Payment $payment): void
+    {
+        $invoice = $payment->invoice;
+
+        if (!$invoice) return;
+
+        $invoice->update(['status' => 'paid']);
+
+        // optional: notify tenant their payment was confirmed
+        /*$invoice->rental->tenant->user->notify(new RentPaidNotification($invoice));*/
+    }
+
+
 }

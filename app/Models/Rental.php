@@ -47,6 +47,11 @@ class Rental extends Model
         return $this->hasMany(MoveOutNotice::class);
     }
 
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
+    }
+
 
 
     public function isActive(): bool
