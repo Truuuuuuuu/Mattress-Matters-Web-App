@@ -39,7 +39,7 @@
                     <div class="flex-2 ">
                         <p class="text-end">{{$payment->created_at->format('F j, Y g:i A')}}</p>
                         <p class="text-end">{{$payment->payment_method}}</p>
-                        <p class="text-end text-2xl font-bold mt-5">₱{{ number_format($payment->amount, 2) }}</p>
+                        <p class="text-end text-2xl font-bold mt-5">₱{{ number_format($payment->amount * 2, 2) }}</p>
                     </div>
 
                 </div>

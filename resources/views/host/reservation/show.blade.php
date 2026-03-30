@@ -71,46 +71,65 @@
                     <div class="flex-1 font-semibold">
                         <p>Start Date:</p>
                         <p>End Date:</p>
-                        <p class="mt-10">Payment Status:</p>
                     </div>
                     <div class="flex-1 flex flex-col items-end">
                         <p>{{$reservation->start_date->format('M j, Y')}}</p>
                         <p>{{$reservation->end_date?->format('M j, Y') ?? 'Not specified'}}</p>
-                        <p class="mt-10">{{ucfirst($reservation->payment_status)}}</p>
                     </div>
 
                 </div>
                 @if(auth()->user()->hasRole('tenant') && $reservation->status === 'accepted' && $reservation->payment_status === 'unpaid' )
-                <div class="flex flex-col justify-end items-center gap-2 mt-5">
-                    <div class="w-full bg-green-500 text-center py-2 rounded-xl italic">
-                        <p>Please complete your payment within 48 hours</p>
-                        <div id="error-msg" class="hidden text-red-500 mt-2"></div>
+                    @php
+                        $totalAmount = $reservation->listing->rent_cost * 2;
+                    @endphp
+
+                    <x-divider class="border border-base-content/10 my-5"/>
+                    <div class="flex">
+                        <div class="flex-1 font-semibold">
+                            <p >Payment Status</p>
+                            <p>Monthly rent cost</p>
+                            <p>Security deposit</p>
+
+                            <p class="mt-10 text-2xl font-bold">TOTAL</p>
+                        </div>
+                        <div class="flex-1 flex flex-col items-end font-bold">
+                            <p class="font-normal">{{ucfirst($reservation->payment_status)}}</p>
+                            <p>₱{{number_format($reservation->listing->rent_cost, 2)}}</p>
+                            <p>₱{{number_format($reservation->listing->rent_cost, 2)}}</p>
+
+                            <p class="mt-10 font-semibold text-xl">₱{{number_format($totalAmount, 2)}}</p>
+                        </div>
                     </div>
-                    <button
+                    <div class="flex flex-col justify-end items-center gap-2 mt-5">
+                        <div class="w-full bg-green-500 text-center py-2 rounded-xl italic">
+                            <p>Please complete your payment within 48 hours</p>
+                            <div id="error-msg" class="hidden text-red-500 mt-2"></div>
+                        </div>
+                        <button
 
-                        id="pay-btn"
-                        class="btn btn-white btn-xl py-10 w-full mt-3 rounded-xl border-blue-900"
-                        data-url="/payment/{{ $reservation->id}}/gcash"
-                        data-amount="{{ $reservation->listing->rent_cost }}"
-                        data-description="Reservation for {{ $reservation->listing->title }}">
-                        <img src="{{asset('images/Gcash-logo.svg')}}" alt="">
-                        Pay with GCash
-                    </button>
-                </div>
-                <div>
-                    <x-divider class="border border-black/20 my-5"/>
-                    <button onclick="confirmAction(
-                            '{{route('reservation.cancel', $reservation)}}',
-                            'Cancel Reservation?',
-                            'Are you sure you want to cancel this reservation? You are one step closer to securing this place',
-                            'Yes, Cancel',
-                            'Keep Reservation'
+                            id="pay-btn"
+                            class="btn btn-white btn-xl py-10 w-full mt-3 rounded-xl border-blue-900"
+                            data-url="/payment/{{ $reservation->id}}/gcash"
+                            data-amount="{{ $reservation->listing->rent_cost }}"
+                            data-description="Reservation for {{ $reservation->listing->title }}">
+                            <img src="{{asset('images/Gcash-logo.svg')}}" alt="">
+                            Pay with GCash
+                        </button>
+                    </div>
+                    <div>
+                        <x-divider class="border border-black/20 my-5"/>
+                        <button onclick="confirmAction(
+                                '{{route('reservation.cancel', $reservation)}}',
+                                'Cancel Reservation?',
+                                'Are you sure you want to cancel this reservation? You are one step closer to securing this place',
+                                'Yes, Cancel',
+                                'Keep Reservation'
 
-                        )"
-                            class="btn btn-error  w-full">
-                        Cancel
-                    </button>
-                </div>
+                            )"
+                                class="btn btn-error  w-full">
+                            Cancel
+                        </button>
+                    </div>
 
                 @elseif(auth()->user()->hasRole('tenant') && $reservation->status === 'accepted' && $reservation->payment_status === 'paid')
 
