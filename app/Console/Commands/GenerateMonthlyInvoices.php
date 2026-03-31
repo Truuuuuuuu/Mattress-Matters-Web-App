@@ -14,7 +14,9 @@ class GenerateMonthlyInvoices extends Command
 
     public function handle()
     {
+
         $today = Carbon::today();
+
 
         Rental::with(['listing', 'tenant', 'reservation'])
             ->where('status', 'active')
@@ -23,13 +25,16 @@ class GenerateMonthlyInvoices extends Command
 
                 $moveInDay  = Carbon::parse($rental->reservation->start_date)->day;
 
-                // Due date is this month's move-in day
-                $dueDate    = Carbon::today()->startOfMonth()->setDay($moveInDay);
+                // Due date is this month's move-in day UNCOMMENT LATER !!!!!!!!!!!
+                /*$dueDate    = Carbon::today()->startOfMonth()->setDay($moveInDay);*/
+
+                // Due date is this month's move-in day TESTING
+                $dueDate    = Carbon::parse('2026-04-01')->startOfMonth()->setDay($moveInDay);
 
                 // Generate 7 days before due
                 $generateOn = $dueDate->copy()->subDays(7);
 
-                /*uncomment later*/
+                /*!!!uncomment later!!!!*/
                 /*if ($today->day !== $generateOn->day) return;*/
 
                 $periodMonth = $dueDate->format('Y-m');

@@ -293,7 +293,7 @@ class PaymentController extends Controller
         }
     }
 
-   /* private function handleRentPayment(Payment $payment): void
+    private function handleRentPayment(Payment $payment): void
     {
         $invoice = $payment->invoice;
 
@@ -303,7 +303,7 @@ class PaymentController extends Controller
 
         // optional: notify tenant their payment was confirmed
         $invoice->rental->tenant->user->notify(new RentPaidNotification($invoice));
-    }*/
+    }
 
     public function soa()
     {
