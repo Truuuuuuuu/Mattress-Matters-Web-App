@@ -171,6 +171,7 @@ class PaymentController extends Controller
             'amount'         => $invoice->amount_due,
             'description'    => $description,
             'payment_method' => 'GCASH',
+            'expires_at'     => now()->addMinutes(5),
         ]);
 
 
@@ -196,6 +197,11 @@ class PaymentController extends Controller
     public function failed()
     {
         return view('payment.failed');
+    }
+
+    protected function handleFailedPayment(Payment $payment): void
+    {
+        Log::warning("Payment {$payment->reference_id} marked {$payment->status} — invoice {$payment->invoice_id} remains unpaid.");
     }
 
     /*public function webhook(Request $request)
@@ -264,14 +270,18 @@ class PaymentController extends Controller
             $payment->update(['status' => $status]);
 
             if ($status === 'SUCCEEDED') {
-                match ($payment->payment_type) {
-                    'reservation_fee', 'security_deposit' => $this->handleReservationPayment($payment),
-                    'rent' => $this->handleRentPayment($payment),
-                };
+                if (in_array($payment->payment_type, ['reservation_fee', 'security_deposit'])) {
+                    $this->handleReservationPayment($payment);
+                } elseif ($payment->payment_type === 'rent') {
+                    $this->handleRentPayment($payment);
+                }
+            } elseif (in_array($status, ['EXPIRED', 'FAILED', 'VOIDED'])) {
+                $this->handleFailedPayment($payment);
             }
 
             Log::info("Xendit webhook: {$chargeId} → {$status} [{$payment->payment_type}]");
         }
+
 
         return response()->json(['received' => true]);
     }

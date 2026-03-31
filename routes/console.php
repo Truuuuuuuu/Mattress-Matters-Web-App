@@ -9,3 +9,5 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 Schedule::command('invoices:generate-monthly')->daily();
+Schedule::command('payments:expire-pending')->everyFiveMinutes();
+
