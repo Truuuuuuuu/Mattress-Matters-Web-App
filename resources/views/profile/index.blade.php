@@ -1,7 +1,7 @@
 <x-layout>
     <x-slot:heading>My Profile</x-slot:heading>
 
-  <div class="w-full   flex flex-col justify-start items-center mt-10">
+  <div class="w-full px-4 lg:px-0 flex flex-col justify-start items-center mt-10">
       @isset($tenantProfile)
             <div class="w-full max-w-lg">
                 <h1 class="text-4xl font-semibold mb-2">Profile</h1>
