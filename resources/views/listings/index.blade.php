@@ -21,10 +21,8 @@
                     </div>
                     <div>
                         <button class="flex btn btn-neutral rounded-3xl " onclick="feature_modal.showModal()">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
-                            </svg>
-                            <p>Filters</p>
+                            <x-lucide-sliders-horizontal class="w-5 h-5"/>
+                            <p class="hidden lg:block">Filters</p>
                         </button>
                         <!-- Open the modal using ID.showModal() method -->
                         <dialog id="feature_modal" class="modal modal-bottom  sm:modal-middle">
@@ -47,9 +45,9 @@
                 </div>
 
                 {{--Listings cards--}}
-                <div class="grid grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-1 lg:gap-x-2 lg:gap-y-6 mt-5">
+                <div class="space-y-3 grid grid-cols-2 lg:grid-cols-4 gap-x-2 gap-y-1 lg:gap-x-2 lg:gap-y-6 mt-5">
                     @forelse($listings as $listing)
-                        <x-bhouse-card :$listing width="94"/>
+                        <x-bhouse-card :$listing />
                     @empty
                         <p class="col-span-full text-center text-gray-500">
                             No listings available.
@@ -57,7 +55,6 @@
                     @endforelse
 
                 </div>
-
             </div>
 
             <div class="flex justify-center mt-15 mb-10 ">

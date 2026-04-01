@@ -13,11 +13,11 @@
                 @endphp
                 <x-bhouse-photo :$cover />
             </div>
-            <h3 class="text-sm line-clamp-1 text-base-content lg:group-hover:text-blue-800
-            font-bold transition-colors duration-300" title="{{$listing->title}}">
+            <h3 class="text-xs lg:text-sm line-clamp-1 text-base-content lg:group-hover:text-blue-800
+            font-semibold transition-colors duration-300 boder" title="{{$listing->title}}">
                 {{$listing->title}}
             </h3>
-            <p class="text-xs text-base-content lg:text-sm mt-1"><strong>₱{{number_format($listing->rent_cost)}}</strong> monthly</p>
+            <p class="text-xs  text-base-content lg:text-sm lg:mt-1"><strong>₱{{number_format($listing->rent_cost)}}</strong> monthly</p>
         </div>
     </x-panel>
 

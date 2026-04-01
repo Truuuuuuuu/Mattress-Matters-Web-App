@@ -17,6 +17,21 @@
 <div>
     @if (!isset($hideNavbar))
 
+        @guest
+            <nav class="flex sticky top-0 z-50 bg-base-100 shadow justify-between items-center py-4 border-b border-white/10 p-5">
+                {{-- Logo --}}
+                <div class="shrink-0 ">
+                    <a href="/">
+                        <img src="{{ asset('images/logo-only.svg') }}" alt="" class="w-10 h-auto" >
+                    </a>
+                </div>
+                <div class="space-x-6 font-semibold ">
+                    <a href="/user-option" class="btn btn-primary">Get Started</a>
+                    <a href="/login" class="text-base-content">Sign in</a>
+                </div>
+            </nav>
+        @endguest
+        @role('tenant')
         {{--MOBILE SCREEN--}}
         <nav class="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-base-100 border-t border-base-300 flex justify-around items-center h-16">
             <a href="{{ route('tenant.homepage') }}" class="flex flex-col items-center text-xs gap-1 text-base-content/70 hover:text-primary">
@@ -40,7 +55,7 @@
                 <span>Profile</span>
             </a>
         </nav>
-
+        @endrole
 
         {{--LARGE SCREEN--}}
         <nav class=" hidden lg:flex sticky top-0 z-50 bg-base-100 shadow justify-between items-center py-4 border-b border-white/10 p-5">
