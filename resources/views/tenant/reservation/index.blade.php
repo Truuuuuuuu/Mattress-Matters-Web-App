@@ -1,12 +1,12 @@
     <x-layout>
         <x-slot:heading>Reservation</x-slot:heading>
 
-        <div class="flex items-start justify-center h-screen py-10 ">
+        <div class="px-4 lg:px-0 flex items-start justify-center h-screen py-10 ">
 
                 <div class="tabs tabs-lift   max-w-2xl w-full ">
 
                     {{--active tab--}}
-                    <label  class="tab w-52 ">
+                    <label  class="tab w-32 lg:w-52 ">
 
                         @if($activeReservation?->status === 'pending')
                             <x-lucide-dot class="w-7 h-7 text-orange-500"/>
@@ -40,7 +40,7 @@
 
                     </div>
                     {{--History tab--}}
-                    <label class="tab w-42 gap-2">
+                    <label class="tab w-32 lg:w-42 gap-2">
                         <x-lucide-history class="w-4 h-4 "/>
 
                         <input type="radio" name="my_tabs_4"  />
