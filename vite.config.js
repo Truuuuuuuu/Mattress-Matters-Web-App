@@ -13,11 +13,11 @@ export default defineConfig({
     server: {
 
         /*!!!UNCOMMENT FOR PROD/TESTING*/
-       /* host: '0.0.0.0',
+        host: '0.0.0.0',
         port: 5173,
         hmr: {
             host: '192.168.1.4',
-        },*/
+        },
 
         watch: {
             ignored: ['**/storage/framework/views/**'],

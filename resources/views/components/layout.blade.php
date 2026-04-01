@@ -35,7 +35,7 @@
                             </div>
                         </div>--}}
 
-                    {{-- Tenant links --}}
+                    {{-- Tenant links LARGE SCREEN --}}
                     <div class="hidden lg:flex text-base-content  gap-8 items-center whitespace-nowrap font-semibold lg:absolute left-1/2 -translate-x-1/2">
                         <div>
                             <a href="{{route('tenant.homepage')}}" class="text-center block" >Explore</a>
@@ -49,8 +49,11 @@
                             <a href="{{route('reservation.index')}}" class="text-center block" >Reservation</a>
                             <div class="{{request()->routeIs('tenant.reservations.index') ? 'bg-black w-24 h-1 rounded-xl' : ''}}"></div>
                         </div>
+                    </div>
 
-
+                    {{--MOBILE VIEW--}}
+                    <div>
+                        
                     </div>
 
 

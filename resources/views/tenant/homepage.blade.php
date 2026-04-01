@@ -1,1 +1,2 @@
 @include('listings.index', $listings)
+
