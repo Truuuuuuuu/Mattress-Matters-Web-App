@@ -38,7 +38,7 @@
                         </div>
                         <div>
                             <p class="text-sm font-semibold text-base-content/70 -mb-2">Started on</p>
-                            <p class="text-xl font-semibold">{{$rental->updated_at->format('F j, Y')}}</p>
+                            <p class="text-xl font-semibold">{{$rental->reservation->start_date->format('F j, Y')}}</p>
                         </div>
                         <div>
                             <p class="text-sm font-semibold text-base-content/70 -mb-2">Monthly Rent</p>

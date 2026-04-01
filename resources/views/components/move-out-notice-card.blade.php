@@ -24,7 +24,7 @@
             </div>
             <div class="flex justify-between">
                 <p class="text-sm font-semibold text-base-content/60">Tenant since</p>
-                <p class="text-sm font-semibold ">{{ $movingOutTenant->created_at->format('M Y') }}</p>
+                <p class="text-sm font-semibold ">{{ $movingOutTenant->reservation->start_date->format('M Y') }}</p>
             </div>
             <div class="flex justify-between">
                 <p class="text-sm font-semibold text-base-content/60">Notice filed</p>

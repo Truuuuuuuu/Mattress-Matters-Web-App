@@ -12,7 +12,7 @@
             {{--Name--}}
             <div>
                 <div class="font-bold -mb-1">{{$movingOutTenant->tenant->user->name}}</div>
-                <div class="text-sm opacity-50">Since {{ $movingOutTenant->created_at->format('M Y') }}</div>
+                <div class="text-sm opacity-50">Since {{ $movingOutTenant->reservation->start_date->format('M Y') }}</div>
             </div>
         </div>
     </td>

@@ -4,7 +4,7 @@
     <!-- name of each tab group should be unique -->
     <div class="tabs tabs-lift px-15 mt-5">
         <label class="tab">
-            <input type="radio" name="my_tabs_4" />
+            <input type="radio" name="my_tabs_4" checked="checked"/>
             <span class="size-2 rounded-full bg-success mr-3"></span>
             Active
         </label>
@@ -117,7 +117,7 @@
         </div>
 
         <label class="tab">
-            <input type="radio" name="my_tabs_4" checked="checked" />
+            <input type="radio" name="my_tabs_4"  />
             <x-lucide-history class="size-4 mr-3 text-base-content" />
             History
         </label>

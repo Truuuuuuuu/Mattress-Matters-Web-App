@@ -70,7 +70,7 @@ class MoveOutNotice extends Model
             return '0 days';
         }
 
-        $start = Carbon::parse($this->rental->updated_at)->startOfDay();
+        $start = Carbon::parse($this->rental->reservation->start_date)->startOfDay();
         $end = Carbon::parse($this->move_out_date)->startOfDay();
         $diff = $start->diff($end);
 
