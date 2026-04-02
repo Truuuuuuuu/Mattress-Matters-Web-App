@@ -48,7 +48,7 @@
                                     <h1 class="text-3xl font-bold">₱{{number_format($myUnit->listing->rent_cost,2)}}</h1>
                                 </div>
                                 <div class="w-full">
-                                    <button class="btn btn-success w-full">Pay Now</button>
+                                    <a href="{{ route('tenant.soa') }}" class="btn btn-success w-full">Pay Now</a>
                                 </div>
                             </div>
                             <div class="flex-1 border rounded-xl px-2 py-4 space-y-2">

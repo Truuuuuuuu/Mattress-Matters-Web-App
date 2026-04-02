@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot:heading>Payment Success!</x-slot:heading>
-    <div class="flex flex-col items-center justify-center min-h-screen">
+    <div class="px-3 lg:px-0 flex flex-col items-center justify-center min-h-screen">
 
         @if($payment)
             <div class="mt-4 p-4 border rounded-lg w-full max-w-lg">
@@ -36,9 +36,14 @@
                         <p>Payment Method</p>
                         <p class="mt-3 text-xs font-semibold">Montly rent cost</p>
 
-                        @if($payment->payment_type !== 'rent')
+                        @if($payment->payment_type === 'security_deposit')
                             <p class="text-xs font-semibold">Security deposit</p>
+                        @elseif($payment->payment_type === 'rent')
+                            <p class="text-xs font-semibold">Monthly rent</p>
+                        @elseif($payment->payment_type === 'reservation_fee')
+                            <p class="text-xs font-semibold">Reservation Fee</p>
                         @endif
+
 
                         <p class="text-xs font-semibold">Electricity cost</p>
                         <p class="text-xs font-semibold">Water supply cost</p>

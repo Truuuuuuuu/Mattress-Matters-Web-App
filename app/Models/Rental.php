@@ -70,4 +70,15 @@ class Rental extends Model
         return $query->where('status', 'active');
     }
 
+    public function totalAmountDue(): float
+    {
+        $listing = $this->listing;
+
+        $rentCost    = $listing->rent_cost;
+        $waterCost   = $listing->water_supply_cost ?? 0;
+        $electricCost = $listing->electricity_cost ?? 0;
+
+        return $rentCost + $waterCost + $electricCost;
+    }
+
 }
