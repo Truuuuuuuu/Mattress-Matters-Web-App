@@ -1,10 +1,10 @@
 
 <x-panel class="w-full flex flex-col text-start hover:scale-[1.02] transition-transform duration-200" >
     <div class="w-full  text-center  ">
-        <div class="text-base-content/70 mb-3 flex justify-center">
-            <x-lucide-quote class="w-20 fill-current stroke-none"/>
+        <div class=" mb-3 flex justify-center">
+            <x-lucide-quote class="w-20 fill-current stroke-none text-base-content/10"/>
         </div>
-        <p class="text-sm lg:text-xl text-base-content">
+        <p class="text-sm lg:text-lg text-base-content">
             Finding my boarding house was quick and stress-free.
             The listings were accurate and verified.
         </p>

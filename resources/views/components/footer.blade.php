@@ -1,14 +1,14 @@
 <div>
     <section class=" text-sm lg:text-lg bg-black/10 p-10 pt-15 text-base-content">
         <div class="grid gap-6">
-            <div class="grid grid-cols lg:grid-cols-2 ">
-                <div class="text-justify  lg:pr-6">
-                    <h1 class="text-lg font-bold">Mattress Matters</h1>
-                    <p class="mt-3">Your trusted platform for quality boarding house listings in Balogo,
+            <div class="grid grid-cols lg:grid-cols-2 space-y-5">
+                <div class="text-justify  lg:pr-30 ">
+                    <h1 class="text-md font-bold">Mattress Matters</h1>
+                    <p class="mt-3 text-sm">Your trusted platform for quality boarding house listings in Balogo,
                         Sorsogon City. Connecting renters with verified property owners
                         since 2026.</p>
                 </div>
-                <div class="gap-x-10 mt-5 lg:gap-x-30 flex justify-end  ">
+                <div class="gap-x-10 lg:gap-x-30 flex justify-end text-sm ">
                     <div>
                         <h1 class="font-bold">Platform</h1>
                         <ul class="mt-3">
