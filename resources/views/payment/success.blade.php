@@ -86,9 +86,15 @@
 
             </div>
         @endif
+            @if($payment->payment_type !== 'rent')
+                <div class="w-full max-w-lg">
+                    <a href="{{route('reservation.index')}}" class="mt-6 px-10 btn btn-primary w-full ">Back</a>
+                </div>
+            @else
+                <div class="w-full max-w-lg">
+                    <a href="{{route('tenant.soa')}}" class="mt-6 px-10 btn btn-primary w-full ">Back</a>
+                </div>
+            @endif
 
-            <div class="w-full max-w-lg">
-                <a href="{{route('reservation.index')}}" class="mt-6 px-10 btn btn-primary w-full ">Back</a>
-            </div>
     </div>
 </x-layout>
