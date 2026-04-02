@@ -1,11 +1,11 @@
 <x-layout>
     <x-slot:heading>Mattress Matters | {{$listing->title}}</x-slot:heading>
 
-    <div class="px-20">
+    <div class="px-5 lg:px-20">
         {{--Main content--}}
         <section class="mb-10">
             <h1 class="text-2xl font-bold mt-10 text-base-content">Mattress Matters in Sorsogon City</h1>
-            <div class="grid grid-cols-2 mt-5 gap-10">
+            <div class="grid lg:grid-cols-2 mt-5 gap-10">
                 <div class=" rounded-2xl overflow-hidden ">
                     @php
                         $cover = $listing->listingImages->where('is_cover', true)->first();
@@ -45,18 +45,16 @@
                     </div>
 
                 </div>
-                <div class="px-5 text-base-content">
+                <div class="text-base-content">
                     <h1 class="text-2xl font-semibold">{{$listing->title}}</h1>
                     <p>{{$listing->slot}} slot • 4 rooms • 2 bathrooms </p>
                     <div class="flex items-center gap-1 mb-10">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-3">
-                            <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" clip-rule="evenodd" />
-                        </svg>
+                        <x-lucide-star class="w-3 fill-base-content"/>
                         <p><strong>4.9</strong> • <span class="underline text-base-content/50 cursor-pointer">10 reviews</span></p>
                     </div>
 
                     {{--reserve card--}}
-                    <div class="rounded-xl  mt-10 w-full  border border-black/30 py-5 px-20 mb-10">
+                    <div class="rounded-xl  mt-10 w-full  border border-black/30 py-5 px-3 lg:px-20 mb-10">
                         <div>
                             <h1 class="text-2xl font-semibold">₱{{number_format($listing->rent_cost)}} <span class="text-base-content/70 text-lg font-normal">monthly</span></h1>
                         </div>
@@ -108,7 +106,7 @@
                     {{--Prefered Tenant--}}
                     <div class=" mt-7">
                         <h1 class="text-2xl font-semibold ">Preferred Tenants</h1>
-                        <div class="grid grid-cols-2 mt-3 gap-y-5">
+                        <div class="grid lg:grid-cols-2 mt-3 gap-y-5">
                             @foreach($listing->rules->whereIn('name', ['gender_rule', 'tenant_rule']) as $rule)
                                 <x-rule-small-card :$rule/>
                             @endforeach
@@ -118,7 +116,7 @@
                     {{--Amenities--}}
                     <div class=" mt-7">
                         <h1 class="text-2xl font-semibold ">Amenities</h1>
-                        <div class="grid grid-cols-2 mt-3 gap-y-5">
+                        <div class="grid lg:grid-cols-2 mt-3 gap-y-5">
                             @foreach($listing->amenities as $amenity)
                                 <x-amenity-small-card :$amenity/>
                             @endforeach
@@ -133,26 +131,11 @@
                                 {{--content--}}
                                 <h3 class="text-2xl font-semibold mb-5">All Amenities</h3>
 
-                                <div class="flex items-center gap-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-fan-icon lucide-fan"><path d="M10.827 16.379a6.082 6.082 0 0 1-8.618-7.002l5.412 1.45a6.082 6.082 0 0 1 7.002-8.618l-1.45 5.412a6.082 6.082 0 0 1 8.618 7.002l-5.412-1.45a6.082 6.082 0 0 1-7.002 8.618l1.45-5.412Z"/><path d="M12 12v.01"/></svg>
-                                    <p class="text-lg">Electric fan</p>
+                                <div class="grid lg:grid-cols-2 mt-3 gap-y-5">
+                                    @foreach($listing->amenities as $amenity)
+                                        <x-amenity-small-card :$amenity/>
+                                    @endforeach
                                 </div>
-
-                                <x-divider class="bg-gray-200 my-5"/>
-
-                                <div class="flex items-center gap-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-fan-icon lucide-fan"><path d="M10.827 16.379a6.082 6.082 0 0 1-8.618-7.002l5.412 1.45a6.082 6.082 0 0 1 7.002-8.618l-1.45 5.412a6.082 6.082 0 0 1 8.618 7.002l-5.412-1.45a6.082 6.082 0 0 1-7.002 8.618l1.45-5.412Z"/><path d="M12 12v.01"/></svg>
-                                    <p class="text-lg">Electric fan</p>
-                                </div>
-
-                                <x-divider class="bg-gray-200 my-5"/>
-
-                                <div class="flex items-center gap-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-fan-icon lucide-fan"><path d="M10.827 16.379a6.082 6.082 0 0 1-8.618-7.002l5.412 1.45a6.082 6.082 0 0 1 7.002-8.618l-1.45 5.412a6.082 6.082 0 0 1 8.618 7.002l-5.412-1.45a6.082 6.082 0 0 1-7.002 8.618l1.45-5.412Z"/><path d="M12 12v.01"/></svg>
-                                    <p class="text-lg">Electric fan</p>
-                                </div>
-
-                                <x-divider class="bg-gray-200 my-5"/>
 
                                 <div class="modal-action">
                                     <form method="dialog">
@@ -174,12 +157,12 @@
 
         {{--What You Should Know--}}
         <section class="mb-20 ">
-            <h1 class="text-2xl font-semibold mt-20 text-center">What You Should Know</h1>
-            <div class="flex justify-center gap-x-40 mt-15">
-                <div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house-icon lucide-house"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            <h1 class="text-2xl font-semibold mt-20 text-center ">What You Should Know</h1>
+            <div class="lg:flex justify-center  gap-40 mt-15 space-y-3 lg:space-y-0 ">
+                <div class="flex flex-1 flex-col items-center ">
+                    <x-lucide-home class="w-8"/>
                     <h2 class="font-semibold mt-4">House rules</h2>
-                    <div class="text-base-content/60">
+                    <div class="text-base-content/60 text-center">
                         @forelse($listing->rules->whereIn('name',['guest_rule', 'pet_rule', 'curfew_rule', 'smoking_rule']) as $rule)
                             <p>{{$rule->description}}</p>
 
@@ -190,10 +173,10 @@
                     </div>
                 </div>
 
-                <div>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check-icon lucide-shield-check"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+                <div class="flex flex-1  flex-col items-center ">
+                    <x-lucide-shield-check class="w-8"/>
                     <h2 class="font-semibold mt-4">Safety & Property</h2>
-                    <div class="text-base-content/60">
+                    <div class="text-base-content/60 text-center ">
                         @forelse($listing->amenities->where('id', 8) as $safety)
                             <p>Exterior CCTV</p>
 
@@ -210,7 +193,7 @@
 
         {{--Reviews--}}
         <section>
-            <div class="grid grid-cols-2 mt-10 gap-x-30 gap-y-10 mb-10">
+            <div class="grid lg:grid-cols-2 mt-10 gap-x-30 gap-y-10 mb-10">
                 <x-review-card/>
                 <x-review-card/>
                 <x-review-card/>
