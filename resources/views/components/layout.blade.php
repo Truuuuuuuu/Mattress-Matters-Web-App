@@ -21,9 +21,7 @@
             <nav class="lg:hidden flex sticky top-0 z-50 bg-base-100 shadow justify-between items-center py-4 border-b border-white/10 p-5">
                 {{-- Logo --}}
                 <div class="shrink-0 ">
-                    <a href="/">
                         <img src="{{ asset('images/logo-only.svg') }}" alt="" class="w-10 h-auto" >
-                    </a>
                 </div>
                 <div class="space-x-6 font-semibold ">
                     <a href="/user-option" class="btn btn-primary">Get Started</a>
@@ -34,24 +32,24 @@
         @role('tenant')
         {{--MOBILE SCREEN--}}
         <nav class="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-base-100 border-t border-base-300 flex justify-around items-center h-16">
-            <a href="{{ route('tenant.homepage') }}" class="flex flex-col items-center text-xs gap-1 text-base-content/70 hover:text-primary">
-                <x-lucide-search class="w-5 h-5"/>
+            <a href="{{ route('tenant.homepage') }}" class="flex flex-col items-center text-xs gap-1  {{request()->routeIs('tenant.homepage') ? 'font-bold text-base-content' : 'text-base-content/70'}}">
+                <x-lucide-search class="w-5 h-5" stroke-width="{{request()->routeIs('tenant.homepage') ? 2.5 : 2}}"/>
                 <span>Explore</span>
             </a>
-            <a href="{{ route('reservation.index') }}" class="flex flex-col items-center text-xs gap-1 text-base-content/70 hover:text-primary">
-                <x-lucide-calendar-check class="w-5 h-5"/>
+            <a href="{{ route('reservation.index') }}" class="flex flex-col items-center text-xs gap-1 {{request()->routeIs('reservation.index') ? 'font-bold text-base-content' : 'text-base-content/70'}}">
+                <x-lucide-calendar-check class="w-5 h-5" stroke-width="{{request()->routeIs('reservation.index') ? 2.5 : 2}}"/>
                 <span>Reservation</span>
             </a>
-            <a href="{{ route('tenant.unit') }}" class="flex flex-col items-center text-xs gap-1 text-base-content/70 hover:text-primary">
-                <x-lucide-house-heart class="w-5 h-5"/>
+            <a href="{{ route('tenant.unit') }}" class="flex flex-col items-center text-xs gap-1 {{request()->routeIs('tenant.unit') ? 'font-bold text-base-content' : 'text-base-content/70'}}">
+                <x-lucide-house-heart class="w-5 h-5" stroke-width="{{request()->routeIs('tenant.unit') ? 2.5 : 2}}"/>
                 <span>My Unit</span>
             </a>
-            <a href="{{ route('listings.index') }}" class="flex flex-col items-center text-xs gap-1 text-base-content/70 hover:text-primary">
-                <x-lucide-message-circle class="w-5 h-5"/>
+            <a href="#" class="flex flex-col items-center text-xs gap-1 text-base-content/70">
+                <x-lucide-message-circle class="w-5 h-5" />
                 <span>Messages</span>
             </a>
-            <a href="{{ route('profile.index') }}" class="flex flex-col items-center text-xs gap-1 text-base-content/70 hover:text-primary">
-                <x-lucide-user-circle class="w-5 h-5"/>
+            <a href="{{ route('profile.index') }}" class="flex flex-col items-center text-xs gap-1 {{request()->routeIs('profile.index') ? 'font-bold text-base-content' : 'text-base-content/70'}}">
+                <x-lucide-user-circle class="w-5 h-5" stroke-width="{{request()->routeIs('profile.index') ? 2.5 : 2}}"/>
                 <span>Profile</span>
             </a>
         </nav>
@@ -61,9 +59,7 @@
         <nav class=" hidden lg:flex sticky top-0 z-50 bg-base-100 shadow justify-between items-center py-4 border-b border-white/10 p-5">
                 {{-- Logo --}}
                 <div class="shrink-0 ">
-                    <a href="/">
                         <img src="{{ asset('images/logo-only.svg') }}" alt="" class="w-10 h-auto" >
-                    </a>
                 </div>
 
                 @auth
