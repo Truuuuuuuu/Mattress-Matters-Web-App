@@ -18,7 +18,7 @@
     @if (!isset($hideNavbar))
 
         @guest
-            <nav class="flex sticky top-0 z-50 bg-base-100 shadow justify-between items-center py-4 border-b border-white/10 p-5">
+            <nav class="lg:hidden flex sticky top-0 z-50 bg-base-100 shadow justify-between items-center py-4 border-b border-white/10 p-5">
                 {{-- Logo --}}
                 <div class="shrink-0 ">
                     <a href="/">
@@ -124,7 +124,7 @@
 
                 @guest
                     <div class="space-x-6 font-semibold ">
-                        <a href="/user-option" class="btn btn-primary">Get Started</a>
+                        <a href="{{ route('email.register') }}" class="btn btn-primary">Get Started</a>
                         <a href="/login" class="text-base-content">Sign in</a>
                     </div>
                 @endguest
