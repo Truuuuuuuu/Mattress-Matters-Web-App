@@ -17,6 +17,7 @@
     },
     "dependencies": {
         "@heroicons/react": "^2.2.0",
+        "aos": "^2.3.4",
         "lucide": "^0.576.0"
     }
 }

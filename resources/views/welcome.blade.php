@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot:heading>Mattress Matters | Boarding House Listings</x-slot:heading>
-    <div class="space-y-10">
+    <div class="space-y-10 overflow-x-hidden">
         <section class="pt-10  lg:px-10 ">
             <div class=" flex justify-center gap-8 items-start ">
                 <div class="flex flex-col justify-center items-center">
@@ -53,22 +53,16 @@
             </div>
 
             {{--MOBILE VIEW--}}
-            <div class="px-5 carousel carousel-center  gap-4 w-full mt-2 lg:hidden overflow-x-auto">
-                @forelse($listings as $listing)
-                    <div class="carousel-item w-64">
-                        <x-bhouse-card :$listing />
-                    </div>
-                @empty
-                    <p class="text-center text-gray-500">No listings available.</p>
-                @endforelse
+            <div class="carousel carousel-center gap-4 w-full mt-5 lg:hidden px-5">
+                @foreach($listings as $listing)<div class="carousel-item w-64"><x-bhouse-card :$listing /></div>@endforeach
             </div>
 
         </section>
 
         {{--Illustrations--}}
         <section class="space-y-5">
-            <div class="px-3 lg:px-0 flex flex-col-reverse lg:flex-row justify-center gap-1 lg:gap-10">
-                <div class="flex flex-col justify-center w-full max-w-md text-center lg:text-start">
+            <div class="px-3 lg:px-0 flex flex-col-reverse lg:flex-row justify-center gap-1 lg:gap-10" data-aos="fade-right">
+                <div class="flex flex-col justify-center w-full max-w-md text-center lg:text-start" >
                     <h1 class="text-lg px-10 lg:px-0 lg:text-3xl font-bold">Your Boarding House Journey Starts Here</h1>
                     <p class="text-xs lg:text-md">Looking for a place to call home? We help you find safe, affordable, and comfortable boarding houses that fit your lifestyle and budget.</p>
 
@@ -79,7 +73,7 @@
 
             </div>
 
-            <div class="px-3 lg:px-0 flex flex-col lg:flex-row justify-center gap-1 lg:gap-10">
+            <div class="px-3 lg:px-0 flex flex-col lg:flex-row justify-center gap-1 lg:gap-10 " data-aos="fade-left">
                 <div class="flex justify-center ">
                     <img src="{{asset('images/host-rent.svg')}}" alt="house-search" class="w-34 lg:w-64">
                 </div>
@@ -89,7 +83,7 @@
 
                 </div>
             </div>
-            <div class="px-3 lg:px-0 flex flex-col-reverse lg:flex-row justify-center gap-1 lg:gap-10">
+            <div class="px-3 lg:px-0 flex flex-col-reverse lg:flex-row justify-center gap-1 lg:gap-10" data-aos="fade-right">
                 <div class="flex flex-col justify-center w-full max-w-md text-center lg:text-start">
                     <h1 class="text-lg px-10 lg:px-0 lg:text-3xl font-bold">Your All-in-One Boarding House Platform</h1>
                     <p class="text-xs lg:text-md">A smart and easy-to-use system designed to connect tenants and hosts seamlessly. From searching and listing to managing inquiries and everything you need is right here in one place.</p>
@@ -105,7 +99,7 @@
 
         {{-- CTA--}}
         <section class="py-30 w-full bg-gradient-to-t from-black via-blue-900 to-blue-500 w-full" >
-            <div class="place-self-center ">
+            <div class="place-self-center " data-aos="fade-up">
                 <div class="text-white">
                     <h1 class="text-3xl px-10 lg:text-5xl font-bold text-center">Start Your Journey With Us</h1>
                     <p class="text-center px-5 lg:px-10">Join thousands of renters and property owners using Mattress Matters</p>
@@ -117,7 +111,7 @@
         </section>
 
         {{--Testimonials--}}
-        <section class="my-20 lg:px-10 ">
+        <section class="my-20 lg:px-10 " data-aos="fade-up">
             <h1 class="text-lg lg:text-3xl text-base-content font-bold text-center mb-5 ">Hear From Our Community</h1>
             <div class=" hidden lg:flex justify-center gap-4  w-full ">
                 <x-testimonial/>

@@ -6,3 +6,8 @@ import './modules/toast.js'
 import './modules/payWithGcash.js'
 import './modules/themeChange.js'
 import './modules/soa.js'
+
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
+AOS.init();

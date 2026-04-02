@@ -1,6 +1,6 @@
 
 <x-panel class="w-full flex flex-col text-start hover:scale-[1.02] transition-transform duration-200" >
-    <div class="w-full  text-center  ">
+    <div class="w-full  text-center  " >
         <div class=" mb-3 flex justify-center">
             <x-lucide-quote class="w-20 fill-current stroke-none text-base-content/10"/>
         </div>

@@ -4,8 +4,8 @@
     : route('listings.show', $listing)
     }}"
    target="_blank"
-   class="block w-full hover:scale-[1.02] transition-transform duration-200">
-    <x-panel class="flex flex-col text-start " >
+   class="block lg:hover:scale-[1.02] transition-transform duration-200">
+    <x-panel class="flex flex-col text-start box-border" >
         <div class="py-0 lg:py-2 ">
             <div class="w-full aspect-4/3">
                 @php
