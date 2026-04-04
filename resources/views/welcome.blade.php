@@ -27,13 +27,13 @@
                         </h1>
                     </div>
                     <div class="px-5">
-                        <p class="text-sm mt-2 font-normal text-base-content w-full lg:w-xl text-center ">Connect with verified property owners offering
+                        <p class="text-sm mt-2 font-normal text-base-content w-full md:w-xl text-center ">Connect with verified property owners offering
                             quality accommodations in Apostol Compound, Balogo. Simple,
                             secure, and transparent.</p>
                     </div>
 
 
-                    <div class=" w-full max-w-xs lg:max-w-lg  text-base-content mt-5">
+                    <div class=" w-full px-5 md:max-w-lg lg:px-0 text-base-content mt-5 ">
                         @include('components.search-bar')
                     </div>
                 </div>
@@ -57,7 +57,7 @@
             </div>
 
             {{--SMALL - LARGE VIEW--}}
-            <div class="carousel carousel-center gap-4 lg:gap-12 lg:pb-2 w-full mt-5 xl:hidden px-5">
+            <div class="carousel carousel-center gap-4 pb-5 lg:gap-12 lg:pb-2 w-full mt-5 xl:hidden px-5">
                 @foreach($listings as $listing)
                     <div class="carousel-item w-64">
                         <x-bhouse-card :$listing />
