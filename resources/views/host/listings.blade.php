@@ -15,7 +15,7 @@
         </div>
 
         <div class="grid place-items-center mt-15   ">
-            <div class="w-full lg:max-w-6xl  grid grid-cols-3 gap-10">
+            <div class="w-full lg:max-w-6xl  grid grid-cols-4 gap-10">
                 @forelse($listings as $listing)
 
                     <x-bhouse-card :$listing width="92" />
