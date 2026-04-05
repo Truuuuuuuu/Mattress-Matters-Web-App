@@ -121,8 +121,8 @@
 
                    @guest
                        <div class="space-x-6 font-semibold ">
-                           <a href="{{ route('email.register') }}" class="btn btn-primary">Get Started</a>
                            <a href="/login" class="text-base-content">Sign in</a>
+                           <a href="{{ route('email.register') }}" class="btn btn-primary">Get Started</a>
                        </div>
                    @endguest
 
