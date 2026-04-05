@@ -1,7 +1,7 @@
 <x-layout>
     <x-slot:heading>My Unit</x-slot:heading>
 
-    <div class="w-full px-2 lg:px-10 pb-20">
+    <div class="w-full max-w-7xl mx-auto px-2 lg:px-10 pb-20">
         <div class="lg:flex items-center justify-center  ">
             @if($myUnit?->reservation?->status === 'checked_in')
                 <div class=" flex-1 h-full lg:px-5 ">
