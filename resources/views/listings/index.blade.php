@@ -45,7 +45,7 @@
                 </div>
 
                 {{--Listings cards--}}
-                <div class="space-y-3 grid grid-cols-2 lg:grid-cols-4 gap-x-2 gap-y-1 lg:gap-x-2 lg:gap-y-6 mt-5">
+                <div class="w-full max-w-7xl space-y-3 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-2 gap-y-1 lg:gap-x-2 lg:gap-y-6 mt-5 place-self-center">
                     @forelse($listings as $listing)
                         <x-bhouse-card :$listing />
                     @empty
