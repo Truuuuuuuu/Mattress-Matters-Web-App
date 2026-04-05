@@ -1,6 +1,6 @@
 <div>
-    <section class=" text-sm lg:text-lg bg-black/10 p-10 pt-15 text-base-content">
-        <div class="grid gap-6">
+    <section class="w-full  text-sm lg:text-lg bg-black/10 p-10 pt-15 text-base-content">
+        <div class="grid gap-6 max-w-7xl place-self-center">
             <div class="grid grid-cols lg:grid-cols-2 space-y-5">
                 <div class="text-justify  lg:pr-30 ">
                     <h1 class="text-md font-bold">Mattress Matters</h1>
