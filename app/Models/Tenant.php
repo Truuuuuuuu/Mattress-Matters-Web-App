@@ -40,5 +40,15 @@ class Tenant extends Model
         return $this->rentals()->exists();
     }
 
+    public function getOccupation(): string
+    {
+        return $this->occupation === 'working_individual' ? 'Working Individual' : 'Student';
+    }
+
+    public function getGender(): string
+    {
+        return $this->gender === 'male' ? 'Male' : 'Female';
+    }
+
 
 }

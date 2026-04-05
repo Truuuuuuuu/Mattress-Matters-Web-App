@@ -68,4 +68,22 @@ class User extends Authenticatable
     {
         return $this->hasMany(Reservation::class);
     }
+
+    public function tenantProfile(): HasOne
+    {
+        return $this->hasOne(Tenant::class);
+    }
+
+    public function hostProfile(): HasOne
+    {
+        return $this->hasOne(Host::class);
+    }
+    public function getProfile(): Tenant|Host|null
+    {
+        if ($this->hasRole('tenant')) {
+            return $this->tenantProfile;
+        }
+
+        return $this->hostProfile()->withCount('listings')->first();
+    }
 }
