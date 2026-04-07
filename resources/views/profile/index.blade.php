@@ -1,7 +1,7 @@
 <x-layout>
     <x-slot:heading>My Profile</x-slot:heading>
 
-  <div class="w-full max-w-7xl mx-auto px-3 lg:px-8 mt-10">
+  <div class="w-full max-w-7xl mx-auto px-3 lg:px-8 mt-10 text-base-content">
       <div class="grid gap-4 md:grid-cols-[1fr_2fr] place-self-center w-full">
           <div class=" space-y-5">
               <div class="border py-5 rounded-xl">
