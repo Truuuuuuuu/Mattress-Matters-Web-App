@@ -23,15 +23,10 @@ class ProfileController extends Controller
 
     public function show(User $user)
     {
-       if($user->hasRole('tenant')){
-           $userProfile = Tenant::where('user_id', $user->id)->first();
-           return view('profile.show', compact('userProfile'));
-       }
-       $userProfile = Host::where('user_id', $user->id)
-           ->withCount('listings')
-           ->first();
+        $profile = $user->getProfile();
+        abort_if(is_null($profile), 404);
 
 
-        return view('profile.show', compact( 'userProfile'));
+        return view('profile.show', compact('profile'));
     }
 }

@@ -1,47 +1,53 @@
 <x-layout>
     <x-slot:heading>My Profile</x-slot:heading>
 
-    <div class="w-full px-5 lg:px-0 flex flex-col justify-start items-center mt-10">
-
-
-            <div class="w-full max-w-lg">
-                <h1 class="text-4xl font-semibold mb-2">Profile</h1>
-            </div>
-            <div class="w-full max-w-lg  border border-black/30 rounded-3xl py-10 flex flex-col items-center ">
-                <div class="flex btn btn-ghost btn-circle h-40 w-40 bg-purple-700">
-                    <h1 class="text-6xl font-bold">{{$userProfile->user->name[0]}}</h1>
-                </div>
-                <div class="flex flex-col items-center mt-5">
-                    <h1 class="text-xl font-bold -mb-1">{{$userProfile->user->name}}</h1>
-                    <p>{{$userProfile->user->email}}</p>
-                </div>
-
-                @if($userProfile->user->hasRole('host'))
-                    <div class="w-xs flex  mt-5">
-                        <div class="flex flex-col flex-1  items-center">
-                            <h1 class="text-2xl font-bold">{{$userProfile->listings_count}}</h1>
-                            <p class="text-sm font-semibold text-base-content/70">Active Listings</p>
+    <div class="w-full max-w-7xl mx-auto px-3 lg:px-8 mt-10">
+        <div class="grid gap-4 md:grid-cols-[1fr_2fr] place-self-center w-full">
+            <div class=" space-y-5">
+                <div class="border py-5 rounded-xl">
+                    <div class="flex flex-col items-center">
+                        <div class="avatar avatar-placeholder my-3">
+                            <div class="bg-neutral text-neutral-content w-24 rounded-xl">
+                                <span class="text-3xl">{{$profile->user->name[0]}}</span>
+                            </div>
                         </div>
-                        <div class="flex flex-col flex-1  items-center">
-                            <h1 class="text-2xl font-bold">5</h1>
-                            <p class="text-sm font-semibold text-base-content/70">Host Rating</p>
-                        </div>
+                        <h1 class="text-xl font-bold">{{$profile->user->name}}</h1>
                     </div>
-                @else
-                    <div class=" w-xs  space-y-4 mt-5">
-                        <div>
-                            <p class="text-sm font-semibold text-base-content/70">Gender</p>
-                            <h1 class="text-xl font-bold -mt-2">{{ucfirst($userProfile->user->tenant->gender)}}</h1>
+
+
+                    <div class="w-full grid grid-cols-3  mt-10 px-4">
+                        <div class=" flex flex-col items-center">
+                            <div class="flex flex-col items-center justify-center h-12">
+                                <h1 class="font-bold">{{$profile->listings_count}}</h1>
+                                <p class="text-xs font-semibold text-base-content/70 text-center justify-center">LISTINGS</p>
+                            </div>
                         </div>
-                        <div>
-                            <p class="text-sm font-semibold text-base-content/70">Occupation</p>
-                            <h1 class="text-xl font-bold -mt-2">{{ucfirst($userProfile->user->tenant->occupation === 'working_individual' ? 'Working Individual' : 'Student')}}</h1>
+                        <div class=" flex flex-col items-center">
+                            <div class="flex flex-col items-center justify-center h-12">
+                                <h1 class="font-bold">5</h1>
+                                <p class="text-xs font-semibold text-base-content/70 justify-center">RATING</p>
+                            </div>
+                        </div>
+                        <div class="  flex flex-col items-center ">
+                            <div class="flex flex-col items-center justify-center h-12">
+                                <h1 class="font-bold text-center">{{$profile->created_at->format('Y')}}</h1>
+                                <p class="text-xs font-semibold text-base-content/70 text-center justify-center">JOINED </p>
+                            </div>
                         </div>
                     </div>
 
-                @endif
+                </div>
 
-                <button class="btn btn-primary mt-3 w-xs">Message</button>
+                <div class="border py-5 rounded-xl px-5">
+                    <h1 class="text-lg font-bold mb-4">About</h1>
+                    <p>Hello, this is a placeholder <only class=""></only></p>
+                </div>
             </div>
+
+            <div class="border flex justify-center items-center">
+                content here
+            </div>
+        </div>
+
     </div>
 </x-layout>
