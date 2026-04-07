@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Amenity;
 use App\Models\Listing;
+use App\Models\Rule;
 use Illuminate\Http\Request;
 
 class ResultListingController extends Controller
@@ -15,7 +17,11 @@ class ResultListingController extends Controller
            ->paginate(21)
            ->withQueryString();
 
-       return view('listings.index', compact('listings'));
+        $amenities = Amenity::all();
+        $rules = Rule::where('category', 'gender');
+
+
+       return view('listings.index', compact('listings', 'amenities', 'rules'));
     }
 
     public function show(Listing $listing){

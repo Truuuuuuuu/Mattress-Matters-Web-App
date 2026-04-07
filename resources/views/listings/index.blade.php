@@ -24,23 +24,8 @@
                             <x-lucide-sliders-horizontal class="w-5 h-5"/>
                             <p class="hidden lg:block">Filters</p>
                         </button>
-                        <!-- Open the modal using ID.showModal() method -->
-                        <dialog id="feature_modal" class="modal modal-bottom  sm:modal-middle">
-                            <div class="modal-box max-w-lg ">
-                                {{--content--}}
-                                <h3 class="text-xl font-normal mb-3">Filters</h3>
-                                <x-divider class="bg-gray-200"/>
+                        @include('components.filter-modal')
 
-                                <h1 class="text-2xl font-semibold">Exclusivity</h1>
-
-                                <div class="modal-action">
-                                    <form method="dialog">
-                                        {{--close btn--}}
-                                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </dialog>
                     </div>
                 </div>
 
