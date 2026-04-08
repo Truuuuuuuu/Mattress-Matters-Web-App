@@ -13,12 +13,12 @@ class ResultListingController extends Controller
     {
        $listings = Listing::with('host.user')
            ->latest()
-           ->filter($request->only(['search', 'min_price', 'max_price']))
+               ->filter($request->only(['search', 'min_price', 'max_price', 'amenities', 'rules']))
            ->paginate(21)
            ->withQueryString();
 
         $amenities = Amenity::all();
-        $rules = Rule::where('category', 'gender');
+        $rules = Rule::all();
 
 
        return view('listings.index', compact('listings', 'amenities', 'rules'));
@@ -29,5 +29,7 @@ class ResultListingController extends Controller
 
         return view('listings.show', compact('listing'));
     }
+
+
 
 }

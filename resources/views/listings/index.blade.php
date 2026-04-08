@@ -1,6 +1,5 @@
 <x-layout>
     <x-slot:heading>All Listings</x-slot:heading>
-
     <div class="px-10 mt-10">
         {{--Content--}}
         @guest

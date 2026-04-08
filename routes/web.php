@@ -142,7 +142,6 @@ Route::middleware(['auth', 'permission:view profile'])
     });
 //Listings results
 Route::get('/listings',[ResultListingController::class,'index'])->name('listings.index');
-
 Route::get('/listings/{listing}', [ResultListingController::class, 'show'])->name('listings.show');
 
 //Settings

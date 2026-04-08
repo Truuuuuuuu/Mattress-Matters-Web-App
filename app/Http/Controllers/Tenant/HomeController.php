@@ -15,7 +15,7 @@ class HomeController extends Controller
 
         $listings = Listing::with('host.user')
             ->latest()
-            ->filter($request->only(['search', 'min_price', 'max_price']))
+            ->filter($request->only('search'))
             ->paginate(21)
             ->withQueryString();
         $amenities = Amenity::all();

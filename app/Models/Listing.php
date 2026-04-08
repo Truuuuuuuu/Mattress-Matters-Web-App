@@ -39,23 +39,36 @@ class Listing extends Model
 
     /*filter search*/
     public function scopeFilter($query, array $filters){
-        $query->when($filters['search'] ?? false, function ($query, $search) {
-            $terms = explode(' ', $search); // split by space into individual words
+        return $query
+            ->when($filters['search'] ?? false, function ($query, $search) {
+                $terms = explode(' ', $search);
+                $isFirst = true;
 
-            foreach ($terms as $term) {
-                $query->where(function ($q) use ($term) {
-                    $q->where('title', 'like', '%' . $term . '%');
+                foreach ($terms as $term) {
+                    if ($isFirst) {
+                        $query->where('title', 'like', '%' . $term . '%');
+                        $isFirst = false;
+                    } else {
+                        $query->orWhere('title', 'like', '%' . $term . '%');
+                    }
+                }
+            })
+            ->when($filters['min_price'] ?? false, function ($query, $min) {
+                $query->where('rent_cost', '>=', $min);
+            })
+            ->when($filters['max_price'] ?? false, function ($query, $max) {
+                $query->where('rent_cost', '<=', $max);
+            })
+            ->when($filters['amenities'] ?? false, function ($query, $amenities) {
+                $query->whereHas('amenities', function ($q) use ($amenities) {
+                    $q->whereIn('amenities.id', $amenities);
                 });
-            }
-        });
-
-        $query->when($filters['min_price'] ?? false, fn ($q, $minPrice) =>
-            $q->where('price', '>=', $minPrice)
-        );
-
-        $query->when($filters['max_price'] ?? false, fn ($q, $maxPrice) =>
-            $q->where('price', '<=', $maxPrice)
-        );
+            })
+            ->when($filters['rules'] ?? false, function ($query, $rules) {
+                $query->whereHas('rules', function ($q) use ($rules) {
+                    $q->whereIn('rules.id', $rules);
+                });
+            });
     }
 
     public function amenities(): BelongsToMany

@@ -1,4 +1,5 @@
     <dialog id="feature_modal" class="modal modal-bottom  sm:modal-middle ">
+
         <div class="modal-box max-w-lg flex flex-col max-h-[90vh] p-0 ">
             {{--close btn--}}
             <div class="modal-action">
@@ -28,10 +29,11 @@
 
                 {{--Exclusivity--}}
                 <h1 class="text-xl font-semibold mb-3">Exclusivity</h1>
-                <div class="flex flex-wrap gap-4 w-full">
+
+                <div class="flex flex-wrap gap-4 w-full" id="rules_section">
                     @foreach($rules as $rule)
-                        <x-option-exclusivity-badge type="checkbox" name="{{$rule->name}}" value="{{$rule->id}}"
-                                                    label="{{ucfirst($rule->description)}}" >{{$rule->description}}
+                        <x-option-exclusivity-badge type="checkbox" name="rules[]" value="{{$rule->id}}"
+                                                    label="{{ucfirst($rule->description)}}" class="rule-option" >{{$rule->description}}
                         </x-option-exclusivity-badge>
                     @endforeach
                 </div>
@@ -40,7 +42,18 @@
             {{--Clear and results btn--}}
             <div class="sticky bottom-0 flex w-full gap-5 px-6 py-4 bg-base-100 border-t border-gray-200">
                 <button id="clear_filters_btn" class="btn btn-ghost w-12">Clear</button>
-                <button class="btn btn-primary flex-1">Show results</button>
+                <form method="GET" action="{{route('listings.index')}}" class="flex-1" id="filter_form">
+                    {{-- Price range hidden inputs (populated by your price range component) --}}
+                    <input type="hidden" name="min_price" id="filter_min_price">
+                    <input type="hidden" name="max_price" id="filter_max_price">
+                    {{-- Mirror amenities checkboxes --}}
+                    <div id="filter_amenities_mirror"></div>
+
+                    {{-- Mirror exclusivity checkboxes --}}
+                    <div id="filter_exclusivity_mirror"></div>
+
+                    <button type="submit" class="btn btn-primary w-full">Show results</button>
+                </form>
             </div>
         </div>
     </dialog>
