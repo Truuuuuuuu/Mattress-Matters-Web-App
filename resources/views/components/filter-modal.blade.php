@@ -39,8 +39,10 @@
 
             {{--Clear and results btn--}}
             <div class="sticky bottom-0 flex w-full gap-5 px-6 py-4 bg-base-100 border-t border-gray-200">
-                <button class="btn btn-ghost w-12">Clear</button>
+                <button id="clear_filters_btn" class="btn btn-ghost w-12">Clear</button>
                 <button class="btn btn-primary flex-1">Show results</button>
             </div>
         </div>
     </dialog>
+
+
