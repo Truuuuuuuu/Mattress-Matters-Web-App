@@ -85,7 +85,7 @@
                                 {{$listing->host->user->name[0]}}
                             </div>
                             <div>
-                                @if(auth()->user()->id === $listing->host->user->id)
+                                @if(auth()->user()?->id === $listing->host?->user?->id)
                                     <h1 class="font-semibold">Hosted by YOU</h1>
                                 @else
                                     <h1 class="font-semibold">Hosted by {{$listing->host->user->name}}</h1>
