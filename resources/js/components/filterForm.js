@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (minRange && maxRange) {
                 updatePriceFilters();
             }
-            
+
             // Sync amenities
             const amenitiesContainer = document.getElementById('filter_amenities_mirror');
             if (amenitiesContainer) {
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     amenitiesContainer.appendChild(hidden);
                 });
             }
-            
+
             // Sync rules
             const exclusivityContainer = document.getElementById('filter_exclusivity_mirror');
             if (exclusivityContainer) {

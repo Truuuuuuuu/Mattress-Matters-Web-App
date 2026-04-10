@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot:heading>All Listings</x-slot:heading>
-    <div class="px-10 mt-10">
+    <div id="listings-index" class="px-10 mt-10">
         {{--Content--}}
         @guest
             <div class="mb-8">
