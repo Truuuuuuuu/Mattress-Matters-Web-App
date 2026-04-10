@@ -176,10 +176,9 @@ class ReservationController extends Controller
             'status' => 'checked_in'
         ]);
 
-        /*update the updated_at*/
-        $reservation->rental->touch();
-
-
+        $reservation->rental->update([
+            'lease_start_date' => $reservation->start_date,
+        ]);
 
         return redirect()->route('tenant.unit')->with('success', 'Enjoy your stay!');
     }

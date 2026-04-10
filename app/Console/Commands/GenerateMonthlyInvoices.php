@@ -23,19 +23,20 @@ class GenerateMonthlyInvoices extends Command
             ->get()
             ->each(function (Rental $rental) use ($today) {
 
-                $moveInDay  = Carbon::parse($rental->reservation->start_date)->day;
+                $moveInDay  = Carbon::parse($rental->lease_start_date)->day;
 
-                // Due date is this month's move-in day UNCOMMENT LATER !!!!!!!!!!!
-                /*$dueDate    = Carbon::today()->startOfMonth()->setDay($moveInDay);*/
+                $dueDate = Carbon::today()->startOfMonth()->setDay(min($moveInDay, Carbon::today()->daysInMonth));
 
-                // Due date is this month's move-in day TESTING
-                $dueDate    = Carbon::parse('2026-04-01')->startOfMonth()->setDay($moveInDay);
+                // First month is paid on reservation, so due date can't be earlier than lease_start + 1 month
+                $firstDue = Carbon::parse($rental->lease_start_date)->addMonth();
+                if ($dueDate->lt($firstDue)) {
+                    $dueDate = $firstDue;
+                }
 
-                // Generate 7 days before due
-                $generateOn = $dueDate->copy()->subDays(7);
+                /*UNCOMMENT LATER!!!!*/
+                /*$generateOn = $dueDate->copy()->subDays(7);
 
-                /*!!!uncomment later!!!!*/
-                /*if ($today->day !== $generateOn->day) return;*/
+                if ($today->day !== $generateOn->day) return;*/
 
                 $periodMonth = $dueDate->format('Y-m');
 

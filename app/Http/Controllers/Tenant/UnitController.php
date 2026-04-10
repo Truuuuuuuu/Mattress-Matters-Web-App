@@ -19,8 +19,23 @@ class UnitController extends Controller
             ->with(['listing.listingImages', 'listing.amenities', 'listing.rules', 'moveOutNotice'])
             ->first();
 
+        $tenant  = auth()->user()->tenant;
+        $rental  = $tenant->rental;
+        $moveInDay = \Carbon\Carbon::parse($rental?->lease_start_date)->day;
+        $today     = \Carbon\Carbon::today();
+        $dueDate   = $today->copy()->startOfMonth()->setDay($moveInDay);
 
-        return view('tenant.my-unit', compact('myUnit'));
+        $nextDue = $today->gt($dueDate)
+            ? $dueDate->copy()->addMonth()
+            : $dueDate;
+
+        // First month is paid on reservation, so nextDue can't be earlier than lease_start + 1 month
+        $firstDue = \Carbon\Carbon::parse($rental?->lease_start_date)->addMonth();
+        if ($nextDue->lt($firstDue)) {
+            $nextDue = $firstDue;
+        }
+
+        return view('tenant.my-unit', compact('myUnit', 'nextDue'));
     }
 
     public function store(Rental $rental, Request $request) {

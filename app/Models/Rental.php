@@ -16,6 +16,7 @@ class Rental extends Model
         'listing_id',
         'reservation_id',
         'status',
+        'lease_start_date',
         'updated_at'
     ];
 

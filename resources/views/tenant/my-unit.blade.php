@@ -44,11 +44,11 @@
                         <div class="flex-1 space-y-3 ">
                             <div class="flex-1 border rounded-xl px-2 pt-7 pb-3 ">
                                 <div>
-                                    <h1 class="text-sm font-bold text-base-content/70 -mb-2">Monthly Rent</h1>
-                                    <h1 class="text-3xl font-bold">₱{{number_format($myUnit->listing->rent_cost,2)}}</h1>
+                                    <h1 class="text-sm font-bold text-base-content/70 -mb-2">Next Due Date</h1>
+                                    <h1 class="text-xl font-bold mb-4">{{ $nextDue->format('F d, Y') }}</h1>
                                 </div>
                                 <div class="w-full">
-                                    <a href="{{ route('tenant.soa') }}" class="btn btn-success w-full">Pay Now</a>
+                                    <a href="{{ route('tenant.soa') }}" class="btn btn-success w-full">Manage Billing</a>
                                 </div>
                             </div>
                             <div class="flex-1 border rounded-xl px-2 py-4 space-y-2">
@@ -57,12 +57,8 @@
                                     $water_cost = $myUnit->listing->water_supply_cost;
                                 @endphp
                                 <div>
-                                    <h1 class="text-sm font-bold text-base-content/70 -mb-2">Electricity Cost</h1>
-                                    <h1 class=" {{$electric_cost ? 'text-3xl text-bold ' : 'text-thin text-xl text-base-content/70 '}}">{{$myUnit->listing->electricity_cost ? '₱'. number_format( $myUnit->listing->electricity_cost,2) : 'N/A' }}</h1>
-                                </div>
-                                <div>
-                                    <h1 class="text-sm font-bold text-base-content/70 -mb-2">Water Supply Cost</h1>
-                                    <h1 class=" {{$water_cost ? 'text-3xl text-bold ' : 'text-thin text-xl text-base-content/70'}}">{{$myUnit->listing->water_supply_cost_cost ? '₱'. number_format( $myUnit->listing->water_supply_cost,2) : 'N/A' }}</h1>
+                                    <h1 class="text-sm font-bold text-base-content/70 -mb-2">Monthly Rent</h1>
+                                    <h1 class="text-3xl font-bold">₱{{number_format($myUnit->listing->rent_cost,2)}}</h1>
                                 </div>
                             </div>
                             <div class="border rounded-xl px-2 py-4 flex flex-col items-center mb-3">

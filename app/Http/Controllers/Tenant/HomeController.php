@@ -21,8 +21,6 @@ class HomeController extends Controller
         $amenities = Amenity::all();
         $rules = Rule::all();
 
-
-
         return view('listings.index', compact('listings', 'amenities', 'rules'));
     }
 }

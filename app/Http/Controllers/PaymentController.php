@@ -324,7 +324,7 @@ class PaymentController extends Controller
             return view('tenant.soa', ['invoices' => collect(), 'rental' => null, 'nextDue' => null]);
         }
 
-        $moveInDay = \Carbon\Carbon::parse($rental->reservation->start_date)->day;
+        $moveInDay = \Carbon\Carbon::parse($rental->lease_start_date)->day;
         $today     = \Carbon\Carbon::today();
         $dueDate   = $today->copy()->startOfMonth()->setDay($moveInDay);
 
@@ -336,6 +336,12 @@ class PaymentController extends Controller
         $invoices = Invoice::where('tenant_id', $tenant->id)
             ->orderBy('due_date', 'desc')
             ->get();
+
+        // First month is paid on reservation, so nextDue can't be earlier than lease_start + 1 month
+        $firstDue = \Carbon\Carbon::parse($rental->lease_start_date)->addMonth();
+        if ($nextDue->lt($firstDue)) {
+            $nextDue = $firstDue;
+        }
 
         return view('tenant.soa', compact('invoices', 'rental', 'nextDue'));
     }
