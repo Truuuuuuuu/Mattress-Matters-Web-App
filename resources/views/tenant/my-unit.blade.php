@@ -44,10 +44,38 @@
                         <div class="flex-1 space-y-3 ">
                             <div class="flex-1 border rounded-xl px-2 pt-7 pb-3 ">
                                 <div>
-                                    <h1 class="text-sm font-bold text-base-content/70 -mb-2">Next Due Date</h1>
-                                    <h1 class="text-xl font-bold mb-4">{{ $nextDue->format('F d, Y') }}</h1>
+                                    <div class="flex justify-between">
+                                        <h1 class="text-sm font-bold text-base-content/70 -mb-2">Due Date</h1>
+                                        <div class="badge badge-xs">
+                                            @if($invoiceInfo['status'] === 'paid')
+                                                <span class="badge badge-soft badge-success">Paid</span>
+                                            @elseif($invoiceInfo['status'] === 'overdue')
+                                                <span class="badge badge-soft badge-error">Overdue</span>
+                                            @elseif($invoiceInfo['status'] === 'unpaid')
+                                                <span class="badge badge-soft badge-warning">Unpaid</span>
+                                            @else
+                                                <span class="badge badge-soft badge-primary">Pending</span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <h1 class="text-xl font-bold">
+                                        @if($invoiceInfo['status'] === 'no_invoice')
+                                            No invoice yet
+                                        @elseif($invoiceInfo['status'] === 'paid')
+                                            Wait for next invoice
+                                        @elseif($invoiceInfo['status'] === 'overdue')
+                                            <span class="text-error">{{ $invoiceInfo['due_date']?->format('F d, Y') }}</span>
+                                        @else
+                                            {{ $invoiceInfo['due_date']?->format('F d, Y') }}
+                                        @endif
+                                    </h1>
+                                    @if($invoiceInfo['status'] === 'no_invoice' || $invoiceInfo['status'] === 'paid')
+                                        <p class="text-xs text-base-content/50">Note: Invoice will be generated 7 days before due date</p>
+                                    @endif
+
+
                                 </div>
-                                <div class="w-full">
+                                <div class="w-full mt-4">
                                     <a href="{{ route('tenant.soa') }}" class="btn btn-success w-full">Manage Billing</a>
                                 </div>
                             </div>
@@ -163,14 +191,14 @@
 
             </div>
         @else
-            <div>
+            <div class=" flex mt-20 justify-center items-center">
                 Don't have active rental yet.
             </div>
         @endif
 
     </div>
 
-    <div class="h-24">
+    <div class="{{!$myUnit ? 'h-0' : 'h-24'}}">
 
     </div>
 </x-layout>

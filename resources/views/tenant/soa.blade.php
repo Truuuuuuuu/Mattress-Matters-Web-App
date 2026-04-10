@@ -10,8 +10,8 @@
             {{-- Next Due Banner --}}
             <div class="bg-blue-50 border border-blue-200 rounded-lg p-5 mb-6 flex justify-between items-center">
                 <div>
-                    <p class="text-sm text-blue-500">Next Due Date</p>
-                    <p class="text-2xl font-bold text-blue-800">{{ $nextDue->format('F d, Y') }}</p>
+                    <p class="text-sm text-blue-500">Due Date</p>
+                    <p class="text-2xl font-bold text-blue-800">{{ $nextDue?->format('F d, Y') ?? 'Wait for next month\'s invoice'}}</p>
                     <p class="text-sm text-blue-500 mt-1">
                         ₱{{ number_format($rental->totalAmountDue()) }} / month
                     </p>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Tenant;
 use App\Http\Controllers\Controller;
 use App\Models\MoveOutNotice;
 use App\Models\Rental;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class UnitController extends Controller
@@ -19,23 +20,42 @@ class UnitController extends Controller
             ->with(['listing.listingImages', 'listing.amenities', 'listing.rules', 'moveOutNotice'])
             ->first();
 
-        $tenant  = auth()->user()->tenant;
-        $rental  = $tenant->rental;
-        $moveInDay = \Carbon\Carbon::parse($rental?->lease_start_date)->day;
-        $today     = \Carbon\Carbon::today();
-        $dueDate   = $today->copy()->startOfMonth()->setDay($moveInDay);
+        $tenant = auth()->user()->tenant;
 
-        $nextDue = $today->gt($dueDate)
-            ? $dueDate->copy()->addMonth()
-            : $dueDate;
+        // Get invoice status information
+        $invoiceInfo = [];
+        if ($tenant->rental?->invoices->count() > 0) {
+            // Get the latest invoice (paid or unpaid)
+            $latestInvoice = $tenant->rental->invoices->sortByDesc('created_at')->first();
 
-        // First month is paid on reservation, so nextDue can't be earlier than lease_start + 1 month
-        $firstDue = \Carbon\Carbon::parse($rental?->lease_start_date)->addMonth();
-        if ($nextDue->lt($firstDue)) {
-            $nextDue = $firstDue;
+            if ($latestInvoice->status === 'paid') {
+                $invoiceInfo = [
+                    'status' => 'paid',
+                    'due_date' => null,
+                ];
+            } elseif ($latestInvoice->status === 'unpaid') {
+                // Check if overdue
+                $isOverdue = $latestInvoice->due_date < now();
+
+                $invoiceInfo = [
+                    'status' => $isOverdue ? 'overdue' : 'unpaid',
+                    'due_date' => $latestInvoice->due_date,
+                    'invoice' => $latestInvoice,
+                    'is_overdue' => $isOverdue,
+                    'days_overdue' => $isOverdue ? $latestInvoice->due_date->diffInDays(now()) : 0,
+                ];
+            }
+        } else {
+            // No invoice yet (first time)
+            $invoiceInfo = [
+                'status' => 'no_invoice',
+                'due_date' => null,
+            ];
         }
 
-        return view('tenant.my-unit', compact('myUnit', 'nextDue'));
+
+
+        return view('tenant.my-unit', compact('myUnit', 'invoiceInfo'));
     }
 
     public function store(Rental $rental, Request $request) {

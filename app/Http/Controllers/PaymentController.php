@@ -7,6 +7,7 @@ use App\Models\Listing;
 use App\Models\Payment;
 use App\Models\Rental;
 use App\Models\Reservation;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -324,24 +325,17 @@ class PaymentController extends Controller
             return view('tenant.soa', ['invoices' => collect(), 'rental' => null, 'nextDue' => null]);
         }
 
-        $moveInDay = \Carbon\Carbon::parse($rental->lease_start_date)->day;
-        $today     = \Carbon\Carbon::today();
-        $dueDate   = $today->copy()->startOfMonth()->setDay($moveInDay);
+        $nextDue = $rental->invoices()
+            ->where('status', 'unpaid')
+            ->orderBy('due_date')
+            ->first()
+            ?->due_date;
 
-        // If due date already passed this month, next due is next month
-        $nextDue = $today->gt($dueDate)
-            ? $dueDate->copy()->addMonth()
-            : $dueDate;
-
-        $invoices = Invoice::where('tenant_id', $tenant->id)
+        $invoices = $rental->invoices()
             ->orderBy('due_date', 'desc')
             ->get();
 
-        // First month is paid on reservation, so nextDue can't be earlier than lease_start + 1 month
-        $firstDue = \Carbon\Carbon::parse($rental->lease_start_date)->addMonth();
-        if ($nextDue->lt($firstDue)) {
-            $nextDue = $firstDue;
-        }
+
 
         return view('tenant.soa', compact('invoices', 'rental', 'nextDue'));
     }
