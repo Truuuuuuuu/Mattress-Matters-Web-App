@@ -19,9 +19,7 @@ class HomeController extends Controller
             ->paginate(21)
             ->withQueryString();
         $amenities = Amenity::all();
-        $rules = Rule::where('category', 'gender')
-            ->orWhere('category', 'tenant')
-            ->get();
+        $rules = Rule::all();
 
 
 
