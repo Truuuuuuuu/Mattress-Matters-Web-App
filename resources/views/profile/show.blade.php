@@ -4,14 +4,18 @@
     <div class="w-full max-w-7xl mx-auto px-3 lg:px-8 mt-10 text-base-content">
         <div class="grid gap-4 md:grid-cols-[1fr_2fr] place-self-center w-full">
             <div class=" space-y-5">
-                <div class="border py-5 rounded-xl">
-                    <div class="flex flex-col items-center">
+                <div class="border py-5 px-3 rounded-xl">
+                    <div class="flex flex-col items-center mb-2">
                         <div class="avatar avatar-placeholder my-3">
                             <div class="bg-neutral text-neutral-content w-24 rounded-xl">
                                 <span class="text-3xl">{{$profile->user->name[0]}}</span>
                             </div>
                         </div>
                         <h1 class="text-xl font-bold">{{$profile->user->name}}</h1>
+                    </div>
+
+                    <div>
+                        <a href="{{ route('messages.show', $profile->user) }}" class="btn btn-primary w-full">Message</a>
                     </div>
 
 

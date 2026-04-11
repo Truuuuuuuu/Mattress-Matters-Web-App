@@ -22,7 +22,7 @@
             authUserId:    {{ auth()->id() }},
             receiverId:    {{ $user->id }},
             csrfToken:     '{{ csrf_token() }}',
-            sendUrl:       '{{ route("messages.send", $user) }}'
+            sendUrl:       '{{ route("messages.send", $user->id) }}'
         };
     </script>
 </x-layout>

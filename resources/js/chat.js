@@ -7,6 +7,7 @@ const channelName = 'chat.' + [authUserId, receiverId]
 
 window.Echo.private(channelName)
     .listen('MessageSent', (data) => {
+        if (data.sender_id === authUserId) return;
         // data.sender is the full User object — use .name
         appendMessage(data.sender.name, data.body, data.sender_id === authUserId);
     });
@@ -26,8 +27,6 @@ function sendMessage() {
         headers: {
             'Content-Type': 'application/json',
             'X-CSRF-TOKEN': csrfToken,
-            // Send socket ID so toOthers() correctly excludes the sender
-            'X-Socket-ID': window.Echo.socketId(),
         },
         body: JSON.stringify({ body })
     })

@@ -166,6 +166,7 @@ Route::post('/tenant/rent/pay/{invoice}', [PaymentController::class, 'payRent'])
 
 //Pusher, Messaging
 Route::middleware('auth')->group(function () {
-    Route::get('/chat/{user}',      [MessageController::class, 'index'])->name('message.index');
+    Route::get('/messages', [MessageController::class, 'inbox'])->name('messages.inbox');
+    Route::get('/chat/{user}', [MessageController::class, 'index'])->name('messages.show');
     Route::post('/messages/{user}', [MessageController::class, 'send'])->name('messages.send');
 });
