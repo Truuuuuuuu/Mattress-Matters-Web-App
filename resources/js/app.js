@@ -9,6 +9,8 @@ import './components/soa.js'
 import './components/priceRange.js'
 import './components/reset-filters.js'
 import './components/filterForm.js'
+import './chat.js'
+import './echo.js'
 
 import AOS from 'aos';
 import 'aos/dist/aos.css';

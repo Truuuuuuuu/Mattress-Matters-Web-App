@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Host\DashboardController;
 use App\Http\Controllers\Host\ListingController;
 use App\Http\Controllers\Host\ManageTenant;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReservationController;
@@ -161,3 +162,10 @@ Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
 
 Route::get('/tenant/soa', [PaymentController::class, 'soa'])->name('tenant.soa');
 Route::post('/tenant/rent/pay/{invoice}', [PaymentController::class, 'payRent'])->name('tenant.rent.pay');
+
+
+//Pusher, Messaging
+Route::middleware('auth')->group(function () {
+    Route::get('/chat/{user}',      [MessageController::class, 'index'])->name('message.index');
+    Route::post('/messages/{user}', [MessageController::class, 'send'])->name('messages.send');
+});
