@@ -38,11 +38,45 @@ function sendMessage() {
         });
 }
 
-function appendMessage(senderName, body, isMine) {
+/*function appendMessage(senderName, body, isMine) {
     const box = document.getElementById('chat-box');
     const div = document.createElement('div');
     div.className = 'message ' + (isMine ? 'mine' : 'theirs');
     div.innerHTML = `<strong>${senderName}:</strong> ${body}`;
     box.appendChild(div);
+    box.scrollTop = box.scrollHeight;
+}*/
+
+function appendMessage(senderName, body, isMine) {
+        const container = document.getElementById('messages-container');
+
+    const div = document.createElement('div');
+    div.className = `w-full chat ${isMine ? 'chat-end' : 'chat-start'}`;
+
+    // Get first letter of sender name for avatar
+    const initial = senderName.charAt(0).toUpperCase();
+
+    // Get current time in H:i format
+    const now = new Date();
+    const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+
+    div.innerHTML = `
+        <div class="chat-image avatar">
+            <div class="avatar avatar-placeholder">
+                <div class="bg-neutral text-neutral-content w-8 rounded-full">
+                    <span class="text-xs">${initial}</span>
+                </div>
+            </div>
+        </div>
+        <div class="chat-header">${senderName}</div>
+        <div class="chat-bubble">${body}</div>
+        <div class="chat-footer opacity-50">
+            <time class="text-xs opacity-50">${time}</time>
+        </div>
+    `;
+
+    container.appendChild(div);
+
+    const box = document.getElementById('chat-box');
     box.scrollTop = box.scrollHeight;
 }
