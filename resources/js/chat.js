@@ -1,4 +1,4 @@
-const { authUserId, receiverId, csrfToken, sendUrl } = window.CHAT_CONFIG;
+const { senderName, authUserId, receiverId, csrfToken, sendUrl } = window.CHAT_CONFIG;
 
 const channelName = 'chat.' + [authUserId, receiverId]
     .map(Number)
@@ -33,7 +33,7 @@ function sendMessage() {
         .then(res => res.json())
         .then(data => {
             // Append for the sender immediately (receiver gets it via Pusher)
-            appendMessage('You', data.body, true);
+            appendMessage(senderName, data.body, true);
             input.value = '';
         });
 }
@@ -68,7 +68,6 @@ function appendMessage(senderName, body, isMine) {
                 </div>
             </div>
         </div>
-        <div class="chat-header">${senderName}</div>
         <div class="chat-bubble">${body}</div>
         <div class="chat-footer opacity-50">
             <time class="text-xs opacity-50">${time}</time>

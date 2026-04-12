@@ -33,6 +33,7 @@
     {{-- Pass Laravel data to JS --}}
     <script>
         window.CHAT_CONFIG = {
+            senderName:     '{{auth()->user()->name}}',
             authUserId:    {{ auth()->id() }},
             receiverId:    {{ $user->id }},
             csrfToken:     '{{ csrf_token() }}',
