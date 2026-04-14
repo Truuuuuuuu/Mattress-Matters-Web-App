@@ -12,8 +12,10 @@
                        class="flex items-center gap-4 p-4 bg-white rounded-xl shadow-sm hover:bg-gray-50 transition">
 
                         {{-- Avatar --}}
-                        <div class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold text-lg shrink-0">
-                            {{ strtoupper(substr($convo['user']->name, 0, 1)) }}
+                        <div class="avatar avatar-placeholder">
+                            <div class="bg-neutral text-neutral-content w-12 rounded-full">
+                                <span class="text-md"> {{ strtoupper(substr($convo['user']->name, 0, 1)) }}</span>
+                            </div>
                         </div>
 
                         {{-- Name + Last message --}}

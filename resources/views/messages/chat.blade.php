@@ -22,7 +22,9 @@
         <div class="shrink-0 flex w-full justify-center bg-gray-200 py-5">
             <div class="flex w-full max-w-3xl gap-2">
                 <input id="msg-input" type="text" placeholder="Type a message..." class="w-full input input-neutral">
-                <button id="send-btn" class="btn btn-neutral">Send</button>
+                <button id="send-btn" class="btn btn-ghost">
+                    <x-lucide-send-horizonal class="w-7 h-7 " />
+                </button>
             </div>
         </div>
     </div>
