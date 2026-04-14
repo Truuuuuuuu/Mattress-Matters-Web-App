@@ -97,7 +97,7 @@
                                 <p class="font-semibold">{{$myUnit->listing->host->user->name}}</p>
                                 <div class="w-full">
 
-                                    <button class="btn btn-neutral w-full mt-2">Message</button>
+                                    <a href="{{route('messages.show', $myUnit->listing->host->user)}}" class="btn btn-neutral w-full mt-2">Message</a>
                                 </div>
                             </div>
                         </div>
