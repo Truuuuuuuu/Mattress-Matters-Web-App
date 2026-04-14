@@ -124,14 +124,12 @@ class ReservationController extends Controller
 
         $attributes = $request->validate([
             'start_date' => ['required', 'date'],
-            'end_date' => ['nullable', 'date'],
         ]);
 
         Reservation::create([
             'tenant_id' => $tenant->id,
             'listing_id' => $listing->id,
             'start_date' => $attributes['start_date'],
-            'end_date' => $attributes['end_date'],
         ]);
 
 

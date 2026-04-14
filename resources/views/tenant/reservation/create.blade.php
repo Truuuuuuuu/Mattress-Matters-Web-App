@@ -29,8 +29,6 @@
                 <p class="text-red-500 text-sm">Please input start date</p>
                 @enderror
 
-                <label for="end_date" class="cursor-pointer font-semibold">End Date <span class="italic">(Optional)</span></label>
-                <input type="date" id="end_date" name="end_date" class="input input-neutral w-full">
                 <p class="text-sm font-regular text-base-content/50 -mt-3">Leave the end date blank if your stay is indefinite.</p>
 
             </div>
