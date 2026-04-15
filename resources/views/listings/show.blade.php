@@ -61,9 +61,9 @@
                         <p class="text-base-content/50 text-sm">Only {{$listing->slot}} slot/s remaining</p>
                         <div class="mt-3">
                             @if(!auth()->check())
-                                <a href="{{route('login')}}" class="btn btn-neutral w-full">Reserve</a>
+                                <a href="{{route('login')}}" class="btn btn-primary w-full">Reserve</a>
                             @elseif($listing->slot >= 1 && auth()->user()->hasRole('tenant'))
-                                <button onclick="document.getElementById('reservationModal').showModal()" class="btn btn-neutral w-full">Reserve</button>
+                                <button onclick="document.getElementById('reservationModal').showModal()" class="btn btn-primary w-full">Reserve</button>
                                 @include('tenant.reservation.create', ['listing' => $listing])
 
                             @elseif($listing->slot == 0 && auth()->user()->hasRole('tenant'))
