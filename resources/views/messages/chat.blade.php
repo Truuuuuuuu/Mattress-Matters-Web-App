@@ -3,7 +3,7 @@
 
 
     <div class="flex flex-col h-[calc(100vh-5rem)] ">
-        <div class="shrink-0 flex w-full justify-center bg-gray-200 py-3 ">
+        <div class="shrink-0 flex w-full justify-center bg-gray-200 py-3 px-3">
             <div class="w-full flex gap-3 max-w-3xl  items-center">
                 <div class="avatar avatar-placeholder">
                     <div class="bg-neutral text-neutral-content w-12 rounded-full">
@@ -19,9 +19,9 @@
                 @endforeach
             </div>
         </div>
-        <div class="shrink-0 flex w-full justify-center bg-gray-200 py-5">
+        <div class="shrink-0 flex w-full justify-center bg-gray-200 py-5 px-3">
             <div class="flex w-full max-w-3xl gap-2">
-                <input id="msg-input" type="text" placeholder="Type a message..." class="w-full input input-neutral">
+                <input id="msg-input" type="text" placeholder="Type a message..." class="w-full input input-neutral rounded-4xl">
                 <button id="send-btn" class="btn btn-ghost">
                     <x-lucide-send-horizonal class="w-7 h-7 " />
                 </button>
