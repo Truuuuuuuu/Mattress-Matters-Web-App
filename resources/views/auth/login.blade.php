@@ -2,8 +2,8 @@
 <x-layout :hideNavbar="false" >
     <x-slot:heading>Log in</x-slot:heading>
     <div class="grid lg:grid-cols-2 max-w-full h-screen ">
-        <div class="hidden lg:block h-screen">
-            <img src="{{ asset('images/photo1.jpg') }}" alt="" class="w-full h-full object-cover">
+        <div class="hidden lg:flex h-screen  justify-center items-center">
+            <img src="{{ asset('images/login-photo1.png') }}" alt="" class="object-contain w-124">
         </div>
         <div class="flex items-center justify-center text-base-content">
             <div class="w-full lg:max-w-md mx-auto px-6">
