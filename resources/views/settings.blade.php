@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot:heading>Settings</x-slot:heading>
-    <div class="flex justify-center py-10 text-base-content">
+    <div class="flex justify-center py-10 px-3 text-base-content">
         <div class="w-full max-w-lg  ">
             <h1 class="text-3xl font-semibold mb-2">Settings</h1>
 
