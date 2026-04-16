@@ -60,6 +60,15 @@
           <div class="border flex justify-center items-center">
                 content here
           </div>
+          <div class="lg:hidden py-2 flex flex-col gap-3 justify-center items-center">
+              <a href="{{route('settings.index')}}" class="btn  btn-outline w-full">Settings</a>
+              <form method="POST" action="/logout" class=" w-full hover:bg-red-100 hover:text-red-900" >
+                  @csrf
+                  @method('DELETE')
+                  <button class="btn btn-error btn-outline w-full">Log out</button>
+              </form>
+
+          </div>
       </div>
 
   </div>

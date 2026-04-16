@@ -151,7 +151,7 @@
                                        <form method="POST" action="/logout" class="hover:bg-red-100 hover:text-red-900" >
                                            @csrf
                                            @method('DELETE')
-                                           <button class="hover:cursor-pointer">Log Out</button>
+                                           <button class="hover:cursor-pointer">Log out</button>
                                        </form>
 
                                    </li>
