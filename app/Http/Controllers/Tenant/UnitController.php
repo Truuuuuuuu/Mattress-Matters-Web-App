@@ -32,6 +32,7 @@ class UnitController extends Controller
                 $invoiceInfo = [
                     'status' => 'paid',
                     'due_date' => null,
+                    'month' => Carbon::parse($latestInvoice->due_date)->format('M'),
                 ];
             } elseif ($latestInvoice->status === 'unpaid') {
                 // Check if overdue
