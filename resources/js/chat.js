@@ -84,6 +84,6 @@
         box.scrollTop = box.scrollHeight;
     }
 
-
-
+    /*IT shows latest messages after page load*/
+    document.getElementById('chat-box').scrollTop = document.getElementById('chat-box').scrollHeight;
 })();
