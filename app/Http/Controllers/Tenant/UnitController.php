@@ -56,7 +56,7 @@ class UnitController extends Controller
 
 
 
-        return view('tenant.my-unit', compact('myUnit', 'invoiceInfo'));
+        return view('tenant.myUnit.my-unit', compact('myUnit', 'invoiceInfo'));
     }
 
     public function store(Rental $rental, Request $request) {
