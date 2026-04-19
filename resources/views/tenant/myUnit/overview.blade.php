@@ -77,7 +77,7 @@
         </div>
 
         <div class="w-full mt-4">
-            <a href="{{ route('tenant.soa') }}" class="btn btn-success w-full">Manage Billing</a>
+            <button class="btn btn-success w-full" :class="{ 'active': activeSection === 'payments' }" @click="activeSection = 'payments'">Manage Billing</button>
         </div>
     </div>
 </div>

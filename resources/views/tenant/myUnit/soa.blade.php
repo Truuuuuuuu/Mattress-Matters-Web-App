@@ -1,5 +1,4 @@
-<x-layout>
-    <x-slot:heading>Statement of Account</x-slot:heading>
+
 
     <div id="soa-page"  class="max-w-4xl mx-auto px-4 py-8">
 
@@ -28,4 +27,3 @@
 
         @endif
     </div>
-</x-layout>

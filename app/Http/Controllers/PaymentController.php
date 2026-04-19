@@ -315,14 +315,14 @@ class PaymentController extends Controller
         // optional: notify tenant their payment was confirmed
         $invoice->rental->tenant->user->notify(new RentPaidNotification($invoice));
     }
-
-    public function soa()
+    /*stored incase of an issue with alphine js*/
+    /*public function soa()
     {
         $tenant  = auth()->user()->tenant;
         $rental  = $tenant->rental;
 
         if (!$rental) {
-            return view('tenant.soa', ['invoices' => collect(), 'rental' => null, 'nextDue' => null]);
+            return view('tenant.myUnit.soa', ['invoices' => collect(), 'rental' => null, 'nextDue' => null]);
         }
 
         $nextDue = $rental->invoices()
@@ -337,8 +337,8 @@ class PaymentController extends Controller
 
 
 
-        return view('tenant.soa', compact('invoices', 'rental', 'nextDue'));
-    }
+        return view('tenant.myUnit.soa', compact('invoices', 'rental', 'nextDue'));
+    }*/
 
     public function payRent(Invoice $invoice)
     {

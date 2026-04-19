@@ -160,7 +160,7 @@ Route::middleware('auth')
 Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
 
 
-Route::get('/tenant/soa', [PaymentController::class, 'soa'])->name('tenant.soa');
+/*Route::get('/tenant/soa', [PaymentController::class, 'soa'])->name('tenant.soa');*/
 Route::post('/tenant/rent/pay/{invoice}', [PaymentController::class, 'payRent'])->name('tenant.rent.pay');
 
 

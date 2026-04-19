@@ -3,7 +3,7 @@
 
     <div class="w-full max-w-7xl mx-auto lg:px-5 ">
         @if($myUnit?->reservation?->status === 'checked_in')
-            <div class="drawer lg:drawer-open">
+            <div class="drawer lg:drawer-open" x-data="{ activeSection: 'overview' }">
                 <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
                 <div class="drawer-content">
                     <!-- Navbar -->
@@ -17,7 +17,15 @@
                     <!-- Page content here -->
                     <div class="p-4 lg:flex flex-col gap-3">
                         {{--Main section--}}
-                        @include('tenant.myUnit.overview')
+                        <div x-show="activeSection === 'overview'">
+                            @include('tenant.myUnit.overview')
+                        </div>
+                        <div x-show="activeSection === 'payments'">
+                            @include('tenant.myUnit.soa')
+                        </div>
+                        <div x-show="activeSection === 'rules'">
+                            @include('tenant.myUnit.rules')
+                        </div>
                     </div>
                 </div>
 
@@ -28,8 +36,8 @@
                         <ul class="menu w-full grow">
                             <!-- List item -->
                             <li>
-                                <button class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Homepage">
-                                    <!-- Home icon -->
+                                <button class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Overview"  :class="{ 'active': activeSection === 'overview' }" @click="activeSection = 'overview'">
+                                    <!-- Overview icon -->
                                     <x-lucide-layout-dashboard class="w-4 h-4 my-1.5"/>
                                     <span class="is-drawer-close:hidden">Overview</span>
                                 </button>
@@ -37,16 +45,16 @@
 
                             <!-- List item -->
                             <li>
-                                <button class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Payments">
-                                    <!-- Settings icon -->
+                                <button class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Payments"  :class="{ 'active': activeSection === 'payments' }" @click="activeSection = 'payments'">
+                                    <!-- Payments icon -->
                                     <x-lucide-hand-coins class="w-4 h-4 my-1.5"/>
                                     <span class="is-drawer-close:hidden">Payments</span>
                                 </button>
                             </li>
                             <!-- List item -->
                             <li>
-                                <button class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Rules & Amenities">
-                                    <!-- Settings icon -->
+                                <button class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Rules & Amenities" :class="{ 'active': activeSection === 'rules' }" @click="activeSection = 'rules'">
+                                    <!-- Rules & Amenities icon -->
                                     <x-lucide-scroll class="w-4 h-4 my-1.5"/>
                                     <span class="is-drawer-close:hidden">Rules & Amenities</span>
                                 </button>

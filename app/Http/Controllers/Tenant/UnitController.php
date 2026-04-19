@@ -53,10 +53,25 @@ class UnitController extends Controller
                 'due_date' => null,
             ];
         }
+        $rental  = $tenant->rental;
+
+        if (!$rental) {
+            return view('tenant.myUnit.soa', ['invoices' => collect(), 'rental' => null, 'nextDue' => null]);
+        }
+
+        $nextDue = $rental->invoices()
+            ->where('status', 'unpaid')
+            ->orderBy('due_date')
+            ->first()
+            ?->due_date;
+
+        $invoices = $rental->invoices()
+            ->orderBy('due_date', 'desc')
+            ->get();
 
 
 
-        return view('tenant.myUnit.my-unit', compact('myUnit', 'invoiceInfo'));
+        return view('tenant.myUnit.my-unit', compact('myUnit', 'invoiceInfo', 'invoices', 'rental', 'nextDue' ));
     }
 
     public function store(Rental $rental, Request $request) {
