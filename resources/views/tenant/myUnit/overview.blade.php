@@ -88,24 +88,77 @@
         {{--Additional Info--}}
         <h1 class="text-2xl font-semibold mb-3">Stay Essentials</h1>
         <div class="flex justify-between gap-1 lg:gap-5">
-            <div class="flex flex-col gap-3 items-center border rounded-xl w-full py-3 lg:py-7 px-3">
+            <div class="flex flex-col  gap-3 items-center border rounded-xl w-full py-3 lg:py-7 px-3 cursor-pointer" onclick="amenities_modal.showModal()">
                 <div class="p-3 border rounded-2xl">
                     <x-lucide-washing-machine class="w-4 h-4 lg:w-8 lg:h-8"/>
                 </div>
                 <p class="text-xs lg:text-md font-semibold">Amenities</p>
             </div>
-            <div class="flex flex-col gap-3 items-center border rounded-xl w-full py-3 lg:py-7 px-3">
+            <dialog id="amenities_modal" class="modal">
+                <div class="modal-box">
+                    <form method="dialog">
+                        <button class="btn btn-sm  btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+                    <h3 class="text-lg font-bold mb-3">Amenities</h3>
+                    <div class="flex flex-col gap-3">
+                        @foreach($myUnit->listing->amenities as $amenity)
+                            <x-amenity-small-card :$amenity/>
+                        @endforeach
+                    </div>
+
+                </div>
+                <form method="dialog" class="modal-backdrop">
+                    <button>close</button>
+                </form>
+            </dialog>
+
+            <div class="flex flex-col  gap-3 items-center border rounded-xl w-full py-3 lg:py-7 px-3 cursor-pointer" onclick="rules_modal.showModal()">
                 <div class="p-3 border rounded-2xl">
                     <x-lucide-scale class="w-4 h-4 lg:w-8 lg:h-8"/>
                 </div>
                 <p class="text-xs lg:text-md font-semibold">Rules</p>
             </div>
-            <div class="flex flex-col gap-3 items-center border rounded-xl w-full py-3 lg:py-7 px-3">
+            <dialog id="rules_modal" class="modal">
+                <div class="modal-box">
+                    <form method="dialog">
+                        <button class="btn btn-sm  btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+                    <h3 class="text-lg font-bold mb-3">House Rules</h3>
+                    <div class="flex flex-col gap-3">
+                        @foreach($myUnit->listing->rules as $rule)
+                            <x-rule-small-card :$rule/>
+                        @endforeach
+                    </div>
+                </div>
+                <form method="dialog" class="modal-backdrop">
+                    <button>close</button>
+                </form>
+            </dialog>
+
+            <div class="flex flex-col  gap-3 items-center border rounded-xl w-full py-3 lg:py-7 px-3 cursor-pointer" onclick="description_modal.showModal()">
                 <div class="p-3 border rounded-2xl">
                     <x-lucide-info class="w-4 h-4 lg:w-8 lg:h-8"/>
                 </div>
-                <p class="text-xs lg:text-md font-semibold">Description</p>
+                <p class="text-xs lg:text-md font-semibold">Information</p>
             </div>
+            <dialog id="description_modal" class="modal">
+                <div class="modal-box">
+                    <form method="dialog">
+                        <button class="btn btn-sm  btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+                    <h3 class="text-lg font-bold">Additional Information</h3>
+                    <div class="flex flex-col gap-3">
+                        <div>
+                            <p>{{$myUnit->listing->description}}</p>
+                        </div>
+
+                    </div>
+
+                </div>
+                <form method="dialog" class="modal-backdrop">
+                    <button>close</button>
+                </form>
+            </dialog>
 
         </div>
     </div>

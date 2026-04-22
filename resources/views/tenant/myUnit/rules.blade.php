@@ -9,7 +9,7 @@
             <h2 class="text-xl font-semibold mb-5">Amenities</h2>
             <div class="grid grid-cols-2 gap-3 ">
                 @foreach($myUnit->listing->amenities as $amenity)
-                    <x-amenity-small-card :$amenity/>
+                        <x-amenity-small-card :$amenity/>
                 @endforeach
             </div>
         </div>
