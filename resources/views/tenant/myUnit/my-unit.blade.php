@@ -1,7 +1,7 @@
 <x-layout>
     <x-slot:heading>My Unit</x-slot:heading>
 
-    <div class="w-full max-w-7xl mx-auto lg:px-5 ">
+    <div class="w-full max-w-7xl mx-auto lg:px-5 text-base-content">
         @if($myUnit?->reservation?->status === 'checked_in')
             <div class="drawer lg:drawer-open" x-data="{ activeSection: 'overview' }">
                 <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
