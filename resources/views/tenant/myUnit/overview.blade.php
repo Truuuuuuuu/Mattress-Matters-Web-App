@@ -146,14 +146,27 @@
                     <form method="dialog">
                         <button class="btn btn-sm  btn-ghost absolute right-2 top-2">✕</button>
                     </form>
-                    <h3 class="text-lg font-bold">Additional Information</h3>
+                    <h3 class="text-lg font-bold mb-3">Additional Information</h3>
                     <div class="flex flex-col gap-3">
                         <div>
+                            <h2 class="text-xs font-semibold text-base-content/70">Monthly Rent</h2>
+                            <p class="text-xl font-semibold">₱{{number_format($myUnit->listing->rent_cost,2)}}</p>
+                        </div>
+                        <div>
+                            <h2 class="text-xs font-semibold text-base-content/70">Electricity Cost</h2>
+                            <p class="text-xl font-semibold">₱{{number_format($myUnit->listing->electricity_cost,2) ?? 0.00}}</p>
+                        </div>
+                        <div>
+                            <h2 class="text-xs font-semibold text-base-content/70">Water Supply Cost</h2>
+                            <p class="text-xl font-semibold">₱{{number_format($myUnit->listing->water_supply_cost,2) ?? 0.00}}</p>
+                        </div>
+
+                        <div>
+                            <h2 class="text-xs font-semibold text-base-content/70">Description</h2>
                             <p>{{$myUnit->listing->description}}</p>
                         </div>
 
                     </div>
-
                 </div>
                 <form method="dialog" class="modal-backdrop">
                     <button>close</button>
