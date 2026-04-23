@@ -116,7 +116,7 @@
                     {{--Amenities--}}
                     <div class=" mt-7">
                         <h1 class="text-2xl font-semibold ">Amenities</h1>
-                        <div class="grid lg:grid-cols-2 mt-3 gap-y-5">
+                        <div class="grid lg:grid-cols-2 xl:grid-cols-3 mt-3 gap-2">
                             @foreach($listing->amenities as $amenity)
                                 <x-amenity-small-card :$amenity/>
                             @endforeach
@@ -131,7 +131,7 @@
                                 {{--content--}}
                                 <h3 class="text-2xl font-semibold mb-5">All Amenities</h3>
 
-                                <div class="grid lg:grid-cols-2 mt-3 gap-y-5">
+                                <div class="grid lg:grid-cols-2 mt-3 gap-3">
                                     @foreach($listing->amenities as $amenity)
                                         <x-amenity-small-card :$amenity/>
                                     @endforeach
