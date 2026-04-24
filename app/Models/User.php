@@ -86,4 +86,10 @@ class User extends Authenticatable
 
         return $this->hostProfile()->withCount('listings')->first();
     }
+
+    /*get firstname*/
+    public function getFirstNameAttribute(): string
+    {
+        return explode(' ', $this->name)[0];
+    }
 }
