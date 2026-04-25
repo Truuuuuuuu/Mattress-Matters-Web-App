@@ -36,7 +36,7 @@
     <div class="flex">
         <div class="flex-1 ">
             <p class="text-xs font-semibold text-base-content/70">MONTHLY RENT</p>
-            <h1 class="text-2xl font-bold">₱{{$myTenant->totalAmountDue()}}</h1>
+            <h1 class="text-2xl font-bold">₱{{number_format($myTenant->totalAmountDue())}}</h1>
         </div>
         <a href="{{route('host.tenants.show', $myTenant->tenant)}}" class="bg-base-300 rounded-2xl p-3">
             <x-lucide-chevron-right class="w-7 h-5"/>

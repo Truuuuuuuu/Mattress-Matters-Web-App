@@ -1,17 +1,17 @@
 @props(['history'])
 
 <!-- row 1 -->
-{{--<tr>
+<tr>
     <td>
         <div class="flex items-center gap-3">
             <div class="avatar">
                 <div class="mask mask-squircle h-12 w-12 bg-purple-700 flex items-center justify-center">
-                    <p class="text-center text-xl font-bold">{{$history->rental->tenant->user->name[0]}}</p>
+                    <p class="text-center text-xl font-bold">{{$history->tenant->user->name[0]}}</p>
                 </div>
             </div>
-            --}}{{--Tenant--}}{{--
+            {{--Tenant--}}
             <div>
-                <div class="font-bold -mb-1">{{$history->rental->tenant->user->name}}</div>
+                <div class="font-bold -mb-1">{{$history->tenant->user->name}}</div>
 
                 @if($history->status === 'completed')
                     <div class="text-sm opacity-50">Stayed {{ $history->stayedFormatted() }}</div>
@@ -25,29 +25,19 @@
     </td>
 
     <td>
-        <div class="flex items-center justify-end gap-5">
-            @if($history->status === 'completed')
-                <div class="badge badge-success badge-soft gap-1 ">
-                    <span class="size-2 rounded-full bg-success"></span>
-                    <p class="text-xs font-semibold">Moved out</p>
-                </div>
-            @else
-                <div class="badge badge-error badge-soft gap-1 ">
-                    <span class="size-2 rounded-full bg-error"></span>
-                    <p class="text-xs font-semibold">Cancelled</p>
-                </div>
-            @endif
+        <div class="flex items-center justify-start gap-5">
+            <p>{{$history->listing->title}}</p>
 
-            <div >
-                @if($history->status === 'completed')
-                    <p class="font-semibold -mb-1">Moved out {{$history->move_out_date->format('M d')}}</p>
-                @else
-                    <p class=" font-semibold -mb-1">Cancelled {{$history->cancelled_at->format('M d')}}</p>
-                @endif
-
-                <p class="text-xs font-semibold text-base-content/60">Notice issued {{$history->created_at->format('M d')}}</p>
-            </div>
         </div>
     </td>
-</tr>--}}
+    <td>
+        <div class="flex items-center justify-start gap-5">
+            <p>{{$history->lease_start_date->format('M, Y') }} - {{$history->updated_at->format('M, Y')}}</p>
+
+        </div>
+    </td>
+    <td>
+        <a href="{{route('host.tenants.show', $history->tenant)}}" class="btn btn-ghost btn-xs">details</a>
+    </td>
+</tr>
 

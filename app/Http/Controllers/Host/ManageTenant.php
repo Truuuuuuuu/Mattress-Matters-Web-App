@@ -22,7 +22,7 @@ class ManageTenant extends Controller
             ->paginate(3);
 
         $movingOutTenants = Rental::with(['moveOutNotice','listing', 'tenant.user', 'reservation'])
-            ->whereHas('moveOutNotice', fn($q) => $q->where('status', 'active'))
+            ->whereHas('moveOutNotice', fn($q) => $q->whereIn('status', ['active', 'completed', 'cancelled']))
             ->get()
             ->sortBy('moveOutNotice.move_out_date');
 

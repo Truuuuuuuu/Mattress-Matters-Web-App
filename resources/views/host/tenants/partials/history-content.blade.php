@@ -14,8 +14,10 @@
             <!-- head -->
             <thead>
             <tr>
-                <th class="w-2/3">Tenant</th>
-                <th class="w-1/3"></th>
+                <th class="w-1/4">Tenant</th>
+                <th class="w-1/2">Listing</th>
+                <th class="w-1/4">Rental Period</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>

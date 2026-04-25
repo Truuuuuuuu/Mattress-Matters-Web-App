@@ -20,7 +20,7 @@
         <div class="space-y-1">
             <div class="flex justify-between">
                 <p class="text-sm font-semibold text-base-content/60">Monthly rent</p>
-                <p class="text-sm font-semibold">₱{{number_format($movingOutTenant->listing->rent_cost)}}</p>
+                <p class="text-sm font-semibold">₱{{number_format($movingOutTenant->totalAmountDue())}}</p>
             </div>
             <div class="flex justify-between">
                 <p class="text-sm font-semibold text-base-content/60">Tenant since</p>
@@ -33,9 +33,20 @@
         </div>
 
         <div class="mt-2">
-            <div class="flex justify-between rounded-xl text-sm bg-yellow-100 p-3">
-                <p>Move-out date</p>
-                <p class="font-semibold">{{$movingOutTenant->moveOutNotice->move_out_date->format('M d, Y')}}</p>
-            </div>
+            @if($movingOutTenant->moveOutNotice->status === 'active')
+                <div class="flex justify-between rounded-xl text-sm bg-yellow-100 p-3">
+                    <p>Move-out date</p>
+                    <p class="font-semibold">{{$movingOutTenant->moveOutNotice->move_out_date->format('M d, Y')}}</p>
+                </div>
+            @elseif($movingOutTenant->moveOutNotice->status === 'cancelled')
+                <div class="flex justify-center items-center rounded-xl text-sm bg-red-100 p-3">
+                    <p class="text-lg font-semibold text-red-700">Cancelled</p>
+                </div>
+            @elseif($movingOutTenant->moveOutNotice->status === 'completed')
+                <div class="flex justify-center items-center rounded-xl text-sm bg-green-100 p-3">
+                    <p class="text-lg font-semibold text-green-700">Moved out</p>
+                </div>
+            @endif
+
         </div>
 </div>
