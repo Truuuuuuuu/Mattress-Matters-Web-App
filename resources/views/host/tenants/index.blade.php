@@ -8,7 +8,7 @@
         </div>
         {{--Main tabs--}}
         <div x-data="{activeTab: 'active' , activeView: 'cards' }">
-            <div class="flex justify-between bg-base-100 rounded-3xl p-3">
+            <div class="flex justify-between bg-base-100 rounded-3xl p-3 border border-base-300">
                 <div class="flex-1 flex  justify-start items-center gap-2">
                     @foreach (['active', 'moving out', 'history'] as $tab)
                         <button

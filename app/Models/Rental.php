@@ -21,7 +21,8 @@ class Rental extends Model
     ];
 
     protected $casts = [
-        'updated_at' => 'datetime'
+        'updated_at' => 'datetime',
+        'lease_start_date' => 'datetime'
     ];
 
     public function tenant(): BelongsTo

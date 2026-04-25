@@ -1,7 +1,7 @@
 {{-- Cards View --}}
 <div x-show="activeView === 'cards'" x-transition class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-7" >
-    @forelse($moveOutHistory as $moveOutNoticeHistory)
-        <x-move-out-notice-history-card :$moveOutNoticeHistory/>
+    @forelse($tenantHistory as $history)
+        <x-tenant-history-card :$history/>
     @empty
         <p class="col-span-full text-center">You have no history of move out notice</p>
     @endforelse
@@ -19,8 +19,8 @@
             </tr>
             </thead>
             <tbody>
-            @forelse($moveOutHistory as $moveOutNoticeHistory)
-                <x-move-out-notice-history-list :$moveOutNoticeHistory/>
+            @forelse($tenantHistory as $history)
+                <x-tenant-history-list :$history/>
             @empty
                 <td colspan="5" class="text-center mt-10 ">No history of move out notice </td>
             @endforelse

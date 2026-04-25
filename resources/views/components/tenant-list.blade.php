@@ -21,7 +21,7 @@
         {{$myTenant->listing->title}}
     </td>
     {{--listing rent cost--}}
-    <td>₱{{number_format($myTenant->listing->rent_cost,2)}}</td>
+    <td>₱{{number_format($myTenant->totalAmountDue(),2)}}</td>
 
     <td>
         <a href="{{route('host.tenants.show', $myTenant->tenant)}}" class="btn btn-ghost btn-xs">details</a>
