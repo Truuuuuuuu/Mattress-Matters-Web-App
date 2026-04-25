@@ -9,10 +9,10 @@
 
         <div>
             <div class="grid grid-cols-4 gap-5">
-                <x-host-dashboard-top-card/>
-                <x-host-dashboard-top-card/>
-                <x-host-dashboard-top-card/>
-                <x-host-dashboard-top-card/>
+                <x-host-dashboard-top-card :count="$active_listings" label="Active Listings" icon="building"/>
+                <x-host-dashboard-top-card :count="$total_tenants" label="Total Tenants" icon="users"/>
+                <x-host-dashboard-top-card :count="$pending_reservations" label="Pending Reservations" icon="clipboard-clock"/>
+                <x-host-dashboard-top-card :count="$move_out_notices" label="Move out notices" icon="square-arrow-right-exit"/>
             </div>
         </div>
         <div class="grid grid-cols-[2fr_1fr] gap-8">

@@ -70,6 +70,10 @@ class Listing extends Model
                 });
             });
     }
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
+    }
 
     public function amenities(): BelongsToMany
     {

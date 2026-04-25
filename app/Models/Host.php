@@ -25,9 +25,30 @@ class Host extends Model
         return $this->hasMany(Listing::class, 'host_id');
     }
 
-    public function totalActiveListings(): int
+    public function rentals()
     {
-        return $this->listings()->where('status', 'active')->count();
+        return $this->hasManyThrough(Rental::class, Listing::class);
+    }
+
+    public function reservations()
+    {
+        return $this->hasManyThrough(Reservation::class, Listing::class);
+    }
+
+    public function moveOutNotices()
+    {
+        return $this->hasManyThrough(MoveOutNotice::class, Listing::class);
+    }
+    public static function dashboardStats(Host $host): array
+    {
+        return [
+            'active_listings'      => $host->listings()->active()->count(),
+            'total_tenants'        => $host->rentals()->where('rentals.status', 'active')->count(),
+            'pending_reservations' => $host->reservations()->where('reservations.status', 'pending')->count(),
+            'move_out_notices'     => MoveOutNotice::where('status', 'active')
+                ->whereHas('rental', fn($q) => $q->whereHas('listing', fn($q) => $q->where('host_id', $host->id)))
+                ->count(),
+        ];
     }
 
 
