@@ -1,4 +1,4 @@
-<div>
+<div >
     <ul class="steps w-full">
         <li class="step step-neutral">Basic Info</li>
         <li class="step">Pricing & Amenities</li>

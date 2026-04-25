@@ -1,7 +1,7 @@
 <x-layout>
     <x-slot:heading>Add new listing</x-slot:heading>
 
-    <div class="px-10 mt-5 pb-30">
+    <div class="w-full max-w-7xl mx-auto px-5 mt-5 pb-30">
         <form method="POST" action="{{ route('host.store') }}" enctype="multipart/form-data"  onsubmit="console.log('FORM SUBMITTED'); return true;">
             @csrf
 
