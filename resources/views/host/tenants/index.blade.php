@@ -141,7 +141,7 @@
                     @forelse($moveOutHistory as $moveOutNoticeHistory)
                         <x-move-out-notice-history-card :$moveOutNoticeHistory/>
                     @empty
-                        <p>You have no history of move out notice</p>
+                        <p class="col-span-full text-center">You have no history of move out notice</p>
                     @endforelse
                 </div>
 
@@ -160,7 +160,7 @@
                             @forelse($moveOutHistory as $moveOutNoticeHistory)
                                 <x-move-out-notice-history-list :$moveOutNoticeHistory/>
                             @empty
-                                <td colspan="5" class="text-center mt-10">No history of move out notice </td>
+                                <td colspan="5" class="text-center mt-10 ">No history of move out notice </td>
                             @endforelse
                             </tbody>
                         </table>
