@@ -55,6 +55,32 @@
         </nav>
         @endrole
 
+            @role('host')
+            {{--MOBILE SCREEN--}}
+            <nav class="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-base-100 border-t border-base-300 flex justify-around items-center h-16">
+                <a href="{{route('reservation.index')}}"class="flex flex-col items-center text-xs gap-1  {{request()->routeIs('reservation.index') ? 'font-bold text-base-content' : 'text-base-content/70'}}">
+                    <x-lucide-calendar-check class="w-5 h-5" stroke-width="{{request()->routeIs('reservation.index') ? 2.5 : 2}}"/>
+                    <span>Reservations</span>
+                </a>
+                <a href="{{route('host.listings')}}"class="flex flex-col items-center text-xs gap-1 {{request()->routeIs('host.listings') ? 'font-bold text-base-content' : 'text-base-content/70'}}">
+                    <x-lucide-building class="w-5 h-5" stroke-width="{{request()->routeIs('host.listings') ? 2.5 : 2}}"/>
+                    <span>Listings</span>
+                </a>
+                <a href="{{route('host.dashboard')}}" class="flex flex-col items-center text-xs gap-1 {{request()->routeIs('host.dashboard') ? 'font-bold text-base-content' : 'text-base-content/70'}}">
+                    <x-lucide-layout-dashboard class="w-5 h-5" stroke-width="{{request()->routeIs('host.dashboard') ? 2.5 : 2}}"/>
+                    <span>Dashboard</span>
+                </a>
+                <a href="{{route('host.tenants.index')}}" class="flex flex-col items-center text-xs gap-1 {{request()->routeIs('host.tenants.index', 'host.tenants.show') ? 'font-bold text-base-content' : 'text-base-content/70'}}">
+                    <x-lucide-users class="w-5 h-5" stroke-width="{{request()->routeIs('host.tenants.index', 'host.tenants.show') ? 2.5 : 2}}"/>
+                    <span>Tenants</span>
+                </a>
+                <a href="{{ route('profile.index') }}" class="flex flex-col items-center text-xs gap-1 {{request()->routeIs('profile.index') ? 'font-bold text-base-content' : 'text-base-content/70'}}">
+                    <x-lucide-user-circle class="w-5 h-5" stroke-width="{{request()->routeIs('profile.index') ? 2.5 : 2}}"/>
+                    <span>Profile</span>
+                </a>
+            </nav>
+            @endrole
+
         {{--LARGE SCREEN--}}
         <nav class="hidden lg:flex sticky top-0 z-50 bg-base-100 shadow border-b border-white/10">
             <div class="w-full max-w-7xl mx-auto flex justify-between items-center py-4 px-5">
