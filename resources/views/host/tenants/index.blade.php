@@ -2,7 +2,7 @@
     <x-slot:heading>Tenants</x-slot:heading>
 
     <!-- name of each tab group should be unique -->
-    <div class="tabs tabs-lift px-15 mt-5">
+    <div class="tabs tabs-lift px-5 mt-5 w-full max-w-7xl mx-auto">
         <label class="tab">
             <input type="radio" name="my_tabs_4" checked="checked"/>
             <span class="size-2 rounded-full bg-success mr-3"></span>

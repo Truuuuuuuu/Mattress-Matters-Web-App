@@ -1,7 +1,7 @@
 <x-layout>
     <x-slot:heading>dashboard</x-slot:heading>
 
-    <div class="w-full max-w-7xl px-5 py-5 space-y-5">
+    <div class="w-full max-w-7xl px-5 py-5 space-y-5 mx-auto">
         <div>
             <h1 class="text-3xl font-bold">Welcome back, {{auth()->user()->first_name}}</h1>
             <p class="text-sm font-semibold text-base-content/70">Here’s an overview of your activity today</p>
