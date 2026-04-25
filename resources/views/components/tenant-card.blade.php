@@ -1,6 +1,6 @@
 @props(['myTenant'])
 
-<div class="card bg-base-100  shadow-sm">
+<div class="card rounded-2xl  bg-base-100  shadow-sm">
     <div  class="px-10 pt-10">
         <div class="rounded-xl bg-purple-700 w-full h-32 flex justify-center items-center mask mask-squircle">
             <p class="text-5xl font-bold ">{{$myTenant->tenant->user->name[0]}}</p>
