@@ -10,7 +10,10 @@ class DashboardController extends Controller
 {
     public function index()
     {
+
         $host = auth()->user()->host;
         return view('host.dashboard', Host::dashboardStats($host));
     }
+
+
 }

@@ -28,7 +28,7 @@
             <div class="flex gap-2 items-center">
                 <x-icon :name="'lucide-' . ($reservation->tenant->gender === 'male' ? 'mars' : 'venus')"
                         class="h-5 w-5 text-{{$reservation->tenant->gender === 'male' ? 'blue' : 'pink'}}-900"/>
-                <x-icon :name="'lucide-' . ($reservation->tenant->occupation === 'student' ? 'graduation_cap' : 'briefcase-business')"
+                <x-icon :name="'lucide-' . ($reservation->tenant->occupation === 'student' ? 'graduation-cap' : 'briefcase-business')"
                         class="h-5 w-5"/>
             </div>
         </div>

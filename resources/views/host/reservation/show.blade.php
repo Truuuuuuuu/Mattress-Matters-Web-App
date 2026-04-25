@@ -41,7 +41,7 @@
                         </div>
                         <div class="flex-1">
                             <p class="text-sm text-base-content/70">Occupation</p>
-                            <p class="text-lg font-bold -mt-2">{{ucfirst($reservation->tenant->occupation === 'working_individual' ? 'Working Individual' : 'None' )}}</p>
+                            <p class="text-lg font-bold -mt-2">{{ucfirst($reservation->tenant->occupation === 'working_individual' ? 'Working Individual' : 'Student' )}}</p>
                         </div>
                     </div>
                 </div>
@@ -71,11 +71,9 @@
                 <div class="flex">
                     <div class="flex-1 font-semibold">
                         <p>Start Date:</p>
-                        <p>End Date:</p>
                     </div>
                     <div class="flex-1 flex flex-col items-end">
                         <p>{{$reservation->start_date->format('M j, Y')}}</p>
-                        <p>{{$reservation->end_date?->format('M j, Y') ?? 'Not specified'}}</p>
                     </div>
 
                 </div>

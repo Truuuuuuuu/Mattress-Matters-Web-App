@@ -17,10 +17,10 @@ export default defineConfig({
         port: 5173,
         hmr: {
             host: '192.168.1.4',
-        },*/
+        },
 
         watch: {
-            ignored: ['**/storage/framework/views/**'],
-        },
+            ignored: ['**!/storage/framework/views/!**'],
+        },*/
     },
 });

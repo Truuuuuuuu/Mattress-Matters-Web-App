@@ -41,6 +41,16 @@ class Host extends Model
     }
     public static function dashboardStats(Host $host): array
     {
+        $reservations = Reservation::query()
+            ->with([
+                'tenant.user:id,name',
+                'listing:id,title',
+            ])
+            ->whereHas('listing', fn($q) => $q->where('host_id', $host->id))
+            ->where('status', 'accepted')
+            ->where('payment_status', 'paid')
+            ->select('id', 'tenant_id', 'listing_id', 'start_date')
+            ->get();
         return [
             'active_listings'      => $host->listings()->active()->count(),
             'total_tenants'        => $host->rentals()->where('rentals.status', 'active')->count(),
@@ -48,6 +58,7 @@ class Host extends Model
             'move_out_notices'     => MoveOutNotice::where('status', 'active')
                 ->whereHas('rental', fn($q) => $q->whereHas('listing', fn($q) => $q->where('host_id', $host->id)))
                 ->count(),
+            'reservations' => $reservations
         ];
     }
 
