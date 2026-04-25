@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Host;
 
 use App\Http\Controllers\Controller;
 use App\Models\Amenity;
+use App\Models\Host;
 use App\Models\Listing;
 use App\Models\ListingImage;
 use App\Models\Rule;
@@ -16,8 +17,9 @@ class ListingController extends Controller
         $listings = Listing::with('listingImages')
             ->where('host_id', auth()->user()->host->id)
             ->get();
-
-        return view('host.listings', compact('listings'));
+        $host = auth()->user()->host;
+        return view('host.listings', compact('listings'))
+            ->with(Host::dashboardStats($host));
     }
 
     public function create(){
@@ -31,6 +33,8 @@ class ListingController extends Controller
         $curfewRules = Rule::where('category', 'curfew')->get();
         $smokingRules = Rule::where('category', 'smoking')->get();
         $guestRules = Rule::where('category', 'guest')->get();
+
+
         return view('host.create', compact('amenities', 'genderRules', 'tenantRules', 'petRules', 'curfewRules', 'smokingRules', 'guestRules'));
     }
 
