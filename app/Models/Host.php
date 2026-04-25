@@ -25,7 +25,10 @@ class Host extends Model
         return $this->hasMany(Listing::class, 'host_id');
     }
 
-
+    public function totalActiveListings(): int
+    {
+        return $this->listings()->where('status', 'active')->count();
+    }
 
 
 }
