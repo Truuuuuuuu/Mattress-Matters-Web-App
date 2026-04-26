@@ -27,10 +27,23 @@
     <td>{{ $movingOutTenant->moveOutNotice->move_out_date->format('M d, Y') }}</td>
 
     <td>
-        <div class="badge badge-warning badge-soft gap-1 " >
-            <span class="size-2 rounded-full bg-warning"></span>
-            <p class="text-xs font-semibold">Moving out</p>
-        </div>
+        @if($movingOutTenant->moveOutNotice->status === 'active')
+            <div class="badge badge-warning badge-soft gap-1 " >
+                <span class="size-2 rounded-full bg-warning"></span>
+                <p class="text-xs font-semibold">Moving out</p>
+            </div>
+        @elseif($movingOutTenant->moveOutNotice->status === 'cancelled')
+            <div class="badge badge-error badge-soft gap-1 " >
+                <span class="size-2 rounded-full bg-error"></span>
+                <p class="text-xs font-semibold">Cancelled</p>
+            </div>
+        @elseif($movingOutTenant->moveOutNotice->status === 'completed')
+            <div class="badge badge-success badge-soft gap-1 " >
+                <span class="size-2 rounded-full bg-sucess"></span>
+                <p class="text-xs font-semibold">Completed</p>
+            </div>
+        @endif
+
     </td>
 </tr>
 
