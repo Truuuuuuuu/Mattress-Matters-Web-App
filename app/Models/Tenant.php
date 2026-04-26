@@ -42,7 +42,7 @@ class Tenant extends Model
 
     public function getOccupation(): string
     {
-        return $this->occupation === 'working_individual' ? 'Working Individual' : 'Student';
+        return $this->occupation === 'working_individual' ? 'Employed ' : 'Student';
     }
 
     public function getGender(): string

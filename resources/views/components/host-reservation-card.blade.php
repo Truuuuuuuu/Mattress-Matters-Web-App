@@ -7,57 +7,43 @@
 @endphp
 
 
-
-
-<div class="flex border rounded-3xl w-full p-2 gap-4 items-end pr-5">
-
-    <a href="{{ route('listings.show', $reservation->listing) }}"
-       class="flex gap-4 items-center flex-1 min-w-0 ">
-        <div class="w-24 h-24 shrink-0 border bg-purple-700 rounded-xl flex justify-center items-center">
-            <h1 class="text-3xl font-bold text-white"> {{$reservation->tenant->user->name[0]}}</h1>
-        </div>
-        <div class="min-w-0 w-full ">
-            <p class="text-md font-regular line-clamp-1 italic"
-               title="{{ $reservation->listing->title}}">
-                {{ $reservation->listing->title }}
-            </p>
-            <h1 class="text-lg font-semibold line-clamp-1"
-                title="{{ $reservation->tenant->user->name }}">
-                {{ $reservation->tenant->user->name }}
-            </h1>
-            <div class="flex gap-2 items-center">
-                <x-icon :name="'lucide-' . ($reservation->tenant->gender === 'male' ? 'mars' : 'venus')"
-                        class="h-5 w-5 text-{{$reservation->tenant->gender === 'male' ? 'blue' : 'pink'}}-900"/>
-                <x-icon :name="'lucide-' . ($reservation->tenant->occupation === 'student' ? 'graduation-cap' : 'briefcase-business')"
-                        class="h-5 w-5"/>
+<div class="border bg-base-100 border-base-300 rounded-3xl p-5">
+    <div class="flex gap-3">
+        <div class="avatar">
+            <div class="mask mask-squircle h-12 w-12 bg-purple-700 flex items-center justify-center">
+                <p class="text-center text-xl font-bold">{{$reservation->tenant->user->name[0]}}</p>
             </div>
         </div>
-    </a>
+        <div>
+            <h1 class="text-xl font-semibold">{{$reservation->tenant->user->name}}</h1>
+            <div class="flex justify-start items-center gap-2">
+                <p class="text-sm font-semibold text-base-content/70">{{$reservation->tenant->getGender()}}</p>
+                <div class="size-1 rounded-full bg-base-content/50"></div>
+                <p class="text-sm font-semibold text-base-content/70">{{$reservation->tenant->getOccupation()}}</p>
+            </div>
+        </div>
+    </div>
 
-   {{-- @if($reservation->status === 'pending')
-        <button onclick="confirmAction(
-            '{{route('reservation.reject', $reservation)}}',
-            'Reject Reservation?',
-            'Are you sure you want to reject this reservation? This cannot be undone.',
-            'Yes, Reject',
-            'Cancel'
+    <div class="rounded-2xl flex justify-between my-5 bg-primary/10 py-2 px-3">
+        <div class="flex-2  flex items-center">
+            <p class="line-clamp-1 text-sm font-semibold text-primary" title="{{ $reservation->listing->title }}">{{ $reservation->listing->title }}</p>
+        </div>
+        <div class="flex-1  flex justify-end items-center text-base-content/70">
+            <p class="text-sm font-semibold">{{ $reservation->start_date->format('M d') }}</p>
+        </div>
+    </div>
 
-        )"
-        class="btn btn-error btn-sm shrink-0 w-24">
-        Reject
-        </button>
-
-    @endif--}}
     @if($reservation->status === 'pending')
-        <a href="{{route('reservation.show', $reservation)}}" class = "btn btn-primary">
-            Review
+        <a href="{{route('reservation.show', $reservation)}}" class = "btn btn-outline btn-primary rounded-2xl w-full">
+            REVIEW REQUEST
         </a>
 
     @else
-        <a href="{{route('reservation.show', $reservation)}}" class = "btn btn-primary">
-            View
+        <a href="{{route('reservation.show', $reservation)}}" class = "btn btn-outline btn-primary rounded-2xl w-full">
+            VIEW DETAILS
         </a>
     @endif
 
-
 </div>
+
+

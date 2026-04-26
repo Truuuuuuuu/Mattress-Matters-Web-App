@@ -1,6 +1,6 @@
 @props(['myTenant'])
 
-<!-- row 1 -->
+<!-- row  -->
 <tr>
     <td>
         <div class="flex items-center gap-3">

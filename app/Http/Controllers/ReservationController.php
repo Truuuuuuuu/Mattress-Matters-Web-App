@@ -21,7 +21,7 @@ class ReservationController extends Controller
         if($user->hasRole('host')){
             $pendingReservations = Reservation::with([
                 'listing',
-                'tenant.user'
+                'tenant.user',
             ])
             ->whereHas('listing', fn($q) => $q->where('host_id', $user->id))
             ->where('status', 'pending')

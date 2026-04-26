@@ -50,13 +50,13 @@
                 History
             </label>
             <div class="tab-content bg-base-100 border-base-300 p-6 space-y-3">
-                    @forelse($historyReservations as $historyReservation)
-                        <x-history-reservation-card :$historyReservation/>
-                    @empty
-                    <div>
-                        <p class="text-base-content/70 text-center italic">You have no history of reservation</p>
-                    </div>
-                    @endforelse
+                @forelse($historyReservations as $historyReservation)
+                    <x-history-reservation-card :$historyReservation/>
+                @empty
+                <div>
+                    <p class="text-base-content/70 text-center italic">You have no history of reservation</p>
+                </div>
+                @endforelse
 
             </div>
         </div>

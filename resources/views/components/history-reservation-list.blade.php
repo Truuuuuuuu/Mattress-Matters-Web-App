@@ -1,11 +1,8 @@
-{{--Host uses this!--}}
-
-@props(['pendingReservation' => null , 'acceptedReservation' => null])
+@props(['reservation' => null, 'historyReservation' => null])
 
 @php
-    $reservation = $pendingReservation ?? $acceptedReservation;
+    $reservation = $historyReservation ?? $reservation;
 @endphp
-
 
 <!-- row  -->
 <tr>
@@ -32,7 +29,18 @@
         <p class="font-semibold text-primary/90">{{$reservation->listing->title}}</p>
     </td>
     <td>
-        <p class="font-semibold text-base-content/80"> {{ $reservation->start_date->format('M d, Y') }}</p>
+        @php
+            $statusConfig = match($reservation->status) {
+                'declined'  => ['class' => 'badge-error',    'label' => 'Declined'],
+                'cancelled' => ['class' => 'badge-warning',  'label' => 'Cancelled'],
+                'checked_in' => ['class' => 'badge-primary', 'label' => 'Active'],
+                'completed' => ['class' => 'badge-neutral', 'label' => 'Move-out'],
+                default     => ['class' => 'badge-ghost',    'label' => ucfirst($reservation->status)],
+            }
+        @endphp
+        <div class="badge badge-soft {{ $statusConfig['class'] }} mt-2 font-semibold rounded-2xl f">
+            {{ $statusConfig['label'] }}
+        </div>
     </td>
     <td>
         @if($reservation->status === 'pending')
@@ -45,6 +53,3 @@
         @endif
     </td>
 </tr>
-
-
-
