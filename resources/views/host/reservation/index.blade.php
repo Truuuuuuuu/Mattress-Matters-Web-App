@@ -1,7 +1,7 @@
 <x-layout>
     <x-slot:heading>Reservation</x-slot:heading>
 
-    <div class="w-full max-w-7xl mx-auto px-5 py-7 bg-base-200"
+    <div class="w-full max-w-7xl mx-auto px-5 py-7 bg-base-200 min-h-[calc(100vh-5rem)]"
          x-data="{
              open: false,
              loading: false,
@@ -83,7 +83,7 @@
                 Loading...
             </div>
 
-            <div x-show="!loading" x-html="content" class="p-6"></div>
+            <div x-show="!loading" x-html="content" ></div>
 
         </div>
     </div>

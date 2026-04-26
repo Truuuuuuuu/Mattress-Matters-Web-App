@@ -213,7 +213,7 @@
 
 
 
-    <main class="border min-h-[calc(100vh-5rem)] bg-base-300">
+    <main>
         @include('components.confirm-modal')
         {{ $slot }}
     </main>
