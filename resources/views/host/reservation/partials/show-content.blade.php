@@ -34,16 +34,28 @@
             </div>
             <div class="w-px bg-gray-300 h-6 mx-5"></div>
             <div class=" flex justify-center   w-full ">
-                @php
+                @if($reservation->status !== 'accepted')
+                    @php
                     $statusConfig = match($reservation->status) {
                         'pending' => ['class' => 'badge-warning', 'label' => 'Pending'],
                         'declined'  => ['class' => 'badge-error',    'label' => 'Declined'],
                         'cancelled' => ['class' => 'badge-error',  'label' => 'Cancelled'],
                         'checked_in' => ['class' => 'badge-primary', 'label' => 'Active'],
-                        'completed' => ['class' => 'badge-neutral', 'label' => 'Move-out'],
+                        'completed' => ['class' => 'badge-neutral', 'label' => 'Moved-out'],
                         default     => ['class' => 'badge-ghost',    'label' => ucfirst($reservation->status)],
                     };
-                @endphp
+                    @endphp
+                @else
+                    @if($reservation->payment_status === 'unpaid')
+                        @php
+                            $statusConfig = ['class' => 'badge-warning', 'label' => 'Unpaid']
+                        @endphp
+                    @elseif($reservation->payment_status === 'paid')
+                        @php
+                            $statusConfig = ['class' => 'badge-success', 'label' => 'Paid']
+                        @endphp
+                    @endif
+                @endif
                 <div class="badge badge-soft {{ $statusConfig['class'] }} mt-2 font-semibold rounded-2xl    ">
                     {{ $statusConfig['label'] }}
                 </div>
@@ -56,32 +68,38 @@
             </div>
             <div class="flex flex-col gap1">
                 <div class="flex justify-between ">
-                    <p class="text-xs text-base-content/70">Monthly Rental</p>
-                    <p class="text-xs text-base-content font-semibold">₱{{number_format($reservation->listing->rent_cost, 2)}}</p>
-                </div>
-                <div class="flex justify-between ">
-                    <p class="text-xs text-base-content/70 ">Security Deposit</p>
-                    <p class="text-xs text-base-content font-semibold">₱{{number_format($reservation->listing->rent_cost, 2)}}</p>
-                </div>
-                <div class="flex justify-between ">
-                    @php
-                        $rent = $reservation->listing->rent_cost ?? 0;
-                        $securityDeposit = $rent;
-                        $electric = $reservation->listing->electricity_cost ?? 0;
-                        $water = $reservation->listing->water_supply_cost ?? 0;
-                        $utilityCost = $electric + $water;
-                        $totalCost = $rent + $utilityCost + $securityDeposit;
+                    {{--for history / active and completed reservation--}}
 
-                    @endphp
-                    <p class="text-xs text-base-content/70">Utilities</p>
-                    <p class="text-xs text-base-content font-semibold">₱{{number_format($utilityCost, 2)}}</p>
+                    @if($reservation->status !== 'checked_in' && $reservation->status !== 'completed')
+                        <p class="text-xs text-base-content/70">Monthly Rental</p>
+                        <p class="text-xs text-base-content font-semibold">
+                            ₱{{number_format($reservation->listing->rent_cost, 2)}}
+                        </p>
+                    @else
+                        <p class="text-xs text-base-content/70">Monthly Rental + Utilities</p>
+                        <p class="text-xs text-base-content font-semibold">
+                            ₱{{number_format($rentalPayment?->amount, 2)}}
+                        </p>
+                    @endif
                 </div>
+                <div class="flex justify-between">
+                    <p class="text-xs text-base-content/70">Security Deposit</p>
+                    <p class="text-xs text-base-content font-semibold">₱{{ number_format($reservation->listing->rent_cost, 2) }}</p>
+                </div>
+                @if($reservation->status !== 'checked_in' && $reservation->status !== 'completed')
+                    <div class="flex justify-between">
+                        <p class="text-xs text-base-content/70">Utilities</p>
+                        <p class="text-xs text-base-content font-semibold">₱{{ number_format($utilityCost, 2) }}</p>
+                    </div>
+                @endif
 
             </div>
             <x-divider class="bg-base-content/10 w-full "/>
             <div class="flex justify-between">
                 <p class="text-md text-base-content font-semibold">First Payment</p>
-                <p class="font-semibold text-primary">₱{{number_format($totalCost, 2)}}</p>
+                <p class="font-semibold text-primary">
+                    {{$reservation->status !== 'checked_in' && $reservation->status !== 'completed' ? '₱'. number_format($totalCost, 2) : '₱'. number_format($snapshotTotal, 2) }}
+                </p>
             </div>
         </div>
         <div class="flex gap-3 mt-5">
@@ -114,7 +132,17 @@
                         Decline
                     </button>
                 </div>
+            @elseif(auth()->user()->hasRole('host') && $reservation->status === 'accepted' && $reservation->payment_status === 'unpaid')
+                <div class="badge badge-warning badge-soft w-full rounded-3xl py-5 border-warning/20">
+                    <p>Awaiting Guest Payment</p>
+                </div>
+            @elseif(auth()->user()->hasRole('host') && $reservation->status === 'accepted' && $reservation->payment_status === 'paid')
+                <div class="badge badge-primary badge-soft w-full rounded-3xl py-5 border-primary/20">
+                    <p>Awaiting Tenant Check-In</p>
+                </div>
             @endif
+
+
 
 
         </div>

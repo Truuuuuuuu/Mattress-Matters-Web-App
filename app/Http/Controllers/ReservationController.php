@@ -70,16 +70,35 @@ class ReservationController extends Controller
     {
         $reservation->load([
             'listing.listingImages' => fn($q) => $q->where('is_cover', true),
-            'tenant.user'
+            'tenant.user',
+            'payments' => fn($q) => $q->select('id', 'reservation_id', 'payment_type', 'amount')
         ]);
+        $rentalPayment  = $reservation->payments->firstWhere('payment_type', 'reservation_fee');
+        $securityPayment    = $reservation->payments->firstWhere('payment_type', 'security_deposit');
+        $snapshotTotal = ($rentalPayment?->amount ?? 0) + ($securityPayment?->amount ?? 0);
+        $rent            = $reservation->listing->rent_cost ?? 0;
+        $securityDeposit = $rent;
+        $electric        = $reservation->listing->electricity_cost ?? 0;
+        $water           = $reservation->listing->water_supply_cost ?? 0;
+        $utilityCost     = $electric + $water;
+        $totalCost       = $rent + $utilityCost + $securityDeposit;
 
         // Desktop modal fetch
         if ($request->header('X-Modal-Request')) {
-            return view('host.reservation.partials.show-content', compact('reservation'));
+            return view('host.reservation.partials.show-content', compact(
+                'reservation', 'rentalPayment', 'securityPayment',
+                'snapshotTotal', 'rent', 'securityDeposit', 'utilityCost', 'totalCost'
+            ));
         }
 
+
+
+
         // Mobile full page
-        return view('host.reservation.show', compact('reservation'));
+        return view('host.reservation.show', compact(
+            'reservation', 'rentalPayment', 'securityPayment',
+            'snapshotTotal', 'rent', 'securityDeposit', 'utilityCost', 'totalCost'
+        ));
     }
 
     public function store(Listing $listing , Request $request)
