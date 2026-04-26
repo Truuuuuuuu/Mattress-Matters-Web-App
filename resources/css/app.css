@@ -19,3 +19,6 @@
 @plugin "daisyui" {
     themes: light --default, dark --prefersdark;
 }
+
+/*prevent reservation modal to flash on load*/
+[x-cloak] { display: none !important; }

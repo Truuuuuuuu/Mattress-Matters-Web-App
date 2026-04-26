@@ -66,13 +66,19 @@ class ReservationController extends Controller
         return view('tenant.reservation.index', compact('activeReservation', 'allReservations'));
     }
 
-    public function show(Reservation $reservation)
+    public function show(Reservation $reservation, Request $request)
     {
         $reservation->load([
             'listing.listingImages' => fn($q) => $q->where('is_cover', true),
             'tenant.user'
         ]);
 
+        // Desktop modal fetch
+        if ($request->header('X-Modal-Request')) {
+            return view('host.reservation.partials.show-content', compact('reservation'));
+        }
+
+        // Mobile full page
         return view('host.reservation.show', compact('reservation'));
     }
 

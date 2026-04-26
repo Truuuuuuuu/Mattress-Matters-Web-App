@@ -72,7 +72,10 @@
     @endif
 
 
-    <a href="#" class="w-full btn btn-outline btn-primary rounded-2xl">
-        <p class="text-primary font-semibold">VIEW DETAILS</p>
-    </a>
+    <button
+        class="btn btn-outline btn-primary rounded-2xl w-full"
+        @click="$dispatch('view-reservation', { url: '{{ route('reservation.show', $reservation) }}' })"
+    >
+        VIEW DETAILS
+    </button>
 </div>

@@ -13,7 +13,7 @@
     @vite(['resources/js/app.js'])
 
 </head>
-<body class="text-black">
+<body class="text-base-content">
 <div>
     @if (!isset($hideNavbar))
 
@@ -213,7 +213,7 @@
 
 
 
-    <main>
+    <main class="border min-h-[calc(100vh-5rem)] bg-base-300">
         @include('components.confirm-modal')
         {{ $slot }}
     </main>
