@@ -43,13 +43,8 @@
         </div>
     </td>
     <td>
-        @if($reservation->status === 'pending')
-            <a href="{{route('reservation.show', $reservation)}}"  class="btn btn-primary rounded-2xl btn-xs btn-outline">Review Request</a>
-
-
-        @else
-            <a href="{{route('reservation.show', $reservation)}}"  class="btn btn-primary rounded-2xl btn-xs btn-outline">View Details</a>
-
-        @endif
+            <a @click="$dispatch('view-reservation', { url: '{{ route('reservation.show', $reservation) }}' })" class="btn btn-primary rounded-2xl btn-xs btn-outline">
+                {{$reservation->status === 'pending' ? 'Review Request' : 'View Details'}}
+            </a>
     </td>
 </tr>
