@@ -1,21 +1,21 @@
 <x-layout>
     <x-slot:heading>My Profile</x-slot:heading>
 
-    <div class="w-full max-w-7xl mx-auto px-3 lg:px-8 mt-10 text-base-content">
+    <div class="w-full max-w-7xl mx-auto px-3 lg:px-8 mt-10 text-base-content bg-base-200 min-h-[calc(100vh-5rem)]" >
         <div class="grid gap-4 md:grid-cols-[1fr_2fr] place-self-center w-full">
             <div class=" space-y-5">
-                <div class="border py-5 px-3 rounded-xl">
+                <div class="bg-base-100 py-5 px-3 rounded-3xl bg-base-100 " style="box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15)">
                     <div class="flex flex-col items-center mb-2">
-                        <div class="avatar avatar-placeholder my-3">
-                            <div class="bg-neutral text-neutral-content w-24 rounded-xl">
-                                <span class="text-3xl">{{$profile->user->name[0]}}</span>
+                        <div class="avatar  mb-4" >
+                            <div class="mask mask-squircle h-24 w-24 lg:h-32 lg:w-32 bg-purple-700 flex items-center justify-center" style="box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15)">
+                                <p class="text-center text-xl font-bold">{{$profile->user->name[0]}}</p>
                             </div>
                         </div>
                         <h1 class="text-xl font-bold">{{$profile->user->name}}</h1>
                     </div>
 
                     <div>
-                        <a href="{{ route('messages.show', $profile->user) }}" class="btn btn-primary w-full">Message</a>
+                        <a href="{{ route('messages.show', $profile->user) }}" class="btn btn-primary rounded-3xl w-full">Message</a>
                     </div>
 
 
@@ -42,13 +42,13 @@
 
                 </div>
 
-                <div class="border py-5 rounded-xl px-5">
-                    <h1 class="text-lg font-bold mb-4">About</h1>
+                <div class=" py-5 rounded-xl px-5 bg-base-100" style="box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15)">
+                    <h1 class="text-lg font-bold mb-4 text-primary">About</h1>
                     <p>Hello, this is a placeholder <only class=""></only></p>
                 </div>
             </div>
 
-            <div class="border flex justify-center items-center">
+            <div class="bg-base-100 flex justify-center items-center" style="box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15)">
                 content here
             </div>
         </div>

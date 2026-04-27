@@ -1,14 +1,14 @@
 <x-layout>
     <x-slot:heading>My Profile</x-slot:heading>
 
-  <div class="w-full max-w-7xl mx-auto px-3 lg:px-8 mt-10 text-base-content">
+  <div class="w-full max-w-7xl mx-auto px-3 lg:px-8 mt-10 text-base-content bg-base-200 min-h-[calc(100vh-5rem)]">
       <div class="grid gap-4 md:grid-cols-[1fr_2fr] place-self-center w-full">
           <div class=" space-y-5">
-              <div class="border py-5 rounded-xl">
-                  <div class="flex flex-col items-center">
-                      <div class="avatar avatar-placeholder my-3">
-                          <div class="bg-neutral text-neutral-content w-24 rounded-xl">
-                              <span class="text-3xl">{{$profile->user->name[0]}}</span>
+              <div class=" py-5 rounded-3xl bg-base-100" style="box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15)">
+                  <div class="flex flex-col items-center" >
+                      <div class="avatar  mb-4" >
+                          <div class="mask mask-squircle h-24 w-24 lg:h-32 lg:w-32 bg-purple-700 flex items-center justify-center" style="box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15)">
+                              <p class="text-center text-xl font-bold">{{$profile->user->name[0]}}</p>
                           </div>
                       </div>
                       <h1 class="text-xl font-bold">{{$profile->user->name}}</h1>
@@ -51,21 +51,31 @@
                   @endrole
               </div>
 
-              <div class="border py-5 rounded-xl px-5">
-                  <h1 class="text-lg font-bold mb-4">About</h1>
+              <div class=" py-5 rounded-3xl px-5 bg-base-100" style="box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15)">
+                  <h1 class="text-lg font-bold mb-4 text-primary">About</h1>
                   <p>Hello, this is a placeholder <only class=""></only></p>
               </div>
           </div>
 
-          <div class="border flex justify-center items-center">
+          <div class=" flex justify-center items-center bg-base-100 rounded-3xl" style="box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15)">
                 content here
           </div>
           <div class="lg:hidden py-2 flex flex-col gap-3 justify-center items-center">
-              <a href="{{route('settings.index')}}" class="btn  btn-outline w-full">Settings</a>
-              <form method="POST" action="/logout" class=" w-full hover:bg-red-100 hover:text-red-900" >
+              <a href="{{route('settings.index')}}" class="flex  items-center justify-between btn btn-outline rounded-3xl py-7 w-full">
+                  <div class="flex justify-start items-center gap-3">
+                      <x-lucide-settings class="w-5 h-5"/>
+                      <p>Settings</p>
+                  </div>
+                  <x-lucide-chevron-right class="w-5 h-5"/>
+              </a>
+
+              <form method="POST" action="/logout" class=" w-full" >
                   @csrf
                   @method('DELETE')
-                  <button class="btn btn-error btn-outline w-full">Log out</button>
+                  <button class="flex justify-start items-center btn text-error-content rounded-3xl py-7 btn-error btn-outline w-full">
+                      <x-lucide-log-out class="w-5 h-5"/>
+                      <p>Log Out</p>
+                  </button>
               </form>
 
           </div>
