@@ -1,7 +1,7 @@
 <x-layout>
     <x-slot:heading>Inbox</x-slot:heading>
     <div class="max-w-2xl mx-auto py-6 px-4">
-        <h1 class="text-xl font-bold mb-4">Messages</h1>
+        <h1 class="text-xl font-bold text-primary mb-4">Messages</h1>
 
         @if($conversations->isEmpty())
             <p class="text-gray-500 text-center py-12">No conversations yet.</p>
@@ -9,7 +9,7 @@
             <div class="flex flex-col gap-2">
                 @foreach($conversations as $convo)
                     <a href="{{ route('messages.show', $convo['user']->id) }}"
-                       class="flex items-center gap-4 p-4 bg-white rounded-xl shadow-sm hover:bg-gray-50 transition">
+                       class="flex items-center gap-4 p-4 bg-base-100 rounded-3xl shadow-sm hover:bg-base-300 transition">
 
                         {{-- Avatar --}}
                         <div class="avatar avatar-placeholder">
@@ -21,7 +21,7 @@
                         {{-- Name + Last message --}}
                         <div class="flex-1 min-w-0">
                             <div class="flex justify-between items-center">
-                                <span class="font-semibold text-gray-900">{{ $convo['user']->name }}</span>
+                                <span class="font-semibold text-base-content">{{ $convo['user']->name }}</span>
                                 <span class="text-xs text-gray-400 shrink-0 ml-2">
                                     {{ $convo['last_at']->diffForHumans() }}
                                 </span>

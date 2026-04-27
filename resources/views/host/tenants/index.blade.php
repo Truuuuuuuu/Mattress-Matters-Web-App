@@ -31,7 +31,7 @@
          @keydown.escape.window="close()">
 
         <div class="hidden md:flex flex-col mb-5 ">
-            <h1 class="text-4xl font-semibold">My Tenants</h1>
+            <h1 class="text-4xl font-semibold text-primary">My Tenants</h1>
             <p class="text-xs font-semibold ">Manage your tenants and keep track of their boarding details </p>
         </div>
         <x-tabs :tabs="['active', 'moving out', 'history']" default="active" :showViewToggle="true" title="My Tenants">
