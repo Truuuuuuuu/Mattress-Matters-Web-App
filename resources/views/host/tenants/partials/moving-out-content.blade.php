@@ -14,10 +14,11 @@
             <!-- head -->
             <thead>
             <tr>
-                <th>Tenant</th>
-                <th>Listing</th>
-                <th>Notice filed</th>
-                <th>Move-out date</th>
+                <th class="md:hidden">Move-out list</th>
+                <th class="hidden md:table-cell">Tenant</th>
+                <th class="hidden md:table-cell">Listing</th>
+                <th class="hidden lg:table-cell">Notice filed</th>
+                <th class="hidden md:table-cell">Move-out date</th>
                 <th></th>
             </tr>
             </thead>

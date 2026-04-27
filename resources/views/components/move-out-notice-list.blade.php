@@ -10,23 +10,30 @@
                 </div>
             </div>
             {{--Name--}}
-            <div>
+            <div class="flex flex-col gap-1">
                 <div class="font-bold -mb-1">{{$movingOutTenant->tenant->user->name}}</div>
-                <div class="text-sm opacity-50">Since {{ $movingOutTenant->reservation->start_date->format('M Y') }}</div>
+                <div class="text-sm opacity-50 hidden md:flex">Since {{ $movingOutTenant->reservation->start_date->format('M Y') }}</div>
+                <div class="text-sm opacity-50 flex md:hidden items-center gap-2">
+                    <x-lucide-calendar-minus class="w-4 h-4 shrink-0 text-base-content/70"/>
+                    <p class="whitespace-nowrap">
+                        <span class="hidden min-[475px]:inline">{{ $movingOutTenant->moveOutNotice->move_out_date->format('M d, Y') }}</span>
+                        <span class="inline min-[475px]:hidden">{{ $movingOutTenant->moveOutNotice->move_out_date->format('M d') }}</span>
+                    </p>
+                </div>
             </div>
         </div>
     </td>
     {{--M--}}
-    <td>
+    <td class="hidden md:table-cell line-clamp-1">
         {{$movingOutTenant->listing->title}}
-    </td>
+    </td >
     {{--notice filed--}}
-    <td>{{ $movingOutTenant->moveOutNotice->created_at->format('M d, Y') }}</td>
+    <td class="hidden lg:table-cell">{{ $movingOutTenant->moveOutNotice->created_at->format('M d, Y') }}</td>
 
     {{--Move out date--}}
-    <td>{{ $movingOutTenant->moveOutNotice->move_out_date->format('M d, Y') }}</td>
+    <td class="hidden md:table-cell">{{ $movingOutTenant->moveOutNotice->move_out_date->format('M d, Y') }}</td>
 
-    <td>
+    <td class="whitespace-nowrap">
         @if($movingOutTenant->moveOutNotice->status === 'active')
             <div class="badge badge-warning badge-soft gap-1 " >
                 <span class="size-2 rounded-full bg-warning"></span>
