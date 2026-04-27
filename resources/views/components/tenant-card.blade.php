@@ -1,6 +1,7 @@
 @props(['myTenant'])
 
-<div class="bg-base-100 shadow-lg rounded-4xl p-5 gap-5 flex flex-col " style="box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15)">
+<div class="bg-base-100 shadow-lg rounded-4xl p-5 gap-5 flex flex-col " style="box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15)"
+     @click="window.innerWidth < 768 && $dispatch('view-tenant', { url: '{{ route('host.tenants.show', $myTenant) }}' })">
     <div class="flex gap-3  justify-start items-center">
         <div class="avatar">
             <div class="mask mask-squircle h-16 w-16 md:h-12 md:w-12 bg-purple-700 flex items-center justify-center">
@@ -47,7 +48,7 @@
             <x-lucide-chevron-right class="w-7 h-5"/>
         </a>
     </div>
-    <div class="flex md:hidden items-center">
+    <div class="flex md:hidden items-center pl-1">
         <div class="flex-1 flex gap-2">
             <x-lucide-calendar class="text-base-content/70 w-4 h-4"/>
             <p class="text-sm font-semibold text-base-content/70">{{$myTenant->lease_start_date->format('M d, Y')}}</p>

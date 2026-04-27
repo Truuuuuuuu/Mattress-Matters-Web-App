@@ -11,17 +11,18 @@
             </div>
             {{--Name--}}
             <div>
-                <div class="font-bold">{{$myTenant->tenant->user->name}}</div>
-                <div class="text-sm opacity-50">{{ucfirst($myTenant->tenant->gender)}}</div>
+                <p class="font-bold">{{$myTenant->tenant->user->name}}</p>
+                <p class="hidden md:block text-sm opacity-50">{{ucfirst($myTenant->tenant->gender)}}</p>
+                <p class="md:hidden text-sm opacity-50 line-clamp-1">{{$myTenant->listing->title}}</p>
             </div>
         </div>
     </td>
     {{--Listing title--}}
-    <td>
+    <td class="hidden md:table-cell">
         {{$myTenant->listing->title}}
     </td>
     {{--listing rent cost--}}
-    <td>₱{{number_format($myTenant->totalAmountDue(),2)}}</td>
+    <td class="hidden md:table-cell">₱{{number_format($myTenant->totalAmountDue(),2)}}</td>
 
     <td>
         <a @click="$dispatch('view-tenant', { url: '{{ route('host.tenants.show', $myTenant) }}' })" class="btn btn-primary btn-outline rounded-2xl px-3 btn-xs">details</a>

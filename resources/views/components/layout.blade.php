@@ -213,7 +213,7 @@
 
 
 
-    <main>
+    <main class="pb-20 lg:pb-0">
         @include('components.confirm-modal')
         {{ $slot }}
     </main>
