@@ -91,9 +91,6 @@ class ReservationController extends Controller
             ));
         }
 
-
-
-
         // Mobile full page
         return view('host.reservation.show', compact(
             'reservation', 'rentalPayment', 'securityPayment',

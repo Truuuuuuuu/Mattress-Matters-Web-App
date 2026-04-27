@@ -37,14 +37,16 @@ class ManageTenant extends Controller
         return view('host.tenants.index', compact(['myTenants', 'movingOutTenants', 'tenantHistory']));
     }
 
-    public function show(Tenant $tenant)
+    public function show(Rental $rental, Request $request)
     {
-        $tenant->load([
-            'user',
-            'rentals' => fn($q) => $q->with(['listing', 'reservation'])->latest()
-        ]);
+        $rental->load(['tenant.user', 'listing', 'reservation']);
 
-        return view('host.tenants.show', compact('tenant'));
+        // Desktop modal fetch
+        if ($request->header('X-Modal-Request')) {
+            return view('host.tenants.partials.show-content', compact('rental'));
+        }
+
+        return view('host.tenants.show', compact('rental'));
     }
 
 }

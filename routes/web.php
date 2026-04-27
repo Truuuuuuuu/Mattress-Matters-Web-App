@@ -101,7 +101,7 @@ Route::middleware(['auth', 'role:host'])
             ->name('delete');
         Route::get('/tenants/index', [ManageTenant::class, 'index'])
             ->name('tenants.index');
-        Route::get('/tenants/{tenant}/show', [ManageTenant::class, 'show'])
+        Route::get('/tenants/rentals/{rental}', [ManageTenant::class, 'show'])
             ->name('tenants.show');
     });
 

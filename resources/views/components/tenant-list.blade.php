@@ -24,7 +24,7 @@
     <td>₱{{number_format($myTenant->totalAmountDue(),2)}}</td>
 
     <td>
-        <a href="{{route('host.tenants.show', $myTenant->tenant)}}" class="btn btn-ghost btn-xs">details</a>
+        <a @click="$dispatch('view-tenant', { url: '{{ route('host.tenants.show', $myTenant) }}' })" class="btn btn-primary btn-outline rounded-2xl px-3 btn-xs">details</a>
     </td>
 </tr>
 

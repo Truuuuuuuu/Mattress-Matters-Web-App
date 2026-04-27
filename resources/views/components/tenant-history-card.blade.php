@@ -29,7 +29,7 @@
             <p class="text-xs font-semibold text-base-content/70">RENT PERIOD</p>
             <h1 class="text-lg font-semibold">{{$history->lease_start_date->format('M, Y') }} - {{$history->updated_at->format('M, Y')}}</h1>
         </div>
-        <a href="{{route('host.tenants.show', $history->tenant)}}" class="bg-base-300 rounded-2xl flex justify-center items-center p-3 w-13 h-13">
+        <a @click="$dispatch('view-tenant', { url: '{{ route('host.tenants.show', $history) }}' })" class="bg-base-300 rounded-2xl flex justify-center items-center cursor-pointer  p-3 w-13 h-13">
             <x-lucide-chevron-right class="w-7 h-5"/>
         </a>
 
