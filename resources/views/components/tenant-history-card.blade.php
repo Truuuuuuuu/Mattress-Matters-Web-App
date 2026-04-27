@@ -25,13 +25,13 @@
             </div>
         </div>
     </div>
-    <div class="flex  gap-3 items-center">
+    <div class="flex items-center">
         <div class="flex-1 ">
             <p class="text-xs font-semibold text-base-content/70">RENT PERIOD</p>
             <h1 class="text-lg font-semibold">{{$history->lease_start_date->format('M, Y') }} - {{$history->updated_at->format('M, Y')}}</h1>
         </div>
-        <a @click="$dispatch('view-tenant', { url: '{{ route('host.tenants.show', $history) }}' })" class="bg-base-300 rounded-2xl hidden md:flex justify-center items-center cursor-pointer  p-3 w-13 h-13">
-            <x-lucide-chevron-right class="w-7 h-5"/>
+        <a @click="$dispatch('view-tenant', { url: '{{ route('host.tenants.show', $history) }}' })" class="btn btn-primary btn-outline rounded-2xl hidden md:flex justify-center items-center cursor-pointer  p-3 ">
+            <x-lucide-chevron-right class="w-7 h-5 text-current"/>
         </a>
 
     </div>

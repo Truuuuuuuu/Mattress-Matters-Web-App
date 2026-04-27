@@ -39,13 +39,13 @@
             </div>
         </div>
     </div>
-    <div class="hidden md:flex">
+    <div class="hidden md:flex  items-center">
         <div class="flex-1 ">
             <p class="text-xs font-semibold text-base-content/70">MONTHLY RENT</p>
             <h1 class="text-2xl font-bold">₱{{number_format($myTenant->totalAmountDue())}}</h1>
         </div>
-        <a @click="$dispatch('view-tenant', { url: '{{ route('host.tenants.show', $myTenant) }}' })" class="cursor-pointer bg-base-300 rounded-2xl p-3">
-            <x-lucide-chevron-right class="w-7 h-5"/>
+        <a @click="$dispatch('view-tenant', { url: '{{ route('host.tenants.show', $myTenant) }}' })" class="flex justify-center items-center cursor-pointer btn btn-outline btn-primary rounded-2xl p-3 ">
+            <x-lucide-chevron-right class="w-7 h-5 text-current"/>
         </a>
     </div>
     <div class="flex md:hidden items-center pl-1">
