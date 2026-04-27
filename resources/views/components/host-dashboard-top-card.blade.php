@@ -1,5 +1,5 @@
 @props(['count', 'label', 'icon'])
-<div class="flex flex-col  rounded-3xl p-5 gap-4 bg-base-100"
+<div class="flex flex-col w-full rounded-3xl p-5 gap-4 bg-base-100"
    style="box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15)">
     <div>
         <div class="p-2 bg-primary/10 rounded-xl w-11 h-10 flex justify-center items-center">
