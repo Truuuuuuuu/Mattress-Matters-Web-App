@@ -1,5 +1,5 @@
 {{-- Cards View --}}
-<div x-show="activeView === 'cards'" x-transition class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-7" >
+<div x-show="activeView === 'cards'" x-transition class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-7" >
     @forelse($pendingReservations as $pendingReservation)
         <x-host-reservation-card :$pendingReservation />
     @empty
@@ -15,9 +15,10 @@
             <!-- head -->
             <thead>
             <tr>
-                <th>Guest</th>
-                <th>Listing</th>
-                <th>Start Date</th>
+                <th class="md:hidden">Reservation list</th>
+                <th class="hidden md:table-cell">Guest</th>
+                <th class="hidden md:table-cell">Listing</th>
+                <th class="hidden md:table-cell">Start Date</th>
                 <th></th>
             </tr>
             </thead>

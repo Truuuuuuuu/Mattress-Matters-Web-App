@@ -28,15 +28,20 @@
         </div>
     </td>
     {{--Listing title--}}
-    <td>
+    <td class="hidden md:table-cell">
         <p class="font-semibold text-primary/90">{{$reservation->listing->title}}</p>
     </td>
-    <td>
+    <td class="hidden md:table-cell">
         <p class="font-semibold text-base-content/80"> {{ $reservation->start_date->format('M d, Y') }}</p>
     </td>
-    <td>
+    <td class="hidden lg:table-cell ">
         <a @click="$dispatch('view-reservation', { url: '{{ route('reservation.show', $reservation) }}' })"  class="btn btn-primary rounded-2xl btn-xs btn-outline">
             {{$reservation->status === 'pending' ? 'Review Request' : 'View Details'}}
+        </a>
+    </td>
+    <td class="lg:hidden">
+        <a @click="$dispatch('view-reservation', { url: '{{ route('reservation.show', $reservation) }}' })"  class="btn btn-primary rounded-2xl btn-xs btn-outline">
+            {{$reservation->status === 'pending' ? 'Review ' : 'Details '}}
         </a>
     </td>
 </tr>
