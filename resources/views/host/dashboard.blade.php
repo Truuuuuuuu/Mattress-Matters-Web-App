@@ -1,24 +1,24 @@
 <x-layout>
     <x-slot:heading>dashboard</x-slot:heading>
 
-    <div class="w-full max-w-7xl px-5 py-5 space-y-5 mx-auto">
+    <div class="w-full max-w-7xl px-5 py-5 space-y-5 mx-auto bg-base-200 min-h-[calc(100vh-5rem)]">
         <div>
-            <h1 class="text-3xl font-bold">Welcome back, {{auth()->user()->first_name}}</h1>
-            <p class="text-sm font-semibold text-base-content/70">Here’s an overview of your activity today</p>
+            <h1 class="text-2xl md:text-3xl font-bold">Welcome back, {{auth()->user()->first_name}}</h1>
+            <p class="text-xs md:text-sm font-semibold text-base-content/70">Here’s an overview of your activity today</p>
         </div>
 
         <div>
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-5">
-                <x-host-dashboard-top-card :count="$active_listings" label="Active Listings" icon="building"/>
-                <x-host-dashboard-top-card :count="$total_tenants" label="Total Tenants" icon="users"/>
-                <x-host-dashboard-top-card :count="$pending_reservations" label="Pending Reservations" icon="clipboard-clock"/>
-                <x-host-dashboard-top-card :count="$move_out_notices" label="Move out notices" icon="square-arrow-right-exit"/>
+                <x-host-dashboard-top-card :count="$active_listings" label="ACTIVE LISTINGS" icon="building" />
+                <x-host-dashboard-top-card :count="$total_tenants" label="TOTAL TENANTS" icon="users" />
+                <x-host-dashboard-top-card :count="$pending_reservations" label="PENDING RESERVATIONS" icon="clipboard-clock" />
+                <x-host-dashboard-top-card :count="$move_out_notices" label="MOVE OUT NOTICES" icon="square-arrow-right-exit"  />
             </div>
         </div>
         <div class="grid lg:grid-cols-[2fr_1fr] gap-8">
 
             <div>
-                <h1 class="text-xl font-semibold">Upcoming Check-ins</h1>
+                <h1 class="text-xl text-primary font-semibold">Upcoming Check-ins</h1>
                 <div class="overflow-x-auto">
                     <table class="table">
                         <!-- head -->
@@ -57,7 +57,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="3" class="text-center">None at the moment.</td>
+                                <td colspan="4" class="text-center text-base-content/70">None at the moment.</td>
                             </tr>
 
                         @endforelse
@@ -70,7 +70,7 @@
                 </div>
             </div>
             <div>
-                <h1 class="text-xl font-semibold">Earnings</h1>
+                <h1 class="text-xl font-semibold text-primary mb-2">Earnings</h1>
                 <div class="border rounded-2xl p-8">
                     <div>
                         <h1 class="text-3xl font-semibold">₱10,000</h1>
@@ -78,6 +78,41 @@
                     </div>
                 </div>
             </div>
+
+            <a href="#" class="hover-3d my-12 mx-2 cursor-pointer">
+
+                <!-- content -->
+                <div class="card w-96 bg-black text-white bg-[radial-gradient(circle_at_bottom_left,#ffffff04_35%,transparent_36%),radial-gradient(circle_at_top_right,#ffffff04_35%,transparent_36%)] bg-size-[4.95em_4.95em]">
+                    <div class="card-body">
+                        <div class="flex justify-between mb-10">
+                            <div class="font-bold">BANK OF LATVERIA</div>
+                            <div class="text-5xl opacity-10">❁</div>
+                        </div>
+                        <div class="text-lg mb-4 opacity-40">0210 8820 1150 0222</div>
+                        <div class="flex justify-between">
+                            <div>
+                                <div class="text-xs opacity-20">CARD HOLDER</div>
+                                <div>VICTOR VON D.</div>
+                            </div>
+                            <div>
+                                <div class="text-xs opacity-20">EXPIRES</div>
+                                <div>29/08</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 8 empty divs needed for the 3D effect -->
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </a>
+
         </div>
     </div>
 </x-layout>
