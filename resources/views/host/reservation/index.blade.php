@@ -34,7 +34,7 @@
             <h1 class="text-4xl font-semibold text-primary">Reservations</h1>
             <p class="text-xs font-semibold ">Manage incoming requests and guest schedules</p>
         </div>
-        <x-tabs :tabs="['pending', 'confirmed', 'history']" default="pending" :showViewToggle="true">
+        <x-tabs :tabs="['pending', 'confirmed', 'history']" default="pending" :showViewToggle="true" title="Reservation">
 
             <x-tab-panel name="pending">
                 @include('host.reservation.partials.pending-content')

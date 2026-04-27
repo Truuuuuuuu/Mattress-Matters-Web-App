@@ -14,9 +14,10 @@
             <!-- head -->
             <thead>
             <tr>
-                <th class="w-1/4">Tenant</th>
-                <th class="w-1/2">Listing</th>
-                <th class="w-1/4">Rental Period</th>
+                <th class="md:hidden">History</th>
+                <th class="w-1/4 hidden md:table-cell">Tenant</th>
+                <th class="w-1/2 hidden md:table-cell">Listing</th>
+                <th class="w-1/4 hidden md:table-cell">Rental Period</th>
                 <th></th>
             </tr>
             </thead>

@@ -14,7 +14,7 @@
                 <div class="font-bold -mb-1">{{$history->tenant->user->name}}</div>
 
                 @if($history->status === 'ended')
-                    <div class="text-sm opacity-50">Stayed {{ $history->stayedFormatted() }}</div>
+                    <div class="text-sm opacity-50">{{ $history->stayedFormatted() }}</div>
                 @else
                     <div>
                         <div class="text-sm opacity-50">Active rental</div>
@@ -24,13 +24,13 @@
         </div>
     </td>
 
-    <td>
+    <td class="hidden md:table-cell">
         <div class="flex items-center justify-start gap-5">
             <p>{{$history->listing->title}}</p>
 
         </div>
     </td>
-    <td>
+    <td class="hidden md:table-cell">
         <div class="flex items-center justify-start gap-5">
             <p>{{$history->lease_start_date->format('M, Y') }} - {{$history->updated_at->format('M, Y')}}</p>
 
