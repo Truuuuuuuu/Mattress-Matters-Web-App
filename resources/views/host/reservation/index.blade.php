@@ -30,7 +30,7 @@
          @view-reservation.window="viewReservation($event.detail.url)"
          @keydown.escape.window="close()">
 
-        <div class="mb-5">
+        <div class="hidden md:flex flex-col mb-5">
             <h1 class="text-4xl font-semibold text-primary">Reservations</h1>
             <p class="text-xs font-semibold ">Manage incoming requests and guest schedules</p>
         </div>

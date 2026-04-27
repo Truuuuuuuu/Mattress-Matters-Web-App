@@ -48,7 +48,7 @@
         <x-search-bar />
         <div class="flex w-full justify-between items-center">
             <div>
-                <h1 class="text-3xl font-semibold">{{$title}}</h1>
+                <h1 class="text-3xl text-primary font-semibold">{{$title}}</h1>
             </div>
             @if ($showViewToggle)
                 <div class="flex gap-2">
