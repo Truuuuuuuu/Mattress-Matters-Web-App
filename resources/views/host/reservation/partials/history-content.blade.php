@@ -1,5 +1,5 @@
 {{-- Cards View --}}
-<div x-show="activeView === 'cards'" x-transition class="grid grid-cols-2 md:grid-cols-3  gap-4 mt-7" >
+<div x-show="activeView === 'cards'" x-transition class="grid md:grid-cols-2 xl:grid-cols-3 gap-4 mt-7" >
     @forelse($historyReservations as $historyReservation)
         <x-history-reservation-card :$historyReservation/>
     @empty
@@ -17,9 +17,9 @@
             <!-- head -->
             <thead>
             <tr>
-                <th>Guest</th>
-                <th>Listing</th>
-                <th>Status</th>
+                <th >Guest</th>
+                <th class="hidden md:table-cell">Listing</th>
+                <th class="hidden md:table-cell">Status</th>
                 <th></th>
             </tr>
             </thead>

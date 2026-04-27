@@ -25,10 +25,10 @@
         </div>
     </td>
     {{--Listing title--}}
-    <td>
+    <td class="hidden md:table-cell">
         <p class="font-semibold text-primary/90">{{$reservation->listing->title}}</p>
     </td>
-    <td>
+    <td class="hidden md:table-cell">
         @php
             $statusConfig = match($reservation->status) {
                 'declined'  => ['class' => 'badge-error',    'label' => 'Declined'],

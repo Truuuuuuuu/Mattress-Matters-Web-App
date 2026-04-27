@@ -5,19 +5,20 @@
     $cover = $reservation->listing->listingImages->first();
 @endphp
 
-<div class="border bg-base-100 border-base-300 rounded-3xl p-5 space-y-4 flex flex-col justify-between">
+<div class="border bg-base-100 border-base-300 rounded-3xl p-5 space-y-4 flex flex-col justify-between" style="box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15)"
+     @click="window.innerWidth < 768 && $dispatch('view-reservation', { url: '{{ route('reservation.show', $reservation) }}' })">
     <div class="flex ">
-        <div class="flex-2 flex justify-start items-center gap-3 ">
-            <div class="w-14 h-14 shrink-0">
+        <div class="flex-2 flex justify-start items-start gap-3 ">
+            <div class="w-14 h-14 shrink-0 ">
                 <img src="{{ asset('storage/' . $cover->image_path) }}"
                      alt=""
                      class="w-full h-full object-cover rounded-2xl">
             </div>
-            <div>
-                <p class="font-semibold text-md">
-                    {{ Str::words($reservation->listing->title, 5, '...') }}
+            <div class="flex flex-col  ">
+                <p class="font-semibold text-md line-clamp-1">
+                    {{ $reservation->listing->title }}
                 </p>
-                <p class="text-sm font-semibold text-base-content/70 -mt-1">Guest: {{$reservation->tenant->user->name}}</p>
+                <p class="text-sm font-semibold text-base-content/70 -mt-1 ">Guest: {{$reservation->tenant->user->name}}</p>
             </div>
         </div>
         <div class="flex-1 flex justify-end items-start">
@@ -73,7 +74,7 @@
 
 
     <button
-        class="btn btn-outline btn-primary rounded-2xl w-full"
+        class="hidden md:flex btn btn-outline btn-primary rounded-2xl w-full "
         @click="$dispatch('view-reservation', { url: '{{ route('reservation.show', $reservation) }}' })"
     >
         VIEW DETAILS
