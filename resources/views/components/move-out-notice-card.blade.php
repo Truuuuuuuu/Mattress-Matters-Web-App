@@ -2,16 +2,16 @@
 
 
 
-<div class="card bg-base-100  shadow-sm px-4 py-4 ">
+<div class="card bg-base-100 rounded-4xl px-4 py-4 " style="box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15)">
     <div class="flex flex-start items-center gap-4 ">
         <div class="avatar avatar-placeholder">
-            <div class="bg-purple-700    w-12 rounded-full">
+            <div class="bg-purple-700 w-12 mask mask-squircle">
                 <span class="text-lg font-bold">J</span>
             </div>
         </div>
-        <div>
+        <div class=" w-full">
             <p class="-mb-2 font-semibold">{{$movingOutTenant->tenant->user->name }}</p>
-            <p class="text-sm text-base-content/60">{{Str::limit($movingOutTenant->listing?->title, 20)}}</p>
+            <p class="text-sm text-base-content/60 line-clamp-1">{{$movingOutTenant->listing?->title}}</p>
         </div>
     </div>
 
