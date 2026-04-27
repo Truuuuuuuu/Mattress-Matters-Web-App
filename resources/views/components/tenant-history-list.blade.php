@@ -13,7 +13,7 @@
             <div>
                 <div class="font-bold -mb-1">{{$history->tenant->user->name}}</div>
 
-                @if($history->status === 'completed')
+                @if($history->status === 'ended')
                     <div class="text-sm opacity-50">Stayed {{ $history->stayedFormatted() }}</div>
                 @else
                     <div>

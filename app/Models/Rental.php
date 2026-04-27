@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class Rental extends Model
 {
@@ -83,4 +85,29 @@ class Rental extends Model
         return $rentCost + $waterCost + $electricCost;
     }
 
+    public function stayedFormatted(): string
+    {
+        Log::debug('stayedFormatted', [
+            'moveOutNotice' => $this->moveOutNotice,
+            'lease_start_date' => $this->lease_start_date,
+        ]);
+        if (!$this->moveOutNotice || !$this->lease_start_date) {
+            return '0 days';
+        }
+
+        $start = Carbon::parse($this->lease_start_date)->startOfDay();
+        $end   = Carbon::parse($this->moveOutNotice->move_out_date)->startOfDay();
+        $diff  = $start->diff($end);
+
+        $parts = [];
+        if ($diff->y > 0 || $diff->m > 0) {
+            $totalMonths = $diff->y * 12 + $diff->m;
+            $parts[] = "$totalMonths month" . ($totalMonths > 1 ? 's' : '');
+        }
+        if ($diff->d > 0) {
+            $parts[] = "$diff->d day" . ($diff->d > 1 ? 's' : '');
+        }
+
+        return implode(' ', $parts) ?: '0 days';
+    }
 }

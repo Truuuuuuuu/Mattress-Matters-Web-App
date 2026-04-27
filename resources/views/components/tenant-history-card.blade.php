@@ -1,6 +1,7 @@
 @props(['history'])
 
-<div class="bg-base-100 shadow-sm rounded-2xl p-5 gap-5 flex flex-col ">
+<div class="bg-base-100 shadow-sm rounded-4xl p-5 gap-5 flex flex-col " style="box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15)"
+     @click="window.innerWidth < 768 && $dispatch('view-tenant', { url: '{{ route('host.tenants.show', $history) }}' })">
     <div class="flex gap-3">
         <div class="avatar">
             <div class="mask mask-squircle h-12 w-12 bg-purple-700 flex items-center justify-center">
@@ -29,7 +30,7 @@
             <p class="text-xs font-semibold text-base-content/70">RENT PERIOD</p>
             <h1 class="text-lg font-semibold">{{$history->lease_start_date->format('M, Y') }} - {{$history->updated_at->format('M, Y')}}</h1>
         </div>
-        <a @click="$dispatch('view-tenant', { url: '{{ route('host.tenants.show', $history) }}' })" class="bg-base-300 rounded-2xl flex justify-center items-center cursor-pointer  p-3 w-13 h-13">
+        <a @click="$dispatch('view-tenant', { url: '{{ route('host.tenants.show', $history) }}' })" class="bg-base-300 rounded-2xl hidden md:flex justify-center items-center cursor-pointer  p-3 w-13 h-13">
             <x-lucide-chevron-right class="w-7 h-5"/>
         </a>
 

@@ -27,7 +27,7 @@ class ManageTenant extends Controller
             ->sortBy('moveOutNotice.move_out_date');
 
 
-        $tenantHistory = Rental::with(['tenant.user', 'listing'])
+        $tenantHistory = Rental::with(['tenant.user', 'listing', 'moveOutNotice'])
             ->whereHas('listing', fn($q) => $q->where('host_id', $user->id))
             ->where('status', 'ended')
             ->latest()

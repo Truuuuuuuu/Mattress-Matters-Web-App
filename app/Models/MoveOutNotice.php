@@ -63,28 +63,26 @@ class MoveOutNotice extends Model
     }
 
 
-
-    public function stayedFormatted(): string
+/*
+    public function stayedFormatted(Rental $rental): string
     {
-        if (!$this->rental || !$this->move_out_date) {
+        if (!$this->move_out_date || !$rental->reservation) {
             return '0 days';
         }
 
-        $start = Carbon::parse($this->rental->reservation->start_date)->startOfDay();
-        $end = Carbon::parse($this->move_out_date)->startOfDay();
-        $diff = $start->diff($end);
+        $start = Carbon::parse($rental->reservation->start_date)->startOfDay();
+        $end   = Carbon::parse($this->move_out_date)->startOfDay();
+        $diff  = $start->diff($end);
 
         $parts = [];
-        if ($diff->m > 0 || $diff->y > 0) {
-            // Include years as months
+        if ($diff->y > 0 || $diff->m > 0) {
             $totalMonths = $diff->y * 12 + $diff->m;
-            $parts[] = "$totalMonths month" . ($totalMonths > 1 ? "s" : "");
+            $parts[] = "$totalMonths month" . ($totalMonths > 1 ? 's' : '');
         }
-
         if ($diff->d > 0) {
-            $parts[] = "$diff->d day" . ($diff->d > 1 ? "s" : "");
+            $parts[] = "$diff->d day" . ($diff->d > 1 ? 's' : '');
         }
 
         return implode(' ', $parts) ?: '0 days';
-    }
+    }*/
 }
