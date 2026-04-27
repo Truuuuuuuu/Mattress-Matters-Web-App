@@ -1,5 +1,5 @@
-<div class="flex">
-    <div class="w-124  p-5 space-y-5">
+<div class="flex flex-col md:flex-row">
+    <div class="w-full max-w-124  p-5 space-y-5">
         <div class="w-full h-64 ">
             <img src="{{ asset('storage/' . $reservation->listing->listingImages->first()->image_path) }}"
                  alt="Cover Photo"

@@ -1,7 +1,7 @@
 
 
-<div class="flex">
-    <div class="w-124  p-5 space-y-3">
+<div class="flex flex-col md:flex-row">
+    <div class="w-full max-w-124  p-5 space-y-3">
         {{--<div class="w-full h-64 ">
             <img src="{{ asset('storage/' . $rental->reservation->listing->listingImages->first()->image_path) }}"
                  alt="Cover Photo"
@@ -51,7 +51,7 @@
             </div>
         </div>
         @if($rental->status === 'active')
-            <div class="rounded-2xl bg-error/20 p-3 border border-error/50">
+            <div class="hidden md:flex flex-col rounded-2xl bg-error/20 p-3 border border-error/50">
                 <p class="text-sm font-semibold text-error-content">DANGER ZONE</p>
                 <p class="text-xs ">Permanent action. This will terminate the legal agreement.</p>
                 <a href="#" class="btn bg-red-700 rounded-2xl w-full my-2 text-base-100">Kick Out</a>
@@ -106,5 +106,12 @@
         <div class="flex justify-between gap-3 mt-5">
             <a href="#" class="btn btn-primary btn-outline  w-full border-primary rounded-2xl">Statement of Account</a>
         </div>
+        @if($rental->status === 'active')
+            <div class="md:hidden my-8 flex-col rounded-2xl bg-error/20 p-3 border border-error/50">
+                <p class="text-sm font-semibold text-error-content">DANGER ZONE</p>
+                <p class="text-xs ">Permanent action. This will terminate the legal agreement.</p>
+                <a href="#" class="btn bg-red-700 rounded-2xl w-full my-2 text-base-100">Kick Out</a>
+            </div>
+        @endif
     </div>
 </div>
