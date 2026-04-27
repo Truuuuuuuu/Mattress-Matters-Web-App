@@ -1,5 +1,5 @@
 {{-- Cards View --}}
-<div x-show="activeView === 'cards'" x-transition class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-7" >
+<div x-show="activeView === 'cards'" x-transition class="grid md:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-7" >
     @forelse($myTenants as $myTenant)
         <x-tenant-card :$myTenant/>
     @empty

@@ -30,11 +30,11 @@
          @view-tenant.window="viewTenant($event.detail.url)"
          @keydown.escape.window="close()">
 
-        <div class="mb-5">
+        <div class="hidden md:flex flex-col mb-5 ">
             <h1 class="text-4xl font-semibold">My Tenants</h1>
             <p class="text-xs font-semibold ">Manage your tenants and keep track of their boarding details </p>
         </div>
-        <x-tabs :tabs="['active', 'moving out', 'history']" default="active" :showViewToggle="true">
+        <x-tabs :tabs="['active', 'moving out', 'history']" default="active" :showViewToggle="true" title="My Tenants">
 
             <x-tab-panel name="active">
                 @include('host.tenants.partials.active-content')
