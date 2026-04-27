@@ -3,7 +3,7 @@
 
     <div class="w-full max-w-7xl px-5 py-5 space-y-5 mx-auto bg-base-200 min-h-[calc(100vh-5rem)]">
         <div>
-            <h1 class="text-2xl md:text-3xl font-bold">Welcome back, {{auth()->user()->first_name}}</h1>
+            <h1 class="text-2xl md:text-3xl text-primary font-bold">Welcome back, {{auth()->user()->first_name}}</h1>
             <p class="text-xs md:text-sm font-semibold text-base-content/70">Here’s an overview of your activity today</p>
         </div>
 
@@ -15,9 +15,9 @@
                 <x-host-dashboard-top-card :count="$move_out_notices" label="MOVE OUT NOTICES" icon="square-arrow-right-exit"  />
             </div>
         </div>
-        <div class="grid lg:grid-cols-[2fr_1fr] gap-8">
+        <div class="flex flex-col-reverse lg:flex-row gap-4">
 
-            <div>
+            <div class="w-full">
                 <h1 class="text-xl text-primary font-semibold">Upcoming Check-ins</h1>
                 <div class="overflow-x-auto">
                     <table class="table">
@@ -25,9 +25,9 @@
                         <thead>
                         <tr>
                             <th>GUEST</th>
-                            <th>LISTING</th>
-                            <th>DATE</th>
-                            <th>ACTION</th>
+                            <th class="hidden lg:table-cell">LISTING</th>
+                            <th class="hidden lg:table-cell">DATE</th>
+                            <th class="hidden lg:table-cell">ACTION</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -47,12 +47,12 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="font-semibold">
+                                <td class="font-semibold hidden md:table-cell">
                                     {{$reservation->listing->title}}
                                 </td>
-                                <td class="font-semibold ">{{$reservation->start_date->format('M d')}}</td>
-                                <th>
-                                    <a href="{{route('reservation.show', $reservation)}}"  class="btn btn-ghost btn-xs">details</a>
+                                <td class="font-semibold hidden md:table-cell">{{$reservation->start_date->format('M d')}}</td>
+                                <th >
+                                    <a href="{{route('reservation.show', $reservation)}}"  class="btn btn-outline btn-primary btn-sm px-3 rounded-2xl">details</a>
                                 </th>
                             </tr>
                         @empty
@@ -69,50 +69,9 @@
                     </table>
                 </div>
             </div>
-            <div>
-                <h1 class="text-xl font-semibold text-primary mb-2">Earnings</h1>
-                <div class="border rounded-2xl p-8">
-                    <div>
-                        <h1 class="text-3xl font-semibold">₱10,000</h1>
-                        <p class="text-sm font-semibold text-base-content/70">Monthly Revenue</p>
-                    </div>
-                </div>
+            <div class="flex justify-center items-center w-full lg:w-112 ">
+                <x-card-hover-3d/>
             </div>
-
-            <a href="#" class="hover-3d my-12 mx-2 cursor-pointer">
-
-                <!-- content -->
-                <div class="card w-96 bg-black text-white bg-[radial-gradient(circle_at_bottom_left,#ffffff04_35%,transparent_36%),radial-gradient(circle_at_top_right,#ffffff04_35%,transparent_36%)] bg-size-[4.95em_4.95em]">
-                    <div class="card-body">
-                        <div class="flex justify-between mb-10">
-                            <div class="font-bold">BANK OF LATVERIA</div>
-                            <div class="text-5xl opacity-10">❁</div>
-                        </div>
-                        <div class="text-lg mb-4 opacity-40">0210 8820 1150 0222</div>
-                        <div class="flex justify-between">
-                            <div>
-                                <div class="text-xs opacity-20">CARD HOLDER</div>
-                                <div>VICTOR VON D.</div>
-                            </div>
-                            <div>
-                                <div class="text-xs opacity-20">EXPIRES</div>
-                                <div>29/08</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 8 empty divs needed for the 3D effect -->
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-            </a>
-
         </div>
     </div>
 </x-layout>
