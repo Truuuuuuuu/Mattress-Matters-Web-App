@@ -31,11 +31,11 @@
          @keydown.escape.window="close()">
 
         <div class="hidden md:flex flex-col mb-5">
-            <h1 class="text-4xl font-semibold text-primary">Reservations</h1>
+            <h1 class="text-4xl font-semibold text-primary">My Reservation</h1>
             <p class="text-xs font-semibold ">Manage incoming requests and guest schedules</p>
         </div>
         <x-tabs :tabs="['reservation', 'history']" default="reservation" :showViewToggle="true"
-                title="Reservation">
+                title="My Reservation">
 
             <x-tab-panel name="reservation">
                 @include('tenant.reservation.partials.reservation-content')

@@ -1,5 +1,5 @@
 {{-- Cards View --}}
-<div x-show="activeView === 'cards'" x-transition class="grid md:grid-cols-2 xl:grid-cols-3 gap-4 mt-7" >
+<div x-show="activeView === 'cards'" x-transition class="grid place-items-center mt-7" >
     @if($activeReservation)
         <x-active-reservation-card :$activeReservation />
     @else

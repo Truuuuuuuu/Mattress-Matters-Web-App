@@ -6,7 +6,7 @@
     $cover = $activeReservation->listing->listingImages->first();
 @endphp
 
-<div class="flex border rounded-3xl w-full p-2 gap-4 items-end pr-5">
+<div class="flex flex-col rounded-3xl w-full max-w-xl p-5 gap-4 " style="box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15)">
 
     <a href="{{ route('listings.show', $activeReservation->listing) }}"
        class="flex gap-4 items-center flex-1 min-w-0 ">
@@ -45,13 +45,13 @@
             'Keep Reservation'
 
         )"
-        class="btn btn-error btn-sm shrink-0 w-24">
-        Cancel
+        class="btn btn-error btn-outline btn-sm w-full text-error-content rounded-3xl py-5 text-lg">
+        Cancel Reservation
         </button>
         @include('components.confirm-modal')
     @elseif($activeReservation->status === 'accepted')
         <div class="flex flex-col space-y-2">
-            <a href="#" class="btn btn-primary btn-sm shrink-0 w-24">
+            <a href="#" class="btn btn-primary btn-sm w-full">
                 Message
             </a>
             <a href="{{route('reservation.show', $activeReservation)}}" class="btn btn-neutral btn-sm">
