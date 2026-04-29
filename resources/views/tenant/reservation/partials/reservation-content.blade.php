@@ -4,7 +4,7 @@
         <x-active-reservation-card :$activeReservation />
     @else
         <div>
-            <p class="text-base-content/70 text-center italic">You have no history of reservation</p>
+            <p class="text-base-content/70 text-center italic">You don't have any active reservations right now.</p>
         </div>
     @endif
 </div>
@@ -17,20 +17,23 @@
             <!-- head -->
             <thead>
             <tr>
-                <th >Guest</th>
-                <th class="hidden md:table-cell">Listing</th>
+                <th >Listing</th>
+                <th class="hidden md:table-cell">Start Date</th>
                 <th class="hidden md:table-cell">Status</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
             @if($activeReservation)
-                <x-active-reservation-card :$activeReservation />
+                <x-active-reservation-list :$activeReservation />
             @else
-                <div>
-                    <p class="text-base-content/70 text-center italic">You have no history of reservation</p>
-                </div>
+                <tr>
+                    <td colspan="4" class="text-center py-16 text-base-content/70 italic">
+                        You don't have any active reservations right now.
+                    </td>
+                </tr>
             @endif
+
             </tbody>
         </table>
     </div>

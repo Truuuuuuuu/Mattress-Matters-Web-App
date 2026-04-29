@@ -8,25 +8,40 @@
 <tr>
     <td>
         <div class="flex items-center gap-3">
-            <div class="avatar">
-                <div class="mask mask-squircle h-12 w-12 bg-purple-700 flex items-center justify-center">
-                    <p class="text-center text-xl font-bold">{{$reservation->tenant->user->name[0]}}</p>
+            @if(auth()->user()->hasRole('host'))
+                <div class="avatar">
+                    <div class="mask mask-squircle h-12 w-12 bg-purple-700 flex items-center justify-center">
+                        <p class="text-center text-xl font-bold">{{$reservation->tenant->user->name[0]}}</p>
+                    </div>
                 </div>
-            </div>
-            {{--Name--}}
-            <div>
-                <div class="font-bold">{{$reservation->tenant->user->name}}</div>
-                <div class="flex justify-start items-center gap-2">
-                    <p class="text-sm font-semibold text-base-content/70">{{$reservation->tenant->getGender()}}</p>
-                    <div class="size-1 rounded-full bg-base-content/50"></div>
-                    <p class="text-sm font-semibold text-base-content/70">{{$reservation->tenant->getOccupation()}}</p>
+                {{--Name--}}
+                <div>
+                    <div class="font-bold">{{$reservation->tenant->user->name}}</div>
+                    <div class="flex justify-start items-center gap-2">
+                        <p class="text-sm font-semibold text-base-content/70">{{$reservation->tenant->getGender()}}</p>
+                        <div class="size-1 rounded-full bg-base-content/50"></div>
+                        <p class="text-sm font-semibold text-base-content/70">{{$reservation->tenant->getOccupation()}}</p>
+                    </div>
                 </div>
-            </div>
+            @else
+                <div class="avatar">
+                    <div class="avatar">
+                        <div class="mask mask-squircle h-12 w-12 bg-purple-700 flex items-center justify-center">
+                            <img src="{{ asset('storage/' . $reservation->listing->listingImages->first()->image_path) }}" alt="photo">
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h1 class="text-md font-semibold text-primary line-clamp-1">{{$reservation->listing->title}}</h1>
+                    <p class="text-sm font-semibold text-base-content/70">Hosted by {{$reservation->listing->host->user->name}}</p>
+                </div>
+            @endif
+
         </div>
     </td>
     {{--Listing title--}}
     <td class="hidden md:table-cell">
-        <p class="font-semibold text-primary/90">{{$reservation->listing->title}}</p>
+        <p class="font-semibold text-base-content/70">{{$reservation->start_date->format('M d, Y')}}</p>
     </td>
     <td class="hidden md:table-cell">
         @php

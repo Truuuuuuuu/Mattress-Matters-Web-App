@@ -6,19 +6,32 @@
                  class="w-full h-full object-cover rounded-3xl ">
         </div>
         <div class="flex gap-3">
-            <div class="avatar">
-                <div class="mask mask-squircle h-12 w-12 bg-purple-700 flex items-center justify-center">
-                    <p class="text-center text-lg font-bold">{{$reservation->tenant->user->name[0]}}</p>
+            @if(auth()->user()->hasRole('tenant'))
+                <div class="avatar">
+                    <div class="mask mask-squircle h-12 w-12 bg-purple-700 flex items-center justify-center">
+                        <p class="text-center text-lg font-bold">{{$reservation->listing->host->user->name[0]}}</p>
+                    </div>
                 </div>
-            </div>
-            <div>
-                <h1 class="text-xl font-semibold">{{$reservation->tenant->user->name}}</h1>
-                <div class="flex justify-start items-center gap-2">
-                    <p class="text-sm font-semibold text-base-content/70">{{$reservation->tenant->getGender()}}</p>
-                    <div class="size-1 rounded-full bg-base-content/50"></div>
-                    <p class="text-sm font-semibold text-base-content/70">{{$reservation->tenant->getOccupation()}}</p>
+                <div>
+                    <h1 class="text-xl font-semibold">{{$reservation->listing->host->user->name}}</h1>
+                    <p class="text-sm font-semibold text-base-content/70">Since {{$reservation->listing->host->created_at->format('Y')}}</p>
                 </div>
-            </div>
+            @else
+                <div class="avatar">
+                    <div class="mask mask-squircle h-12 w-12 bg-purple-700 flex items-center justify-center">
+                        <p class="text-center text-lg font-bold">{{$reservation->tenant->user->name[0]}}</p>
+                    </div>
+                </div>
+                <div>
+                    <h1 class="text-xl font-semibold">{{$reservation->tenant->user->name}}</h1>
+                    <div class="flex justify-start items-center gap-2">
+                        <p class="text-sm font-semibold text-base-content/70">{{$reservation->tenant->getGender()}}</p>
+                        <div class="size-1 rounded-full bg-base-content/50"></div>
+                        <p class="text-sm font-semibold text-base-content/70">{{$reservation->tenant->getOccupation()}}</p>
+                    </div>
+                </div>
+            @endif
+
         </div>
     </div>
     <div class="w-full  p-5 bg-base-200 flex flex-col justify-between">
@@ -141,8 +154,6 @@
                     <p>Awaiting Tenant Check-In</p>
                 </div>
             @endif
-
-
 
 
         </div>
