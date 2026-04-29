@@ -56,7 +56,7 @@ class UnitController extends Controller
         $rental  = $tenant->rental;
 
         if (!$rental) {
-            return view('tenant.myUnit.soa', ['invoices' => collect(), 'rental' => null, 'nextDue' => null]);
+            return view('tenant.myUnit.my-unit', ['invoices' => collect(), 'rental' => null, 'nextDue' => null, 'myUnit' => $myUnit]);
         }
 
         $nextDue = $rental->invoices()
