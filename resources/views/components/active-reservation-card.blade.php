@@ -50,11 +50,11 @@
         </button>
         @include('components.confirm-modal')
     @elseif($activeReservation->status === 'accepted')
-        <div class="flex flex-col space-y-2">
-            <a href="#" class="btn btn-primary btn-sm w-full">
+        <div class="flex gap-3">
+            <a href="#" class="btn btn-primary rounded-3xl btn-md flex-1">
                 Message
             </a>
-            <a href="{{route('reservation.show', $activeReservation)}}" class="btn btn-neutral btn-sm">
+            <a href="{{route('reservation.show', $activeReservation)}}" class="btn btn-neutral btn-outline rounded-3xl flex-1 btn-md">
                 View details
             </a>
         </div>
