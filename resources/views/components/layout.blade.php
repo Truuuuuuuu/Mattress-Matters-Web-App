@@ -101,16 +101,16 @@
                        {{-- Tenant links LARGE SCREEN --}}
                        <div class="hidden lg:flex text-base-content  gap-8 items-center whitespace-nowrap font-semibold lg:absolute left-1/2 -translate-x-1/2">
                            <div>
-                               <a href="{{route('tenant.homepage')}}" class="text-center block" >Explore</a>
-                               <div class="{{request()->routeIs('tenant.homepage', 'listings.index') ? 'bg-black w-17 h-1 rounded-xl' : ''}}"></div>
+                               <a href="{{route('tenant.homepage')}}" class="text-center block {{request()->routeIs('tenant.homepage') ? 'text-primary' : 'text-base-content'}}" >Explore</a>
+                               <div class="{{request()->routeIs('tenant.homepage', 'listings.index') ? 'bg-primary w-17 h-1 rounded-xl' : ''}}"></div>
                            </div>
                            <div>
-                               <a href="{{route('tenant.unit')}}" class="text-center block" >My Unit</a>
-                               <div class="{{request()->routeIs('tenant.unit') ? 'bg-black w-17 h-1 rounded-xl' : ''}}"></div>
+                               <a href="{{route('tenant.unit')}}" class="text-center block {{request()->routeIs('tenant.unit') ? 'text-primary' : 'text-base-content'}}" >My Unit</a>
+                               <div class="{{request()->routeIs('tenant.unit') ? 'bg-primary w-17 h-1 rounded-xl' : ''}}"></div>
                            </div>
                            <div>
-                               <a href="{{route('reservation.index')}}" class="text-center block" >Reservation</a>
-                               <div class="{{request()->routeIs('tenant.reservations.index') ? 'bg-black w-24 h-1 rounded-xl' : ''}}"></div>
+                               <a href="{{route('reservation.index')}}" class="text-center block {{request()->routeIs('reservation.index') ? 'text-primary' : 'text-base-content'}}" >Reservation</a>
+                               <div class="{{request()->routeIs('reservation.index') ? 'bg-primary w-24 h-1 rounded-xl' : ''}}"></div>
                            </div>
                        </div>
 
