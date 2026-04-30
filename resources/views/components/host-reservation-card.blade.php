@@ -7,7 +7,7 @@
 @endphp
 
 
-<div class="border bg-base-100 border-base-300 rounded-3xl p-5 " style="box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15)">
+<div class="border bg-base-100 border-base-300 rounded-3xl p-5 ">
     <div class="flex gap-3">
         <div class="avatar">
             <div class="mask mask-squircle h-12 w-12 bg-purple-700 flex items-center justify-center">

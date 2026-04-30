@@ -5,7 +5,7 @@
     $cover = $reservation->listing->listingImages->first();
 @endphp
 
-<div class="border bg-base-100 border-base-300 rounded-3xl p-5 space-y-4 flex flex-col justify-between" style="box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15)"
+<div class="border bg-base-100 border-base-300 rounded-3xl p-5 space-y-4 flex flex-col justify-between"
      @click="window.innerWidth < 768 && $dispatch('view-reservation', { url: '{{ route('reservation.show', $reservation) }}' })">
     <div class="flex ">
         <div class="flex-2 flex justify-start items-start gap-3 ">

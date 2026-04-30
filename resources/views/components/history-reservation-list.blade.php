@@ -59,7 +59,7 @@
     </td>
     <td>
             <a @click="$dispatch('view-reservation', { url: '{{ route('reservation.show', $reservation) }}' })" class="btn btn-primary rounded-2xl btn-xs btn-outline">
-                {{$reservation->status === 'pending' ? 'Review Request' : 'View Details'}}
+                {{$reservation->status === 'pending' ? 'Review Request' : 'Details'}}
             </a>
     </td>
 </tr>

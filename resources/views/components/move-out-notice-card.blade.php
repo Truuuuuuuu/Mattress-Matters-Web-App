@@ -2,7 +2,7 @@
 
 
 
-<div class="card bg-base-100 rounded-4xl px-4 py-4 " style="box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15)">
+<div class="card bg-base-100 rounded-4xl px-4 py-4 " >
     <div class="flex flex-start items-center gap-4 ">
         <div class="avatar avatar-placeholder">
             <div class="bg-purple-700 w-12 mask mask-squircle">
@@ -34,16 +34,16 @@
 
         <div class="mt-2">
             @if($movingOutTenant->moveOutNotice->status === 'active')
-                <div class="flex justify-between rounded-xl text-sm bg-yellow-100 p-3">
+                <div class="flex w-full justify-between rounded-xl text-sm badge badge-warning badge-soft p-3">
                     <p>Move-out date</p>
                     <p class="font-semibold">{{$movingOutTenant->moveOutNotice->move_out_date->format('M d, Y')}}</p>
                 </div>
             @elseif($movingOutTenant->moveOutNotice->status === 'cancelled')
-                <div class="flex justify-center items-center rounded-xl text-sm bg-red-100 p-3">
+                <div class="flex w-full justify-center items-center rounded-xl text-sm badge badge-error badge-soft p-3">
                     <p class="text-lg font-semibold text-red-700">Cancelled</p>
                 </div>
             @elseif($movingOutTenant->moveOutNotice->status === 'completed')
-                <div class="flex justify-center items-center rounded-xl text-sm bg-green-100 p-3">
+                <div class="flex w-full justify-center items-center rounded-xl text-sm badge badge-success badge-soft p-3">
                     <p class="text-lg font-semibold text-green-700">Moved out</p>
                 </div>
             @endif

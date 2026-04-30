@@ -1,10 +1,10 @@
 <x-layout>
     <x-slot:heading>Mattress Matters | {{$listing->title}}</x-slot:heading>
 
-    <div class="px-20">
+    <div class="px-3 w-full max-w-7xl mx-auto bg-base-200 min-h-[calc(100vh-5rem)] py-10">
         {{--Main content--}}
         <section class="mb-10">
-            <div class="flex justify-between  items-center mt-15  ">
+            <div class="flex justify-between  items-center  ">
                 <h1 class="text-2xl font-bold text-base-content">Mattress Matters in Sorsogon City</h1>
                 {{--<a href="{{route('host.edit', $listing)}}" class="btn btn-neutral">Edit Listing</a>--}}
                 <div class="hidden lg:flex dropdown dropdown-end" >
@@ -25,7 +25,7 @@
                 </div>
 
             </div>
-            <div class="grid grid-cols-2 mt-5 gap-10">
+            <div class="grid md:grid-cols-2 mt-5 gap-10  ">
                 <div class=" rounded-2xl overflow-hidden">
 
                     @php
@@ -101,7 +101,7 @@
 
                         {{--Prefered Tenant--}}
                         <div><h1 class="text-2xl font-semibold ">Preferred Tenants</h1>
-                            <div class="grid grid-cols-2 mt-3 gap-y-5">
+                            <div class="grid lg:grid-cols-2 mt-3 gap-3">
                                 @foreach($listing->rules->whereIn('name', ['gender_rule', 'tenant_rule']) as $rule)
                                     <x-rule-small-card :$rule/>
                                 @endforeach
@@ -110,7 +110,7 @@
 
                         {{--Amenities--}}
                         <div><h1 class="text-2xl font-semibold ">Amenities</h1>
-                            <div class="grid grid-cols-2 mt-3 gap-y-5">
+                            <div class="grid lg:grid-cols-2 mt-3 gap-3">
                                 @foreach($listing->amenities as $amenity)
                                     <x-amenity-small-card :$amenity/>
                                 @endforeach
@@ -170,11 +170,11 @@
         {{--What You Should Know--}}
         <section class="mb-20 ">
             <h1 class="text-2xl font-semibold mt-20 text-center">What You Should Know</h1>
-            <div class="flex justify-center gap-x-40 mt-15">
-                <div>
+            <div class="flex flex-col items-start  md:flex-row justify-center gap-5 mt-15 ">
+                <div class="flex flex-col items-center  flex-1 w-full">
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-house-icon lucide-house"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
                     <h2 class="font-semibold mt-4">House rules</h2>
-                    <div class="text-base-content/60">
+                    <div class="text-base-content/60  text-center">
                         @forelse($listing->rules->whereIn('name',['guest_rule', 'pet_rule', 'curfew_rule', 'smoking_rule']) as $rule)
                             <p>{{$rule->description}}</p>
 
@@ -185,10 +185,10 @@
                     </div>
                 </div>
 
-                <div>
+                <div class="flex flex-col items-center  flex-1 w-full">
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield-check-icon lucide-shield-check"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
                     <h2 class="font-semibold mt-4">Safety & Property</h2>
-                    <div class="text-base-content/60">
+                    <div class="text-base-content/60 text-center">
                         @forelse($listing->amenities->where('id', 8) as $safety)
                             <p>Exterior CCTV</p>
 
@@ -203,7 +203,7 @@
 
         {{--Reviews--}}
         <section>
-            <div class="grid grid-cols-2 mt-10 gap-x-30 gap-y-10 mb-10">
+            <div class="grid lg:grid-cols-2 mt-10 gap-x-30 gap-y-10 mb-10">
                 <x-review-card/>
                 <x-review-card/>
                 <x-review-card/>

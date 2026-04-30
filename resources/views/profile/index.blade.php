@@ -1,13 +1,13 @@
 <x-layout>
     <x-slot:heading>My Profile</x-slot:heading>
 
-  <div class="w-full max-w-7xl mx-auto px-3 lg:px-8 mt-10 text-base-content bg-base-200 min-h-[calc(100vh-5rem)]">
+  <div class="w-full max-w-7xl mx-auto px-3 lg:px-8 text-base-content bg-base-200 min-h-[calc(100vh-5rem)]">
       <div class="grid gap-4 md:grid-cols-[1fr_2fr] place-self-center w-full">
           <div class=" space-y-5">
-              <div class=" py-5 rounded-3xl bg-base-100" style="box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15)">
+              <div class=" py-5 rounded-3xl bg-base-100 mt-5"  >
                   <div class="flex flex-col items-center" >
                       <div class="avatar  mb-4" >
-                          <div class="mask mask-squircle h-24 w-24 lg:h-32 lg:w-32 bg-purple-700 flex items-center justify-center" style="box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15)">
+                          <div class="mask mask-squircle h-24 w-24 lg:h-32 lg:w-32 bg-purple-700 flex items-center justify-center" >
                               <p class="text-center text-xl font-bold">{{$profile->user->name[0]}}</p>
                           </div>
                       </div>
@@ -51,13 +51,13 @@
                   @endrole
               </div>
 
-              <div class=" py-5 rounded-3xl px-5 bg-base-100" style="box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15)">
+              <div class=" py-5 rounded-3xl px-5 bg-base-100" >
                   <h1 class="text-lg font-bold mb-4 text-primary">About</h1>
                   <p>Hello, this is a placeholder <only class=""></only></p>
               </div>
           </div>
 
-          <div class=" flex justify-center items-center bg-base-100 rounded-3xl" style="box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15)">
+          <div class=" flex justify-center items-center bg-base-100 rounded-3xl" >
                 content here
           </div>
           <div class="lg:hidden py-2 flex flex-col gap-3 justify-center items-center">
@@ -72,7 +72,7 @@
               <form method="POST" action="/logout" class=" w-full" >
                   @csrf
                   @method('DELETE')
-                  <button class="flex justify-start items-center btn text-error-content rounded-3xl py-7 btn-error btn-outline w-full">
+                  <button class="flex justify-start items-center btn text-base-content rounded-3xl py-7 btn-text-base-contnent btn-outline w-full">
                       <x-lucide-log-out class="w-5 h-5"/>
                       <p>Log Out</p>
                   </button>

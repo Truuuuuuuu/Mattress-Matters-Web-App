@@ -18,7 +18,7 @@
                 <x-host-dashboard-top-card :count="$active_listings" label="ACTIVE LISTINGS" icon="building" />
                 <x-host-dashboard-top-card :count="$total_tenants" label="TOTAL TENANTS" icon="users" />
             </div>
-            <div class=" flex flex-col justify-center w-full rounded-3xl bg-base-100  p-5" style="box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15)">
+            <div class=" flex flex-col justify-center w-full rounded-3xl bg-base-100  p-5" >
                 <p class="text-sm font-semibold text-base-content/70">Total Earnings</p>
                 <h1 class="text-4xl text-primary md:text-5xl font-semibold">₱30,000</h1>
             </div>
