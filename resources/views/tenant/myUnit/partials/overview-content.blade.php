@@ -1,5 +1,4 @@
-<div class=" w-full ">
-    <p class="text-xs lg:text-sm font-semibold">WELCOME HOME, {{strtoupper(str($myUnit->tenant->user->name)->before(' '))}}</p>
+<div class=" w-full mb-3">
     <h1 class="hidden lg:block text-xl lg:text-3xl font-semibold">{{$myUnit->listing->title}}</h1>
     <div class="hidden lg:flex gap-1 items-center">
         <x-lucide-map-pin class="w-4 h-4"/>

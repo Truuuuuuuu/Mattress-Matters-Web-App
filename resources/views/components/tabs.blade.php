@@ -2,6 +2,7 @@
     'tabs',
     'default',
     'showViewToggle' => false,
+    'showSearchBar' => false,
     'title'
 ])
 
@@ -23,7 +24,9 @@
 
         {{-- Right Side --}}
         <div class="flex-1 flex justify-end items-center">
-            <x-search-bar />
+            @if($showSearchBar)
+                <x-search-bar />
+            @endif
 
             @if ($showViewToggle)
                 <div class="w-px h-full bg-gray-300 mx-5"></div>

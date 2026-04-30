@@ -1,80 +1,91 @@
 <x-layout>
-    <x-slot:heading>My Unit</x-slot:heading>
+    <x-slot:heading>Reservation</x-slot:heading>
 
-    <div class="w-full max-w-7xl mx-auto lg:px-5 text-base-content">
-        @if($myUnit?->reservation?->status === 'checked_in')
-            <div class="drawer lg:drawer-open" x-data="{ activeSection: 'overview' }">
-                <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
-                <div class="drawer-content">
-                    <!-- Navbar -->
-                    <nav class="navbar w-full bg-base-300">
-                        <label for="my-drawer-4" aria-label="open sidebar" class="btn btn-square btn-ghost">
-                            <!-- Sidebar toggle icon -->
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor" class="my-1.5 inline-block size-4"><path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path><path d="M9 4v16"></path><path d="M14 10l2 2l-2 2"></path></svg>
-                        </label>
-                        <div class="px-4 font-bold">Current Stay</div>
-                    </nav>
-                    <!-- Page content here -->
-                    <div class="p-4 lg:flex flex-col gap-3">
-                        {{--Main section--}}
-                        <div x-show="activeSection === 'overview'">
-                            @include('tenant.myUnit.overview')
-                        </div>
-                        <div x-show="activeSection === 'payments'">
-                            @include('tenant.myUnit.soa')
-                        </div>
-                        <div x-show="activeSection === 'rules'">
-                            @include('tenant.myUnit.rules')
-                        </div>
-                    </div>
-                </div>
+    <div class="w-full max-w-7xl mx-auto px-5 py-7 bg-base-200 min-h-[calc(100vh-5rem)]"
+         x-data="{
+             open: false,
+             loading: false,
+             content: '',
 
-                <div class="drawer-side is-drawer-close:overflow-visible">
-                    <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
-                    <div class="flex pt-15 min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
-                        <!-- Sidebar content here -->
-                        <ul class="menu w-full grow">
-                            <!-- List item -->
-                            <li>
-                                <button class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Overview"  :class="{ 'active': activeSection === 'overview' }" @click="activeSection = 'overview'">
-                                    <!-- Overview icon -->
-                                    <x-lucide-layout-dashboard class="w-4 h-4 my-1.5"/>
-                                    <span class="is-drawer-close:hidden">Overview</span>
-                                </button>
-                            </li>
+             async viewReservation(url) {
+                 if (window.innerWidth < 768) {
+                     window.location.href = url;
+                     return;
+                 }
+                 this.open = true;
+                 this.loading = true;
+                 this.content = '';
+                 const res = await fetch(url, {
+                     headers: { 'X-Modal-Request': 'true' }
+                 });
+                 this.content = await res.text();
+                 this.loading = false;
+             },
 
-                            <!-- List item -->
-                            <li>
-                                <button class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Payments"  :class="{ 'active': activeSection === 'payments' }" @click="activeSection = 'payments'">
-                                    <!-- Payments icon -->
-                                    <x-lucide-hand-coins class="w-4 h-4 my-1.5"/>
-                                    <span class="is-drawer-close:hidden">Payments</span>
-                                </button>
-                            </li>
-                            <!-- List item -->
-                            <li>
-                                <button class="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Rules & Amenities" :class="{ 'active': activeSection === 'rules' }" @click="activeSection = 'rules'">
-                                    <!-- Rules & Amenities icon -->
-                                    <x-lucide-scroll class="w-4 h-4 my-1.5"/>
-                                    <span class="is-drawer-close:hidden">Rules & Amenities</span>
-                                </button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+             close() {
+                 this.open = false;
+                 this.content = '';
+             }
+         }"
+         @view-reservation.window="viewReservation($event.detail.url)"
+         @keydown.escape.window="close()">
+
+        <div class="hidden md:flex flex-col mb-5">
+            <h1 class="text-4xl font-semibold text-primary">My Unit</h1>
+            <p class="text-xs lg:text-sm font-semibold">WELCOME HOME, {{strtoupper(str($myUnit->tenant->user->name)->before(' '))}}</p>
+        </div>
+        <x-tabs :tabs="['overview', 'info', 'soa']" default="overview" :showViewToggle="false" :showSearchBar="false"
+                title="My Unit">
+
+            <x-tab-panel name="overview">
+                @include('tenant.myUnit.partials.overview-content')
+            </x-tab-panel>
+
+            <x-tab-panel name="info">
+                @include('tenant.myUnit.partials.info-content')
+            </x-tab-panel>
+            <x-tab-panel name="soa">
+                @include('tenant.myUnit.partials.soa-content')
+            </x-tab-panel>
+
+        </x-tabs>
+
+        {{-- Backdrop --}}
+        <div x-show="open"
+             x-transition.opacity
+             @click="close()"
+             class="fixed inset-0 bg-black/50 z-40 hidden md:block">
+        </div>
+        {{-- Modal --}}
+        <div x-show="open"
+             x-cloak
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 scale-95"
+             x-transition:enter-end="opacity-100 scale-100"
+             x-transition:leave="transition ease-in duration-150"
+             x-transition:leave-start="opacity-100 scale-100"
+             x-transition:leave-end="opacity-0 scale-95"
+             class="fixed z-50 hidden md:block
+                    top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+                    w-full max-w-2xl max-h-[90vh] overflow-y-auto
+                    bg-base-100 rounded-3xl shadow-2xl">
+
+            <div class="flex items-center justify-between p-5 border-b border-base-300 sticky top-0 bg-base-100 z-10">
+                <h3 class="font-semibold text-lg text-primary">Reservation Details</h3>
+                <button @click="close()" class="btn btn-sm btn-ghost btn-circle">✕</button>
             </div>
 
+            <div x-show="loading" class="flex justify-center items-center py-16 text-base-content/50">
+                <svg class="animate-spin h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
+                </svg>
+                Loading...
+            </div>
 
+            <div x-show="!loading" x-html="content"></div>
 
-
-
-    @else
-        <div class=" flex mt-20 justify-center items-center">
-            Don't have active rental yet.
         </div>
-    @endif
+    </div>
 
- {{--   <div class="{{!$myUnit ? 'h-0' : 'h-24'}}">
-
-    </div>--}}
 </x-layout>
