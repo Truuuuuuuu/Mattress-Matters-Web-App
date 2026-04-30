@@ -1,8 +1,8 @@
 <div class=" w-full mb-3">
-    <h1 class="hidden lg:block text-xl lg:text-3xl font-semibold">{{$myUnit->listing->title}}</h1>
+    <h1 class="hidden lg:block text-xl lg:text-3xl  font-semibold">{{$myUnit->listing->title}}</h1>
     <div class="hidden lg:flex gap-1 items-center">
-        <x-lucide-map-pin class="w-4 h-4"/>
-        <p class="text-xs lg:text-md font-semibold">{{$myUnit->listing->address}}</p>
+        <x-lucide-map-pin class="w-4 h-4 text-base-content/70"/>
+        <p class="text-xs lg:text-md font-semibold text-base-content/70">{{$myUnit->listing->address}}</p>
     </div>
 </div>
 <div class="flex flex-col lg:flex-row w-full gap-3 ">
@@ -18,7 +18,6 @@
         />
     </div>
     <div class="block lg:hidden relative rounded-2xl overflow-hidden shadow-sm h-52">
-
         <!-- The image, stretched to fill -->
         <img
             class="absolute inset-0 w-full h-full object-cover"
@@ -38,9 +37,9 @@
     </div>
 
     {{--Payment--}}
-    <div class="shrink-0 w-full lg:w-96 border px-5 py-10 flex flex-col justify-between rounded-3xl">
+    <div class="shrink-0 w-full lg:w-96 bg-base-100 px-5 py-10 flex flex-col justify-between rounded-3xl">
         <div class="flex justify-between ">
-            <div class=" rounded-xl border  p-2">
+            <div class="  bg-primary/10 text-primary rounded-2xl  p-2">
                 <x-lucide-wallet class="w-7 h-7"/>
             </div>
             <div>
@@ -76,7 +75,7 @@
         </div>
 
         <div class="w-full mt-4">
-            <button class="btn btn-success w-full" :class="{ 'active': activeSection === 'payments' }" @click="activeSection = 'payments'">Manage Billing</button>
+            <button class="btn btn-success text-success-content rounded-3xl w-full" :class="{ 'active': activeTab === 'SOA' }" @click="activeTab = 'SOA'">Manage Billing</button>
         </div>
     </div>
 </div>
@@ -87,16 +86,17 @@
         {{--Additional Info--}}
         <h1 class="text-2xl font-semibold mb-3">Stay Essentials</h1>
         <div class="flex justify-between gap-1 lg:gap-5">
-            <div class="flex flex-col  gap-3 items-center border rounded-xl w-full py-3 lg:py-7 px-3 cursor-pointer" onclick="amenities_modal.showModal()">
-                <div class="p-3 border rounded-2xl">
+            <div class="flex flex-col bg-base-100  gap-3 items-center  rounded-3xl w-full py-3 lg:py-7 px-3 border border-transparent transition-transform duration-200
+                hover:scale-105 hover:border-primary cursor-pointer" onclick="amenities_modal.showModal()"  >
+                <div class="p-3 bg-primary/10 text-primary rounded-2xl">
                     <x-lucide-washing-machine class="w-4 h-4 lg:w-8 lg:h-8"/>
                 </div>
                 <p class="text-xs lg:text-md font-semibold">Amenities</p>
             </div>
             <dialog id="amenities_modal" class="modal">
-                <div class="modal-box">
+                <div class="modal-box rounded-3xl bg-base-300" >
                     <form method="dialog">
-                        <button class="btn btn-sm  btn-ghost absolute right-2 top-2">✕</button>
+                        <button class="btn btn-sm rounded-full  btn-ghost absolute right-2 top-2">✕</button>
                     </form>
                     <h3 class="text-lg font-bold mb-3">Amenities</h3>
                     <div class="flex flex-col gap-3">
@@ -111,16 +111,17 @@
                 </form>
             </dialog>
 
-            <div class="flex flex-col  gap-3 items-center border rounded-xl w-full py-3 lg:py-7 px-3 cursor-pointer" onclick="rules_modal.showModal()">
-                <div class="p-3 border rounded-2xl">
+            <div class="flex flex-col  gap-3 items-center bg-base-100 rounded-3xl w-full py-3 lg:py-7 px-3 cursor-pointer border border-transparent transition-transform duration-200
+                hover:scale-105 hover:border-primary" onclick="rules_modal.showModal()" >
+                <div class="p-3 bg-primary/10 text-primary  rounded-2xl">
                     <x-lucide-scale class="w-4 h-4 lg:w-8 lg:h-8"/>
                 </div>
                 <p class="text-xs lg:text-md font-semibold">Rules</p>
             </div>
             <dialog id="rules_modal" class="modal">
-                <div class="modal-box">
+                <div class="modal-box rounded-3xl bg-base-300">
                     <form method="dialog">
-                        <button class="btn btn-sm  btn-ghost absolute right-2 top-2">✕</button>
+                        <button class="btn btn-sm rounded-full btn-ghost absolute right-2 top-2">✕</button>
                     </form>
                     <h3 class="text-lg font-bold mb-3">House Rules</h3>
                     <div class="flex flex-col gap-3">
@@ -134,38 +135,52 @@
                 </form>
             </dialog>
 
-            <div class="flex flex-col  gap-3 items-center border rounded-xl w-full py-3 lg:py-7 px-3 cursor-pointer" onclick="description_modal.showModal()">
-                <div class="p-3 border rounded-2xl">
+            <div class="flex flex-col  gap-3 items-center bg-base-100 rounded-3xl w-full py-3 lg:py-7 px-3 cursor-pointer border border-transparent transition-transform duration-200
+                hover:scale-105 hover:border-primary" onclick="description_modal.showModal()" >
+                <div class="p-3 bg-primary/10 text-primary  rounded-2xl">
                     <x-lucide-info class="w-4 h-4 lg:w-8 lg:h-8"/>
                 </div>
                 <p class="text-xs lg:text-md font-semibold">Information</p>
             </div>
             <dialog id="description_modal" class="modal">
-                <div class="modal-box">
+                <div class="modal-box rounded-3xl bg-base-300">
                     <form method="dialog">
-                        <button class="btn btn-sm  btn-ghost absolute right-2 top-2">✕</button>
+                        <button class="btn btn-sm rounded-full  btn-ghost absolute right-2 top-2">✕</button>
                     </form>
                     <h3 class="text-lg font-bold mb-3">Additional Information</h3>
-                    <div class="flex flex-col gap-3">
+                    <div class="flex flex-col gap-8">
                         <div>
-                            <h2 class="text-xs font-semibold text-base-content/70">Monthly Rent</h2>
-                            <p class="text-xl font-semibold">₱{{number_format($myUnit->listing->rent_cost,2)}}</p>
+                            <div class="flex gap-2 mb-3">
+                                <x-lucide-banknote class="w-6 h-6 text-primary"/>
+                                <p class="font-semibold text-md">Financial Breakdown</p>
+                            </div>
+                            <div class="flex flex-col gap-2 bg-base-100 rounded-3xl p-5">
+                                <div class="flex justify-between items-center">
+                                    <p class="text-sm font-semibold text-base-content/70">Monthly Rent</p>
+                                    <p class="text-md font-semibold">₱{{number_format($myUnit->listing->rent_cost,2)}}</p>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <p class="text-sm font-semibold text-base-content/70">Electricity Cost</p>
+                                    <p class="text-md font-semibold">₱{{number_format($myUnit->listing->electricity_cost,2)}}</p>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <p class="text-sm font-semibold text-base-content/70">Water Supply Cost</p>
+                                    <p class="text-md font-semibold">₱{{number_format($myUnit->listing->water_supply_cost,2)}}</p>
+                                </div>
+                            </div>
                         </div>
                         <div>
-                            <h2 class="text-xs font-semibold text-base-content/70">Electricity Cost</h2>
-                            <p class="text-xl font-semibold">₱{{number_format($myUnit->listing->electricity_cost,2) ?? 0.00}}</p>
-                        </div>
-                        <div>
-                            <h2 class="text-xs font-semibold text-base-content/70">Water Supply Cost</h2>
-                            <p class="text-xl font-semibold">₱{{number_format($myUnit->listing->water_supply_cost,2) ?? 0.00}}</p>
-                        </div>
-
-                        <div>
-                            <h2 class="text-xs font-semibold text-base-content/70">Description</h2>
-                            <p>{{$myUnit->listing->description}}</p>
+                            <div class="flex gap-2 mb-3 items-center">
+                                <x-lucide-building class="w-6 h-6 text-primary"/>
+                                <p class="font-semibold text-md">Description</p>
+                            </div>
+                            <div class="bg-primary/10 border border-primary rounded-3xl p-5">
+                                <p>{{$myUnit->listing->description}}</p>
+                            </div>
                         </div>
 
                     </div>
+
                 </div>
                 <form method="dialog" class="modal-backdrop">
                     <button>close</button>
@@ -177,10 +192,10 @@
     {{--Host--}}
     <div class="shrink-0 w-full lg:w-96 px-5">
         <h1 class="text-2xl font-semibold mb-3">Host Support</h1>
-        <div class="border gap-3 px-5 py-7 flex flex-col justify-evenly rounded-3xl items-center">
-            <div class="avatar avatar-placeholder ">
-                <div class="bg-neutral text-neutral-content w-24 rounded-xl">
-                    <span class="text-3xl">{{$myUnit->listing->host->user->name[0]}}</span>
+        <div class="bg-base-100 gap-3 px-5 py-7 flex flex-col justify-evenly rounded-3xl items-center" >
+            <div class="avatar">
+                <div class="mask mask-squircle w-24 bg-purple-700 flex items-center justify-center">
+                    <p class="text-center text-xl font-bold">{{$myUnit->listing->host->user->name[0]}}</p>
                 </div>
             </div>
             <div class="flex flex-col items-center">
@@ -191,7 +206,7 @@
                 </div>
             </div>
             <div class="w-full">
-                <a href="{{route('messages.show', $myUnit->listing->host->user)}}" class="btn btn-neutral w-full mt-2">Message</a>
+                <a href="{{route('messages.show', $myUnit->listing->host->user)}}" class="btn btn-primary btn-outline rounded-3xl w-full mt-2">Message</a>
             </div>
         </div>
     </div>
@@ -204,7 +219,7 @@
         <div class="border border-red-900 rounded-xl px-4 py-3">
             <div class="lg:flex items-center gap-4">
                 <div class="flex-1 flex flex-col justify-center">
-                    <h1 class="font-semibold ">Planning to move?</h1>
+                    <h1 class="font-semibold text-error-content">Planning to move-out?</h1>
                     <p class="text-sm ">Your landlord will be notified and your rental will end on your selected date.</p>
                 </div>
                 {{-- Button column - only show if action is available --}}

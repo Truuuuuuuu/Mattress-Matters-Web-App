@@ -1,6 +1,58 @@
 @props(['invoice'])
 
-<div class="w-full border rounded-xl p-3 mb-3">
+<div class="w-full flex bg-base-100 rounded-3xl p-5 mb-3">
+    <div class="  w-32 flex justify-center items-center ">
+        <div class="bg-primary/10 p-3 rounded-2xl">
+            <x-lucide-scroll-text class="w-8 h-8 text-primary"/>
+        </div>
+    </div>
+    <div class="w-full">
+        <div >
+            <div class="flex w-full  justify-between">
+                <div>
+                    <p class="text-md font-semibold">{{ \Carbon\Carbon::parse($invoice->period_month)->format('F Y') }}</p>
+                </div>
+                <div>
+                    @php $status = $invoice->computed_status @endphp
+                    @if($status === 'paid')
+                        <div class="badge badge-success badge-soft gap-1 " >
+                            <span class="size-2 rounded-full bg-success"></span>
+                            <p class="text-xs font-semibold">Paid</p>
+                        </div>
+                    @elseif($status === 'overdue')
+                        <div class="badge badge-error badge-soft gap-1 " >
+                            <span class="size-2 rounded-full bg-error"></span>
+                            <p class="text-xs font-semibold">Overdue</p>
+                        </div>
+                    @else
+                        <div class="badge badge-warning badge-soft gap-1 " >
+                            <span class="size-2 rounded-full bg-warning"></span>
+                            <p class="text-xs font-semibold">Unpaid</p>
+                        </div>
+                    @endif
+                </div>
+            </div>
+            <div class="flex justify-between  ">
+                <div >
+                    <p class="text-sm text-base-content/70 font-semibold">DUE {{$invoice->due_date->format('M d, Y')}}</p>
+                    <p class="text-lg font-bold">₱{{ number_format($invoice->amount_due, 2) }}</p>
+                </div>
+                <div >
+                    @if($invoice->computed_status !== 'paid')
+                        <button type="button"
+                                onclick="payInvoice({{ $invoice->id }})"
+                                class="btn btn-primary btn-outline rounded-3xl border-2 btn-wide btn-lg text-primary font-semibold text-xs lg:text-lg px-6 py-1.5  hover:bg-blue-700 hover:text-white cursor-pointer">
+                            <img src="{{asset('images/Gcash-logo.svg')}}" alt="Gcash" class="w-8">
+                            Pay with GCash
+                        </button>
+                    @endif
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{{--<div class="w-full border rounded-3xl p-5 mb-3">
     <div class="flex justify-between">
         <p class="text-md font-semibold">{{ \Carbon\Carbon::parse($invoice->period_month)->format('F Y') }}</p>
         @php $status = $invoice->computed_status @endphp
@@ -48,4 +100,4 @@
         </div>
     </div>
 
-</div>
+</div>--}}
