@@ -32,25 +32,25 @@
         @role('tenant')
         {{--MOBILE SCREEN--}}
         <nav class="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-base-100 border-t border-base-300 flex justify-around items-center h-16">
-            <a href="{{ route('tenant.homepage') }}" class="flex flex-col items-center text-xs gap-1  {{request()->routeIs('tenant.homepage') ? 'font-bold text-base-content' : 'text-base-content/70'}}">
+            <a href="{{ route('tenant.homepage') }}" class="flex flex-col items-center text-xs gap-1  {{request()->routeIs('tenant.homepage') ? 'font-bold text-primary' : 'text-base-content/70'}}">
                 <x-lucide-search class="w-5 h-5" stroke-width="{{request()->routeIs('tenant.homepage') ? 2.5 : 2}}"/>
-                <span>Explore</span>
+                <span {{request()->routeIs('tenant.homepage') ? 'text-primary' : 'text-base-content'}}>Explore</span>
             </a>
-            <a href="{{ route('reservation.index') }}" class="flex flex-col items-center text-xs gap-1 {{request()->routeIs('reservation.index') ? 'font-bold text-base-content' : 'text-base-content/70'}}">
+            <a href="{{ route('reservation.index') }}" class="flex flex-col items-center text-xs gap-1 {{request()->routeIs('reservation.index') ? 'font-bold text-primary' : 'text-base-content/70'}}">
                 <x-lucide-calendar-check class="w-5 h-5" stroke-width="{{request()->routeIs('reservation.index') ? 2.5 : 2}}"/>
-                <span>Reservation</span>
+                <span {{request()->routeIs('reservation.index') ? 'text-primary' : 'text-base-content'}}>Reservation</span>
             </a>
-            <a href="{{ route('tenant.unit') }}" class="flex flex-col items-center text-xs gap-1 {{request()->routeIs('tenant.unit') ? 'font-bold text-base-content' : 'text-base-content/70'}}">
+            <a href="{{ route('tenant.unit') }}" class="flex flex-col items-center text-xs gap-1 {{request()->routeIs('tenant.unit') ? 'font-bold text-primary' : 'text-base-content/70'}}">
                 <x-lucide-house-heart class="w-5 h-5" stroke-width="{{request()->routeIs('tenant.unit') ? 2.5 : 2}}"/>
                 <span>My Unit</span>
             </a>
-            <a href="{{route('messages.inbox', auth()->user()->id)}}" class="flex flex-col items-center text-xs gap-1 text-base-content/70">
-                <x-lucide-message-circle class="w-5 h-5" />
-                <span>Messages</span>
+            <a href="{{route('messages.inbox', auth()->user()->id)}}" class="flex flex-col items-center text-xs gap-1 text-base-content/70 {{request()->routeIs('messages.inbox') || request()->routeIs('messages.show')  ? 'font-bold text-primary' : 'text-base-content/70'}}">
+                <x-lucide-message-circle class="w-5 h-5" stroke-width="{{request()->routeIs('messages.inbox') || request()->routeIs('messages.show') ? 2.5 : 2}}"/>
+                <span class="{{request()->routeIs('messages.inbox') || request()->routeIs('messages.show') ? 'text-primary' : 'text-base-content'}} ">Messages</span>
             </a>
-            <a href="{{ route('profile.index') }}" class="flex flex-col items-center text-xs gap-1 {{request()->routeIs('profile.index') ? 'font-bold text-base-content' : 'text-base-content/70'}}">
+            <a href="{{ route('profile.index') }}" class="flex flex-col items-center text-xs gap-1 {{request()->routeIs('profile.index') ? 'font-bold text-primary' : 'text-base-content/70'}}">
                 <x-lucide-user-circle class="w-5 h-5" stroke-width="{{request()->routeIs('profile.index') ? 2.5 : 2}}"/>
-                <span>Profile</span>
+                <span class="{{request()->routeIs('profile.index') ? 'text-primary' : 'text-base-content'}}">Profile</span>
             </a>
         </nav>
         @endrole
