@@ -31,7 +31,7 @@
                             @include('tenant.myUnit.partials.soa-content')
                         </div>
                         <div x-show="activeSection === 'rules'">
-                            @include('tenant.myUnit.partials.info-content')
+                            @include('tenant.myUnit.partials.about-content')
                         </div>
                     </div>
                 </div>

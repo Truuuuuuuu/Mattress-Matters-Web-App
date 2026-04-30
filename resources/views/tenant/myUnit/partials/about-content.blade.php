@@ -6,7 +6,7 @@
     <div class="flex flex-col lg:grid grid-cols-[2fr_1fr] mt-10 gap-5">
         <div >
             <h2 class="text-xl font-semibold mb-5">Amenities</h2>
-            <div class="grid grid-cols-2 gap-3 ">
+            <div class="grid md:grid-cols-2 gap-3 ">
                 @foreach($myUnit->listing->amenities as $amenity)
                         <x-amenity-small-card :$amenity/>
                 @endforeach

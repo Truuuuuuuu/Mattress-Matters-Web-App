@@ -34,15 +34,15 @@
             <h1 class="text-4xl font-semibold text-primary">My Unit</h1>
             <p class="text-xs lg:text-sm font-semibold">WELCOME HOME, {{strtoupper(str($myUnit->tenant->user->name)->before(' '))}}</p>
         </div>
-        <x-tabs :tabs="['overview', 'additional info', 'SOA']" default="overview" :showViewToggle="false" :showSearchBar="false"
-                title="My Unit">
+        <x-tabs :tabs="['overview', 'About', 'SOA']" default="overview" :showViewToggle="false" :showSearchBar="false"
+                title="My Unit" titleSubHeading="Welcome back, {{ucfirst(str($myUnit->tenant->user->name)->before(' '))}}">
 
             <x-tab-panel name="overview">
                 @include('tenant.myUnit.partials.overview-content')
             </x-tab-panel>
 
-            <x-tab-panel name="additional info">
-                @include('tenant.myUnit.partials.info-content')
+            <x-tab-panel name="About">
+                @include('tenant.myUnit.partials.about-content')
             </x-tab-panel>
             <x-tab-panel name="SOA">
                 @include('tenant.myUnit.partials.soa-content')

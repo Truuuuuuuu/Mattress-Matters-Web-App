@@ -3,7 +3,8 @@
     'default',
     'showViewToggle' => false,
     'showSearchBar' => false,
-    'title'
+    'title',
+    'titleSubHeading' => ''
 ])
 
 <div x-data="{ activeTab: '{{ $default }}', activeView: 'cards' }">
@@ -11,16 +12,17 @@
     <div class="hidden md:flex justify-between bg-base-100 rounded-3xl p-3 border border-base-300">
 
         {{-- Tab Buttons --}}
-        <div class="flex-1 flex justify-start items-center gap-2">
+        <div class=" flex-1 flex justify-start items-center gap-2">
             @foreach ($tabs as $tab)
                 <button
                     @click="activeTab = '{{ $tab }}'"
-                    class="btn rounded-2xl btn-sm capitalize"
+                    class="btn rounded-2xl btn-sm capitalize line-clamp-1"
                     :class="activeTab === '{{ $tab }}' ? 'btn-primary' : 'btn-ghost'">
                     {{ ucfirst($tab) }}
                 </button>
             @endforeach
         </div>
+
 
         {{-- Right Side --}}
         <div class="flex-1 flex justify-end items-center">
@@ -48,10 +50,13 @@
 
     {{--For small screen--}}
     <div class="md:hidden p-3 space-y-5" >
-        <x-search-bar />
+        @if($showSearchBar)
+            <x-search-bar />
+        @endif
         <div class="flex w-full justify-between items-center">
             <div>
                 <h1 class="text-3xl text-primary font-semibold">{{$title}}</h1>
+                <p class="font-semibold text-md text-base-content/70">{{$titleSubHeading}}</p>
             </div>
             @if ($showViewToggle)
                 <div class="flex gap-2">
