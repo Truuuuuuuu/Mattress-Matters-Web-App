@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Services\CloudinaryService;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -27,6 +29,7 @@ class User extends Authenticatable
         'password',
         'google_id',
         'theme',
+        'profile_photo_public_id',
     ];
 
     /**
@@ -39,6 +42,7 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $appends = ['profile_photo_url'];
 
 
     /**
@@ -52,6 +56,16 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    protected function profilePhotoUrl(): Attribute
+    {
+        return Attribute::get(function () {
+            if (!$this->profile_photo_public_id) {
+                return null;
+            }
+            return app(CloudinaryService::class)->getSecureUrl($this->profile_photo_public_id);
+        });
     }
 
     public function host(): HasOne

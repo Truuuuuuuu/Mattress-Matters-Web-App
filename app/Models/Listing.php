@@ -90,6 +90,18 @@ class Listing extends Model
         return $this->hasMany(ListingImage::class);
     }
 
+    const MAX_IMAGES = 3;
+
+    public function images()
+    {
+        return $this->hasMany(ListingImage::class)->orderBy('sort_order');
+    }
+
+    public function canAddMoreImages(): bool
+    {
+        return $this->images()->count() < self::MAX_IMAGES;
+    }
+
     public function reservations(): HasMany
     {
         return $this->hasMany(Reservation::class);
