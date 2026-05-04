@@ -13,5 +13,5 @@ Route::middleware(['auth:sanctum', 'throttle:image-upload'])->group(function () 
 
 Route::middleware(['auth:sanctum', 'throttle:profile-upload'])->group(function () {
     Route::post('/user/profile-image', [ProfileImageController::class, 'store'])->name('profile.image.store');
-    Route::delete('/user/profile-image', [ProfileImageController::class, 'destroy']);
+    Route::delete('/user/profile-image', [ProfileImageController::class, 'destroy']) ->name('profile.photo.destroy');
 });

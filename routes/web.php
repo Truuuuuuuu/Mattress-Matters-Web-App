@@ -10,6 +10,7 @@ use App\Http\Controllers\Host\ManageTenant;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProfileImageController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ResultListingController;
 use App\Http\Controllers\SettingsController;
@@ -140,7 +141,7 @@ Route::middleware(['auth', 'permission:view profile'])
             ->name('index');
         Route::get('/{user}/show', [ProfileController::class, 'show'])
             ->name('show');
-        Route::put('/profile', [ProfileController::class, 'update'])->name('update');
+
     });
 //Listings results
 Route::get('/listings',[ResultListingController::class,'index'])->name('listings.index');
@@ -172,3 +173,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/messages/{user}', [MessageController::class, 'send'])->name('messages.send');
 });
 
+Route::middleware(['auth', 'throttle:profile-upload'])->group(function () {
+    /*Route::post('/user/profile-image', [ProfileImageController::class, 'store'])->name('profile.image.store')*/;
+
+    Route::delete('/user/profile-image', [ProfileImageController::class, 'destroy']) ->name('profile.photo.destroy');
+});
+
+Route::post('/profile', [ProfileController::class, 'update'])
+    ->name('profile.update')
+    ->middleware('throttle:profile-upload');

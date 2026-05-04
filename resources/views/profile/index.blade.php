@@ -80,83 +80,97 @@
                     },
 
                     async submit() {
-                        this.loading = true;
-                        this.errors = {};
+                    this.loading = true;
+                    this.errors = {};
 
-                        const formData = new FormData();
-                        formData.append('_method', 'PUT');
-                        formData.append('name', this.name);
+                    const formData = new FormData();
+                    formData.append('name', this.name);
 
-                        if (this.photoFile) {
-                            formData.append('image', this.photoFile);
+                    if (this.photoFile) {
+                        formData.append('image', this.photoFile);
+                    }
+
+                    try {
+                        const response = await fetch('{{ route('profile.update') }}', {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content,
+                                'Accept': 'application/json',
+                            },
+                            body: formData,
+                        });
+
+                        //  RATE LIMIT HANDLING
+                        if (response.status === 429) {
+                            const retryAfter = response.headers.get('Retry-After');
+
+                            this.toast = retryAfter
+                                ? `Too many requests. Try again in ${retryAfter} seconds.`
+                                : 'Too many requests. Please wait before trying again.';
+
+                            this.toastType = 'error';
+
+                            this.cooldown = true;
+                            setTimeout(() => {
+                                this.cooldown = false;
+                            }, (retryAfter ?? 10) * 1000);
+
+                            return;
                         }
 
-                        try {
-                            const response = await fetch('{{ route('profile.update') }}', {
-                                method: 'POST',
-                                headers: {
-                                    'X-CSRF-TOKEN': document.querySelector('meta[name=csrf-token]').content,
-                                    'Accept': 'application/json',
-                                },
-                                body: formData,
-                            });
+                        const data = await response.json();
 
-                            const data = await response.json();
+                        if (!response.ok) {
+                            this.errors = data.errors ?? {};
+                            return;
+                        }
 
-                            if (!response.ok) {
-                                this.errors = data.errors ?? {};
-                                return;
-                            }
+                        //  Update name
+                        document.querySelectorAll('[data-profile-name]').forEach(el => {
+                            el.textContent = data.name;
+                        });
 
-                            // Update name
-                            document.querySelectorAll('[data-profile-name]').forEach(el => {
-                                el.textContent = data.name;
-                            });
+                        document.querySelectorAll('[data-profile-initial-name]').forEach(el => {
+                            el.textContent = data.name.charAt(0);
+                        });
 
-                            // Update initials
-                            document.querySelectorAll('[data-profile-initial-name]').forEach(el => {
-                                el.textContent = data.name.charAt(0);
-                            });
+                        //  Update image
+                        if (data.profile_photo_url) {
+                            const displayUrl = data.profile_photo_url + '?t=' + Date.now();
 
-                            // Update image
-                            if (data.profile_photo_url) {
+                            const existing = document.querySelector('[data-profile-photo]');
 
-                                const displayUrl = data.profile_photo_url + '?t=' + Date.now();
+                            if (existing) {
+                                existing.src = displayUrl;
+                            } else {
+                                const initial = document.querySelector('[data-profile-initial-name]');
 
-                                const existing = document.querySelector('[data-profile-photo]');
-
-                                if (existing) {
-                                    existing.src = displayUrl;
-                                } else {
-                                    const initial = document.querySelector('[data-profile-initial-name]');
-
-                                    if (initial) {
-                                        const img = document.createElement('img');
-
-                                        img.src = displayUrl;
-                                        img.alt = 'Profile Picture';
-                                        img.className = 'w-full h-full object-cover';
-                                        img.setAttribute('data-profile-photo', '');
-
-                                        initial.replaceWith(img);
-                                    }
+                                if (initial) {
+                                    const img = document.createElement('img');
+                                    img.src = displayUrl;
+                                    img.className = 'w-full h-full object-cover';
+                                    img.setAttribute('data-profile-photo', '');
+                                    initial.replaceWith(img);
                                 }
                             }
-                            this.toast = data.message;
-                            this.toastType = data.banner_type;
-                            this.photoFile = null;
-                            this.open = false;
-
-                        } catch (e) {
-                            console.error(e);
-
-                            this.errors = {
-                                general: 'Something went wrong. Please try again.'
-                            };
-                        } finally {
-                            this.loading = false;
                         }
+
+                        //  Success toast
+                        this.toast = data.message;
+                        this.toastType = data.banner_type;
+
+                        this.photoFile = null;
+                        this.open = false;
+
+                    } catch (e) {
+                        console.error(e);
+                        this.errors = {
+                            general: 'Something went wrong. Please try again.'
+                        };
+                    } finally {
+                        this.loading = false;
                     }
+                }
                 }">
                       <div
                             x-show="toast"
@@ -178,7 +192,7 @@
                           </div>
                       </div>
 
-                      <button @click="open = true" class="btn w-full btn-outline btn-neutral rounded-3xl mt-3">
+                      <button  @click="open = true" class="btn w-full btn-outline btn-neutral rounded-3xl mt-3">
                           Edit Profile
                       </button>
 
@@ -195,9 +209,10 @@
                               <div class="flex flex-col items-center gap-3">
                                   <div class="relative">
                                       <div class="w-24 h-24 rounded-full overflow-hidden bg-base-300 ring-2 ring-base-300">
-                                          <template x-if="photoPreview">
+                                          <template  x-if="photoPreview">
                                               <img :src="photoPreview" class="w-full h-full object-cover" alt="Profile photo"/>
                                           </template>
+
                                           <template x-if="!photoPreview">
                                               <div class="w-full h-full flex items-center justify-center text-3xl font-bold text-base-content/40">
                                                   {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
@@ -221,7 +236,19 @@
                                   <p class="text-xs text-base-content/50">JPG, PNG or WebP. Max 2MB.</p>
                                   <p x-show="errors.image" x-text="errors.image?.[0]" class="text-xs text-error"></p>
                               </div>
+                              <div class="flex justify-center items-center">
+                                  <form action="{{ route('profile.photo.destroy') }}" method="POST">
+                                      @csrf
+                                      @method('DELETE')
 
+                                      <button
+                                          type="submit"
+                                          class="btn btn-sm btn-soft btn-error border-error rounded-3xl"
+                                      >
+                                          Delete Photo
+                                      </button>
+                                  </form>
+                              </div>
                               {{-- Name Field --}}
                               <div class="flex flex-col gap-1">
                                   <label class="text-sm font-medium">Name</label>
