@@ -12,7 +12,7 @@
             {{-- Confirm action --}}
             <form method="POST" id="modal_form">
                 @csrf
-                <input type="hidden" name="_method" value="PATCH">
+                <input type="hidden" name="_method" value="">
                 <button type="submit" class="btn" id="modal_confirm_btn"></button>
             </form>
         </div>

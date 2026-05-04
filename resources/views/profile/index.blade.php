@@ -236,19 +236,25 @@
                                   <p class="text-xs text-base-content/50">JPG, PNG or WebP. Max 2MB.</p>
                                   <p x-show="errors.image" x-text="errors.image?.[0]" class="text-xs text-error"></p>
                               </div>
-                              <div class="flex justify-center items-center">
-                                  <form action="{{ route('profile.photo.destroy') }}" method="POST">
-                                      @csrf
-                                      @method('DELETE')
+                              @if($profile->user->profile_photo_public_id)
+                                  <div class="flex justify-center items-center">
+                                      <button onclick="confirmAction(
+                                        '{{route('profile.photo.destroy')}}',
+                                        'Delete Profile Photo?',
+                                        'Are you sure you want to delete your profile photo? This action cannot be undone.',
+                                        'Yes, Delete',
+                                        'Cancel',
+                                        'error',
+                                        'DELETE'
 
-                                      <button
-                                          type="submit"
-                                          class="btn btn-sm btn-soft btn-error border-error rounded-3xl"
-                                      >
+
+                                    )"
+                                              class="btn btn-sm btn-soft btn-error border-error rounded-3xl">
                                           Delete Photo
                                       </button>
-                                  </form>
-                              </div>
+                                  </div>
+                              @endif
+
                               {{-- Name Field --}}
                               <div class="flex flex-col gap-1">
                                   <label class="text-sm font-medium">Name</label>

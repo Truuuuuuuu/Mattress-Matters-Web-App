@@ -53,6 +53,6 @@ class ProfileImageController extends Controller
 
         Cache::forget("profile_image_{$user->id}");
 
-        return response()->json(['message' => 'Profile image deleted.']);
+        return redirect()->back()->with('success', 'Profile image deleted.');
     }
 }
