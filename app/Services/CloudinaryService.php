@@ -65,18 +65,18 @@ class CloudinaryService
 
     // ─── PROFILE IMAGE ────────────────────────────────────────────
 
-    public function uploadProfileImage(UploadedFile $file, int $userId): array
+    public function uploadProfileImage(UploadedFile $file, string $identifier): array
     {
         $result = $this->cloudinary->uploadApi()->upload($file->getRealPath(), [
-            'public_id'      => "profiles/user_{$userId}/avatar",
-            'overwrite'      => true, // always overwrite — 1 photo per user
+            'public_id'      => "profiles/{$identifier}/avatar",
+            'overwrite'      => true,
             'resource_type'  => 'image',
             'transformation' => [
                 ['width' => 400, 'height' => 400, 'crop' => 'fill', 'gravity' => 'face'],
                 ['quality' => 'auto:good'],
                 ['fetch_format' => 'auto'],
             ],
-            'tags' => ['profile', "user_{$userId}"],
+            'tags' => ['profile', "user_{$identifier}"],
         ]);
 
         return [

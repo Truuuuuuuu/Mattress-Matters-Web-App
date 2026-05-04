@@ -153,15 +153,28 @@
                    @endguest
 
                    @auth
-                       <div class="flex space-x-3 font-bold ">
+                       <div class="flex items-center space-x-3 font-bold ">
                            <a href="{{route('messages.inbox', auth()->user()->id)}}"  class="flex btn btn-ghost btn-circle bg-base-100" tabindex="0" role="button">
                                <x-lucide-message-circle-more class="w-7 h-7  {{request()->routeIs('messages.inbox') || request()->routeIs('messages.show') ? 'text-primary' : 'text-base-content '}}"/>
                            </a>
-                           <a href="{{route('profile.index')}}">
-                               <div class="hidden lg:flex btn btn-ghost btn-circle bg-primary">
-                                   <h1>{{Auth::user()->name[0]}}</h1>
-                               </div>
-                           </a>
+                           <div class="avatar">
+                               @if(auth()->user()->profile_photo_public_id)
+                                   <a href="{{ route('profile.index') }}">
+                                       <div class="ring-primary ring-offset-base-100 w-9 h-9 rounded-full ring-2 ring-offset-2 overflow-hidden cursor-pointer">
+                                           <img src="{{ auth()->user()->profile_photo_url }}" alt="Photo" class="w-full h-full object-cover"/>
+                                       </div>
+                                   </a>
+
+                               @else
+                                   <a href="{{route('profile.index')}}">
+                                       <div class="hidden lg:flex btn btn-ghost text-white btn-circle bg-primary">
+                                           <h1>{{Auth::user()->name[0]}}</h1>
+                                       </div>
+                                   </a>
+                               @endif
+
+                           </div>
+
                            <div class="hidden lg:flex dropdown dropdown-end" >
                                <div class="btn btn-ghost btn-circle bg-base-100" tabindex="0" role="button">
                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">

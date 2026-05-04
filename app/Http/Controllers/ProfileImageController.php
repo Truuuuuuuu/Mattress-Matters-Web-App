@@ -10,7 +10,7 @@ class ProfileImageController extends Controller
 {
     public function __construct(protected CloudinaryService $cloudinary) {}
 
-    public function store(Request $request)
+   /* public function store(Request $request)
     {
         $request->validate([
             'image' => ['required', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
@@ -18,8 +18,15 @@ class ProfileImageController extends Controller
 
         $user = $request->user();
 
-        // No need to delete old image — overwrite:true handles it in Cloudinary
-        $data = $this->cloudinary->uploadProfileImage($request->file('image'), $user->id);
+        // Delete old image first to avoid orphaned files in Cloudinary
+        if ($user->profile_photo_public_id) {
+            $this->cloudinary->deleteImage($user->profile_photo_public_id);
+        }
+
+        $data = $this->cloudinary->uploadProfileImage(
+            $request->file('image'),
+            $user->id . '_' . time()
+        );
 
         $user->update([
             'profile_photo_public_id' => $data['cloudinary_public_id'],
@@ -28,9 +35,9 @@ class ProfileImageController extends Controller
         Cache::forget("profile_image_{$user->id}");
 
         return response()->json([
-            'profile_photo_url' => $user->profile_photo_url, // derived via accessor
+            'profile_photo_url' => $user->fresh()->profile_photo_url,
         ]);
-    }
+    }*/
 
     public function destroy(Request $request)
     {

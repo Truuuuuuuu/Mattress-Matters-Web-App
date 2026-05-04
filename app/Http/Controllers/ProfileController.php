@@ -45,14 +45,24 @@ class ProfileController extends Controller
         $user->update(['name' => $request->name]);
 
         if ($request->hasFile('image')) {
-            $data = $this->cloudinary->uploadProfileImage($request->file('image'), $user->id);
+            // 1. Missing — old image never deleted, orphans pile up in Cloudinary
+            if ($user->profile_photo_public_id) {
+                $this->cloudinary->deleteImage($user->profile_photo_public_id);
+            }
+
+            // 2. Still passing $user->id alone — always "profiles/2/avatar", never unique
+            $data = $this->cloudinary->uploadProfileImage(
+                $request->file('image'),
+                $user->id . '_' . time()
+            );
+
             $user->update(['profile_photo_public_id' => $data['cloudinary_public_id']]);
             Cache::forget("profile_image_{$user->id}");
         }
 
         return response()->json([
-            'name'              => $user->name,
-            'profile_photo_url' => $user->profile_photo_url,
+            'name'              => $user->fresh()->name,
+            'profile_photo_url' => $user->fresh()->profile_photo_url,
         ]);
     }
 }

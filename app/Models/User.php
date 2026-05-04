@@ -58,14 +58,14 @@ class User extends Authenticatable
         ];
     }
 
-    protected function profilePhotoUrl(): Attribute
+    public function getProfilePhotoUrlAttribute(): ?string
     {
-        return Attribute::get(function () {
-            if (!$this->profile_photo_public_id) {
-                return null;
-            }
-            return app(CloudinaryService::class)->getSecureUrl($this->profile_photo_public_id);
-        });
+        if (!$this->profile_photo_public_id) {
+            return null;
+        }
+
+        return app(CloudinaryService::class)
+            ->getSecureUrl($this->profile_photo_public_id);
     }
 
     public function host(): HasOne

@@ -10,6 +10,7 @@
                           <div class="mask mask-squircle h-24 w-24 lg:h-32 lg:w-32 bg-base-300 flex items-center justify-center" >
                               @if($profile->user->profile_photo_public_id)
                                   <img
+                                      data-profile-photo
                                       src="{{ $profile->user->profile_photo_url }}"
                                       alt="Profile Picture"
                                       class="w-full h-full object-cover"
@@ -82,6 +83,7 @@
                         const formData = new FormData();
                         formData.append('_method', 'PUT');
                         formData.append('name', this.name);
+
                         if (this.photoFile) {
                             formData.append('image', this.photoFile);
                         }
@@ -103,27 +105,50 @@
                                 return;
                             }
 
-                            // Update the profile photo on the page if changed
-                            if (data.profile_photo_url) {
-                                document.querySelectorAll('[data-profile-photo]').forEach(el => {
-                                    el.src = data.profile_photo_url;
-                                });
-                            }
-
-                            // Update displayed name
+                            // Update name
                             document.querySelectorAll('[data-profile-name]').forEach(el => {
                                 el.textContent = data.name;
                             });
 
-                            // Update displayed initial name
+                            // Update initials
                             document.querySelectorAll('[data-profile-initial-name]').forEach(el => {
                                 el.textContent = data.name.charAt(0);
                             });
 
+                            // Update image
+                            if (data.profile_photo_url) {
+
+                                const displayUrl = data.profile_photo_url + '?t=' + Date.now();
+
+                                const existing = document.querySelector('[data-profile-photo]');
+
+                                if (existing) {
+                                    existing.src = displayUrl;
+                                } else {
+                                    const initial = document.querySelector('[data-profile-initial-name]');
+
+                                    if (initial) {
+                                        const img = document.createElement('img');
+
+                                        img.src = displayUrl;
+                                        img.alt = 'Profile Picture';
+                                        img.className = 'w-full h-full object-cover';
+                                        img.setAttribute('data-profile-photo', '');
+
+                                        initial.replaceWith(img);
+                                    }
+                                }
+                            }
+
+                            this.photoFile = null;
                             this.open = false;
 
                         } catch (e) {
-                            this.errors = { general: 'Something went wrong. Please try again.' };
+                            console.error(e);
+
+                            this.errors = {
+                                general: 'Something went wrong. Please try again.'
+                            };
                         } finally {
                             this.loading = false;
                         }
