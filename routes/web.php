@@ -140,6 +140,7 @@ Route::middleware(['auth', 'permission:view profile'])
             ->name('index');
         Route::get('/{user}/show', [ProfileController::class, 'show'])
             ->name('show');
+        Route::put('/profile', [ProfileController::class, 'update'])->name('update');
     });
 //Listings results
 Route::get('/listings',[ResultListingController::class,'index'])->name('listings.index');

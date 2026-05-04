@@ -1,6 +1,9 @@
 <?php
 
 
+use App\Http\Controllers\ListingImageController;
+use App\Http\Controllers\ProfileImageController;
+
 Route::middleware(['auth:sanctum', 'throttle:image-upload'])->group(function () {
     Route::get('/listings/{listing}/images', [ListingImageController::class, 'index']);
     Route::post('/listings/{listing}/images', [ListingImageController::class, 'store']);
