@@ -69,6 +69,9 @@
                     loading: false,
                     errors: {},
 
+                    toast: '',
+                    toastType: 'success',
+
                     handlePhotoChange(event) {
                         const file = event.target.files[0];
                         if (!file) return;
@@ -139,7 +142,8 @@
                                     }
                                 }
                             }
-
+                            this.toast = data.message;
+                            this.toastType = data.banner_type;
                             this.photoFile = null;
                             this.open = false;
 
@@ -154,6 +158,25 @@
                         }
                     }
                 }">
+                      <div
+                            x-show="toast"
+                            x-init="$watch('toast', value => {
+                                if (value) {
+                                    setTimeout(() => toast = '', 3000)
+                                }
+                            })"
+                            class="toast toast-top toast-center z-[100] mt-16">
+                            <div
+                              class="alert text-white"
+                              :class="{
+                                    'alert-success': toastType === 'success',
+                                    'alert-error': toastType === 'error',
+                                    'alert-warning': toastType === 'warning',
+                                    'alert-info': toastType === 'info'
+                                }">
+                              <span x-text="toast"></span>
+                          </div>
+                      </div>
 
                       <button @click="open = true" class="btn w-full btn-outline btn-neutral rounded-3xl mt-3">
                           Edit Profile

@@ -61,6 +61,9 @@ class ProfileController extends Controller
         }
 
         return response()->json([
+            'banner_type' => 'success',
+            'message' => 'Profile updated successfully',
+
             'name'              => $user->fresh()->name,
             'profile_photo_url' => $user->fresh()->profile_photo_url,
         ]);
