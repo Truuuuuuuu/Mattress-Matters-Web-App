@@ -12,9 +12,8 @@ use App\Services\CloudinaryService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class ListingController extends Controller
+class ListingControllerBackup extends Controller
 {
-    public function __construct(protected CloudinaryService $cloudinary) {}
     public function index(){
         $listings = Listing::with('listingImages')
             ->where('host_id', auth()->user()->host->id)
@@ -69,8 +68,7 @@ class ListingController extends Controller
 
         $listing = Listing::create([
             'host_id' => auth()->user()->host->id,
-            'availability' => 'available',
-            'status' => 'active',
+            'status' => 'available',
             'title' => $listingAttributes['title'],
             'address' => $listingAttributes['address'],
             'description' => $listingAttributes['description'],
@@ -93,28 +91,26 @@ class ListingController extends Controller
         ]);
 
         /*store files in laravel file storage*/
-        $coverData = $this->cloudinary->uploadListingImage($request->file('cover_photo'), $listing->id);
+        $coverPath = $request->file('cover_photo')->store('listing-images', 'public');
 
         /*Store in DB*/
         $listing->listingImages()->create([
-            'cloudinary_public_id' => $coverData['cloudinary_public_id'],
-            'is_cover'             => true,
-            'sort_order'           => 0,
+           'image_path' => $coverPath,
+           'is_cover' => true
         ]);
 
 
         // Additional photos (both are under images[])
         if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $index => $image) {
-                $imageData = $this->cloudinary->uploadListingImage($image, $listing->id);
-
+            foreach ($request->file('images') as $image) {
                 $listing->listingImages()->create([
-                    'cloudinary_public_id' => $imageData['cloudinary_public_id'],
-                    'is_cover'             => false,
-                    'sort_order'           => $index + 1,
+                    'image_path' => $image->store('listing-images', 'public'),
+                    'is_cover' => false
                 ]);
             }
         }
+
+
 
         return redirect()->route('host.listings')->with('success', 'Listing successfully created');
 

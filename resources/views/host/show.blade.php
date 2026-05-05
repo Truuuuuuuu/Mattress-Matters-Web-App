@@ -30,19 +30,19 @@
 
                     @php
                         $cover = $listing->listingImages->where('is_cover', true)->first();
-                        $add_photos = $listing->listingImages->where('is_cover', false);
+                        $add_photos = $listing->images->where('is_cover', false);
                     @endphp
                     {{--big photo--}}
                     <div>
-                        <img src="{{ asset('storage/' . $cover->image_path) }}" alt="" class="w-full h-full object-cover">
+                        <img src="{{ $cover->url }}" alt="" class="w-full h-full object-cover">
                     </div>
 
                     {{--smaller photo--}}
                     <div class="grid grid-cols-2 rounded-b-2xl overflow-hidden gap-2 mt-2">
                         @forelse($add_photos as $add_photo)
-                        <div>
-                            <img src="{{asset('storage/' . $add_photo->image_path)}}" alt="" class="w-full h-full object-cover">
-                        </div>
+                            <div>
+                                <img src="{{ $add_photo->url }}" alt="" class="w-full h-full object-cover">
+                            </div>
                         @empty
                             {{-- Empty State --}}
                             <div id="empty-cover" class="flex flex-col items-center justify-center gap-2 text-stone-400 group-hover:text-primary transition-colors duration-200 border border-black/20 p-5 mb-5">

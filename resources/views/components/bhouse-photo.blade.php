@@ -1,6 +1,6 @@
 @props(['employer', 'width' => 200, 'cover'])
 @if($cover)
-    <img src="{{ asset('storage/' . $cover->image_path) }}"
+    <img src="{{ $cover->url }}"
          alt="Cover Photo"
          class="w-full h-full object-cover rounded-lg md:rounded-2xl ">
 @else

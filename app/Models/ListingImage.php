@@ -30,7 +30,9 @@ class ListingImage extends Model
     protected function url(): Attribute
     {
         return Attribute::get(
-            fn () => app(CloudinaryService::class)->getSecureUrl($this->cloudinary_public_id)
+            fn () => $this->cloudinary_public_id
+                ? app(CloudinaryService::class)->getSecureUrl($this->cloudinary_public_id)
+                : null
         );
     }
 }

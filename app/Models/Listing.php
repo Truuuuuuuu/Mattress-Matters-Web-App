@@ -24,7 +24,7 @@ class Listing extends Model
         'water_supply_cost',
         'electricity_cost',
         'status',
-
+        'availability',
     ];
 
     public function host(): BelongsTo
