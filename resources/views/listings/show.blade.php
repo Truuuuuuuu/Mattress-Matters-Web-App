@@ -79,22 +79,20 @@
                     <x-divider class="bg-gray-300"/>
                     {{--host profile--}}
 
-                    <a href="{{route('profile.show', $listing->host->user)}}">
-                        <div class="py-5 flex justify-start gap-5">
-                            <div class="btn btn-lg btn-circle btn-secondary ">
-                                {{$listing->host->user->name[0]}}
-                            </div>
-                            <div>
-                                @if(auth()->user()?->id === $listing->host?->user?->id)
-                                    <h1 class="font-semibold">Hosted by YOU</h1>
-                                @else
-                                    <h1 class="font-semibold">Hosted by {{$listing->host->user->name}}</h1>
-                                @endif
+                    <div class="py-5 flex justify-start gap-5">
+                        <x-avatar-circle :user="$listing->host->user" width="12" height="12" />
+                        <div>
+                            @if(auth()->user()?->id === $listing->host?->user?->id)
+                                <h1 class="font-semibold">Hosted by YOU</h1>
+                            @else
+                                <a href="{{route('profile.show', $listing->host->user)}}">
+                                    <h1 class="font-semibold hover:text-primary">Hosted by {{$listing->host->user->name}}</h1>
+                                </a>
+                            @endif
 
-                                <p class="text-base-content/70">Joined {{$listing->host->user->created_at->format('Y')}}</p>
-                            </div>
+                            <p class="text-base-content/70">Joined {{$listing->host->user->created_at->format('Y')}}</p>
                         </div>
-                    </a>
+                    </div>
                     <x-divider class="bg-gray-300"/>
 
                     {{--Description--}}

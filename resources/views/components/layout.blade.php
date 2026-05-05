@@ -157,7 +157,11 @@
                            <a href="{{route('messages.inbox', auth()->user()->id)}}"  class="flex btn btn-ghost btn-circle bg-base-100" tabindex="0" role="button">
                                <x-lucide-message-circle-more class="w-7 h-7  {{request()->routeIs('messages.inbox') || request()->routeIs('messages.show') ? 'text-primary' : 'text-base-content '}}"/>
                            </a>
-                           <div class="avatar">
+                           @php
+                               $user = auth()->user()
+                           @endphp
+                           <x-avatar-circle :$user/>
+                           {{--<div class="avatar">
                                @if(auth()->user()->profile_photo_public_id)
                                    <a href="{{ route('profile.index') }}">
                                        <div class="ring-primary ring-offset-base-100 w-9 h-9 rounded-full ring-2 ring-offset-2 overflow-hidden cursor-pointer">
@@ -173,7 +177,7 @@
                                    </a>
                                @endif
 
-                           </div>
+                           </div>--}}
 
                            <div class="hidden lg:flex dropdown dropdown-end" >
                                <div class="btn btn-ghost btn-circle bg-base-100" tabindex="0" role="button">
