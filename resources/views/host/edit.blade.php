@@ -190,7 +190,7 @@
 
                                             {{-- Preview --}}
                                             <img id="preview-cover"
-                                                 src="{{ $cover ? asset('storage/' . $cover->image_path) : '' }}"
+                                                 src="{{ $cover ? $cover->url : '' }}"
                                                  alt="Cover preview"
                                                  class="{{ $cover ? '' : 'hidden' }} absolute inset-0 w-full h-full object-cover" />
 
@@ -250,7 +250,7 @@
                                                 </div>
 
                                                 <img id="preview-photo1"
-                                                     src="{{ $photo1 ? asset('storage/' . $photo1->image_path) : '' }}"
+                                                     src="{{ $photo1 ? $photo1->url : '' }}"
                                                      alt="Photo 1 preview"
                                                      class="{{ $photo1 ? '' : 'hidden' }} absolute inset-0 w-full h-full object-cover" />
 
@@ -296,7 +296,7 @@
                                                 </div>
 
                                                 <img id="preview-photo2"
-                                                     src="{{ $photo2 ? asset('storage/' . $photo2->image_path) : '' }}"
+                                                     src="{{ $photo2 ? $photo2->url : '' }}"
                                                      alt="Photo 2 preview"
                                                      class="{{ $photo2 ? '' : 'hidden' }} absolute inset-0 w-full h-full object-cover" />
 

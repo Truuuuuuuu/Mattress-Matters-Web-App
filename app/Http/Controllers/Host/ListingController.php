@@ -11,12 +11,13 @@ use App\Models\Rule;
 use App\Services\CloudinaryService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
 
 class ListingController extends Controller
 {
     public function __construct(protected CloudinaryService $cloudinary) {}
     public function index(){
-        $listings = Listing::with('listingImages')
+        $listings = Listing::with('images')
             ->where('host_id', auth()->user()->host->id)
             ->get();
         $host = auth()->user()->host;
@@ -122,14 +123,14 @@ class ListingController extends Controller
 
     public function show(Listing $listing)
     {
-        $listing = Listing::with(['listingImages','amenities', 'rules'])->findOrFail($listing->id);
+        $listing = Listing::with(['images','amenities', 'rules'])->findOrFail($listing->id);
 
         return view('host.show', compact('listing'));
     }
 
     public function edit(Listing $listing)
     {
-        $listing = Listing::with(['listingImages','amenities', 'rules'])->findOrFail($listing->id);
+        $listing = Listing::with(['images','amenities', 'rules'])->findOrFail($listing->id);
         $amenities = Amenity::all();
         $listingAmenityIds = $listing->amenities->pluck('id')->toArray(); /*selected in target listing*/
         $listingRuleIds = $listing->rules->pluck('id')->toArray();
@@ -231,66 +232,88 @@ class ListingController extends Controller
             $listingAttributes['smoking_rule'],
         ]);
 
-        /*Handle cover photo*/
-        if ($request->hasFile('cover_photo')) {
-            $oldCover = $listing->listingImages()->where('is_cover', true)->first();
-            if ($oldCover) {
-                Storage::disk('public')->delete($oldCover->image_path);
-                $oldCover->delete();
-            }
-            $listing->listingImages()->create([
-                'image_path' => $request->file('cover_photo')->store('listing-images', 'public'),
-                'is_cover'   => true,
-            ]);
-        } elseif ($request->remove_cover == '1') {
-            $oldCover = $listing->listingImages()->where('is_cover', true)->first();
-            if ($oldCover) {
-                Storage::disk('public')->delete($oldCover->image_path);
-                $oldCover->delete();
-            }
-        }
+        try {
+            // cover photo
+            if ($request->hasFile('cover_photo')) {
+                // Handle cover photo update
+                if ($request->hasFile('cover_photo')) {
+                    $oldCover = $listing->images()->where('is_cover', true)->first();
+                    if ($oldCover) {
+                        $this->cloudinary->deleteImage($oldCover->cloudinary_public_id);
+                        $oldCover->delete();
+                    }
 
-        /*Handle photo1*/
-        if ($request->hasFile('image_photo1')) {
-            if ($request->existing_photo1_id) {
-                $old = ListingImage::find($request->existing_photo1_id);
-                if ($old) {
-                    Storage::disk('public')->delete($old->image_path);
-                    $old->delete();
+                    $coverData = $this->cloudinary->uploadListingImage($request->file('cover_photo'), $listing->id);
+                    $listing->images()->create([
+                        'cloudinary_public_id' => $coverData['cloudinary_public_id'],
+                        'is_cover'             => true,
+                        'sort_order'           => 0,
+                    ]);
+
+                } elseif ($request->remove_cover == '1') {
+                    $oldCover = $listing->images()->where('is_cover', true)->first();
+                    if ($oldCover) {
+                        $this->cloudinary->deleteImage($oldCover->cloudinary_public_id);
+                        $oldCover->delete();
+                    }
                 }
             }
-            $listing->listingImages()->create([
-                'image_path' => $request->file('image_photo1')->store('listing-images', 'public'),
-                'is_cover'   => false,
-            ]);
-        } elseif ($request->remove_photo1 == '1' && $request->existing_photo1_id) {
-            $old = ListingImage::find($request->existing_photo1_id);
-            if ($old) {
-                Storage::disk('public')->delete($old->image_path);
-                $old->delete();
-            }
-        }
 
-        /*Handle photo2*/
-        if ($request->hasFile('image_photo2')) {
-            if ($request->existing_photo2_id) {
-                $old = ListingImage::find($request->existing_photo2_id);
-                if ($old) {
-                    Storage::disk('public')->delete($old->image_path);
-                    $old->delete();
+            // photo1
+            if ($request->hasFile('image_photo1')) {
+                /*Handle photo1*/
+                if ($request->hasFile('image_photo1')) {
+                    if ($request->existing_photo1_id) {
+                        $old = ListingImage::find($request->existing_photo1_id);
+                        if ($old) {
+                            $this->cloudinary->deleteImage($old->cloudinary_public_id);
+                            $old->delete();
+                        }
+                    }
+                    $listing->images()->create([
+                        'cloudinary_public_id' => $this->cloudinary->uploadListingImage($request->file('image_photo1'), $listing->id)['cloudinary_public_id'],
+                        'is_cover'             => false,
+                        'sort_order'           => 1,
+                    ]);
+                } elseif ($request->remove_photo1 == '1' && $request->existing_photo1_id) {
+                    $old = ListingImage::find($request->existing_photo1_id);
+                    if ($old) {
+                        $this->cloudinary->deleteImage($old->cloudinary_public_id);
+                        $old->delete();
+                    }
                 }
             }
-            $listing->listingImages()->create([
-                'image_path' => $request->file('image_photo2')->store('listing-images', 'public'),
-                'is_cover'   => false,
-            ]);
-        } elseif ($request->remove_photo2 == '1' && $request->existing_photo2_id) {
-            $old = ListingImage::find($request->existing_photo2_id);
-            if ($old) {
-                Storage::disk('public')->delete($old->image_path);
-                $old->delete();
+
+            // photo2
+            if ($request->hasFile('image_photo2')) {
+                /*Handle photo2*/
+                if ($request->hasFile('image_photo2')) {
+                    if ($request->existing_photo2_id) {
+                        $old = ListingImage::find($request->existing_photo2_id);
+                        if ($old) {
+                            $this->cloudinary->deleteImage($old->cloudinary_public_id);
+                            $old->delete();
+                        }
+                    }
+                    $listing->images()->create([
+                        'cloudinary_public_id' => $this->cloudinary->uploadListingImage($request->file('image_photo2'), $listing->id)['cloudinary_public_id'],
+                        'is_cover'             => false,
+                        'sort_order'           => 2,
+                    ]);
+                } elseif ($request->remove_photo2 == '1' && $request->existing_photo2_id) {
+                    $old = ListingImage::find($request->existing_photo2_id);
+                    if ($old) {
+                        $this->cloudinary->deleteImage($old->cloudinary_public_id);
+                        $old->delete();
+                    }
+                }
             }
+
+        } catch (TooManyRequestsHttpException $e) {
+            /*return back()->withErrors(['images' => $e->getMessage()])->withInput();*/
+            return back()->with('error',  $e->getMessage());
         }
+
 
         return redirect()->route('host.show', $listing)->with('success', 'Listing updated successfully');
     }

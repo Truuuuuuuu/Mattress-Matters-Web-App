@@ -5,7 +5,9 @@ namespace App\Services;
 use Cloudinary\Cloudinary;
 use Cloudinary\Configuration\Configuration;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
 
 class CloudinaryService
 {
@@ -38,6 +40,18 @@ class CloudinaryService
 
     public function uploadListingImage(UploadedFile $file, int $listingId): array
     {
+
+        $key = 'listing-image-upload:' . auth()->id();
+
+        if (RateLimiter::tooManyAttempts($key, 6)) {
+            throw new TooManyRequestsHttpException(
+                RateLimiter::availableIn($key),
+                'Too many image uploads. Please wait before trying again.'
+            );
+        }
+
+        RateLimiter::hit($key, 60);
+
         $publicId = "listings/listing_{$listingId}/" . Str::uuid();
 
         $result = $this->cloudinary->uploadApi()->upload($file->getRealPath(), [

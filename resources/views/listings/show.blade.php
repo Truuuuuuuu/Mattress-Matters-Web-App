@@ -9,7 +9,7 @@
                 <div class=" rounded-2xl overflow-hidden ">
                     @php
                         $cover = $listing->listingImages->where('is_cover', true)->first();
-                        $add_photos = $listing->images->where('is_cover', false);
+                        $add_photos = $listing->ListingImages->where('is_cover', false);
                     @endphp
                     {{--big photo--}}
                     <div>

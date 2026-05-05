@@ -25,6 +25,9 @@ class Listing extends Model
         'electricity_cost',
         'status',
         'availability',
+        'cloudinary_public_id',
+        'is_cover',
+        'sort_order',
     ];
 
     public function host(): BelongsTo
