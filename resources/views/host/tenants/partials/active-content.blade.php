@@ -10,7 +10,10 @@
         <x-tenant-card :$myTenant/>
         <x-tenant-card :$myTenant/>
     @empty
-        <p>You have no tenants yet</p>
+        <div class="col-span-full  mx-auto  text-base-content/70 italic ">
+            <img src="{{asset('images/tenants.svg')}}" alt="Tenants" class="w-32 lg:w-64">
+            <p class="text-base-content/70 text-center italic -mt-5">You have no tenants yet</p>
+        </div>
     @endforelse
 </div>
 
@@ -35,7 +38,12 @@
                 <x-tenant-list :$myTenant/>
                 <x-tenant-list :$myTenant/>
             @empty
-                <td colspan="5" class="text-center mt-10">No available tenants</td>
+                <tr>
+                    <td colspan="4" class=" text-center text-base-content/70 italic">
+                        <img src="{{asset('images/tenants.svg')}}" alt="Empty record" class="w-24 lg:w-64 mx-auto ">
+                        <p class="-mt-5">No available tenants</p>
+                    </td>
+                </tr>
             @endforelse
             </tbody>
         </table>
