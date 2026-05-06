@@ -9,11 +9,8 @@
     <td>
         <div class="flex items-center gap-3">
             @if(auth()->user()->hasRole('host'))
-                <div class="avatar">
-                    <div class="mask mask-squircle h-12 w-12 bg-purple-700 flex items-center justify-center">
-                        <p class="text-center text-xl font-bold">{{$reservation->tenant->user->name[0]}}</p>
-                    </div>
-                </div>
+                <x-avatar-squircle :user="$reservation->tenant->user"/>
+
                 {{--Name--}}
                 <div>
                     <div class="font-bold">{{$reservation->tenant->user->name}}</div>
@@ -24,15 +21,11 @@
                     </div>
                 </div>
             @else
-                <div class="avatar">
-                    <div class="avatar">
-                        <div class="mask mask-squircle h-12 w-12 bg-purple-700 flex items-center justify-center">
-                            <img src="{{ asset('storage/' . $reservation->listing->listingImages->first()->image_path) }}" alt="photo">
-                        </div>
-                    </div>
-                </div>
+                <x-avatar-squircle :listing="$reservation->listing" width="12" height="12"/>
                 <div>
-                    <h1 class="text-md font-semibold text-primary line-clamp-1">{{$reservation->listing->title}}</h1>
+                    <a href="{{route('listings.show', $reservation->listing)}}">
+                        <h1 class="text-md font-semibold text-primary line-clamp-1 hover:opacity-80">{{$reservation->listing->title}}</h1>
+                    </a>
                     <p class="text-sm font-semibold text-base-content/70">Hosted by {{$reservation->listing->host->user->name}}</p>
                 </div>
             @endif

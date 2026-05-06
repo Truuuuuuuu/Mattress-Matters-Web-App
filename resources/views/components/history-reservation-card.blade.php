@@ -2,18 +2,13 @@
 
 @php
     $reservation = $historyReservation ?? $reservation;
-    $cover = $reservation->listing->listingImages->first();
 @endphp
 
 <div class="border bg-base-100 border-base-300 rounded-3xl p-5 space-y-4 flex flex-col justify-between"
      @click="window.innerWidth < 768 && $dispatch('view-reservation', { url: '{{ route('reservation.show', $reservation) }}' })">
     <div class="flex ">
         <div class="flex-2 flex justify-start items-start gap-3 ">
-            <div class="w-14 h-14 shrink-0 ">
-                <img src="{{ asset('storage/' . $cover->image_path) }}"
-                     alt=""
-                     class="w-full h-full object-cover rounded-2xl">
-            </div>
+            <x-avatar-squircle :listing="$reservation->listing" width="14" height="14"/>
             <div class="flex flex-col  ">
                 <p class="font-semibold text-md line-clamp-1">
                     {{ $reservation->listing->title }}

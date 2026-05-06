@@ -35,12 +35,12 @@
                 <div class="flex gap-2">
                     <button @click="activeView = 'cards'"
                             class="btn rounded-2xl btn-md"
-                            :class="activeView === 'cards' ? 'btn-primary' : 'btn-outline'">
+                            :class="activeView === 'cards' ? 'btn-primary' : 'btn-ghost'">
                         <x-lucide-layout-grid class="w-5 h-5" />
                     </button>
                     <button @click="activeView = 'lists'"
                             class="btn rounded-2xl btn-md"
-                            :class="activeView === 'lists' ? 'btn-primary' : 'btn-outline'">
+                            :class="activeView === 'lists' ? 'btn-primary' : 'btn-ghost'">
                         <x-lucide-list class="w-5 h-5" />
                     </button>
                 </div>
