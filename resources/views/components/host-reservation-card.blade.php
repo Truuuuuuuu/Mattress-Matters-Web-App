@@ -9,11 +9,7 @@
 
 <div class="border bg-base-100 border-base-300 rounded-3xl p-5 ">
     <div class="flex gap-3">
-        <div class="avatar">
-            <div class="mask mask-squircle h-12 w-12 bg-purple-700 flex items-center justify-center">
-                <p class="text-center text-xl font-bold">{{$reservation->tenant->user->name[0]}}</p>
-            </div>
-        </div>
+        <x-avatar-squircle :user="$reservation->tenant->user"/>
         <div>
             <h1 class="text-xl font-semibold">{{$reservation->tenant->user->name}}</h1>
             <div class="flex justify-start items-center gap-2">

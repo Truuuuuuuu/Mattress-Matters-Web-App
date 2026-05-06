@@ -22,7 +22,7 @@
                     'declined'  => ['class' => 'badge-error',    'label' => 'Declined'],
                     'cancelled' => ['class' => 'badge-warning',  'label' => 'Cancelled'],
                     'checked_in' => ['class' => 'badge-primary', 'label' => 'Active'],
-                    'completed' => ['class' => 'badge-neutral', 'label' => 'Move-out'],
+                    'completed' => ['class' => 'badge-neutral', 'label' => 'Moved   -out'],
                     default     => ['class' => 'badge-ghost',    'label' => ucfirst($reservation->status)],
                 };
             @endphp

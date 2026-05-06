@@ -11,11 +11,7 @@
 <tr>
     <td>
         <div class="flex items-center gap-3">
-            <div class="avatar">
-                <div class="mask mask-squircle h-12 w-12 bg-purple-700 flex items-center justify-center">
-                    <p class="text-center text-xl font-bold">{{$reservation->tenant->user->name[0]}}</p>
-                </div>
-            </div>
+            <x-avatar-squircle :user="$reservation->tenant->user"/>
             {{--Name--}}
             <div>
                 <div class="font-bold">{{$reservation->tenant->user->name}}</div>
