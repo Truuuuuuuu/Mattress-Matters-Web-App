@@ -3,8 +3,9 @@
     @forelse($historyReservations as $historyReservation)
         <x-history-reservation-card :$historyReservation/>
     @empty
-        <div>
-            <p class="text-base-content/70 text-center italic">You have no history of reservation</p>
+        <div class="col-span-full  flex flex-col  items-center justify-center py-16 text-base-content/70 italic space-y-5">
+            <img src="{{asset('images/empty-record.svg')}}" alt="Reservation" class="w-24 lg:w-32">
+            <p class="text-base-content/70 text-center italic">No reservation history yet</p>
         </div>
     @endforelse
 </div>
@@ -27,9 +28,12 @@
                 @forelse($historyReservations as $historyReservation)
                     <x-history-reservation-list :$historyReservation/>
                 @empty
-                    <div>
-                        <p class="text-base-content/70 text-center italic">You have no history of reservation</p>
-                    </div>
+                    <tr>
+                        <td colspan="4" class=" text-center py-16 text-base-content/70 italic">
+                            <img src="{{asset('images/empty-record.svg')}}" alt="Empty record" class="w-24 lg:w-32 mx-auto mb-5">
+                            <p>No reservation history yet</p>
+                        </td>
+                    </tr>
                 @endforelse
             </tbody>
         </table>

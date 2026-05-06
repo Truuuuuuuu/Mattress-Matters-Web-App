@@ -3,7 +3,10 @@
     @forelse($acceptedReservations as $acceptedReservation)
         <x-host-reservation-card :$acceptedReservation />
     @empty
-        <p class="text-base-content/70 italic text-center">You have no accepted reservations today</p>
+        <div class="col-span-full flex flex-col items-center justify-center py-16 text-base-content/70 italic space-y-5">
+            <img src="{{asset('images/confirm-reservation.svg')}}" alt="Reservation" class="w-24 lg:w-32">
+            <p class="text-base-content/70 text-center italic">You have no confirmed reservations today</p>
+        </div>
     @endforelse
 </div>
 
@@ -26,7 +29,12 @@
             @forelse($acceptedReservations as $acceptedReservation)
                 <x-host-reservation-list :$acceptedReservation />
             @empty
-                <p class="text-base-content/70 italic text-center">You have no accepted reservations today</p>
+                <tr>
+                    <td colspan="4" class=" text-center py-16 text-base-content/70 italic">
+                        <img src="{{asset('images/confirm-reservation.svg')}}" alt="Empty record" class="w-24 lg:w-32 mx-auto mb-5">
+                        <p>You have no confirmed reservations today</p>
+                    </td>
+                </tr>
             @endforelse
             </tbody>
         </table>
