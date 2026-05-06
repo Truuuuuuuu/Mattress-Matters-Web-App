@@ -1,27 +1,17 @@
 <div class="flex flex-col md:flex-row">
     <div class="w-full max-w-124  p-5 space-y-5">
-        <div class="w-full h-64 ">
-            <img src="{{ asset('storage/' . $reservation->listing->listingImages->first()->image_path) }}"
-                 alt="Cover Photo"
-                 class="w-full h-full object-cover rounded-3xl ">
+        <div class="flex justify-center ">
+            <x-avatar-squircle :listing="$reservation->listing" width="64" height="64"/>
         </div>
         <div class="flex gap-3">
             @if(auth()->user()->hasRole('tenant'))
-                <div class="avatar">
-                    <div class="mask mask-squircle h-12 w-12 bg-purple-700 flex items-center justify-center">
-                        <p class="text-center text-lg font-bold">{{$reservation->listing->host->user->name[0]}}</p>
-                    </div>
-                </div>
+                <x-avatar-squircle :user="$reservation->listing->host->user"/>
                 <div>
                     <h1 class="text-xl font-semibold">{{$reservation->listing->host->user->name}}</h1>
-                    <p class="text-sm font-semibold text-base-content/70">Since {{$reservation->listing->host->created_at->format('Y')}}</p>
+                    <p class="text-sm font-semibold text-base-content/70">Host since {{$reservation->listing->host->created_at->format('Y')}}</p>
                 </div>
             @else
-                <div class="avatar">
-                    <div class="mask mask-squircle h-12 w-12 bg-purple-700 flex items-center justify-center">
-                        <p class="text-center text-lg font-bold">{{$reservation->tenant->user->name[0]}}</p>
-                    </div>
-                </div>
+                <x-avatar-squircle :user="$reservation->tenant->user"/>
                 <div>
                     <h1 class="text-xl font-semibold">{{$reservation->tenant->user->name}}</h1>
                     <div class="flex justify-start items-center gap-2">
@@ -155,6 +145,32 @@
                 </div>
             @endif
 
+            @if(auth()->user()->hasRole('tenant') )
+                    @if($reservation->status === 'pending')
+                        <div class="flex-1">
+                            <button onclick="confirmAction(
+                        '{{route('reservation.cancel', $reservation)}}',
+                        'Cancel Reservation?',
+                        'Are you sure you want to cancel this reservation? This cannot be undone.',
+                        'Yes, Cancel',
+                        'Keep Reservation'
+
+                        )"
+                        class="btn btn bg-red-500  w-full text-base-100 hover:bg-red-600 w-full text-base-100 rounded-3xl py-5 text-lg">
+                            Cancel Reservation
+                        </button>
+                        @include('components.confirm-modal')</div>
+                @elseif($reservation->status === 'accepted')
+                    <div class="flex gap-3 flex-1">
+                        <a href="{{route('messages.show', $reservation->listing->host)}}" class="btn btn-primary rounded-3xl btn-md flex-1">
+                            Message
+                        </a>
+                        <a @click="$dispatch('view-reservation', { url: '{{ route('reservation.show', $activeReservation) }}' })" class="btn btn-neutral btn-outline rounded-3xl flex-1 btn-md">
+                            View details
+                        </a>
+                    </div>
+                @endif
+            @endif
 
         </div>
     </div>

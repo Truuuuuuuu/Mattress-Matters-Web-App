@@ -6,11 +6,7 @@
             <div class=" space-y-5">
                 <div class="bg-base-100 py-5 px-3 rounded-3xl bg-base-100 " style="box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15)">
                     <div class="flex flex-col items-center mb-2">
-                        <div class="avatar  mb-4" >
-                            <div class="mask mask-squircle h-24 w-24 lg:h-32 lg:w-32 bg-purple-700 flex items-center justify-center" style="box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15)">
-                                <p class="text-center text-xl font-bold">{{$profile->user->name[0]}}</p>
-                            </div>
-                        </div>
+                       <x-avatar-squircle :user="$profile->user"/>
                         <h1 class="text-xl font-bold">{{$profile->user->name}}</h1>
                     </div>
 

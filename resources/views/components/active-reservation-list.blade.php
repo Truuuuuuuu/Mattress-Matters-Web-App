@@ -4,14 +4,12 @@
 <tr>
     <td>
         <div class="flex items-center gap-3">
-            <div class="avatar">
-                <div class="mask mask-squircle h-12 w-12 bg-purple-700 flex items-center justify-center">
-                    <img src="{{ asset('storage/' . $activeReservation->listing->listingImages->first()->image_path) }}" alt="photo">
-                </div>
-            </div>
+            <x-avatar-squircle :listing="$activeReservation->listing" width="12" height="12"/>
 
             <div>
-                <p class="font-bold line-clamp-1">{{$activeReservation->listing->title}}</p>
+                <a href="{{route('listings.show', $activeReservation->listing)}}">
+                    <p class="font-bold text-primary hover:opacity-80 cursor-pointer line-clamp-1">{{$activeReservation->listing->title}}</p>
+                </a>
                 <p class="font-semibold text-sm text-base-content/70">₱{{ number_format($activeReservation->listing->rent_cost, 2) }}</p>
             </div>
         </div>

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -91,6 +92,12 @@ class Listing extends Model
     public function listingImages(): HasMany
     {
         return $this->hasMany(ListingImage::class);
+    }
+    protected function coverImage(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->listingImages->where('is_cover', true)->first()
+        );
     }
 
     const MAX_IMAGES = 3;

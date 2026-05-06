@@ -162,7 +162,7 @@
                            @endphp
                            <x-avatar-circle :$user/>
                            {{--<div class="avatar">
-                               @if(auth()->user()->profile_photo_public_id)
+                               @if(auth()->user()-  >profile_photo_public_id)
                                    <a href="{{ route('profile.index') }}">
                                        <div class="ring-primary ring-offset-base-100 w-9 h-9 rounded-full ring-2 ring-offset-2 overflow-hidden cursor-pointer">
                                            <img src="{{ auth()->user()->profile_photo_url }}" alt="Photo" class="w-full h-full object-cover"/>

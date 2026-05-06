@@ -35,4 +35,5 @@ class ListingImage extends Model
                 : null
         );
     }
+
 }

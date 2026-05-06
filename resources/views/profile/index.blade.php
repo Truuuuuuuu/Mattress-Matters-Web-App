@@ -6,21 +6,7 @@
           <div class=" space-y-5">
               <div class=" py-5 px-4 rounded-3xl bg-base-100 mt-5"  >
                   <div class="flex flex-col items-center" >
-                      <div class="avatar  mb-4" >
-                          <div class="mask mask-squircle h-24 w-24 lg:h-32 lg:w-32 bg-base-300 flex items-center justify-center" >
-                              @if($profile->user->profile_photo_public_id)
-                                  <img
-                                      data-profile-photo
-                                      src="{{ $profile->user->profile_photo_url }}"
-                                      alt="Profile Picture"
-                                      class="w-full h-full object-cover"
-                                  >
-                              @else
-                                  <p data-profile-initial-name class="text-center text-xl font-bold">{{$profile->user->name[0]}}</p>
-
-                              @endif
-                          </div>
-                      </div>
+                     <x-avatar-squircle :user="$profile->user"/>
                       <h1 data-profile-name class="text-xl font-bold">{{$profile->user->name}}</h1>
                       <p class="text-sm text-base-content/70">{{$profile->user->email}}</p>
                   </div>
@@ -208,7 +194,7 @@
                               {{-- Profile Photo --}}
                               <div class="flex flex-col items-center gap-3">
                                   <div class="relative">
-                                      <div class="w-24 h-24 rounded-full overflow-hidden bg-base-300 ring-2 ring-base-300">
+                                      <div class="w-24 h-24 mask mask-squircle overflow-hidden bg-base-300 ring-2 ring-base-300">
                                           <template  x-if="photoPreview">
                                               <img :src="photoPreview" class="w-full h-full object-cover" alt="Profile photo"/>
                                           </template>
