@@ -78,13 +78,28 @@
                 <a href="{{route('messages.show', $activeReservation->listing->host)}}" class="btn btn-primary rounded-3xl btn-md flex-1">
                     Message
                 </a>
-                <a @click="$dispatch('view-reservation', { url: '{{ route('reservation.show', $activeReservation) }}' })" class="btn btn-neutral btn-outline rounded-3xl flex-1 btn-md">
-                    View details
-                </a>
+                @if($activeReservation->payment_status === 'unpaid')
+                    <button
+
+                        id="pay-btn"
+                        class="btn btn-base-100 flex-1 py-3 btn-md rounded-3xl border-blue-900"
+                        data-url="/payment/{{ $activeReservation->id}}/gcash"
+                        data-amount="{{ $activeReservation->listing->rent_cost }}"
+                        data-amount-electric="{{ $activeReservation->listing->electricity_cost ?? '' }}"
+                        data-amount-water="{{ $activeReservation->listing->water_supply_cost ?? '' }}"
+                        data-description="Reservation for {{ $activeReservation->listing->title }}">
+                        <img src="{{asset('images/Gcash-logo.svg')}}" alt="" class="w-8 h-8">
+                        Pay with GCash
+                    </button>
+                @endif
+
             </div>
+            <div id="error-msg" class="hidden text-red-500 mt-2"></div>
+
         @endif
 
-        <a @click="$dispatch('view-reservation', { url: '{{ route('reservation.show', $activeReservation) }}' })" class="flex justify-center items-center btn btn-circle btn-md bg-primary/10 hover:opacity-80">
+
+        <a @click="window.dispatchEvent(new CustomEvent('view-reservation', { detail: { url: '{{ route('reservation.show', $activeReservation) }}' } }))" class="flex justify-center items-center btn btn-circle btn-md bg-primary/10 hover:opacity-80">
             <x-lucide-info class="w-5 h-5 text-primary"/>
         </a>
     </div>

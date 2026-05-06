@@ -161,15 +161,23 @@
                         </button>
                         @include('components.confirm-modal')</div>
                 @elseif($reservation->status === 'accepted')
-                    <div class="flex gap-3 flex-1">
-                        <a href="{{route('messages.show', $reservation->listing->host)}}" class="btn btn-primary rounded-3xl btn-md flex-1">
-                            Message
-                        </a>
-                        <a @click="$dispatch('view-reservation', { url: '{{ route('reservation.show', $activeReservation) }}' })" class="btn btn-neutral btn-outline rounded-3xl flex-1 btn-md">
-                            View details
-                        </a>
-                    </div>
-                @endif
+                        @if($reservation->payment_status === 'unpaid')
+                            <button
+
+                                id="pay-btn"
+                                class="btn btn-white btn-xl py-3 w-full mt-3 rounded-3xl border-blue-900"
+                                data-url="/payment/{{ $reservation->id}}/gcash"
+                                data-amount="{{ $reservation->listing->rent_cost }}"
+                                data-amount-electric="{{ $reservation->listing->electricity_cost ?? '' }}"
+                                data-amount-water="{{ $reservation->listing->water_supply_cost ?? '' }}"
+                                data-description="Reservation for {{ $reservation->listing->title }}">
+                                <img src="{{asset('images/Gcash-logo.svg')}}" alt="" class="w-8 h-8">
+                                Pay with GCash
+                            </button>
+                            <div id="error-msg" class="hidden text-red-500 mt-2"></div>
+                        @endif
+
+                    @endif
             @endif
 
         </div>

@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot:heading>Reservation</x-slot:heading>
-    @if($myUnit)
+    @if($myUnit?->reservation->status === 'checked_in')
         <div class="w-full max-w-7xl mx-auto px-5 py-7 bg-base-200 min-h-[calc(100vh-4.7rem)]"
              x-data="{
                  open: false,
@@ -87,6 +87,33 @@
                     <div x-show="!loading" x-html="content"></div>
 
                 </div>
+        </div>
+
+    @elseif($myUnit?->reservation->status === 'accepted' && $myUnit?->reservation->payment_status === 'paid')
+        <div class="w-full flex justify-center items-center py-10">
+            <div class="w-full max-w-lg  flex flex-col items-center">
+                <div class=" w-full text-center text-2xl font-semibold mb-8">
+                    <h1>Are you here?</h1>
+                </div>
+                <div class="w-xs  ">
+                    <img src="{{asset('images/3D-bhouse-model.svg')}}" alt="3D" class="cursor-pointer w-full h-auto object-contain transition-transform duration-300 hover:scale-110" >
+                </div>
+                <div class="w-full mt-3">
+                    <button onclick="confirmAction(
+                            '{{route('reservation.checkedIn', $myUnit->reservation)}}',
+                            'Confirm Check In?',
+                            'Are you sure you want to check in? Your stay begins once confirmed.',
+                            'Yes, I\'m here!',
+                            'Not Yet',
+                            'success'
+
+                        )"
+                            class="btn btn-success  w-full">
+                        Check In
+                    </button>
+                </div>
+            </div>
+
         </div>
     @else
         @if(strtolower(auth()->user()->tenant->getGender()) === 'male')
