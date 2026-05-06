@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot:heading>All Listings</x-slot:heading>
-    <div id="listings-index" class="px-10 mt-10">
+    <div id="listings-index" class="px-10 py-7 bg-base-200 min-h-[calc(100vh-5rem)]">
         {{--Content--}}
         @guest
             <div class="mb-8">
@@ -19,7 +19,7 @@
                         <x-search-bar class=""/>
                     </div>
                     <div>
-                        <button class="flex btn btn-neutral rounded-3xl " onclick="feature_modal.showModal()">
+                        <button class="flex btn btn-primary rounded-3xl " onclick="feature_modal.showModal()">
                             <x-lucide-sliders-horizontal class="w-5 h-5"/>
                             <p class="hidden lg:block">Filters</p>
                         </button>

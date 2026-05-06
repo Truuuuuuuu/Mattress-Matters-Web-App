@@ -45,7 +45,7 @@
                 <span>My Unit</span>
             </a>
             <a href="{{route('messages.inbox', auth()->user()->id)}}" class="flex flex-col items-center text-xs gap-1 text-base-content/70 {{request()->routeIs('messages.inbox') || request()->routeIs('messages.show')  ? 'font-bold text-primary' : 'text-base-content/70'}}">
-                <x-lucide-message-circle class="w-5 h-5" stroke-width="{{request()->routeIs('messages.inbox') || request()->routeIs('messages.show') ? 2.5 : 2}}"/>
+                <x-lucide-message-circle class="w-5 h-5 " stroke-width="{{request()->routeIs('messages.inbox') || request()->routeIs('messages.show') ? 2.5 : 2}}"/>
                 <span class="{{request()->routeIs('messages.inbox') || request()->routeIs('messages.show') ? 'text-primary' : 'text-base-content'}} ">Messages</span>
             </a>
             <a href="{{ route('profile.index') }}" class="flex flex-col items-center text-xs gap-1 {{request()->routeIs('profile.index') ? 'font-bold text-primary' : 'text-base-content/70'}}">
@@ -155,7 +155,7 @@
                    @auth
                        <div class="flex items-center space-x-3 font-bold ">
                            <a href="{{route('messages.inbox', auth()->user()->id)}}"  class="flex btn btn-ghost btn-circle bg-base-100" tabindex="0" role="button">
-                               <x-lucide-message-circle-more class="w-7 h-7  {{request()->routeIs('messages.inbox') || request()->routeIs('messages.show') ? 'text-primary' : 'text-base-content '}}"/>
+                               <x-lucide-message-circle-more class="w-7 h-7 hover:text-primary  {{request()->routeIs('messages.inbox') || request()->routeIs('messages.show') ? 'text-primary' : 'text-base-content '}}"/>
                            </a>
                            @php
                                $user = auth()->user()

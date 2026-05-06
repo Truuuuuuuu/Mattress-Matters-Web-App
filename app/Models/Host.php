@@ -43,7 +43,7 @@ class Host extends Model
     {
         $reservations = Reservation::query()
             ->with([
-                'tenant.user:id,name',
+                'tenant.user:id,name,profile_photo_public_id',
                 'listing:id,title',
             ])
             ->whereHas('listing', fn($q) => $q->where('host_id', $host->id))
