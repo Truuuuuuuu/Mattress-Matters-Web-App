@@ -1,7 +1,7 @@
 <x-layout>
     <x-slot:heading>Reservation</x-slot:heading>
     @if($myUnit?->reservation->status === 'checked_in')
-        <div class="w-full max-w-7xl mx-auto px-5 py-7 bg-base-200 min-h-[calc(100vh-4.7rem)]"
+        <div class="w-full max-w-7xl mx-auto px-5 py-7 bg-base-200 min-h-[calc(100vh-4.7rem)] "
              x-data="{
                  open: false,
                  loading: false,
@@ -90,31 +90,38 @@
         </div>
 
     @elseif($myUnit?->reservation->status === 'accepted' && $myUnit?->reservation->payment_status === 'paid')
-        <div class="w-full flex justify-center items-center py-10">
-            <div class="w-full max-w-lg  flex flex-col items-center">
-                <div class=" w-full text-center text-2xl font-semibold mb-8">
-                    <h1>Are you here?</h1>
+        <div class="w-full max-w-lg  mx-auto flex flex-col items-center mt-10 px-3 ">
+            <div class="flex w-full items-center ">
+                <div class="flex-1 text-5xl md:text-6xl font-bold flex flex-col items-start">
+                    <h1>Are you</h1>
+                    <h1 class="text-primary">here?</h1>
                 </div>
-                <div class="w-xs  ">
-                    <img src="{{asset('images/3D-bhouse-model.svg')}}" alt="3D" class="cursor-pointer w-full h-auto object-contain transition-transform duration-300 hover:scale-110" >
-                </div>
-                <div class="w-full mt-3">
-                    <button onclick="confirmAction(
-                            '{{route('reservation.checkedIn', $myUnit->reservation)}}',
-                            'Confirm Check In?',
-                            'Are you sure you want to check in? Your stay begins once confirmed.',
-                            'Yes, I\'m here!',
-                            'Not Yet',
-                            'success'
-
-                        )"
-                            class="btn btn-success  w-full">
-                        Check In
-                    </button>
+                <div class="w-42">
+                    <img src="{{asset('images/user-arrival.svg')}}" alt="user-arrival">
                 </div>
             </div>
+            <div class="flex justify-start items-center  w-full">
+                <p class="w-sm text-sm">Please confirm that you’ve arrived so we can assist you in getting started and settling in</p>
+            </div>
 
+
+            <div class="w-full mt-3">
+                <button onclick="confirmAction(
+                        '{{route('reservation.checkedIn', $myUnit->reservation)}}',
+                        'Confirm Check In?',
+                        'Are you sure you want to check in? Your stay begins once confirmed.',
+                        'Yes, I\'m here!',
+                        'Not Yet',
+                        'success'
+
+                    )"
+                        class="btn btn-primary rounded-3xl  w-full">
+                    Check In
+                    <x-lucide-circle-arrow-right class="w-6 h-6"/>
+                </button>
+            </div>
         </div>
+
     @else
         @if(strtolower(auth()->user()->tenant->getGender()) === 'male')
             <div class="flex justify-center items-center  min-h-[calc(100vh-4.7rem)]">
