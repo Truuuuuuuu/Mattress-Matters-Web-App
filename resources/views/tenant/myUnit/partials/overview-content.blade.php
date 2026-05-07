@@ -13,7 +13,7 @@
 
         <img
             class="w-full h-full object-cover"
-            src="{{ asset('storage/' . $cover->image_path) }}"
+            src="{{ $cover->url  }}"
             alt="Cover"
         />
     </div>
@@ -193,11 +193,7 @@
     <div class="shrink-0 w-full lg:w-96 px-5">
         <h1 class="text-2xl font-semibold mb-3">Host Support</h1>
         <div class="bg-base-100 gap-3 px-5 py-7 flex flex-col justify-evenly rounded-3xl items-center" >
-            <div class="avatar">
-                <div class="mask mask-squircle w-24 bg-purple-700 flex items-center justify-center">
-                    <p class="text-center text-xl font-bold">{{$myUnit->listing->host->user->name[0]}}</p>
-                </div>
-            </div>
+            <x-avatar-squircle :user="$myUnit->listing->host->user" width="24" height="24"/>
             <div class="flex flex-col items-center">
                 <h class="font-semibold text-lg">{{$myUnit->listing->host->user->name}}</h>
                 <div class="badge badge-soft badge-success flex">
