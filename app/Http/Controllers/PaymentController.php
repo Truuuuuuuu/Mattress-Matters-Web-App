@@ -39,8 +39,8 @@ class PaymentController extends Controller
 
 
 
-        $referenceId = 'ORDER-' . strtoupper(Str::random(10));
-        $depositRefId = 'DEPOSIT-' . strtoupper(Str::random(10));
+        $referenceId = strtoupper(Str::random(13));
+        $depositRefId = strtoupper(Str::random(13));
 
         // Single Xendit charge for both reservation fee and security deposit
         $response = Http::withHeaders($this->headers())

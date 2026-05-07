@@ -1,100 +1,111 @@
 <x-layout>
     <x-slot:heading>Payment Success!</x-slot:heading>
-    <div class="px-3 lg:px-0 flex flex-col items-center justify-center min-h-screen">
+    <div class="px-3 lg:px-0 flex flex-col items-center justify-center min-h-screen bg-primary">
 
         @if($payment)
-            <div class="mt-4 p-4 border rounded-lg w-full max-w-lg">
-                <div class="flex flex-col items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="green" class="size-10">
-                        <path fill-rule="evenodd"
-                              d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14Zm3.844-8.791a.75.75 0 0 0-1.188-.918l-3.7 4.79-1.649-1.833a.75.75 0 1 0-1.114 1.004l2.25 2.5a.75.75 0 0 0 1.15-.043l4.25-5.5Z"
-                              clip-rule="evenodd"/>
-                    </svg>
-
-                    <h2 class="text-2xl font-bold text-green-600 "> Payment Successful!</h2>
-                </div>
-                <div class="flex mt-10 space-y-5 ">
-                    <div class="flex-2">
-                        <p class="text-base-content/70 text-sm font-bold">Reference</p>
-                        <p class="-mt-2">{{ $payment->reference_id }}</p>
-                    </div>
-
-                    <div class="flex-1">
-                       <p class="text-base-content/70 text-sm font-bold">Status</p>
-                        <p class="-mt-2">{{$payment->status}}</p>
+            @php
+                $listing = $payment->reservation?->listing
+                    ?? $payment->invoice?->rental?->listing
+                    ?? null;
+            @endphp
+            <div class="flex flex-col items-center px-4 rounded-t-lg bg-base-100 w-full max-w-lg">
+                <div class="relative flex items-center justify-center w-64">
+                    <div class="w-full h-0.5 bg-gray-800 "></div>
+                    <div class="absolute flex items-center justify-center w-12 h-12 rounded-full border-2 bg-primary"  style="border: 3px solid white;">
+                        <x-lucide-check class="w-6 h-6 text-base-100 " stroke-width="3"/>
                     </div>
                 </div>
-                <div>
-                    <p class="text-base-content/70 text-sm font-bold">Description</p>
-                    <p class="-mt-2">{{$payment->description}}</p>
+
+                <div class="w-0.5 h-8 bg-base-100"></div>
+
+                <div class="flex flex-col items-center w-full gap-3">
+                    <div class="flex flex-col items-center ">
+                        <h1 class="text-lg md:text-xl font-semibold text-primary">{{ $listing->host->user->masked_name }}</h1>
+                        <div class="rounded-3xl  bg-primary/10 px-2 font-semibold text-primary">
+                            <p>+63 923 423 9827</p>
+                        </div>
+                    </div>
+                    <p class="text-base-content/70 text-sm">Sent via Gcash</p>
                 </div>
 
-                <x-divider class="border border-black/20 my-4"/>
-                <div class="flex">
+                <div class="w-full  my-3 border border-black/20"></div>
+
+                <div class="flex  w-full items-center">
                     <div class="flex-1 text-base-content/70  font-bold">
-                        <p>Date</p>
-                        <p>Payment Method</p>
-                        <p class="mt-3 text-xs font-semibold">Montly rent cost</p>
-
                         @if($payment->payment_type === 'security_deposit')
                             <p class="text-xs font-semibold">Security deposit</p>
                         @elseif($payment->payment_type === 'rent')
                             <p class="text-xs font-semibold">Monthly rent</p>
                         @elseif($payment->payment_type === 'reservation_fee')
-                            <p class="text-xs font-semibold">Reservation Fee</p>
+                            <p class="text-xs font-semibold">Rental cost</p>
+                            <p class="text-xs font-semibold">Security Deposit</p>
                         @endif
+
 
 
                         <p class="text-xs font-semibold">Electricity cost</p>
                         <p class="text-xs font-semibold">Water supply cost</p>
-                        <p class="text-2xl mt-5">AMOUNT</p>
+
                     </div>
                     <div class="flex-2">
-                        <p class="text-end">{{ $payment->created_at->format('F j, Y g:i A') }}</p>
-                        <p class="text-end">{{ $payment->payment_method }}</p>
-
-                        @php
-                            $listing = $payment->reservation?->listing
-                                ?? $payment->invoice?->rental?->listing
-                                ?? null;
-                        @endphp
                         @if($payment->payment_type !== 'rent')
-                            <p class="text-end text-xs font-semibold mt-3">
-                                ₱{{ $listing ? number_format($listing->rent_cost, 2) : number_format($payment->amount, 2) }}
+                            <p class="text-end text-xs font-semibold ">
+                                {{ $listing ? number_format($listing->rent_cost, 2) : number_format($payment->amount, 2) }}
                             </p>
                         @endif
-                        <p class="text-end text-xs font-semibold mt-3">
-                            ₱{{ $listing ? number_format($listing->rent_cost, 2) : number_format($payment->amount, 2) }}
+                        <p class="text-end text-xs font-semibold ">
+                            {{ $listing ? number_format($listing->rent_cost, 2) : number_format($payment->amount, 2) }}
                         </p>
                         <p class="text-end text-xs font-semibold">
-                            ₱{{ number_format($listing->electricity_cost ?? '0.00', 2) }}
+                            {{ number_format($listing->electricity_cost ?? '0.00', 2) }}
                         </p>
                         <p class="text-end text-xs font-semibold">
-                            ₱{{ number_format($listing->water_supply_cost ?? '0.00', 2) }}
+                            {{ number_format($listing->water_supply_cost ?? '0.00', 2) }}
                         </p>
-                        <p class="text-end text-2xl font-bold mt-5">
-                            ₱{{ number_format(
-                                $payment->payment_type === 'rent'
-                                    ? $payment->monthlyRentalAmount()
-                                    : $payment->totalAmount(),
-                                2
-                            ) }}
-                        </p>
+
                     </div>
                 </div>
 
+                <div class="w-full  my-3 border border-black/50"></div>
+
+                <div class="flex justify-between items-center w-full py-3">
+                    <p class="text-md font-semibold">Total Amount Sent</p>
+                    <p class="text-end text-2xl font-bold">
+                        ₱{{ number_format(
+                            $payment->payment_type === 'rent'
+                                ? $payment->monthlyRentalAmount()
+                                : $payment->totalAmount(),
+                            2
+                        ) }}
+                    </p>
+                </div>
 
             </div>
-        @endif
-            @if($payment->payment_type !== 'rent')
-                <div class="w-full max-w-lg">
-                    <a href="{{route('reservation.index')}}" class="mt-6 px-10 btn btn-primary w-full ">Back</a>
+            <div class="flex w-full max-w-lg flex-col justify-between gap-8 px-4 py-4 bg-base-300 ">
+                <div class=" flex justify-between items-center w-full   ">
+                    <p class="text-sm font-semibold text-base-content/70">Ref No. <span class="text-sm font-semibold text-base-content">{{$payment->reference_id}}</span></p>
+                    <p class="text-xs font-semibold">{{ $payment->created_at->format('M d, Y g:i A') }}</p>
                 </div>
-            @else
-                <div class="w-full max-w-lg">
-                    <a href="{{route('tenant.soa')}}" class="mt-6 px-10 btn btn-primary w-full ">Back</a>
-                </div>
-            @endif
 
+                <div class="bg-success px-3 py-2 rounded-lg opacity-80" style="border-left: 5px solid green;">
+                    <div class="flex justify-start items-center gap-2">
+                        <x-lucide-leaf class="w-5 h-5 text-green-900"/>
+                        <p class=" font-semibold">279g <span class="text-xs">(gCO2e)</span></p>
+                    </div>
+                    <p class="text-xs">By going digital, you reduce your carbon footprint from transportation, paper, and plastic</p>
+                </div>
+            </div>
+        @endif
+        @if($payment->payment_type !== 'rent')
+            <div class="w-full max-w-lg">
+                <a href="{{route('reservation.index')}}" class="mt-6 px-10 btn btn-soft border-2 rounded-3xl w-full ">Done</a>
+            </div>
+        @else
+            <div class="w-full max-w-lg">
+                <a href="{{route('tenant.unit')}}" class="mt-6 px-10 btn btn-primary w-full ">Done</a>
+            </div>
+        @endif
     </div>
+
+
 </x-layout>

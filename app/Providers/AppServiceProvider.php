@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         /*TESTING*/
-       /*URL::forceScheme('https');*/
+       URL::forceScheme('https');
 
 
         // 10 listing image uploads per minute per user

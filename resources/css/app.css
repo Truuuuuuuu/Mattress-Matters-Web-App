@@ -22,3 +22,5 @@
 
 /*prevent reservation modal to flash on load*/
 [x-cloak] { display: none !important; }
+
+

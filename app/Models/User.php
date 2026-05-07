@@ -106,4 +106,15 @@ class User extends Authenticatable
     {
         return explode(' ', $this->name)[0];
     }
+
+
+    public function getMaskedNameAttribute(): string
+    {
+        return collect(explode(' ', strtoupper($this->name)))
+            ->map(function ($word) {
+                if (strlen($word) <= 1) return $word;
+                return $word[0] . str_repeat('.', strlen($word) - 2) . $word[-1];
+            })
+            ->join(' ');
+    }
 }
