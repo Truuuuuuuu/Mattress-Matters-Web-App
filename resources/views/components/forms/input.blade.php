@@ -6,7 +6,7 @@
         'id' => $name,
         'name' => $name,
         'placeholder' => $label,
-        'class' => 'text-base-content border border-black/50  w-full  ',
+        'class' => 'text-base-content w-full  ',
         'value' => old($name),
     ];
 @endphp
