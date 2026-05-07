@@ -1,15 +1,13 @@
 
 <x-layout :hideNavbar="false" >
     <x-slot:heading>Log in</x-slot:heading>
-    <div class="grid lg:grid-cols-2 max-w-full h-screen ">
-        <div class="hidden lg:flex h-screen  justify-center items-center">
-            <img src="{{ asset('images/login-photo1.png') }}" alt="" class="object-contain w-124">
-        </div>
-        <div class="flex items-center justify-center text-base-content">
-            <div class="w-full lg:max-w-md mx-auto px-6">
-                <h2 class="text-center text-lg font-bold ">Log in or sign up</h2>
-                <x-divider class="bg-gray-300 my-3"></x-divider>
-                <h1 class="font-semibold text-xl ">Welcome to Mattress Matters</h1>
+    <div class="h-screen flex items-center w-full bg-cover bg-center bg-no-repeat px-4 " style="background-image: url('{{ asset('images/login-bg.jpg') }}');">
+        <div class="w-full md:max-w-md mx-auto p-6 rounded-3xl
+            bg-white/10 backdrop-blur-lg
+            border border-white/20
+            shadow-lg">
+                <h2 class="text-center text-sm font-semibold text-base-content/70 ">Log in or sign up</h2>
+                <h1 class="font-semibold text-xl text-center">Welcome to Mattress Matters</h1>
                 {{--<x-forms.form method="POST" action="/login" class="mt-5" >
                     <x-forms.input label="Email" name="email" type="email" class="rounded-xl input input-primary input-lg lg:input-md" placeholder="Email" />
                     <x-forms.error name="email"/>
@@ -23,13 +21,13 @@
 
                 <div class="flex flex-col gap-2 mt-5">
                     <!-- Google -->
-                    <a href="{{route('social.redirect', 'google')}}" class="btn bg-white text-black border-black rounded-xl hover:bg-gray-100">
+                    <a href="{{route('social.redirect', 'google')}}" class="btn bg-white rounded-3xl ">
                         <svg aria-label="Google logo" width="25" height="25" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><g><path d="m0 0H512V512H0" fill="#fff"></path><path fill="#34a853" d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"></path><path fill="#4285f4" d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"></path><path fill="#fbbc02" d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"></path><path fill="#ea4335" d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"></path></g></svg>
                         Continue with Google
                     </a>
 
                     <!-- Facebook -->
-                    <a href="{{route('social.redirect', 'facebook')}}" class="btn bg-white border border-black rounded-xl text-gray-700 hover:bg-gray-100 gap-2">
+                    <a href="{{route('social.redirect', 'facebook')}}" class="btn bg-white text-base-content rounded-3xl hover:opacity-80 gap-2">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
@@ -44,10 +42,9 @@
                         Continue with Facebook
                     </a>
                 </div>
-                <p class="text-center text-sm mt-5">Don't have an account? <a href="/email-register" class="text-blue-600">Sign up</a></p>
+                <p class="text-center text-sm mt-5">Don't have an account? <a href="/email-register" class="text-primary font-semibold hover:underline">Sign up</a></p>
             </div>
         </div>
-    </div>
 </x-layout>
 
 
