@@ -19,7 +19,8 @@ class Rental extends Model
         'reservation_id',
         'status',
         'lease_start_date',
-        'updated_at'
+        'updated_at',
+        'ended_at'
     ];
 
     protected $casts = [
