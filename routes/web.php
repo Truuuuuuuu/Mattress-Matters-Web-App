@@ -8,6 +8,7 @@ use App\Http\Controllers\Host\DashboardController;
 use App\Http\Controllers\Host\ListingController;
 use App\Http\Controllers\Host\ManageTenant;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\MoveOutReversalController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProfileImageController;
@@ -179,3 +180,13 @@ Route::middleware(['auth', 'throttle:profile-upload'])->group(function () {
     Route::delete('/user/profile-image', [ProfileImageController::class, 'destroy']) ->name('profile.photo.destroy');
 });
 
+// Tenant: Submit Reversal
+Route::post('/move-out-notices/{notice}/reversals', [MoveOutReversalController::class, 'store'])
+    ->name('reversals.store');
+
+// Host: Approve/Reject
+Route::post('/reversals/{reversal}/approve', [MoveOutReversalController::class, 'approve'])
+    ->name('reversals.approve');
+
+Route::post('/reversals/{reversal}/reject', [MoveOutReversalController::class, 'reject'])
+    ->name('reversals.reject');

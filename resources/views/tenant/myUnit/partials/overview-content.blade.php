@@ -228,25 +228,100 @@
                             date.</p>
                     </div>
                 @else
-                    <div class=" w-full">
-                        <h1 class="text-xl text-warning font-semibold">Move-out Notice Information</h1>
-                        <div class="flex justify-between w-full mt-3">
-                            <div>
-                                <p class="text-xs text-base-content/70 font-semibold">Move-out Date</p>
-                                <p class="text-lg font-semibold">{{ $moveOutNotice->move_out_date->format('M d, Y')  }}</p>
-                            </div>
-                            <div>
-                                <p class="text-xs text-base-content/70 font-semibold">Notice Filed</p>
-                                <p class="text-lg font-semibold">{{ $moveOutNotice->created_at->format('M d, Y')  }}</p>
-                            </div>
-                            <div class="max-w-lg overflow-auto">
-                                <p class="text-xs text-base-content/70 font-semibold">Reason</p>
-                                <p class="text-sm font-semibold">{{ $moveOutNotice->reason  }}</p>
-                            </div>
-                            <div>
-                                <div class="w-full btn btn-primary rounded-3xl">Request to Stay</div>
+                    <div class="w-full">
+                        <h1 class="text-xl text-primary font-semibold">Move-out Notice Information</h1>
+
+
+
+                        <div class="flex flex-col gap-4 w-full mt-3">
+                            <div class="flex justify-between">
+                                <div>
+                                    <p class="text-xs text-base-content/70 font-semibold">Move-out Date</p>
+                                    <p class="text-lg font-semibold">{{ $moveOutNotice->move_out_date->format('M d, Y') }}</p>
+                                </div>
+                                <div>
+                                    <p class="text-xs text-base-content/70 font-semibold">Notice Filed</p>
+                                    <p class="text-lg font-semibold">{{ $moveOutNotice->created_at->format('M d, Y') }}</p>
+                                </div>
+
+                                <div class="w-sm max-w-xl overflow-auto">
+                                    <p class="text-xs text-base-content/70 font-semibold">Reason</p>
+                                    <p class="text-sm font-semibold">{{ $moveOutNotice->reason }}</p>
+                                </div>
                             </div>
 
+                            <!-- The "Request to Stay" Form -->
+                            <div class="mt-4 border-t border-base-content/10 pt-4">
+                                @if($moveOutNotice->canRequestReversal())
+                                    <form action="{{ route('reversals.store', $moveOutNotice->id) }}" method="POST">
+                                        @csrf
+
+                                        <div class="form-control w-full mb-3">
+                                            <label class="label">
+                                                <span class="label-text text-xs text-base-content/70 font-semibold">Why do you want to stay?</span>
+                                            </label>
+                                            <textarea
+                                                name="reason"
+                                                class="textarea textarea-bordered w-full"
+                                                placeholder="Please explain why you are requesting to cancel your move-out..."
+                                                required
+                                            ></textarea>
+
+                                            <!-- Validation Error Display -->
+                                            @error('reason')
+                                            <span class="text-error text-xs mt-1">{{ $message }}</span>
+                                            @enderror
+                                        </div>
+
+                                        <button type="submit" class="w-full btn btn-primary rounded-3xl">
+                                            Request to Stay
+                                        </button>
+                                    </form>
+                                @else
+                                    <!-- Optional: Show why they can't request a reversal right now -->
+                                    @if(!$moveOutNotice->latestReversal)
+                                        <p class="text-sm text-center text-base-content/60 italic mt-2">
+                                            A reversal cannot be requested at this time.
+                                        </p>
+
+
+                                    @else
+                                        @php
+                                            $reversal = $moveOutNotice->latestReversal;
+                                            $status = match($reversal->status) {
+                                                'pending' => ['class' => 'badge-warning',  'label' => 'Pending'],
+                                                'approved' => ['class' => 'badge-success', 'label' => 'Approved'],
+                                                'rejected' => ['class' => 'badge-error', 'label' => 'Rejected'],
+                                                default     => ['class' => 'badge-ghost', 'label' => ucfirst($reversal->status)],
+                                            };
+                                        @endphp
+                                        <div class="flex gap-3 items-center ">
+                                            <h1 class="text-xl text-primary font-semibold">Move-out Reversal</h1>
+                                            <div class="badge badge-soft {{ $status['class'] }} font-semibold rounded-2xl ">
+                                                {{ $status['label'] }}
+                                            </div>
+                                        </div>
+
+                                        <div class="flex justify-between mt-3">
+                                            <div>
+                                                <p class="text-xs text-base-content/70 font-semibold">Awaiting Host Review</p>
+                                                <p class="text-lg font-semibold">{{ $moveOutNotice->rental->listing->host->user->name}}</p>
+                                            </div>
+                                            <div>
+                                                <p class="text-xs text-base-content/70 font-semibold">Reviewed at</p>
+                                                <p class="text-lg font-semibold">{{ $moveOutNotice->latestReversal?->reviewed_at?->format('M d, Y') ?? 'N/A'}}</p>
+                                            </div>
+                                            <div class="w-sm max-w-xl overflow-auto">
+                                                <p class="text-xs text-base-content/70 font-semibold">Host Notes</p>
+                                                <p class="text-lg font-semibold">{{ $moveOutNotice->latestReversal?->host_notes ?? 'N/A'}}</p>
+                                            </div>
+                                        </div>
+                                    @endif
+
+
+
+                                @endif
+                            </div>
                         </div>
                     </div>
                 @endif
@@ -271,9 +346,14 @@
                 @if ($myUnit->moveOutNotice?->isActive() && !$myUnit->moveOutNotice->isCancellable())
                     <div class="badge badge-soft badge-primary italic py-4 text-sm w-full mt-5 flex items-center">
                         <x-lucide-info class="w-5 h-5"/>
-                            <p>
-                                Your move-out notice can no longer be cancelled through this page. If this was a mistake or you’ve changed your mind, you may submit a request to continue your stay.
-                            </p>
+                            @if(!$moveOutNotice->reversals)
+                                <p>
+                                    Your move-out notice can no longer be cancelled through this page. If this was a mistake or you’ve changed your mind, you may submit a request to continue your stay.
+                                </p>
+                            @else
+                                <p>Your move-out reversal request has been submitted and is awaiting approval.</p>
+                            @endif
+
                     </div>
                 @elseif($myUnit->moveOutNotice?->isActive() && $myUnit->moveOutNotice->isCancellable())
                     @if($myUnit->moveOutNotice->hoursUntilCanCancel() <= 4 )

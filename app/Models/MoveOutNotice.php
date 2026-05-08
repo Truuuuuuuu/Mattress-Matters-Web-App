@@ -5,6 +5,8 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class MoveOutNotice extends Model
 {
@@ -25,6 +27,18 @@ class MoveOutNotice extends Model
     {
         return $this->belongsTo(Rental::class);
     }
+
+    public function reversals(): HasMany
+    {
+        return $this->hasMany(MoveOutReversal::class);
+    }
+
+    public function latestReversal(): HasOne
+    {
+        return $this->hasOne(MoveOutReversal::class)->latestOfMany();
+    }
+
+
 
     public function isActive(): bool
     {
@@ -50,6 +64,36 @@ class MoveOutNotice extends Model
 
         return $this->status === 'cancelled'
             && $this->cancelled_at->diffInDays(now()) >= 7;
+    }
+
+    public function canRequestReversal(): bool
+    {
+        if ($this->status !== 'active') {
+            return false;
+        }
+
+        if ($this->isCancellable()) {
+            // Still within the free-cancel window; no reversal needed
+            return false;
+        }
+
+        // Block duplicate requests
+        $latest = $this->latestReversal;
+
+        if ($latest && $latest->isPending()) {
+            return false; // Already has a pending reversal
+        }
+
+        if ($latest && $latest->isApproved()) {
+            return false; // Already reversed
+        }
+
+        return true;
+    }
+
+    public function hasPendingReversal(): bool
+    {
+        return $this->reversals()->where('status', 'pending')->exists();
     }
 
     public function daysUntilCanResubmit(): int
