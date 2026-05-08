@@ -3,11 +3,7 @@
 <div class="bg-base-100 shadow-lg rounded-4xl p-5 gap-5 flex flex-col "
      @click="window.innerWidth < 768 && $dispatch('view-tenant', { url: '{{ route('host.tenants.show', $myTenant) }}' })">
     <div class="flex gap-3  justify-start items-center">
-        <div class="avatar">
-            <div class="mask mask-squircle h-16 w-16 md:h-12 md:w-12 bg-purple-700 flex items-center justify-center">
-                <p class="text-center text-xl font-bold">{{$myTenant->tenant->user->name[0]}}</p>
-            </div>
-        </div>
+        <x-avatar-squircle :user="$myTenant->tenant->user"/>
         <div>
             <h1 class="text-xl font-semibold">{{$myTenant->tenant->user->name}}</h1>
             <div class="flex items-center gap-2">

@@ -3,11 +3,7 @@
 <div class="bg-base-100 shadow-sm rounded-4xl p-5 gap-5 flex flex-col "
      @click="window.innerWidth < 768 && $dispatch('view-tenant', { url: '{{ route('host.tenants.show', $history) }}' })">
     <div class="flex gap-3">
-        <div class="avatar">
-            <div class="mask mask-squircle h-12 w-12 bg-purple-700 flex items-center justify-center">
-                <p class="text-center text-xl font-bold">{{$history->tenant->user->name[0]}}</p>
-            </div>
-        </div>
+        <x-avatar-squircle :user="$history->tenant->user"/>
         <div>
             <h1 class="text-xl font-semibold">{{$history->tenant->user->name}}</h1>
             <p class="text-sm font-semibold text-base-content/70">{{$history->tenant->getOccupation()}}</p>

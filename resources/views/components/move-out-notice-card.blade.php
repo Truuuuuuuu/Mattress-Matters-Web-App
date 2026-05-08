@@ -4,11 +4,7 @@
 
 <div class="card bg-base-100 rounded-4xl px-4 py-4 " >
     <div class="flex flex-start items-center gap-4 ">
-        <div class="avatar avatar-placeholder">
-            <div class="bg-purple-700 w-12 mask mask-squircle">
-                <span class="text-lg font-bold">J</span>
-            </div>
-        </div>
+        <x-avatar-squircle :user="$movingOutTenant->tenant->user"/>
         <div class=" w-full">
             <p class="-mb-2 font-semibold">{{$movingOutTenant->tenant->user->name }}</p>
             <p class="text-sm text-base-content/60 line-clamp-1">{{$movingOutTenant->listing?->title}}</p>
@@ -119,7 +115,7 @@
                 @elseif($movingOutTenant->moveOutNotice->status === 'cancelled')
                     <div class="flex justify-between w-full  rounded-xl text-sm badge badge-error badge-soft">
                         <p class="text-md font-semibold text-red-700">Cancelled</p>
-                        <p class="text-xs ">{{$movingOutTenant->moveOutNotice->updated_at->format('M d, Y g:i A')}}</p>
+                        <p class="text-xs ">{{$movingOutTenant->moveOutNotice->cancelled_at->format('M d, Y g:i A')}}</p>
                     </div>
                 @elseif($movingOutTenant->moveOutNotice->status === 'completed')
                     <div class="flex w-full justify-center items-center rounded-xl text-sm badge badge-success badge-soft p-3">
