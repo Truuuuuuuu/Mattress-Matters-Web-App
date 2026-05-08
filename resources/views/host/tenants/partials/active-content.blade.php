@@ -2,13 +2,7 @@
 <div x-show="activeView === 'cards'" x-transition class="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-7" >
     @forelse($myTenants as $myTenant)
         <x-tenant-card :$myTenant/>
-        <x-tenant-card :$myTenant/>
-        <x-tenant-card :$myTenant/>
-        <x-tenant-card :$myTenant/>
-        <x-tenant-card :$myTenant/>
-        <x-tenant-card :$myTenant/>
-        <x-tenant-card :$myTenant/>
-        <x-tenant-card :$myTenant/>
+
     @empty
         <div class="col-span-full  mx-auto  text-base-content/70 italic ">
             <img src="{{asset('images/tenants.svg')}}" alt="Tenants" class="w-32 lg:w-64">
@@ -34,9 +28,7 @@
             <tbody>
             @forelse($myTenants as $myTenant)
                 <x-tenant-list :$myTenant/>
-                <x-tenant-list :$myTenant/>
-                <x-tenant-list :$myTenant/>
-                <x-tenant-list :$myTenant/>
+
             @empty
                 <tr>
                     <td colspan="4" class=" text-center text-base-content/70 italic">

@@ -35,7 +35,7 @@
             </div>
             <div >
                 <p class="text-xs font-semibold text-base-content/70">TENANT SINCE</p>
-                <p class="text-md font-semibold line-clamp-1">{{$myTenant->lease_start_date->format('M d, Y')}}</p>
+                <p class="text-md font-semibold line-clamp-1">{{$myTenant->lease_start_date?->format('M d, Y') ?? 'Awaiting check-in'}}</p>
             </div>
         </div>
     </div>
@@ -51,7 +51,7 @@
     <div class="flex md:hidden items-center pl-1">
         <div class="flex-1 flex gap-2">
             <x-lucide-calendar class="text-base-content/70 w-4 h-4"/>
-            <p class="text-sm font-semibold text-base-content/70">{{$myTenant->lease_start_date->format('M d, Y')}}</p>
+            <p class="text-sm font-semibold text-base-content/70">{{$myTenant->lease_start_date?->format('M d, Y') ?? 'Awaiting check-in'}}</p>
         </div>
         <h1 class="text-xl text-primary font-bold">₱{{number_format($myTenant->totalAmountDue(),2)}}</h1>
     </div>
