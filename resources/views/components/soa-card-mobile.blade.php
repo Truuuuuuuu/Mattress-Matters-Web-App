@@ -9,7 +9,7 @@
         </div>
         <div class="w-full">
             <div>
-                <div class="flex w-full  justify-between">
+                <div class="flex w-full  justify-between ">
                     <div>
                         <p class="text-md font-semibold">{{ \Carbon\Carbon::parse($invoice->period_month)->format('F Y') }}</p>
                     </div>
@@ -33,7 +33,7 @@
                         @endif
                     </div>
                 </div>
-                <div class="flex justify-between  ">
+                <div class="flex justify-between  py-2 ">
                     <div>
                         <p class="text-sm text-base-content/70 font-semibold">
                             DUE {{$invoice->due_date->format('M d, Y')}}</p>

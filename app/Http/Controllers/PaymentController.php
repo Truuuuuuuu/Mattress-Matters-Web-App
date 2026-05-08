@@ -317,6 +317,11 @@ class PaymentController extends Controller
 
         $invoice->update(['status' => 'paid']);
 
+        $host = $payment->invoice->rental->listing->host;
+        $host->update([
+            'balance' => $host->balance + $payment->amount,
+        ]);
+
         // optional: notify tenant their payment was confirmed
         $invoice->rental->tenant->user->notify(new RentPaidNotification($invoice));
     }

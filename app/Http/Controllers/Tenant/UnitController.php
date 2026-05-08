@@ -34,15 +34,15 @@ class UnitController extends Controller
                     'due_date' => null,
                     'month' => Carbon::parse($latestInvoice->due_date)->format('M'),
                 ];
-            } elseif ($latestInvoice->status === 'unpaid') {
-                // Check if overdue
-                $isOverdue = $latestInvoice->due_date < now();
+            } elseif (in_array($latestInvoice->status, ['unpaid', 'overdue'])) {
+                $isOverdue = $latestInvoice->status === 'overdue'
+                    || $latestInvoice->due_date < now();
 
                 $invoiceInfo = [
-                    'status' => $isOverdue ? 'overdue' : 'unpaid',
-                    'due_date' => $latestInvoice->due_date,
-                    'invoice' => $latestInvoice,
-                    'is_overdue' => $isOverdue,
+                    'status'      => $isOverdue ? 'overdue' : 'unpaid',
+                    'due_date'    => $latestInvoice->due_date,
+                    'invoice'     => $latestInvoice,
+                    'is_overdue'  => $isOverdue,
                     'days_overdue' => $isOverdue ? $latestInvoice->due_date->diffInDays(now()) : 0,
                 ];
             }

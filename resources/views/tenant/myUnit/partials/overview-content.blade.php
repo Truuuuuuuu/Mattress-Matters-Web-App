@@ -64,7 +64,7 @@
                 @elseif($invoiceInfo['status'] === 'paid')
                     Wait for next invoice
                 @elseif($invoiceInfo['status'] === 'overdue')
-                    <span class="text-error">{{ $invoiceInfo['due_date']?->format('F d, Y') }}</span>
+                    <span class="text-red-700">{{ $invoiceInfo['due_date']?->format('F d, Y') }}</span>
                 @else
                     {{ $invoiceInfo['due_date']?->format('F d, Y') }}
                 @endif
