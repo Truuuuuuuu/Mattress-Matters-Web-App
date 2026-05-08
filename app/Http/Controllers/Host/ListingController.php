@@ -21,7 +21,7 @@ class ListingController extends Controller
             ->where('host_id', auth()->user()->host->id)
             ->get();
         $host = auth()->user()->host;
-        return view('host.listings', compact('listings'))
+        return view('host.listings', compact('listings', 'host'))
             ->with(Host::dashboardStats($host));
     }
 
