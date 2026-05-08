@@ -301,6 +301,11 @@ class PaymentController extends Controller
                 'reservation_id' => $reservation->id,
                 'status'         => 'active',
             ]);
+
+            $host = $reservation->listing->host;
+            $host->update([
+                'balance' => $host->balance + $payment->totalAmount(),
+            ]);
         }
     }
 

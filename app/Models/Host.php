@@ -13,6 +13,7 @@ class Host extends Model
 
     public $fillable = [
         'user_id',
+        'balance',
     ];
 
     public function user(): BelongsTo

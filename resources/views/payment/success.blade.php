@@ -10,7 +10,6 @@
             @endphp
             <div class="flex flex-col items-center px-4 rounded-t-lg bg-base-100 w-full max-w-lg">
                 <div class="relative flex items-center justify-center w-64">
-                    <div class="w-full h-0.5 bg-gray-800 "></div>
                     <div class="absolute flex items-center justify-center w-12 h-12 rounded-full border-2 bg-primary"  style="border: 3px solid white;">
                         <x-lucide-check class="w-6 h-6 text-base-100 " stroke-width="3"/>
                     </div>

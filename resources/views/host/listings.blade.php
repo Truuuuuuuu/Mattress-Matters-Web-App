@@ -20,7 +20,7 @@
             </div>
             <div class=" flex flex-col justify-center w-full rounded-3xl bg-base-100  p-5" >
                 <p class="text-sm font-semibold text-base-content/70">Total Earnings</p>
-                <h1 class="text-4xl text-primary md:text-5xl font-semibold">₱{{ $host->balance }}</h1>
+                <h1 class="text-4xl text-primary md:text-5xl font-semibold">₱{{ number_format($host->balance,2) }}</h1>
             </div>
         </div>
 
