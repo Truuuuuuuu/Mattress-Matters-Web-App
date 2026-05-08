@@ -69,9 +69,9 @@ class UnitController extends Controller
             ->orderBy('due_date', 'desc')
             ->get();
 
-        $moveOutNotice = $rental->moveOutNotice->first();
 
-        return view('tenant.myUnit.my-unit', compact('myUnit', 'invoiceInfo', 'invoices', 'rental', 'nextDue', 'moveOutNotice' ));
+
+        return view('tenant.myUnit.my-unit', compact('myUnit', 'invoiceInfo', 'invoices', 'rental', 'nextDue' ));
     }
 
     public function store(Rental $rental, Request $request) {
