@@ -3,25 +3,26 @@
 @props(['activeReservation'])
 
 
-<div class="flex flex-col rounded-3xl w-full max-w-xl p-5 gap-4 " style="box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15)">
+<div class="flex flex-col rounded-3xl w-full max-w-xl p-5 gap-4 "
+     style="box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15)">
 
     <div class="flex gap-4 items-center flex-1 min-w-0 ">
         <x-avatar-squircle :listing="$activeReservation->listing" width="24" height="24"/>
 
         <div class="min-w-0">
             @if($activeReservation->status === 'pending')
-                <div class="badge badge-warning badge-soft  gap-1 " >
+                <div class="badge badge-warning badge-soft  gap-1 ">
                     <span class="size-2 rounded-full bg-warning"></span>
                     <p class="text-xs font-semibold">Pending</p>
                 </div>
             @elseif($activeReservation->status === 'accepted' && $activeReservation->payment_status === 'unpaid')
-                <div class="badge badge-success badge-soft  gap-1 " >
+                <div class="badge badge-success badge-soft  gap-1 ">
                     <span class="size-2 rounded-full bg-success"></span>
                     <p class="text-xs font-semibold">Confirmed</p>
                 </div>
 
             @elseif($activeReservation->status === 'accepted' && $activeReservation->payment_status === 'paid')
-                <div class="badge badge-success badge-soft  gap-1 " >
+                <div class="badge badge-success badge-soft  gap-1 ">
                     <span class="size-2 rounded-full bg-success"></span>
                     <p class="text-xs font-semibold">Confirmed</p>
                 </div>
@@ -34,11 +35,13 @@
             </a>
 
             <div class="flex gap-3 items-center ">
-                <p class="text-sm font-semibold text-base-content/70">₱{{ number_format($activeReservation->listing->rent_cost, 2) }}</p>
+                <p class="text-sm font-semibold text-base-content/70">
+                    ₱{{ number_format($activeReservation->listing->rent_cost, 2) }}</p>
                 <div class="w-px h-5 bg-gray-300 mx-1"></div>
                 <div class="w-full flex items-center justify-start gap-3">
                     <x-lucide-calendar-1 class="w-4 h-4 text-primary"/>
-                    <p class="text-sm font-semibold text-base-content/70">START DATE: {{$activeReservation->start_date->format('M d, Y')}}</p>
+                    <p class="text-sm font-semibold text-base-content/70">START
+                        DATE: {{$activeReservation->start_date->format('M d, Y')}}</p>
                 </div>
             </div>
         </div>
@@ -46,13 +49,13 @@
 
     <div class="w-full">
         @if($activeReservation->status === 'accepted' && $activeReservation->payment_status === 'unpaid')
-            <div class="badge badge-warning badge-soft  gap-1 flex items-center w-full" >
+            <div class="badge badge-warning badge-soft  gap-1 flex items-center w-full">
                 <x-lucide-info class="text-warning w-3 h-3"/>
                 <p class="text-xs font-semibold"> Please complete your payment within 48 hours.</p>
             </div>
 
         @elseif($activeReservation->status === 'accepted' && $activeReservation->payment_status === 'paid')
-            <div class="badge badge-success badge-soft  gap-1 flex items-center w-full" >
+            <div class="badge badge-success badge-soft  gap-1 flex items-center w-full">
                 <x-lucide-circle-check-big class="text-success w-3 h-3"/>
                 <p class="text-xs font-semibold"> You're all set! Please check in upon arrival.</p>
             </div>
@@ -76,7 +79,8 @@
                 @include('components.confirm-modal')</div>
         @elseif($activeReservation->status === 'accepted')
             <div class="flex gap-3 flex-1">
-                <a href="{{route('messages.show', $activeReservation->listing->host)}}" class="btn btn-primary rounded-3xl btn-md flex-1">
+                <a href="{{route('messages.show', $activeReservation->listing->host)}}"
+                   class="btn btn-primary rounded-3xl btn-md flex-1">
                     Message
                 </a>
                 @if($activeReservation->payment_status === 'unpaid')
@@ -100,11 +104,11 @@
         @endif
 
 
-        <a @click="window.dispatchEvent(new CustomEvent('view-reservation', { detail: { url: '{{ route('reservation.show', $activeReservation) }}' } }))" class="flex justify-center items-center btn btn-circle btn-md bg-primary/10 hover:opacity-80">
+        <a @click="window.dispatchEvent(new CustomEvent('view-reservation', { detail: { url: '{{ route('reservation.show', $activeReservation) }}' } }))"
+           class="flex justify-center items-center btn btn-circle btn-md bg-primary/10 hover:opacity-80">
             <x-lucide-info class="w-5 h-5 text-primary"/>
         </a>
     </div>
-
 
 
 </div>

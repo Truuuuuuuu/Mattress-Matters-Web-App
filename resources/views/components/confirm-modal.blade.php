@@ -1,6 +1,6 @@
 {{-- Reusable Confirmation Modal --}}
 <dialog id="confirm_modal" class="modal">
-    <div class="modal-box">
+    <div class="modal-box ">
         <h3 class="font-bold text-lg" id="modal_title"></h3>
         <p class="py-4 text-sm text-gray-500" id="modal_message"></p>
         <div class="modal-action">

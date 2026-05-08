@@ -8,7 +8,8 @@
                 <x-avatar-squircle :user="$reservation->listing->host->user"/>
                 <div>
                     <h1 class="text-xl font-semibold">{{$reservation->listing->host->user->name}}</h1>
-                    <p class="text-sm font-semibold text-base-content/70">Host since {{$reservation->listing->host->created_at->format('Y')}}</p>
+                    <p class="text-sm font-semibold text-base-content/70">Host
+                        since {{$reservation->listing->host->created_at->format('Y')}}</p>
                 </div>
             @else
                 <x-avatar-squircle :user="$reservation->tenant->user"/>
@@ -25,9 +26,10 @@
         </div>
     </div>
     <div class="w-full  p-5 bg-base-200 flex flex-col justify-between">
-        <div >
+        <div>
             <h1 class="text-2xl font-semibold">Reservation Request</h1>
-            <p class="text-xs font-semibold text-base-content/70">Please review the financial breakdown and reservation details before confirming the rental.</p>
+            <p class="text-xs font-semibold text-base-content/70">Please review the financial breakdown and reservation
+                details before confirming the rental.</p>
         </div>
 
         <div class="bg-base-100 border-base-300 rounded-3xl p-3 flex justify-between items-center my-3">
@@ -39,14 +41,14 @@
             <div class=" flex justify-center   w-full ">
                 @if($reservation->status !== 'accepted')
                     @php
-                    $statusConfig = match($reservation->status) {
-                        'pending' => ['class' => 'badge-warning', 'label' => 'Pending'],
-                        'declined'  => ['class' => 'badge-error',    'label' => 'Declined'],
-                        'cancelled' => ['class' => 'badge-error',  'label' => 'Cancelled'],
-                        'checked_in' => ['class' => 'badge-primary', 'label' => 'Active'],
-                        'completed' => ['class' => 'badge-neutral', 'label' => 'Moved-out'],
-                        default     => ['class' => 'badge-ghost',    'label' => ucfirst($reservation->status)],
-                    };
+                        $statusConfig = match($reservation->status) {
+                            'pending' => ['class' => 'badge-warning', 'label' => 'Pending'],
+                            'declined'  => ['class' => 'badge-error',    'label' => 'Declined'],
+                            'cancelled' => ['class' => 'badge-error',  'label' => 'Cancelled'],
+                            'checked_in' => ['class' => 'badge-primary', 'label' => 'Active'],
+                            'completed' => ['class' => 'badge-neutral', 'label' => 'Moved-out'],
+                            default     => ['class' => 'badge-ghost',    'label' => ucfirst($reservation->status)],
+                        };
                     @endphp
                 @else
                     @if($reservation->payment_status === 'unpaid')
@@ -87,7 +89,8 @@
                 </div>
                 <div class="flex justify-between">
                     <p class="text-xs text-base-content/70">Security Deposit</p>
-                    <p class="text-xs text-base-content font-semibold">₱{{ number_format($reservation->listing->rent_cost, 2) }}</p>
+                    <p class="text-xs text-base-content font-semibold">
+                        ₱{{ number_format($reservation->listing->rent_cost, 2) }}</p>
                 </div>
                 @if($reservation->status !== 'checked_in' && $reservation->status !== 'completed')
                     <div class="flex justify-between">
@@ -147,9 +150,9 @@
             @endif
 
             @if(auth()->user()->hasRole('tenant') )
-                    @if($reservation->status === 'pending')
-                        <div class="flex-1">
-                            <button onclick="confirmAction(
+                @if($reservation->status === 'pending')
+                    <div class="flex-1">
+                        <button onclick="confirmAction(
                         '{{route('reservation.cancel', $reservation)}}',
                         'Cancel Reservation?',
                         'Are you sure you want to cancel this reservation? This cannot be undone.',
@@ -157,28 +160,28 @@
                         'Keep Reservation'
 
                         )"
-                        class="btn btn bg-red-500  w-full text-base-100 hover:bg-red-600 w-full text-base-100 rounded-3xl py-5 text-lg">
+                                class="btn btn bg-red-500  w-full text-base-100 hover:bg-red-600 w-full text-base-100 rounded-3xl py-5 text-lg">
                             Cancel Reservation
                         </button>
                         @include('components.confirm-modal')</div>
                 @elseif($reservation->status === 'accepted')
-                        @if($reservation->payment_status === 'unpaid')
-                            <button
+                    @if($reservation->payment_status === 'unpaid')
+                        <button
 
-                                id="pay-btn"
-                                class="btn btn-white btn-xl py-3 w-full mt-3 rounded-3xl border-blue-900"
-                                data-url="/payment/{{ $reservation->id}}/gcash"
-                                data-amount="{{ $reservation->listing->rent_cost }}"
-                                data-amount-electric="{{ $reservation->listing->electricity_cost ?? '' }}"
-                                data-amount-water="{{ $reservation->listing->water_supply_cost ?? '' }}"
-                                data-description="Reservation for {{ $reservation->listing->title }}">
-                                <img src="{{asset('images/Gcash-logo.svg')}}" alt="" class="w-8 h-8">
-                                Pay with GCash
-                            </button>
-                            <div id="error-msg" class="hidden text-red-500 mt-2"></div>
-                        @endif
-
+                            id="pay-btn"
+                            class="btn btn-white btn-xl py-3 w-full mt-3 rounded-3xl border-blue-900"
+                            data-url="/payment/{{ $reservation->id}}/gcash"
+                            data-amount="{{ $reservation->listing->rent_cost }}"
+                            data-amount-electric="{{ $reservation->listing->electricity_cost ?? '' }}"
+                            data-amount-water="{{ $reservation->listing->water_supply_cost ?? '' }}"
+                            data-description="Reservation for {{ $reservation->listing->title }}">
+                            <img src="{{asset('images/Gcash-logo.svg')}}" alt="" class="w-8 h-8">
+                            Pay with GCash
+                        </button>
+                        <div id="error-msg" class="hidden text-red-500 mt-2"></div>
                     @endif
+
+                @endif
             @endif
 
         </div>
