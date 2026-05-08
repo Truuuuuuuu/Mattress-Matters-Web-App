@@ -108,11 +108,11 @@
             <div class="w-full mt-3">
                 <button onclick="confirmAction(
                         '{{route('reservation.checkedIn', $myUnit->reservation)}}',
-                        'Confirm Check In?',
+                        'Confirm Check-In?',
                         'Are you sure you want to check in? Your stay begins once confirmed.',
                         'Yes, I\'m here!',
                         'Not Yet',
-                        'success'
+                        'btn-primary'
 
                     )"
                         class="btn btn-primary rounded-3xl  w-full">

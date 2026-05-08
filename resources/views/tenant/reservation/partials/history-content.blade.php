@@ -4,7 +4,7 @@
         <x-history-reservation-card :$reservation />
     @empty
         <div class="col-span-full flex flex-col items-center justify-center py-16 text-base-content/70 italic space-y-5">
-            <img src="{{asset('images/empty-record.svg')}}" alt="Empty record" class="w-32 lg:w-64">
+            <img src="{{asset('images/empty-record.svg')}}" alt="Empty record" class="w-12 lg:w-32">
             <p>You have no history of reservation</p>
         </div>
     @endforelse

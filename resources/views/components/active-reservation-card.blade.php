@@ -66,7 +66,8 @@
                 'Cancel Reservation?',
                 'Are you sure you want to cancel this reservation? This cannot be undone.',
                 'Yes, Cancel',
-                'Keep Reservation'
+                'Keep Reservation',
+                'bg-red-600'
 
             )"
                         class="btn bg-red-500  w-full text-base-100 hover:bg-red-600 rounded-3xl py-5 text-lg">

@@ -166,7 +166,10 @@ class ReservationController extends Controller
 
         $reservation->update([
             'status' => 'cancelled',
+            'cancelled_by' => 'user',
         ]);
+
+
 
         return redirect()->route('reservation.index')->with('success', 'Reservation cancelled');
     }
@@ -174,7 +177,8 @@ class ReservationController extends Controller
     public function decline(Reservation $reservation)
     {
         $reservation->update([
-           'status' => 'declined'
+            'status' => 'declined',
+            'cancelled_by' => 'host'
         ]);
 
         return redirect()->route('reservation.index')->with('success', 'Reservation declined');

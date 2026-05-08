@@ -4,7 +4,7 @@
         <x-active-reservation-card :$activeReservation />
     @else
         <div class="col-span-full flex flex-col items-center justify-center py-16 text-base-content/70 italic space-y-5">
-            <img src="{{asset('images/active-reservation.svg')}}" alt="Reservation" class="w-32 lg:w-64">
+            <img src="{{asset('images/active-reservation.svg')}}" alt="Reservation" class="w-12 lg:w-32">
             <p class="text-base-content/70 text-center italic">You don't have any active reservations right now</p>
         </div>
     @endif

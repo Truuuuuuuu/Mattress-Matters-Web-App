@@ -126,9 +126,10 @@
                     <button onclick="confirmAction(
                             '{{route('reservation.decline', $reservation)}}',
                             'Decline Reservation?',
-                            'Are you sure you want to decline this reservation? You are one step closer to securing this place',
+                            'Are you sure you want to decline this reservation? The guest will be notified',
                             'Yes, Decline',
-                            'Cancel'
+                            'Cancel',
+                            'bg-red-600'
 
                         )"
                             class="btn btn-base-100 rounded-3xl  w-full">
