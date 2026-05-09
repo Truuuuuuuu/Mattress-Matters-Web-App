@@ -7,15 +7,8 @@
                  alt="Cover Photo"
                  class="w-full h-full object-cover rounded-3xl ">
         </div>--}}
-        <div class="avatar h-24 w-full flex justify-center">
-            <div class="mask mask-squircle  bg-purple-700 flex items-center justify-center">
-                @php
-                    $initials = collect(explode(' ', $rental->tenant->user->name))
-                        ->map(fn($word) => strtoupper($word[0]))
-                        ->join('');
-                @endphp
-                <h1 class="text-center text-3xl font-bold">{{$initials}}</h1>
-            </div>
+        <div class="flex justify-center">
+            <x-avatar-squircle :user="$rental->tenant->user" class="w-24 h-24"/>
         </div>
         <div class="flex flex-col items-center">
             <h1 class="text-lg font-semibold text-base-content">{{$rental->tenant->user->name}}</h1>

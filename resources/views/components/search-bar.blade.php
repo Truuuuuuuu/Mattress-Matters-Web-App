@@ -4,7 +4,7 @@
             :label="false"
             name="search"
             placeholder="Search here..."
-            class="rounded-4xl border-transparent bg-base-100 input input-primary input-lg text-sm pr-12 w-full"
+            class="rounded-4xl bg-base-100 input input-primary input-lg text-sm pr-12 w-full"
             value="{{ request('search') }}" />
 
         <button type="submit" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-primary transition cursor-pointer">
