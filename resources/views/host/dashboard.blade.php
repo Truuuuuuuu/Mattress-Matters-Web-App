@@ -1,7 +1,7 @@
 <x-layout>
     <x-slot:heading>dashboard</x-slot:heading>
 
-    <div class="w-full max-w-7xl mx-auto px-5 py-7 bg-base-200 min-h-[calc(100vh-5rem)]"
+    <div class="w-full max-w-7xl mx-auto px-5 py-7 bg-primary/[4%]  min-h-[calc(100vh-5rem)]"
          x-data="{
              open: false,
              loading: false,
@@ -29,11 +29,16 @@
          }"
          @view-reservation.window="viewReservation($event.detail.url)"
          @keydown.escape.window="close()">
-            <div class="flex gap-3 mb-4  items-center">
-                <x-avatar-squircle :user="auth()->user()" width="12" height="12"/>
-                <div>
-                    <p class="text-xs text-base-content/70">{{auth()->user()->host->greetings()}}</p>
-                    <p class="text-lg text-primary font-semibold">{{ auth()->user()->name }}</p>
+            <div class="flex mb-5  justify-between items-center">
+                <div class="flex gap-3">
+                    <x-avatar-squircle :user="auth()->user()" width="12" height="12"/>
+                    <div>
+                        <p class="text-xs md:text-sm text-base-content/70">{{auth()->user()->host->greetings()}}</p>
+                        <p class="text-lg md:text-xl text-primary font-semibold">{{ auth()->user()->name }}</p>
+                    </div>
+                </div>
+                <div class="px-5 py-5">
+
                 </div>
             </div>
 
@@ -47,7 +52,7 @@
                                                icon="square-arrow-right-exit"/>
                 </div>
             </div>
-            <div class="flex flex-col-reverse lg:flex-row gap-4">
+            <div class="flex flex-col-reverse lg:flex-row gap-4 mt-2">
 
                 <div class="w-full">
                     <h1 class="text-xl text-primary font-semibold">Upcoming Check-ins</h1>

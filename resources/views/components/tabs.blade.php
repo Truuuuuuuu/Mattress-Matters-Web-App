@@ -17,7 +17,8 @@
     }
 }">
     {{-- For large screen --}}
-    <div class="hidden md:flex justify-between bg-base-100 rounded-3xl p-3 border border-base-300">
+    <div class="hidden md:flex justify-between bg-base-100 rounded-3xl p-3 backdrop-blur-lg
+            border border-white/20 shadow-xs">
 
         {{-- Tab Buttons --}}
         <div class="flex-1 flex justify-start items-center gap-2">

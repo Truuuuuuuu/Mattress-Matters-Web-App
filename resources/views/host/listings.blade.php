@@ -1,7 +1,7 @@
 <x-layout>
     <x-slot:heading>Listings</x-slot:heading>
 
-    <div class="w-full max-w-7xl mx-auto  px-5 py-10 bg-base-200 min-h-[calc(100vh-5rem)]">
+    <div class="w-full max-w-7xl mx-auto  px-5 py-10 bg-primary/[4%]  min-h-[calc(100vh-5rem)]">
         <div class="lg:px-12 xl:px-8">
             <div class="flex justify-between items-center ">
                 <h1 class="text-3xl text-primary font-semibold">My Listings</h1>
@@ -18,7 +18,8 @@
                 <x-host-dashboard-top-card :count="$active_listings" label="ACTIVE LISTINGS" icon="building" />
                 <x-host-dashboard-top-card :count="$total_tenants" label="TOTAL TENANTS" icon="users" />
             </div>
-            <div class=" flex flex-col justify-center w-full rounded-3xl bg-base-100  p-5" >
+            <div class=" flex flex-col justify-center w-full rounded-3xl bg-base-100  p-5 backdrop-blur-lg
+            border border-white/20 shadow-xs" >
                 <p class="text-sm font-semibold text-base-content/70">Total Earnings</p>
                 <h1 class="text-4xl text-primary md:text-5xl font-semibold">₱{{ number_format($host->balance,2) }}</h1>
             </div>
