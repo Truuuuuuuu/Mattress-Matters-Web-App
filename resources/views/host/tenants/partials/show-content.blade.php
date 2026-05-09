@@ -43,13 +43,13 @@
                 <p class="text-sm font-semibold ">09123456789</p>
             </div>
         </div>
-        @if($rental->status === 'active')
+       {{-- @if($rental->status === 'active')
             <div class="hidden md:flex flex-col rounded-2xl bg-error/20 p-3 border border-error/50">
                 <p class="text-sm font-semibold text-error-content">DANGER ZONE</p>
                 <p class="text-xs ">Permanent action. This will terminate the legal agreement.</p>
                 <a href="#" class="btn bg-red-700 rounded-2xl w-full my-2 text-base-100">Kick Out</a>
             </div>
-        @endif
+        @endif--}}
 
     </div>
     <div class="w-full  p-5 bg-base-200 flex flex-col justify-between">
@@ -99,12 +99,12 @@
         <div class="flex justify-between gap-3 mt-5">
             <a href="#" class="btn btn-primary btn-outline  w-full border-primary rounded-2xl">Statement of Account</a>
         </div>
-        @if($rental->status === 'active')
+        {{--@if($rental->status === 'active')
             <div class="md:hidden my-8 flex-col rounded-2xl bg-error/20 p-3 border border-error/50">
                 <p class="text-sm font-semibold text-error-content">DANGER ZONE</p>
                 <p class="text-xs ">Permanent action. This will terminate the legal agreement.</p>
                 <a href="#" class="btn bg-red-700 rounded-2xl w-full my-2 text-base-100">Kick Out</a>
             </div>
-        @endif
+        @endif--}}
     </div>
 </div>
