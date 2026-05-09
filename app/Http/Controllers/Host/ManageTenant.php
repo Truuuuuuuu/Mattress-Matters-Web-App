@@ -19,7 +19,7 @@ class ManageTenant extends Controller
             ->whereHas('listing', fn($q) => $q->where('host_id', $user->id))
             ->where('status', 'active')
             ->latest()
-            ->paginate(3);
+            ->paginate(20, ['*'], 'activeTenants')->withQueryString();
 
         $movingOutTenants = Rental::with(['moveOutNotice.latestReversal','listing', 'tenant.user', 'reservation'])
             ->whereHas('moveOutNotice', fn($q) => $q->whereIn('status', ['active', 'completed', 'cancelled']))
@@ -31,7 +31,7 @@ class ManageTenant extends Controller
             ->whereHas('listing', fn($q) => $q->where('host_id', $user->id))
             ->where('status', 'ended')
             ->latest()
-            ->paginate(3);
+            ->paginate(20,['*'], 'historyTenants')->withQueryString();
 
 
         return view('host.tenants.index', compact(['myTenants', 'movingOutTenants', 'tenantHistory']));

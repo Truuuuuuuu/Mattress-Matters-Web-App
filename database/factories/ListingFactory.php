@@ -13,14 +13,16 @@ class ListingFactory extends Factory
     public function definition(): array
     {
         return [
-            'host_id' => Host::factory(),
+            'host_id' => 1,
             'title' => fake()->company(),
             'address' => fake()->address(),
             'description' => fake()->text(10),
-            'price' => fake()->randomFloat(2, 1500, 3000),
-            'status' => fake()->randomElement(['available', 'unavailable']),
+            'rent_cost' => fake()->randomFloat(2, 1500, 3000),
+            'electricity_cost' => fake()->randomFloat(2, 0, 500),
+            'water_supply_cost' => fake()->randomFloat(2, 0, 500),
+            'availability' => 'available',
+            'status' => 'active',
             'gender' => fake()->randomElement(['male', 'female']),
-            'tenant_type' => fake()->randomElement(['student', 'regular']),
             'slot' => fake()->numberBetween(2,9),
             'created_at' => fake()->dateTime(),
             'updated_at' => fake()->dateTime(),
