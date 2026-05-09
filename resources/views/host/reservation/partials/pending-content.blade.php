@@ -8,7 +8,10 @@
             <p class="text-base-content/70 text-center italic">You have no pending reservations today</p>
         </div>
     @endforelse
+
+
 </div>
+
 
 
 {{-- List View --}}
@@ -40,3 +43,5 @@
         </table>
     </div>
 </div>
+
+{{ $pendingReservations->links()  }}

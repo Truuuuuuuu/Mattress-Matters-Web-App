@@ -7,29 +7,22 @@
     'titleSubHeading' => ''
 ])
 
-<div x-data="{
-    activeTab: new URLSearchParams(window.location.search).get('tab') || '{{ $default }}',
-    activeView: 'cards',
-    setTab(tab) {
-        const url = new URL(window.location);
-        url.searchParams.set('tab', tab);
-        window.location.href = url.toString();
-    }
-}">
-    {{-- For large screen --}}
+<div x-data="{ activeTab: '{{ $default }}', activeView: 'cards' }">
+    {{--For large screen--}}
     <div class="hidden md:flex justify-between bg-base-100 rounded-3xl p-3 border border-base-300">
 
         {{-- Tab Buttons --}}
-        <div class="flex-1 flex justify-start items-center gap-2">
+        <div class=" flex-1 flex justify-start items-center gap-2">
             @foreach ($tabs as $tab)
                 <button
-                    @click="setTab('{{ $tab }}')"
+                    @click="activeTab = '{{ $tab }}'"
                     class="btn rounded-2xl btn-sm capitalize line-clamp-1"
                     :class="activeTab === '{{ $tab }}' ? 'btn-primary' : 'btn-ghost'">
                     {{ ucfirst($tab) }}
                 </button>
             @endforeach
         </div>
+
 
         {{-- Right Side --}}
         <div class="flex-1 flex justify-end items-center">
@@ -55,15 +48,15 @@
         </div>
     </div>
 
-    {{-- For small screen --}}
-    <div class="md:hidden p-3 space-y-5">
+    {{--For small screen--}}
+    <div class="md:hidden p-3 space-y-5" >
         @if($showSearchBar)
             <x-search-bar />
         @endif
         <div class="flex w-full justify-between items-center">
             <div>
-                <h1 class="text-3xl text-primary font-semibold">{{ $title }}</h1>
-                <p class="font-semibold text-md text-base-content/70">{{ $titleSubHeading }}</p>
+                <h1 class="text-3xl text-primary font-semibold">{{$title}}</h1>
+                <p class="font-semibold text-md text-base-content/70">{{$titleSubHeading}}</p>
             </div>
             @if ($showViewToggle)
                 <div class="flex gap-2">
@@ -80,18 +73,20 @@
                 </div>
             @endif
         </div>
-
-        {{-- Mobile Tab Buttons --}}
+        {{-- Tab Buttons --}}
         <div class="w-full bg-base-100 rounded-3xl p-4 flex justify-center items-center gap-2">
             @foreach ($tabs as $tab)
                 <button
-                    @click="setTab('{{ $tab }}')"
+                    @click="activeTab = '{{ $tab }}'"
                     class="btn rounded-2xl btn-md capitalize"
                     :class="activeTab === '{{ $tab }}' ? 'btn-primary' : 'btn-ghost'">
                     {{ ucfirst($tab) }}
                 </button>
             @endforeach
         </div>
+
+        {{-- Right Side --}}
+
     </div>
 
     {{-- Panels --}}

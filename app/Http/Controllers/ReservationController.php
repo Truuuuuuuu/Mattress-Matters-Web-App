@@ -19,6 +19,11 @@ class ReservationController extends Controller
         $user = auth()->user();
 
         if($user->hasRole('host')){
+            if (!request()->has('tab')) {
+                return redirect()->route('reservation.index', [
+                    'tab' => 'pending'
+                ]);
+            }
             $pendingReservations = Reservation::with([
                 'listing',
                 'tenant.user',
@@ -26,7 +31,7 @@ class ReservationController extends Controller
             ->whereHas('listing', fn($q) => $q->where('host_id', $user->id))
             ->where('status', 'pending')
             -> latest()
-            ->paginate(10);
+            ->paginate(20, ['*'], 'pending_reservations')->withQueryString();
 
             $acceptedReservations = Reservation::with([
                 'listing',
@@ -35,7 +40,7 @@ class ReservationController extends Controller
                 ->whereHas('listing', fn($q) => $q->where('host_id', $user->id))
                 ->where('status', 'accepted')
                 -> latest()
-                ->paginate(10);
+                ->paginate(20, ['*'], 'accepted_reservations')->withQueryString();
 
             $historyReservations = Reservation::with([
                 'listing',
@@ -44,7 +49,7 @@ class ReservationController extends Controller
                 ->whereHas('listing', fn($q) => $q->where('host_id', $user->id))
                 ->whereIn('status', ['declined', 'cancelled', 'completed', 'expired', 'checked_in'])
                 -> latest()
-                ->paginate(10);
+                ->paginate(20, ['*'], 'history_reservations')->withQueryString();
 
             return view('host.reservation.index', compact('pendingReservations', 'acceptedReservations', 'historyReservations'));
         }

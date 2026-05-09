@@ -12,7 +12,7 @@ class ReservationFactory extends Factory
             'tenant_id'      => 1,
             'listing_id'     => 1,
             'start_date'     => $this->faker->dateTimeBetween('-6 months', 'now')->format('Y-m-d'),
-            'status'         => 'accepted',
+            'status'         => 'completed',
             'payment_status' => 'paid',
             'cancelled_by'   => null,
         ];

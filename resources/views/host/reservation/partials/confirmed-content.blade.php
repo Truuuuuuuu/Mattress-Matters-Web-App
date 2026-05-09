@@ -40,3 +40,5 @@
         </table>
     </div>
 </div>
+
+{{ $acceptedReservations->links()  }}
