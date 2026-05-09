@@ -22,7 +22,6 @@ class ListingFactory extends Factory
             'water_supply_cost' => fake()->randomFloat(2, 0, 500),
             'availability' => 'available',
             'status' => 'active',
-            'gender' => fake()->randomElement(['male', 'female']),
             'slot' => fake()->numberBetween(2,9),
             'created_at' => fake()->dateTime(),
             'updated_at' => fake()->dateTime(),

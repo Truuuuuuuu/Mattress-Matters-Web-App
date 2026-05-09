@@ -33,6 +33,8 @@
                     </p>
                 @endforelse
         </div>
+
+        {{$listings->links()}}
     </div>
 
     {{-- FAB: visible only on mobile --}}
@@ -40,4 +42,6 @@
        class="sm:hidden fixed bottom-24 right-6 z-50 btn btn-circle w-20 h-20 shadow-lg bg-primary text-white border-none">
         <x-lucide-plus class="w-12 h-12"/>
     </a>
+
+
 </x-layout>

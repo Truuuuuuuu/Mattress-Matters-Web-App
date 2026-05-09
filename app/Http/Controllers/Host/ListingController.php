@@ -19,7 +19,8 @@ class ListingController extends Controller
     public function index(){
         $listings = Listing::with('images')
             ->where('host_id', auth()->user()->host->id)
-            ->get();
+            ->latest()
+            ->paginate(20);
         $host = auth()->user()->host;
         return view('host.listings', compact('listings', 'host'))
             ->with(Host::dashboardStats($host));
