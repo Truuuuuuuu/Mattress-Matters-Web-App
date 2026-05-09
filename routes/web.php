@@ -174,7 +174,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/messages/{user}', [MessageController::class, 'send'])->name('messages.send');
 });
 
-Route::middleware(['auth', 'throttle:profile-upload'])->group(function () {
+Route::middleware(['auth'/*, 'throttle:profile-upload'*/])->group(function () {
     /*Route::post('/user/profile-image', [ProfileImageController::class, 'store'])->name('profile.image.store')*/;
     Route::post('/profile', [ProfileController::class, 'update']) ->name('profile.update');
     Route::delete('/user/profile-image', [ProfileImageController::class, 'destroy']) ->name('profile.photo.destroy');

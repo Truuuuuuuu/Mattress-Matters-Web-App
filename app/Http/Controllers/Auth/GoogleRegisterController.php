@@ -33,7 +33,6 @@ class GoogleRegisterController extends Controller
         $user = User::create([
             'name' => $attributes['name'],
             'email' => $attributes['email'],
-            'password' => null,
             'google_id' => $request->provider_id
         ]);
 

@@ -35,14 +35,19 @@ class ProfileController extends Controller
 
     public function update(Request $request)
     {
+
         $request->validate([
             'name'  => ['required', 'string', 'max:255'],
+            'about' => ['nullable', 'string', 'max:500'],
             'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
         ]);
 
         $user = $request->user();
 
-        $user->update(['name' => $request->name]);
+        $user->update([
+            'name' => $request->name,
+            'about' => $request->about,
+        ]);
 
         if ($request->hasFile('image')) {
             // 1. Missing — old image never deleted, orphans pile up in Cloudinary
@@ -65,6 +70,7 @@ class ProfileController extends Controller
             'message' => 'Profile updated successfully',
 
             'name'              => $user->fresh()->name,
+            'about'              => $user->fresh()->about,
             'profile_photo_url' => $user->fresh()->profile_photo_url,
         ]);
     }

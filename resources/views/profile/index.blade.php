@@ -1,10 +1,10 @@
 <x-layout>
     <x-slot:heading>My Profile</x-slot:heading>
 
-  <div class="w-full max-w-7xl mx-auto px-3 lg:px-8 text-base-content bg-base-200 min-h-[calc(100vh-5rem)]">
-      <div class="grid gap-4 md:grid-cols-[1fr_2fr] place-self-center w-full">
+  <div class="w-full max-w-7xl mx-auto p-3 lg:px-8 text-base-content bg-base-200 min-h-[calc(100vh-5rem)]">
+      <div class="grid gap-4 md:grid-cols-[1fr_2fr] place-self-center w-full ">
           <div class=" space-y-5">
-              <div class=" py-5 px-4 rounded-3xl bg-base-100 mt-5"  >
+              <div class=" py-5 px-4 rounded-3xl bg-base-100 "  >
                   <div class="flex flex-col items-center" >
                      <x-avatar-squircle :user="$profile->user"/>
                       <h1 data-profile-name class="text-xl font-bold">{{$profile->user->name}}</h1>
@@ -50,6 +50,7 @@
                   <div x-data="{
                     open: false,
                     name: '{{ auth()->user()->name }}',
+                    about: @js(auth()->user()->about),
                     photoPreview: '{{ auth()->user()->profile_photo_url ?? '' }}',
                     photoFile: null,
                     loading: false,
@@ -71,6 +72,7 @@
 
                     const formData = new FormData();
                     formData.append('name', this.name);
+                    formData.append('about', this.about);
 
                     if (this.photoFile) {
                         formData.append('image', this.photoFile);
@@ -114,6 +116,10 @@
                         //  Update name
                         document.querySelectorAll('[data-profile-name]').forEach(el => {
                             el.textContent = data.name;
+                        });
+
+                        document.querySelectorAll('[data-profile-about]').forEach(el => {
+                            el.textContent = data.about;
                         });
 
                         document.querySelectorAll('[data-profile-initial-name]').forEach(el => {
@@ -178,7 +184,7 @@
                           </div>
                       </div>
 
-                      <button  @click="open = true" class="btn w-full btn-outline btn-neutral rounded-3xl mt-3">
+                      <button  @click="open = true" class="btn w-full btn-outline btn-primary rounded-3xl mt-3">
                           Edit Profile
                       </button>
 
@@ -254,6 +260,19 @@
                                   <p x-show="errors.name" x-text="errors.name?.[0]" class="text-xs text-error"></p>
                               </div>
 
+                              {{--About  field--}}
+                              <div class="flex flex-col gap-1">
+                                  <label class="text-sm font-medium">About</label>
+                                  <textarea
+                                      type="text"
+                                      x-model="about"
+                                      class="p-3 textarea min-h-32 resize-none textarea-bordered focus:textarea-primary rounded-2xl w-full"
+                                      placeholder="Tell us about yourself"
+                                      :class="errors.about ? 'input-error' : ''"
+                                  ></textarea>
+                                  <p x-show="errors.about" x-text="errors.about?.[0]" class="text-xs text-error"></p>
+                              </div>
+
                               {{-- General Error --}}
                               <p x-show="errors.general" x-text="errors.general" class="text-xs text-error text-center"></p>
 
@@ -285,15 +304,21 @@
 
               <div class=" py-5 rounded-3xl px-5 bg-base-100" >
                   <h1 class="text-lg font-bold mb-4 text-primary">About</h1>
-                  <p>Hello, this is a placeholder <only class=""></only></p>
+                  <p data-profile-about> {{$profile->user->about }}</p>
               </div>
           </div>
 
-          <div class=" flex justify-center items-center bg-base-100 rounded-3xl" >
-                content here
+          <div class=" flex flex-col p-5 bg-base-100 rounded-3xl" >
+              @if(auth()->user()->hasRole('host'))
+                  <h1 class="text-xl md:text-3xl text-primary font-semibold">Community Feedback</h1>
+              @else
+                  <h1 class="text-xl md:text-3xl text-primary font-semibold">Previous Stays</h1>
+              @endif
+
+
           </div>
-          <div class="lg:hidden py-2 flex flex-col gap-3 justify-center items-center">
-              <a href="{{route('settings.index')}}" class="flex  items-center justify-between btn btn-outline rounded-3xl py-7 w-full">
+          <div class="lg:hidden py-2 flex flex-col gap-3 justify-center items-center bg-base-100 rounded-3xl">
+              <a href="{{route('settings.index')}}" class="flex  items-center justify-between btn btn-ghost rounded-3xl py-7 w-full">
                   <div class="flex justify-start items-center gap-3">
                       <x-lucide-settings class="w-5 h-5"/>
                       <p>Settings</p>
@@ -304,7 +329,7 @@
               <form method="POST" action="/logout" class=" w-full" >
                   @csrf
                   @method('DELETE')
-                  <button class="flex justify-start items-center btn text-base-content rounded-3xl py-7 btn-text-base-contnent btn-outline w-full">
+                  <button class="flex justify-start items-center btn text-base-content rounded-3xl py-7 btn-text-base-contnent btn-ghost w-full">
                       <x-lucide-log-out class="w-5 h-5"/>
                       <p>Log Out</p>
                   </button>

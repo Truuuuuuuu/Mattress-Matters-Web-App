@@ -278,7 +278,7 @@
     @endif
 
 
-    <main class="pb-20 lg:pb-0">
+    <main class="pb-20 lg:pb-0 bg-base-200">
         @include('components.confirm-modal')
         {{ $slot }}
     </main>

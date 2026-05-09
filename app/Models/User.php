@@ -30,6 +30,7 @@ class User extends Authenticatable
         'google_id',
         'theme',
         'profile_photo_public_id',
+        'about',
     ];
 
     /**

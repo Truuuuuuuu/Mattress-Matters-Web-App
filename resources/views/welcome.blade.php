@@ -42,17 +42,19 @@
             {{--Display Latest Listings--}}
 
             {{-- WIDE VIEW --}}
-            <div class="mt-5 px-5 max-w-7xl mx-auto w-full">
-                <h1 class="text-xl font-semibold">Find Your Perfect Stay</h1>
-            </div>
+
+            @if(!$listings->isEmpty())
+                <div class="mt-5 px-5 max-w-7xl mx-auto w-full">
+                    <h1 class="text-xl font-semibold">Find Your Perfect Stay</h1>
+                </div>
+            @endif
+
             <div class="hidden xl:grid grid-cols-2 xl:grid-cols-4 gap-x-6 gap-y-3 mt-2 max-w-7xl mx-auto px-5 w-full">
                 @forelse($listings as $listing)
                     <x-bhouse-card :$listing/>
 
                 @empty
-                    <p class="col-span-full text-center text-gray-500">
-                        No listings available.
-                    </p>
+
                 @endforelse
             </div>
 
