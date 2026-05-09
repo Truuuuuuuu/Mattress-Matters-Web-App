@@ -84,7 +84,7 @@
                     {{-- Show Limited Pages (Max 5) --}}
                     @for ($page = $start; $page <= $end; $page++)
                         @if ($page == $current)
-                            <span class="btn btn-circle btn-neutral btn-md mx-2">
+                            <span class="btn btn-circle btn-primary btn-md mx-2">
                                 {{ $page }}
                             </span>
                         @else

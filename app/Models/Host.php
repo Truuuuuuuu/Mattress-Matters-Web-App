@@ -51,7 +51,8 @@ class Host extends Model
             ->where('status', 'accepted')
             ->where('payment_status', 'paid')
             ->select('id', 'tenant_id', 'listing_id', 'start_date')
-            ->get();
+            ->latest()
+            ->paginate(5);
         return [
             'active_listings'      => $host->listings()->active()->count(),
             'total_tenants'        => $host->rentals()->where('rentals.status', 'active')->count(),

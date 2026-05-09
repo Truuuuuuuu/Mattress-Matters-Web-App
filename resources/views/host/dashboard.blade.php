@@ -97,9 +97,10 @@
                             <tfoot>
                             </tfoot>
                         </table>
+                        {{ $reservations->links() }}
                     </div>
                 </div>
-                <div class="flex justify-center items-center w-full lg:w-112 ">
+                <div class="flex justify-center items-start w-full lg:w-112 ">
                     <x-card-hover-3d/>
                 </div>
             </div>
