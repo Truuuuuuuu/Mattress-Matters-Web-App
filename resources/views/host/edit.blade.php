@@ -1,7 +1,7 @@
 <x-layout>
     <x-slot:heading>Edit page</x-slot:heading>
 
-    <div class="px-20 py-10">
+    <div class="px-3 w-full max-w-7xl">
         <x-forms.form method="PATCH" action="{{ route('host.update', $listing) }}" enctype="multipart/form-data">
             {{--Basic info--}}
             <section class="space-y-5">
@@ -62,7 +62,7 @@
                                     <H1 class="text-3xl font-bold leading-none">PHP</H1>
                                     <input type="number" id="rent_cost" name="rent_cost" min="1" max="99999" value="{{$listing->rent_cost}}"
                                            oninput="if(this.value.length > 5) this.value = this.value.slice(0,5);"
-                                           class="text-3xl w-64 border-b-3 border-black focus:ring-0 focus:outline-none block" required>
+                                           class="text-3xl w-32 lg:w-64 border-b-3 border-black focus:ring-0 focus:outline-none block" required>
                                 </div>
 
                                 <p class="text-sm text-gray-500 mt-2">
@@ -130,7 +130,7 @@
                     <section>
                         <div>
                             <h1 class="text-3xl font-semibold">What does your place offer?</h1>
-                            <div class="grid grid-cols-3 gap-4 mt-5">
+                            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-5">
 
                                 @foreach($amenities as $amenity)
                                     <x-option-card
@@ -359,7 +359,7 @@
                                 <section>
                                     <div>
                                         <h1 class="text-3xl font-semibold">{{ $header }} Policy</h1>
-                                        <div class="{{ $rules->count() === 3 ? 'grid grid-cols-3' : 'grid grid-cols-2' }} gap-7 mt-5">
+                                        <div class="{{ $rules->count() === 3 ? 'grid lg:grid-cols-3' : 'grid lg:grid-cols-2' }} gap-7 mt-5">
                                             @foreach($rules as $rule)
                                                 <x-option-card
                                                     type="radio"

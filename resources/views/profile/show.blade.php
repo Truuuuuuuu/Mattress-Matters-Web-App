@@ -15,20 +15,23 @@
                     </div>
 
 
-                    <div class="w-full grid grid-cols-3  mt-10 px-4">
-                        <div class=" flex flex-col items-center">
-                            <div class="flex flex-col items-center justify-center h-12">
-                                <h1 class="font-bold">{{$profile->listings_count}}</h1>
-                                <p class="text-xs font-semibold text-base-content/70 text-center justify-center">LISTINGS</p>
+                    <div class="w-full flex justify-between  mt-10 px-4">
+                        @if($profile->user->hasRole('host'))
+                            <div class=" flex flex-col items-center">
+                                <div class="flex flex-col items-center justify-center h-12">
+                                    <h1 class="font-bold">{{$profile->listings_count}}</h1>
+                                    <p class="text-xs font-semibold text-base-content/70 text-center justify-center">LISTINGS</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class=" flex flex-col items-center">
-                            <div class="flex flex-col items-center justify-center h-12">
-                                <h1 class="font-bold">5</h1>
-                                <p class="text-xs font-semibold text-base-content/70 justify-center">RATING</p>
+                            <div class=" flex flex-col items-center">
+                                <div class="flex flex-col items-center justify-center h-12">
+                                    <h1 class="font-bold">5</h1>
+                                    <p class="text-xs font-semibold text-base-content/70 justify-center">RATING</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="  flex flex-col items-center ">
+                        @endif
+
+                        <div class="  flex flex-col items-center mx-auto">
                             <div class="flex flex-col items-center justify-center h-12">
                                 <h1 class="font-bold text-center">{{$profile->created_at->format('Y')}}</h1>
                                 <p class="text-xs font-semibold text-base-content/70 text-center justify-center">JOINED </p>

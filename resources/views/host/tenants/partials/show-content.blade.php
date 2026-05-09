@@ -74,7 +74,7 @@
                 <div class="flex flex-col">
                     <p class="text-xs font-semibold text-base-content/70">RENTAL PERIOD</p>
                     <div class="flex justify-between items-center">
-                        <P class="text-md font-semibold text-base-content">{{$rental->lease_start_date->format('M d, Y')}}</p>
+                        <P class="text-md font-semibold text-base-content">{{$rental->lease_start_date?->format('M d, Y') ?? 'Awaiting...' }}  </p>
                         <x-lucide-move-right class="w-4 h-4"/>
                         <p>N/A</p>
                     </div>
