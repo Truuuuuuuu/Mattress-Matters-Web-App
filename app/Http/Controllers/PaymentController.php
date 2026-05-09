@@ -94,6 +94,7 @@ class PaymentController extends Controller
             'amount'         => $request->amount + $amountUtilities,
             'description'    => $request->description,
             'payment_method' => 'GCASH',
+            'expires_at'     => now()->addMinutes(5),
             'created_at'     => now(),
         ]);
 
@@ -107,6 +108,7 @@ class PaymentController extends Controller
             'amount'         => $depositAmount,
             'description'    => 'Security Deposit',
             'payment_method' => 'GCASH',
+            'expires_at'     => now()->addMinutes(5),
             'created_at'     => now(),
         ]);
 

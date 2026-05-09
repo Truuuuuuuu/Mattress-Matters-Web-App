@@ -1,7 +1,7 @@
 <x-layout>
     <x-slot:heading>Edit page</x-slot:heading>
 
-    <div class="px-3 w-full max-w-7xl">
+    <div class="px-3 w-full max-w-7xl py-5">
         <x-forms.form method="PATCH" action="{{ route('host.update', $listing) }}" enctype="multipart/form-data">
             {{--Basic info--}}
             <section class="space-y-5">
@@ -385,8 +385,8 @@
             </section>
 
             <div class="flex justify-end gap-3">
-                    <button type="button" onclick="history.back()" class="btn btn-neutral w-25">Cancel</button>
-                <button type="submit" class="btn btn-primary w-25">Save</button>
+                <button type="button" onclick="history.back()" class="btn btn-ghost rounded-3xl">Cancel</button>
+                <button type="submit" class="btn btn-primary rounded-3xl px-10">Save</button>
             </div>
         </x-forms.form>
     </div>

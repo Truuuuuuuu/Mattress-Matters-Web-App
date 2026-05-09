@@ -25,7 +25,7 @@
                     <img src="{{ asset('images/logo-only.svg') }}" alt="" class="w-10 h-auto">
                 </div>
                 <div class="space-x-6 font-semibold ">
-                    <a href="/user-option" class="btn btn-primary">Get Started</a>
+                    <a href="{{ route('email.register') }}" class="btn btn-primary">Get Started</a>
                     <a href="/login" class="text-base-content">Sign in</a>
                 </div>
             </nav>
@@ -258,7 +258,7 @@
 
     {{--toast--}}
     @if(session()->hasAny(['success', 'error', 'info', 'warning']))
-        <div id="toast-container" class="toast toast-top toast-center z-[100] mt-16">
+        <div id="toast-container" class="toast toast-top toast-center z-[100] mt-5 lg:mt-16">
             @foreach(['success', 'error', 'info', 'warning'] as $type)
                 @if(session($type))
                     @php

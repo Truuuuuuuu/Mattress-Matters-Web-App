@@ -39,9 +39,10 @@
                     ₱{{ number_format($activeReservation->listing->rent_cost, 2) }}</p>
                 <div class="w-px h-5 bg-gray-300 mx-1"></div>
                 <div class="w-full flex items-center justify-start gap-3">
-                    <x-lucide-calendar-1 class="w-4 h-4 text-primary"/>
-                    <p class="text-sm font-semibold text-base-content/70">START
-                        DATE: {{$activeReservation->start_date->format('M d, Y')}}</p>
+                    <x-lucide-calendar-1 class="hidden sm:flex w-4 h-4 text-primary"/>
+                    <p class="text-sm font-semibold text-base-content/70">
+                        <span class="hidden sm:inline">START DATE:</span>
+                        {{$activeReservation->start_date->format('M d, Y')}}</p>
                 </div>
             </div>
         </div>
@@ -51,7 +52,7 @@
         @if($activeReservation->status === 'accepted' && $activeReservation->payment_status === 'unpaid')
             <div class="badge badge-warning badge-soft  gap-1 flex items-center w-full">
                 <x-lucide-info class="text-warning w-3 h-3"/>
-                <p class="text-xs font-semibold"> Please complete your payment within 48 hours.</p>
+                <p class="text-xs font-semibold"> Please complete your payment within 48 hrs</p>
             </div>
 
         @elseif($activeReservation->status === 'accepted' && $activeReservation->payment_status === 'paid')
@@ -94,7 +95,8 @@
                         data-amount-water="{{ $activeReservation->listing->water_supply_cost ?? '' }}"
                         data-description="Reservation for {{ $activeReservation->listing->title }}">
                         <img src="{{asset('images/Gcash-logo.svg')}}" alt="" class="w-8 h-8">
-                        Pay with GCash
+                            <span class="sm:hidden">GCash</span>
+                            <span class="hidden sm:inline">Pay with GCash</span>
                     </button>
                 @endif
 

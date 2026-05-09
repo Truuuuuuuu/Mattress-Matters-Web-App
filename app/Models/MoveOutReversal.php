@@ -48,4 +48,12 @@ class MoveOutReversal extends Model
     {
         return $this->status === 'rejected';
     }
+
+    public function isCooldown(): bool
+    {
+        if (!$this->reviewed_at) {
+            return false;
+        }
+        return $this->reviewed_at->diffInDays(now()) < 3;
+    }
 }

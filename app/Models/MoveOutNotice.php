@@ -71,6 +71,9 @@ class MoveOutNotice extends Model
 
     public function canRequestReversal(): bool
     {
+        if($this->latestReversal?->isCooldown()) {
+            return false;
+        }
         if ($this->status !== 'active') {
             return false;
         }

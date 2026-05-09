@@ -74,7 +74,7 @@
 
                                     <textarea
                                         name="host_notes"
-                                        class="textarea w-full rounded-3xl min-h-32 resize-none overflow-auto focus:primary"
+                                        class="textarea w-full rounded-3xl min-h-32 focus:textarea-primary resize-none overflow-auto focus:primary"
                                         placeholder="Add notes for the tenant (optional)"
                                     ></textarea>
 

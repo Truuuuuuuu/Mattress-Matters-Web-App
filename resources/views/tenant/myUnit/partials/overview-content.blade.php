@@ -291,7 +291,7 @@
                                         <p class="text-sm text-center text-base-content/60 italic mt-2">
                                             A reversal cannot be requested at this time.
                                         </p>
-                                    @else
+                                    @elseif($myUnit->moveOutNotice->latestReversal)
                                         @php
                                             $reversal = $myUnit->moveOutNotice->latestReversal;
                                             $status = match($reversal->status) {
@@ -319,7 +319,7 @@
                                             </div>
                                             <div class="w-sm max-w-xl overflow-auto">
                                                 <p class="text-xs text-base-content/70 font-semibold">Host Notes</p>
-                                                <p class="text-lg font-semibold">{{ $myUnit->moveOutNotice->latestReversal?->host_notes ?? 'N/A'}}</p>
+                                                <p class="text-sm font-semibold">{{ $myUnit->moveOutNotice->latestReversal?->host_notes ?? 'N/A'}}</p>
                                             </div>
                                         </div>
                                     @endif
@@ -341,11 +341,18 @@
             {{-- Warning messages span full width below --}}
             <div>
                 @if ($myUnit->moveOutNotice?->isActive() && !$myUnit->moveOutNotice->isCancellable())
-                    @if($myUnit->moveOutNotice->latestReversal)
+                    @if($myUnit->moveOutNotice->latestReversal->isCooldown())
+                        <div class="badge badge-soft badge-primary italic py-6 text-sm w-full mt-5 flex items-center">
+                            <x-lucide-info class="w-5 h-5"/>
+                            <p>You can submit another request in 3 days </p>
+                        </div>
+                    @elseif($myUnit->moveOutNotice->latestReversal->isPending())
                         <div class="badge badge-soft badge-primary italic py-6 text-sm w-full mt-5 flex items-center">
                             <x-lucide-info class="w-5 h-5"/>
                             <p>Your move-out reversal request has been submitted and is awaiting approval.</p>
                         </div>
+                    @else
+                        <p></p>
                     @endif
                 @elseif($myUnit->moveOutNotice?->isActive() && $myUnit->moveOutNotice?->isCancellable())
                     @if($myUnit->moveOutNotice->hoursUntilCanCancel() <= 4 )

@@ -39,7 +39,7 @@
                     Back
                 </button>
 
-                <button type="button" id="nextBtn" onclick="nextStep()" class="btn btn-neutral px-10">
+                <button type="button" id="nextBtn" onclick="nextStep()" class="btn btn-primary px-10">
                     Next
                 </button>
 

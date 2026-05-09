@@ -127,7 +127,7 @@
             <div class="flex justify-center items-center  min-h-[calc(100vh-4.7rem)]">
                 <div class="flex flex-col  items-center justify-center ">
                     <img src="{{asset('images/Empty-rental-male.svg')}}" alt="empty-rental" class="w-34 lg:w-64">
-                    <h1 class="text-2xl text-primary font-semibold">"Oops, you don’t have a rental yet.”</h1>
+                    <h1 class="text-xl md:text-2xl text-primary font-semibold">"Oops, you don’t have a rental yet.”</h1>
                     <p class="text-base-content/70">Find a place that suits your first stay.</p>
                 </div>
             </div>
