@@ -64,5 +64,15 @@ class Host extends Model
         ];
     }
 
+    public function greetings()
+    {
+        $hour = now()->hour;
+
+        return match (true) {
+            $hour < 12 => 'Good morning',
+            $hour < 18 => 'Good afternoon',
+            default => 'Good evening',
+        };
+    }
 
 }

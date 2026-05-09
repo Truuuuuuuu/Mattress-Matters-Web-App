@@ -1,4 +1,4 @@
-<div class="space-y-10 px-25">
+<div class="space-y-10 px-2">
     <section>
         <div class="space-y-10">
             @php
@@ -8,8 +8,8 @@
             @foreach($allRules as $header => $rules)
                 <section>
                     <div>
-                        <h1 class="text-3xl font-semibold">{{$header}} Policy</h1>
-                        <div class="{{$rules->count() === 3 ? 'grid grid-cols-3': 'grid grid-cols-2'}} gap-7 mt-5">
+                        <h1 class="text-3xl font-semibold text-primary">{{$header}} Policy</h1>
+                        <div class="{{$rules->count() === 3 ? 'grid md:grid-cols-3': 'grid md:grid-cols-2'}} gap-7 mt-5">
                             @foreach($rules as $rule)
                                 <x-option-card type="radio" name="{{$rule->name}}" value="{{$rule->id}}" icon="{{$rule->icon}}"
                                                label="{{ucfirst($rule->description)}}">{{$rule->description}}

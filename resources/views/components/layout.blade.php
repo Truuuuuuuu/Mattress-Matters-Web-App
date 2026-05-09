@@ -59,7 +59,7 @@
             </a>
             <a href="{{ route('profile.index') }}"
                class="flex flex-col items-center text-xs gap-1 {{request()->routeIs('profile.index') ? 'font-bold text-primary' : 'text-base-content/70'}}">
-                <x-lucide-user-circle class="w-5 h-5" stroke-width="{{request()->routeIs('profile.index') ? 2.5 : 2}}"/>
+                <x-lucide-message-circle-more class="w-5 h-5" stroke-width="{{request()->routeIs('profile.index') ? 2.5 : 2}}"/>
                 <span
                     class="{{request()->routeIs('profile.index') ? 'text-primary' : 'text-base-content'}}">Profile</span>
             </a>
@@ -99,13 +99,13 @@
                     stroke-width="{{request()->routeIs('host.tenants.index', 'host.tenants.show') ? 2.5 : 2}}"/>
                 <span class="{{request()->routeIs('host.tenants.index') ? 'text-primary' : 'text-base-content'}}">Tenants</span>
             </a>
-            <a href="{{ route('profile.index') }}"
-               class="flex flex-col items-center text-xs gap-1 {{request()->routeIs('profile.index') ? 'font-bold text-base-content' : 'text-base-content/70'}}">
-                <x-lucide-user-circle
-                    class="w-5 h-5 {{request()->routeIs('profile.index') ? 'text-primary' : 'text-base-content'}}"
-                    stroke-width="{{request()->routeIs('profile.index') ? 2.5 : 2}}"/>
+            <a href="{{ route('messages.inbox') }}"
+               class="flex flex-col items-center text-xs gap-1 {{request()->routeIs('messages.inbox') ? 'font-bold text-base-content' : 'text-base-content/70'}}">
+                <x-lucide-message-circle-more
+                    class="w-5 h-5 {{request()->routeIs('messages.inbox') ? 'text-primary' : 'text-base-content'}}"
+                    stroke-width="{{request()->routeIs('messages.inbox') ? 2.5 : 2}}"/>
                 <span
-                    class="{{request()->routeIs('profile.index') ? 'text-primary' : 'text-base-content'}}">Profile</span>
+                    class="{{request()->routeIs('messages.inbox') ? 'text-primary' : 'text-base-content'}}">Message</span>
             </a>
         </nav>
         @endrole

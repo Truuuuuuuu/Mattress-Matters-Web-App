@@ -29,11 +29,12 @@
          }"
          @view-reservation.window="viewReservation($event.detail.url)"
          @keydown.escape.window="close()">
-            <div>
-                <h1 class="text-2xl md:text-3xl text-primary font-bold">Welcome
-                    back, {{auth()->user()->first_name}}</h1>
-                <p class="text-xs md:text-sm font-semibold text-base-content/70">Here’s an overview of your activity
-                    today</p>
+            <div class="flex gap-3 mb-4  items-center">
+                <x-avatar-squircle :user="auth()->user()" width="12" height="12"/>
+                <div>
+                    <p class="text-xs text-base-content/70">{{auth()->user()->host->greetings()}}</p>
+                    <p class="text-lg text-primary font-semibold">{{ auth()->user()->name }}</p>
+                </div>
             </div>
 
             <div>

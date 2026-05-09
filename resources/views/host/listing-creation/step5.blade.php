@@ -1,12 +1,11 @@
 
 <div class="space-y-10">
-    <div class="grid px-20 mt-10"><h1 class="text-3xl font-semibold">Review & Confirm</h1></div>
-
     {{--STEP 1--}}
     <section>
-        <div class="grid place-items-center">
+        <div class="grid place-items-center py-8">
 
             <section>
+                <h1 class="text-3xl font-semibold text-primary">Review & Confirm</h1>
                 <div class="flex items-center gap-4 my-6">
                     <div class="flex-1 h-px bg-base-content"></div>
                     <span class="text-sm font-semibold text-base-content">
@@ -44,7 +43,7 @@
                         <div class="flex justify-start gap-5">
                             <H1 class="text-3xl font-bold leading-none">SLOT</H1>
                             <input type="number" id="review_slot"  min="1" readonly
-                                   class="text-3xl w-30 border-b-3 border-black/40 focus:ring-0 focus:outline-none block" required>
+                                   class="text-3xl w-30 border-b-3 text-base-content/40 focus:ring-0 focus:outline-none block" required>
                         </div>
                         <p class="text-sm text-gray-500 mt-2">
                             Specify how many tenants this listing can accommodate.
@@ -79,7 +78,7 @@
                         <div class="flex justify-start gap-5">
                             <H1 class="text-3xl font-bold leading-none">PHP</H1>
                             <input type="number" id="review_rent_cost"  min="1" tabindex="-1"  readonly
-                                   class="text-3xl w-64 border-b-3 border-black focus:ring-0 focus:outline-none block" required>
+                                   class="text-3xl w-64 border-b-3 text-base-content/40 focus:ring-0 focus:outline-none block" required>
                         </div>
                         <p class="text-sm text-gray-500 mt-2">
                             Enter the monthly rent amount for this listing.
@@ -94,7 +93,7 @@
                 <div class="grid lg:grid-cols-2 mt-5 ">
 
                     <div class=" px-10 py-6 flex flex-col-2 justify-center  items-center gap-5">
-                        <div>
+                        <div class="bg-primary/10 rounded-3xl text-primary/70 p-3">
                             <x-lucide-zap class="h-20 stroke-1"/>
                         </div>
                         <div>
@@ -102,7 +101,7 @@
                             <div class="flex justify-start gap-5">
                                 <H1 class="text-3xl font-bold leading-none">PHP</H1>
                                 <input type="number" id="review_electricity_cost"  min="0" tabindex="-1" readonly
-                                       class="text-3xl w-64 border-b-3 border-black focus:ring-0 focus:outline-none block">
+                                       class="text-3xl w-32 border-b-3 text-base-content/40 focus:ring-0 focus:outline-none block">
                             </div>
                             <div class="flex felx-col-2 items-center justify-start gap-1 mt-2">
                                 <div>
@@ -119,7 +118,7 @@
 
 
                     <div class=" px-10 py-6 flex flex-col-2 justify-center items-center gap-5">
-                        <div>
+                        <div class="bg-primary/10 rounded-3xl text-primary/70 p-3">
                             <x-lucide-droplet class="h-20 stroke-1"/>
                         </div>
                         <div>
@@ -127,7 +126,7 @@
                             <div class="flex justify-start gap-5">
                                 <H1 class="text-3xl font-bold leading-none">PHP</H1>
                                 <input type="number" id="review_water_supply_cost" min="0" tabindex="-1" readonly
-                                       class="text-3xl w-64 border-b-3 border-black focus:ring-0 focus:outline-none block">
+                                       class="text-3xl w-32 border-b-3 text-base-content/40 focus:ring-0 focus:outline-none block">
                             </div>
                             <div class="flex felx-col-2 items-center justify-start gap-1 mt-2">
                                 <div>

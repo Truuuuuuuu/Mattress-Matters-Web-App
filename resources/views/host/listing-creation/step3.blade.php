@@ -1,8 +1,8 @@
-<div class="px-25">
+<div >
     <section>
         <div class="flex flex-col justify-center items-center">
             <div class="w-full max-w-lg mt-10 text-base-content mb-5">
-                <h1 class="text-3xl font-semibold">Add your photos</h1>
+                <h1 class="text-3xl font-semibold text-primary">Add your photos</h1>
                 <p class="text-base-content/70 text-sm">A great cover photo gets more inquiries. Add up to 3 photos.</p>
             </div>
 
