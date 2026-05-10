@@ -21,6 +21,7 @@ use App\Models\Listing;
 use Illuminate\Support\Facades\Route;
 use function Pest\Laravel\get;
 
+
 //landing page
 Route::get('/', function () {
     $listings = Listing::with('ListingImages')

@@ -3,9 +3,9 @@
     @forelse($movingOutTenants as $movingOutTenant)
         <x-move-out-notice-card :$movingOutTenant/>
     @empty
-        <div class="col-span-full  mx-auto  text-base-content/70 italic ">
-            <img src="{{asset('images/move-out-notice.svg')}}" alt="Move-out" class="w-32 lg:w-64">
-            <p class="text-base-content/70 text-center italic -mt-5">You have no moving out tenants </p>
+        <div class="col-span-full flex flex-col items-center mx-auto  text-base-content/70 italic ">
+            <img src="{{asset('images/move-out-notice.svg')}}" alt="Move-out" class="w-52 lg:w-64">
+            <p class="text-base-content/70 text-center italic -mt-5">You have no moving out tenants</p>
         </div>
     @endforelse
 </div>
@@ -31,8 +31,8 @@
             @empty
                 <tr>
                     <td colspan="5" class=" text-center text-base-content/70 italic">
-                        <img src="{{asset('images/move-out-notice.svg')}}" alt="Empty record" class="w-24 lg:w-64 mx-auto ">
-                        <p class="-mt-5">No tenants are moving out out </p>
+                        <img src="{{asset('images/move-out-notice.svg')}}" alt="Empty record" class="w-52 lg:w-64 mx-auto ">
+                        <p class="-mt-5">You have no moving out tenants</p>
                     </td>
                 </tr>
             @endforelse

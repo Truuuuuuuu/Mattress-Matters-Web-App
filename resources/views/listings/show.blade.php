@@ -1,7 +1,7 @@
 <x-layout>
     <x-slot:heading>Mattress Matters | {{$listing->title}}</x-slot:heading>
 
-    <div class="px-5 lg:px-20">
+    <div class="px-4 w-full max-w-7xl mx-auto">
         {{--Main content--}}
         <section class="mb-10">
             <h1 class="text-2xl font-bold mt-10 text-base-content">Mattress Matters in Sorsogon City</h1>

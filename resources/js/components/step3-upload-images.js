@@ -77,7 +77,19 @@ window.validatePhotoStep = function() {
     return true;
 }
 
+const MAX_FILE_SIZE_MB = 5;
+const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
 function setPreview(zone, file) {
+    if (file.size > MAX_FILE_SIZE_BYTES) {
+        // Clear the input so the oversized file isn't attached
+        document.getElementById('input-' + zone).value = '';
+
+        const hint = document.getElementById('photoCount');
+        hint.classList.add('text-red-500');
+        hint.textContent = `Image too large. Max size is ${MAX_FILE_SIZE_MB}MB.`;
+        return false;
+    }
+
     const reader = new FileReader();
     reader.onload = (e) => {
         document.getElementById('empty-' + zone).classList.add('hidden');

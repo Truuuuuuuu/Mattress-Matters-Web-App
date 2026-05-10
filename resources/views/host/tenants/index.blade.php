@@ -34,7 +34,7 @@
             <h1 class="text-4xl font-semibold text-primary">My Tenants</h1>
             <p class="text-xs font-semibold ">Manage your tenants and keep track of their boarding details </p>
         </div>
-        <x-tabs :tabs="['active', 'moving out', 'history']" default="active" :showViewToggle="true" title="My Tenants">
+        <x-tabs :tabs="['active', 'moving out', 'payments', 'history']" default="active" :showViewToggle="true" title="My Tenants">
 
             <x-tab-panel name="active">
                 @include('host.tenants.partials.active-content')
@@ -42,6 +42,10 @@
 
             <x-tab-panel name="moving out">
                 @include('host.tenants.partials.moving-out-content')
+            </x-tab-panel>
+
+            <x-tab-panel name="payments">
+                @include('host.tenants.partials.payments-content')
             </x-tab-panel>
 
             <x-tab-panel name="history">

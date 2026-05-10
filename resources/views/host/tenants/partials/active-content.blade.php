@@ -4,8 +4,8 @@
         <x-tenant-card :$myTenant/>
 
     @empty
-        <div class="col-span-full  mx-auto  text-base-content/70 italic ">
-            <img src="{{asset('images/tenants.svg')}}" alt="Tenants" class="w-32 lg:w-64">
+        <div class="col-span-full flex flex-col items-center mx-auto  text-base-content/70 italic  ">
+            <img src="{{asset('images/tenants.svg')}}" alt="Tenants" class="w-52 lg:w-64">
             <p class="text-base-content/70 text-center italic -mt-5">You have no tenants yet</p>
         </div>
     @endforelse
@@ -32,8 +32,8 @@
             @empty
                 <tr>
                     <td colspan="4" class=" text-center text-base-content/70 italic">
-                        <img src="{{asset('images/tenants.svg')}}" alt="Empty record" class="w-24 lg:w-64 mx-auto ">
-                        <p class="-mt-5">No available tenants</p>
+                        <img src="{{asset('images/tenants.svg')}}" alt="Empty record" class="w-52 lg:w-64 mx-auto ">
+                        <p class="-mt-5">You have no tenants yet</p>
                     </td>
                 </tr>
             @endforelse

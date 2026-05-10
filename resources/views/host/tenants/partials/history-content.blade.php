@@ -4,8 +4,8 @@
         <x-tenant-history-card :$history/>
     @empty
         <div class="col-span-full   flex flex-col items-center mx-auto mt-10 text-base-content/70 italic ">
-            <img src="{{asset('images/empty-record.svg')}}" alt="Empty record" class="w-32 lg:w-32">
-            <p class="text-base-content/70 text-center italic ">You have no history of move out notice</p>
+            <img src="{{asset('images/empty-record.svg')}}" alt="Empty record" class="w-32 lg:w-42">
+            <p class="text-base-content/70 text-center italic mt-3">You have no history of move out notice</p>
         </div>
     @endforelse
 </div>
@@ -30,8 +30,8 @@
             @empty
                 <tr >
                     <td colspan="3" class=" text-center text-base-content/70 italic">
-                        <img src="{{asset('images/empty-record.svg')}}" alt="Empty record" class="w-24 lg:w-32 mx-auto ">
-                        <p >No history of move out notice </p>
+                        <img src="{{asset('images/empty-record.svg')}}" alt="Empty record" class="w-32 lg:w-42 mx-auto ">
+                        <p >You have no history of move out notice</p>
                     </td>
                 </tr>
             @endforelse

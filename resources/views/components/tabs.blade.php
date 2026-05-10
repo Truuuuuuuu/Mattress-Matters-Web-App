@@ -83,7 +83,7 @@
         </div>
 
         {{-- Mobile Tab Buttons --}}
-        <div class="w-full bg-base-100 rounded-3xl p-4 flex justify-center items-center gap-2">
+        <div class="w-full bg-base-100 rounded-3xl p-4 grid grid-cols-2 gap-2">
             @foreach ($tabs as $tab)
                 <button
                     @click="setTab('{{ $tab }}')"

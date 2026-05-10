@@ -1,5 +1,5 @@
 @props(['listing'])
-<a href="{{ auth()->user()?->hasRole('host') && auth()->id() === $listing->host_id
+<a href="{{ auth()->user()?->hasRole('host')
     ? route('host.show', $listing)
     : route('listings.show', $listing)
     }}"

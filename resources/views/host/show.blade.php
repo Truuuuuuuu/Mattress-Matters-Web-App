@@ -7,7 +7,7 @@
             <div class="flex justify-between  items-center  ">
                 <h1 class="text-2xl font-bold text-base-content">Mattress Matters in Sorsogon City</h1>
                 <div class="lg:hidden dropdown dropdown-end" >
-                    <div class="btn btn-ghost  rounded-xl " tabindex="0" role="button">
+                    <div class="btn btn-primary  rounded-xl " tabindex="0" role="button">
                         <x-lucide-ellipsis-vertical class="w-5 h-5"/>
                     </div>
                     <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-50 mt-5 w-52 p-2 shadow-sm font-normal">
@@ -49,7 +49,7 @@
                         $add_photos = $listing->images->where('is_cover', false);
                     @endphp
                     {{--big photo--}}
-                    <div>
+                    <div >
                         <img src="{{ $cover->url }}" alt="" class="w-full h-full object-cover">
                     </div>
 
