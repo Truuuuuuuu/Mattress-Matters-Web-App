@@ -118,7 +118,7 @@
                             'Are you sure you want to accept this reservation? You are one step closer to securing this place',
                             'Yes, Accept',
                             'Cancel',
-                            'primary'
+                            'btn-primary'
 
                         )"
                             class="btn btn-primary rounded-3xl  w-full">

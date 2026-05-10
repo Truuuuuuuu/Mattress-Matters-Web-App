@@ -16,6 +16,7 @@ class ReservationController extends Controller
 
     public function index()
     {
+
         $user = auth()->user();
 
         if($user->hasRole('host')){
@@ -28,7 +29,7 @@ class ReservationController extends Controller
                 'listing',
                 'tenant.user',
             ])
-            ->whereHas('listing', fn($q) => $q->where('host_id', $user->id))
+            ->whereHas('listing.host', fn($q) => $q->where('user_id', $user->id))
             ->where('status', 'pending')
             -> latest()
             ->paginate(20, ['*'], 'pending_reservations')->withQueryString();
@@ -37,7 +38,7 @@ class ReservationController extends Controller
                 'listing',
                 'tenant.user'
             ])
-                ->whereHas('listing', fn($q) => $q->where('host_id', $user->id))
+                ->whereHas('listing.host', fn($q) => $q->where('user_id', $user->id))
                 ->where('status', 'accepted')
                 -> latest()
                 ->paginate(20, ['*'], 'accepted_reservations')->withQueryString();
@@ -46,7 +47,7 @@ class ReservationController extends Controller
                 'listing',
                 'tenant.user'
             ])
-                ->whereHas('listing', fn($q) => $q->where('host_id', $user->id))
+                ->whereHas('listing.host', fn($q) => $q->where('user_id', $user->id))
                 ->whereIn('status', ['declined', 'cancelled', 'completed', 'expired', 'checked_in'])
                 -> latest()
                 ->paginate(20, ['*'], 'history_reservations')->withQueryString();

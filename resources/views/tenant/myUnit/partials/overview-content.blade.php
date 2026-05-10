@@ -14,15 +14,15 @@
         <img
             class="w-full h-full object-cover"
             src="{{ $cover->url  }}"
-            alt="Cover"
+            alt="cover"
         />
     </div>
     <div class="block lg:hidden relative rounded-2xl overflow-hidden shadow-sm h-52">
         <!-- The image, stretched to fill -->
         <img
             class="absolute inset-0 w-full h-full object-cover"
-            src="{{ asset('storage/' . $cover->image_path) }}"
-            alt="Shoes"
+            src="{{ $cover->url  }}"
+            alt="cover"
         />
 
         <!-- Dark overlay (mimics DaisyUI's image-full tint) -->

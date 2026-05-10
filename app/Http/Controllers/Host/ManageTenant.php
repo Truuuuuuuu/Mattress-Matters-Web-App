@@ -14,22 +14,23 @@ class ManageTenant extends Controller
 {
     public function index()
     {
-
         $user =  auth()->user();
+
         $myTenants = Rental::with(['listing', 'tenant.user'])
-            ->whereHas('listing', fn($q) => $q->where('host_id', $user->id))
+            ->whereHas('listing.host', fn($q) => $q->where('user_id', $user->id))
             ->where('status', 'active')
             ->latest()
             ->paginate(20, ['*'], 'activeTenants')->withQueryString();
 
         $movingOutTenants = Rental::with(['moveOutNotice.latestReversal','listing', 'tenant.user', 'reservation'])
+            ->whereHas('listing.host', fn($q) => $q->where('user_id', $user->id))
             ->whereHas('moveOutNotice', fn($q) => $q->whereIn('status', ['active', 'completed', 'cancelled']))
             ->get()
             ->sortBy('moveOutNotice.move_out_date');
 
 
         $tenantHistory = Rental::with(['tenant.user', 'listing', 'moveOutNotice'])
-            ->whereHas('listing', fn($q) => $q->where('host_id', $user->id))
+            ->whereHas('listing.host', fn($q) => $q->where('user_id', $user->id))
             ->where('status', 'ended')
             ->latest()
             ->paginate(20,['*'], 'historyTenants')->withQueryString();
@@ -38,20 +39,19 @@ class ManageTenant extends Controller
         $invoiceStatus = request('invoice_status');
 
         $allInvoices = Invoice::with(['rental.listing', 'rental.tenant.user'])
-            ->whereHas('rental.listing', fn($q) => $q->where('host_id', $user->id))
+            ->whereHas('rental.listing.host', fn($q) => $q->where('user_id', $user->id))
             ->when($invoiceStatus, fn($q) => $q->where('status', $invoiceStatus))
-            ->when($invoiceMonth, fn($q) => $q->whereYear('period_month', substr($invoiceMonth, 0, 4))
-                ->whereMonth('period_month', substr($invoiceMonth, 5, 2)))
+            ->when($invoiceMonth, fn($q) => $q->where('period_month', $invoiceMonth)) // ← simple string match
             ->latest('due_date')
             ->paginate(20, ['*'], 'invoicePage')
             ->withQueryString();
 
-        $invoiceMonths = Invoice::selectRaw('DATE_FORMAT(period_month, "%Y-%m") as month')
-            ->whereHas('rental.listing', fn($q) => $q->where('host_id', $user->id))
+        $invoiceMonths = Invoice::selectRaw('period_month as month') // ← no DATE_FORMAT needed
+        ->whereHas('rental.listing.host', fn($q) => $q->where('user_id', $user->id))
             ->distinct()
-            ->orderByRaw('month DESC')
+            ->orderByDesc('period_month')
+            ->get()
             ->pluck('month');
-
 
         return view('host.tenants.index', compact(['myTenants', 'movingOutTenants', 'tenantHistory', 'invoiceMonths', 'allInvoices']));
     }

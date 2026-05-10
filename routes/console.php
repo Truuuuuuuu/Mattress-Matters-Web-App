@@ -11,4 +11,5 @@ use Illuminate\Support\Facades\Schedule;
 Schedule::command('invoices:generate-monthly')->daily();
 Schedule::command('payments:expire-pending')->everyFiveMinutes();
 Schedule::command('rental:process-moveouts')->everyMinute();
+Schedule::command('invoices:mark-overdue')->everySecond();
 

@@ -83,7 +83,10 @@
         </div>
 
         {{-- Mobile Tab Buttons --}}
-        <div class="w-full bg-base-100 rounded-3xl p-4 grid grid-cols-2 gap-2">
+            <div class="w-full bg-base-100 rounded-3xl p-4 gap-2
+            {{ count($tabs) > 3
+                ? 'grid grid-cols-2'
+                : 'flex justify-between' }}">
             @foreach ($tabs as $tab)
                 <button
                     @click="setTab('{{ $tab }}')"
