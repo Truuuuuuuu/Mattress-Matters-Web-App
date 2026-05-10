@@ -5,17 +5,17 @@
         <div class="grid gap-4 md:grid-cols-[1fr_2fr] place-self-center w-full">
             <div class=" space-y-5">
                 <div class="bg-base-100 py-5 px-3 rounded-3xl bg-base-100 " style="box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15)">
-                    <div class="flex flex-col items-center mb-2">
+                    <div class="flex flex-col items-center mb-5">
                        <x-avatar-squircle :user="$profile->user"/>
                         <h1 class="text-xl font-bold">{{$profile->user->name}}</h1>
                     </div>
 
-                    <div>
-                        <a href="{{ route('messages.show', $profile->user) }}" class="btn btn-primary rounded-3xl w-full">Message</a>
+                    <div class="w-full flex justify-center">
+                        <a href="{{ route('messages.show', $profile->user) }}" class="btn btn-primary rounded-3xl w-full max-w-64 ">Message</a>
                     </div>
 
 
-                    <div class="w-full flex justify-between  mt-10 px-4">
+                    <div class="w-full flex justify-between  mt-6 px-4">
                         @if($profile->user->hasRole('host'))
                             <div class=" flex flex-col items-center">
                                 <div class="flex flex-col items-center justify-center h-12">
@@ -43,7 +43,7 @@
 
                 <div class=" py-5 rounded-xl px-5 bg-base-100" style="box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15)">
                     <h1 class="text-lg font-bold mb-4 text-primary">About</h1>
-                    <p>Hello, this is a placeholder <only class=""></only></p>
+                    <p>{{ $profile->user->about  }}</p>
                 </div>
             </div>
 

@@ -60,7 +60,7 @@ Route::group(['prefix' => 'auth'], function () {
 });
 
 //tenant routes
-Route::middleware(['auth', 'role:tenant'])
+Route::middleware(['auth', 'role:tenant', 'permission:view soa'])
     ->prefix('tenant')
     ->name('tenant.')
     ->group(function () {
@@ -80,8 +80,12 @@ Route::middleware(['auth', 'role:tenant'])
 
 
     });
+
+
+
+
 //host routes
-Route::middleware(['auth', 'role:host'])
+Route::middleware(['auth', 'role:host', 'permission:view soa'])
     ->prefix('host')
     ->name('host.')
     ->group(function () {
@@ -106,6 +110,7 @@ Route::middleware(['auth', 'role:host'])
             ->name('tenants.index');
         Route::get('/tenants/rentals/{rental}', [ManageTenant::class, 'show'])
             ->name('tenants.show');
+        Route::get('/tenants/{tenant}/soa', [ManageTenant::class, 'viewSOA'])->name('tenants.soa');
     });
 
 /*Reservation*/

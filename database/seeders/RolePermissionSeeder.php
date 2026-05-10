@@ -32,6 +32,7 @@ class RolePermissionSeeder extends Seeder
             'view reservations',
             'cancel reservations',
             'view profile',
+            'view soa'
         ];
 
         foreach ($permissions as $permission){
@@ -56,6 +57,7 @@ class RolePermissionSeeder extends Seeder
             'cancel reservations',
             'view reservations',
             'view profile',
+            'view soa'
         ]);
 
         $tenantRole = Role::firstOrCreate(['name' => 'tenant']);
@@ -64,6 +66,7 @@ class RolePermissionSeeder extends Seeder
            'view reservations',
            'cancel reservations',
             'view profile',
+            'view soa'
         ]);
     }
 }

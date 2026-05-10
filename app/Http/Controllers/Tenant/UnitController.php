@@ -5,13 +5,15 @@ namespace App\Http\Controllers\Tenant;
 use App\Http\Controllers\Controller;
 use App\Models\MoveOutNotice;
 use App\Models\Rental;
+use App\Models\Tenant;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class UnitController extends Controller
 {
     public function index(){
-        $user = auth()->user()->tenant->id;
+
+        $user = auth()->user()->tenant->id ;
 
         $myUnit = Rental::where('tenant_id', $user)
             ->whereHas('reservation', fn($q) => $q->whereIn('status', ['accepted', 'checked_in'])
@@ -20,7 +22,7 @@ class UnitController extends Controller
             ->with(['listing.listingImages', 'listing.amenities', 'listing.rules', 'moveOutNotice'])
             ->first();
 
-        $tenant = auth()->user()->tenant;
+        $tenant = auth()->user()->tenant ;
 
         // Get invoice status information
         $invoiceInfo = [];

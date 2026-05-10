@@ -1,5 +1,4 @@
 
-
 <div class="flex flex-col md:flex-row">
     <div class="w-full max-w-124  p-5 space-y-3">
         {{--<div class="w-full h-64 ">
@@ -96,9 +95,11 @@
                 </div>
             </div>
         </div>
-        <div class="flex justify-between gap-3 mt-5">
-            <a href="#" class="btn btn-primary btn-outline  w-full border-primary rounded-2xl">Statement of Account</a>
-        </div>
+        <a href="{{ route('host.tenants.soa', $rental->tenant) }}"
+           target="_blank"
+           class="btn btn-primary btn-outline w-full border-primary rounded-2xl mt-2">
+            Statement of Account
+        </a>
         {{--@if($rental->status === 'active')
             <div class="md:hidden my-8 flex-col rounded-2xl bg-error/20 p-3 border border-error/50">
                 <p class="text-sm font-semibold text-error-content">DANGER ZONE</p>
