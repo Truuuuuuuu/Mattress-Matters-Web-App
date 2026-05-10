@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\EmailRegisterController;
 use App\Http\Controllers\Auth\GoogleRegisterController;
 use App\Http\Controllers\Auth\SessionController;
@@ -196,3 +197,18 @@ Route::post('/reversals/{reversal}/approve', [MoveOutReversalController::class, 
 
 Route::post('/reversals/{reversal}/reject', [MoveOutReversalController::class, 'reject'])
     ->name('reversals.reject');
+
+
+
+
+//ADMIN ROUTES
+//tenant routes
+Route::middleware(['auth', 'role:admin'])
+    ->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
+
+        Route::get('/dashboard', [AdminController::class, 'index'])
+            ->name('dashboard');
+
+    });

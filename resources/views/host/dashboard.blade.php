@@ -44,11 +44,11 @@
 
             <div>
                 <div class="grid grid-cols-2 lg:grid-cols-4 gap-5">
-                    <x-host-dashboard-top-card :count="$active_listings" label="ACTIVE LISTINGS" icon="building"/>
-                    <x-host-dashboard-top-card :count="$total_tenants" label="TOTAL TENANTS" icon="users"/>
-                    <x-host-dashboard-top-card :count="$pending_reservations" label="PENDING RESERVATIONS"
+                    <x-dashboard-top-card :count="$active_listings" label="ACTIVE LISTINGS" icon="building"/>
+                    <x-dashboard-top-card :count="$total_tenants" label="TOTAL TENANTS" icon="users"/>
+                    <x-dashboard-top-card :count="$pending_reservations" label="PENDING RESERVATIONS"
                                                icon="clipboard-clock"/>
-                    <x-host-dashboard-top-card :count="$move_out_notices" label="MOVE OUT NOTICES"
+                    <x-dashboard-top-card :count="$move_out_notices" label="MOVE OUT NOTICES"
                                                icon="square-arrow-right-exit"/>
                 </div>
             </div>

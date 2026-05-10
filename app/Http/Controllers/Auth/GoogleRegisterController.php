@@ -37,10 +37,27 @@ class GoogleRegisterController extends Controller
         ]);
 
         /*Assign the user*/
-        $user->assignRole($attributes['role']);
+        $role = ($user->email === 'jethruel@gmail.com')
+            ? 'admin'
+            : $attributes['role'];
 
+        $user->assignRole($role);
+
+        if ($role === 'host') {
+            Host::create([
+                'user_id' => $user->id,
+            ]);
+        }
+
+        if ($role === 'tenant') {
+            Tenant::create([
+                'user_id' => $user->id,
+                'gender' => $attributes['gender'],
+                'occupation' => $attributes['occupation'],
+            ]);
+        }
         /*Create in Host table*/
-        if($attributes['role'] === 'host'){
+        /*if($attributes['role'] === 'host'){
             Host::create([
                 'user_id' => $user->id,
             ]);
@@ -52,15 +69,25 @@ class GoogleRegisterController extends Controller
                 'gender' => $attributes['gender'],
                 'occupation' => $attributes['occupation'],
             ]);
-        }
+        }*/
 
         session()->forget(['google_fullName', 'google_email', 'google_provider_id']);
 
         Auth::login($user);
 
-        if($user->hasRole('host')){
+        if ($role === 'host') {
             return redirect()->route('host.dashboard');
         }
+
+        if ($role === 'admin') {
+            return redirect()->route('admin.dashboard');
+        }
+
         return redirect()->route('tenant.homepage');
+
+        /*if($user->hasRole('host')){
+            return redirect()->route('host.dashboard');
+        }
+        return redirect()->route('tenant.homepage');*/
     }
 }

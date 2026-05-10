@@ -15,8 +15,8 @@
         </div>
         <div class="flex flex-col md:flex-row gap-2 lg:px-12 xl:px-8 py-5 justify-between">
             <div class="flex  w-full gap-2">
-                <x-host-dashboard-top-card :count="$active_listings" label="ACTIVE LISTINGS" icon="building" />
-                <x-host-dashboard-top-card :count="$total_tenants" label="TOTAL TENANTS" icon="users" />
+                <x-dashboard-top-card :count="$active_listings" label="ACTIVE LISTINGS" icon="building" />
+                <x-dashboard-top-card :count="$total_tenants" label="TOTAL TENANTS" icon="users" />
             </div>
             <div class=" flex flex-col justify-center w-full rounded-3xl bg-base-100  p-5 backdrop-blur-lg
             border border-white/20 shadow-xs" >
