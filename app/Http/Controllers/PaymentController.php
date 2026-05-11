@@ -293,24 +293,24 @@ class PaymentController extends Controller
     {
         $reservation = $payment->reservation;
 
-        $reservation->update(['payment_status' => 'paid']);
+        $reservation->update([
+            'payment_status' => 'paid'
+        ]);
 
-        // Only create rental if it doesn't already exist for this reservation
         if (!$reservation->rental) {
+
             Rental::create([
                 'tenant_id'      => $reservation->tenant_id,
                 'listing_id'     => $reservation->listing_id,
                 'reservation_id' => $reservation->id,
                 'status'         => 'active',
             ]);
-
-            $host = $reservation->listing->host;
-            $host->update([
-                'balance' => $host->balance + $payment->totalAmount(),
-            ]);
         }
-    }
 
+        $host = $reservation->listing->host;
+
+        $host->increment('balance', $payment->amount);
+    }
     private function handleRentPayment(Payment $payment): void
     {
         $invoice = $payment->invoice;
