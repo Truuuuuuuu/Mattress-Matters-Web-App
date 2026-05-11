@@ -10,7 +10,7 @@
         .join('.');
 
     window.Echo.private(channelName)
-        .listen('MessageSent', (data) => {
+        .listen('.message.sent', (data) => {
             if (data.sender_id === authUserId) return;
             // data.sender is the full User object — use .name
             appendMessage(data.sender.name, data.body, data.sender_id === authUserId);
