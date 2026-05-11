@@ -1,8 +1,11 @@
 <x-layout :hideNavbar="false" >
     <x-slot:heading>Register</x-slot:heading>
-    <div class="min-h-[calc(100vh-4rem)] flex items-center justify-center">
+    <div class="h-screen flex items-center justify-center w-full bg-cover bg-center bg-no-repeat px-4 " style="background-image: url('{{ asset('images/login-bg.jpg') }}');">
 
-        <div class="w-full max-w-md p-10">
+        <div class="w-full md:max-w-md mx-auto p-6 rounded-3xl
+            bg-white/10 backdrop-blur-lg
+            border border-white/20
+            shadow-lg">
             <h1 class="text-center text-3xl mb-6 font-bold">Sign up</h1>
             {{--<x-forms.form method="POST" action="/email-register">
                 <x-forms.input label="Full Name" name="name" type="text" class="rounded-xl input input-primary input-lg lg:input-md" placeholder="Full Name" />
@@ -46,13 +49,13 @@
 --}}
             <div class="flex flex-col gap-2 mt-5">
                 <!-- Google -->
-                <a href="{{route('social.redirect', 'google')}}" class="btn bg-white text-black border-black rounded-xl">
+                <a href="{{route('social.redirect', 'google')}}" class="btn bg-base-100 text-black rounded-3xl">
                     <svg aria-label="Google logo" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><g><path d="m0 0H512V512H0" fill="#fff"></path><path fill="#34a853" d="M153 292c30 82 118 95 171 60h62v48A192 192 0 0190 341"></path><path fill="#4285f4" d="m386 400a140 175 0 0053-179H260v74h102q-7 37-38 57"></path><path fill="#fbbc02" d="m90 341a208 200 0 010-171l63 49q-12 37 0 73"></path><path fill="#ea4335" d="m153 219c22-69 116-109 179-50l55-54c-78-75-230-72-297 55"></path></g></svg>
                     Continue with Google
                 </a>
 
                 <!-- Facebook -->
-                <button class="btn bg-[#1A77F2] text-white rounded-xl">
+                <button class="btn bg-[#1A77F2] text-white rounded-3xl">
                     <svg aria-label="Facebook logo" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><path fill="white" d="M8 12h5V8c0-6 4-7 11-6v5c-4 0-5 0-5 3v2h5l-1 6h-4v12h-6V18H8z"></path></svg>
                     Contiue with Facebook
                 </button>

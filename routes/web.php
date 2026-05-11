@@ -211,4 +211,10 @@ Route::middleware(['auth', 'role:admin'])
         Route::get('/dashboard', [AdminController::class, 'index'])
             ->name('dashboard');
 
+        Route::get('/manage-users', [AdminController::class, 'manageUsers'])
+            ->name('manage.users');
+
+        Route::get('/manage-listings', [AdminController::class, 'manageListings'])
+            ->name('manage.listings');
+
     });

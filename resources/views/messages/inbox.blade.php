@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot:heading>Inbox</x-slot:heading>
-    <div class="max-w-2xl mx-auto py-6 px-4">
+    <div class="max-w-2xl mx-auto py-6 px-4 bg-base-200 min-h-[calc(100vh-5rem)]">
         <h1 class="text-xl font-bold text-primary mb-4">Messages</h1>
 
         @if($conversations->isEmpty())

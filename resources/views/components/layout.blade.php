@@ -52,14 +52,14 @@
             </a>
             <a href="{{route('messages.inbox', auth()->user()->id)}}"
                class="flex flex-col items-center text-xs gap-1 text-base-content/70 {{request()->routeIs('messages.inbox') || request()->routeIs('messages.show')  ? 'font-bold text-primary' : 'text-base-content/70'}}">
-                <x-lucide-message-circle class="w-5 h-5 "
+                <x-lucide-message-circle-more class="w-5 h-5 "
                                          stroke-width="{{request()->routeIs('messages.inbox') || request()->routeIs('messages.show') ? 2.5 : 2}}"/>
                 <span
                     class="{{request()->routeIs('messages.inbox') || request()->routeIs('messages.show') ? 'text-primary' : 'text-base-content'}} ">Messages</span>
             </a>
             <a href="{{ route('profile.index') }}"
                class="flex flex-col items-center text-xs gap-1 {{request()->routeIs('profile.index') ? 'font-bold text-primary' : 'text-base-content/70'}}">
-                <x-lucide-message-circle-more class="w-5 h-5" stroke-width="{{request()->routeIs('profile.index') ? 2.5 : 2}}"/>
+                <x-lucide-user class="w-5 h-5" stroke-width="{{request()->routeIs('profile.index') ? 2.5 : 2}}"/>
                 <span
                     class="{{request()->routeIs('profile.index') ? 'text-primary' : 'text-base-content'}}">Profile</span>
             </a>
@@ -117,6 +117,32 @@
                 <div class="shrink-0 ">
                     <img src="{{ asset('images/logo-only.svg') }}" alt="" class="w-10 h-auto">
                 </div>
+                @auth
+                    @role('admin')
+                    <div
+                        class="hidden lg:flex text-base-content  gap-8 items-center whitespace-nowrap font-semibold lg:absolute left-1/2 -translate-x-1/2">
+                        <div>
+                            <a href="{{route('admin.dashboard')}}"
+                               class="text-center block {{request()->routeIs('admin.dashboard') ? 'text-primary' : 'text-base-content'}}">Dashboard</a>
+                            <div
+                                class="{{request()->routeIs('admin.dashboard') ? 'bg-primary w-23 h-1 rounded-xl' : ''}}"></div>
+                        </div>
+                        <div>
+                            <a href="{{route('admin.manage.users')}}"
+                               class="text-center block {{request()->routeIs('admin.manage.users') ? 'text-primary' : 'text-base-content'}}">Users</a>
+                            <div
+                                class="{{request()->routeIs('admin.manage.users') ? 'bg-primary w-15 h-1 rounded-xl' : ''}}"></div>
+                        </div>
+                        <div>
+                            <a href="{{route('admin.manage.listings')}}"
+                               class="text-center block {{request()->routeIs('admin.manage.listings') ? 'text-primary' : 'text-base-content'}}">Listings</a>
+                            <div
+                                class="{{request()->routeIs('admin.manage.listings') ? 'bg-primary w-18 h-1 rounded-xl' : ''}}"></div>
+                        </div>
+
+                    </div>
+                    @endrole
+                @endauth
 
                 @auth
                     @role('tenant')
@@ -200,15 +226,18 @@
 
                 @auth
                     <div class="flex items-center space-x-3 font-bold ">
-                        <a href="{{route('messages.inbox', auth()->user()->id)}}"
-                           class="flex btn btn-ghost btn-circle bg-base-100" tabindex="0" role="button">
-                            <x-lucide-message-circle-more
-                                class="w-7 h-7 hover:text-primary  {{request()->routeIs('messages.inbox') || request()->routeIs('messages.show') ? 'text-primary' : 'text-base-content '}}"/>
-                        </a>
-                        @php
-                            $user = auth()->user()
-                        @endphp
-                        <x-avatar-circle :$user/>
+                        @if(!auth()->user()->hasRole('admin'))
+                            <a href="{{route('messages.inbox', auth()->user()->id)}}"
+                               class="flex btn btn-ghost btn-circle bg-base-100" tabindex="0" role="button">
+                                <x-lucide-message-circle-more
+                                    class="w-7 h-7 hover:text-primary  {{request()->routeIs('messages.inbox') || request()->routeIs('messages.show') ? 'text-primary' : 'text-base-content '}}"/>
+                            </a>
+                            @php
+                                $user = auth()->user()
+                            @endphp
+                            <x-avatar-circle :$user/>
+                        @endif
+
                         {{--<div class="avatar">
                             @if(auth()->user()-  >profile_photo_public_id)
                                 <a href="{{ route('profile.index') }}">

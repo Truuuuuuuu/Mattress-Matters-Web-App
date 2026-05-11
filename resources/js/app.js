@@ -9,15 +9,21 @@ import './components/soa.js'
 import './components/priceRange.js'
 import './components/reset-filters.js'
 import './components/filterForm.js'
+import './components/user-growth-graph.js'
 import './chat.js'
 import './echo.js'
+
 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 import Alpine from 'alpinejs'
 
+
 AOS.init();
+
 
 window.Alpine = Alpine
 Alpine.start()
+
+

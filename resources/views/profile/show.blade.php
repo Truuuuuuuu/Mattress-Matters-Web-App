@@ -48,7 +48,7 @@
             </div>
 
             <div class="bg-base-100 flex justify-center items-center" style="box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15)">
-                content here
+
             </div>
         </div>
 

@@ -84,6 +84,9 @@ class SocialiteController extends Controller
         if($user->hasRole('host')){
             return redirect()->route('host.dashboard');
         }
+        elseif($user->hasRole('admin')){
+            return redirect()->route('admin.dashboard');
+        }
         return redirect()->route('tenant.homepage');
     }
 
