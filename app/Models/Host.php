@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 
 class Host extends Model
 {
@@ -53,6 +55,26 @@ class Host extends Model
             ->select('id', 'tenant_id', 'listing_id', 'start_date')
             ->latest()
             ->paginate(5);
+
+        $startOfMonth = Carbon::now()->startOfMonth();
+        $endOfMonth   = Carbon::now()->endOfMonth();
+
+        $reservationRevenue = DB::table('payments')
+            ->join('reservations', 'payments.reservation_id', '=', 'reservations.id')
+            ->join('listings', 'reservations.listing_id', '=', 'listings.id')
+            ->where('listings.host_id', $host->id)
+            ->whereBetween('payments.created_at', [$startOfMonth, $endOfMonth])
+            ->sum('payments.amount');
+
+        $rentalRevenue = DB::table('payments')
+            ->join('invoices', 'payments.invoice_id', '=', 'invoices.id')
+            ->join('rentals', 'invoices.rental_id', '=', 'rentals.id')
+            ->join('listings', 'rentals.listing_id', '=', 'listings.id')
+            ->where('listings.host_id', $host->id)
+            ->whereBetween('payments.created_at', [$startOfMonth, $endOfMonth])
+            ->sum('payments.amount');
+
+        $monthlyRevenue = $reservationRevenue + $rentalRevenue;
         return [
             'active_listings'      => $host->listings()->active()->count(),
             'total_tenants'        => $host->rentals()->where('rentals.status', 'active')->count(),
@@ -60,7 +82,8 @@ class Host extends Model
             'move_out_notices'     => MoveOutNotice::where('status', 'active')
                 ->whereHas('rental', fn($q) => $q->whereHas('listing', fn($q) => $q->where('host_id', $host->id)))
                 ->count(),
-            'reservations' => $reservations
+            'reservations' => $reservations,
+            'monthly_revenue' => $monthlyRevenue,
         ];
     }
 

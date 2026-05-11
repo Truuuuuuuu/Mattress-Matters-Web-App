@@ -1,3 +1,4 @@
+@props(['monthly_revenue'])
 <a href="#" class="hover-3d my-12 mx-2 cursor-pointer  w-full max-w-lg">
 
     <!-- content -->
@@ -7,7 +8,7 @@
                 <div class="font-bold">MONTHLY REVENUE</div>
                 <div class="text-5xl opacity-10">❁</div>
             </div>
-            <div class="text-2xl mb-4 opacity-80">₱20,000.00</div>
+            <div class="text-2xl mb-4 opacity-80">₱{{ number_format($monthly_revenue,2) }}</div>
             <div class="flex justify-between">
 
                 <div>

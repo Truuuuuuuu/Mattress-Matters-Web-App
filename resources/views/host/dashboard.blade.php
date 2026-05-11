@@ -107,7 +107,7 @@
                     </div>
                 </div>
                 <div class="flex justify-center items-start w-full lg:w-112 ">
-                    <x-card-hover-3d/>
+                    <x-card-hover-3d :$monthly_revenue/>
                 </div>
             </div>
 
