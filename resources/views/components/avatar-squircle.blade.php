@@ -1,9 +1,9 @@
-@props(['user' => null, 'listing' => null, 'width' => 12, 'height' => 12])
+@props(['user' => null, 'listing' => null, 'width' => 12, 'height' => 12, 'link' => true])
 
 
 <div class="avatar">
 
-    @if($user)
+    @if($user && $link)
         @if(request()->routeIs('profile.index') || request()->routeIs('profile.show'))
             @if($user->profile_photo_public_id)
                 <div class="avatar " >
@@ -39,7 +39,7 @@
                 </a>
             @endif
         @endif
-    @elseif($listing)
+    @elseif($listing && $link)
         <a href="{{ route('listings.show', $listing) }}">
             <div class="avatar hover:scale-104 hover:opacity-80" >
                 <div {{$attributes->class(["mask mask-squircle w-{$width} h-{$height} shrink-0 "])}}  >
@@ -47,7 +47,21 @@
                 </div>
             </div>
         </a>
+    @elseif($user && !$link)
+        @if($user->profile_photo_public_id)
+                <div class="avatar  " >
+                    <div {{$attributes->class(["mask mask-squircle h-{$height} w-{$width} bg-purple-700 flex items-center justify-center  hover:scale-105" ])}} >
+                        <img src="{{ $user->profile_photo_url }}" alt="Photo" class="w-full h-full object-cover "/>
+                    </div>
+                </div>
 
+        @else
+                <div class="avatar" >
+                    <div {{$attributes->class(["mask mask-squircle h-{$height} w-{$width} bg-base-300 flex items-center justify-center hover:opacity-80" ])}} >
+                        <p class="text-center text-xl font-semibold">{{$user->name[0]}}</p>
+                    </div>
+                </div>
+        @endif
     @endif
 
 

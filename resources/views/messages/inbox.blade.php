@@ -9,14 +9,11 @@
             <div class="flex flex-col gap-2">
                 @foreach($conversations as $convo)
                     <a href="{{ route('messages.show', $convo['user']->id) }}"
-                       class="flex items-center gap-4 p-4 bg-base-100 rounded-3xl shadow-sm hover:bg-base-300 transition">
+                       class="flex items-center gap-4 p-4  rounded-3xl hover:bg-base-300 transition bg-base-100  backdrop-blur-lg
+            border border-white/20 shadow-xs">
 
                         {{-- Avatar --}}
-                        <div class="avatar avatar-placeholder">
-                            <div class="bg-neutral text-neutral-content w-12 rounded-full">
-                                <span class="text-md"> {{ strtoupper(substr($convo['user']->name, 0, 1)) }}</span>
-                            </div>
-                        </div>
+                        <x-avatar-squircle :user="$convo['user']" :link="false" />
 
                         {{-- Name + Last message --}}
                         <div class="flex-1 min-w-0">

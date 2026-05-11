@@ -112,7 +112,7 @@
 
         {{--LARGE SCREEN--}}
         <nav class="hidden lg:flex sticky top-0 z-50 bg-base-100 shadow border-b border-white/10">
-            <div class="w-full max-w-7xl mx-auto flex justify-between items-center py-4 px-5">
+            <div class="w-full max-w-[1440px] mx-auto flex justify-between items-center py-4 px-5">
                 {{-- Logo --}}
                 <div class="shrink-0 ">
                     <img src="{{ asset('images/logo-only.svg') }}" alt="" class="w-10 h-auto">

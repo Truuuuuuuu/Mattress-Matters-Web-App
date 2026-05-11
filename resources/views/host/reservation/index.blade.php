@@ -1,7 +1,7 @@
 <x-layout>
     <x-slot:heading>Reservation</x-slot:heading>
 
-    <div class="w-full max-w-9xl mx-auto px-5 py-7 bg-primary/[4%]  min-h-[calc(100vh-5rem)]"
+    <div class="w-full max-w-[1440px] mx-auto px-5 py-7 bg-primary/[4%]  min-h-[calc(100vh-5rem)]"
          x-data="{
              open: false,
              loading: false,

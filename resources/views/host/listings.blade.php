@@ -1,7 +1,7 @@
 <x-layout>
     <x-slot:heading>Listings</x-slot:heading>
 
-    <div class="w-full max-w-7xl mx-auto  px-5 py-10 bg-primary/[4%]  min-h-[calc(100vh-5rem)]">
+    <div class="w-full max-w-[1440px] mx-auto  px-5 py-10 bg-primary/[4%]  min-h-[calc(100vh-5rem)]">
         <div class="lg:px-12 xl:px-8">
             <div class="flex justify-between items-center ">
                 <h1 class="text-3xl text-primary font-semibold">My Listings</h1>

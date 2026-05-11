@@ -4,7 +4,7 @@
 
 
 <div class="flex flex-col rounded-3xl w-full max-w-xl p-5 gap-4 "
-     style="box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15)">
+     >
 
     <div class="flex gap-4 items-center flex-1 min-w-0 ">
         <x-avatar-squircle :listing="$activeReservation->listing" width="24" height="24"/>
