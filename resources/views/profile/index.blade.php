@@ -165,6 +165,7 @@
                 }
                 }">
                       <div
+                            x-cloak
                             x-show="toast"
                             x-init="$watch('toast', value => {
                                 if (value) {
@@ -188,7 +189,7 @@
                           Edit Profile
                       </button>
 
-                      <div x-show="open" x-transition class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+                      <div x-cloak x-show="open" x-transition class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
                           <div class="flex flex-col gap-4 bg-base-100 p-6 rounded-3xl shadow-lg w-full max-w-md mx-5">
 
                               {{-- Header --}}
