@@ -10,6 +10,7 @@ import './components/priceRange.js'
 import './components/reset-filters.js'
 import './components/filterForm.js'
 import './components/user-growth-graph.js'
+import './components/option-card.js'
 import './chat.js'
 import './echo.js'
 

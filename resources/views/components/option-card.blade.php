@@ -13,6 +13,7 @@
     </div>
 </label>
 
+{{--
 @once
     <script>
         function updateLabel(input) {
@@ -41,3 +42,4 @@
         });
     </script>
 @endonce
+--}}
