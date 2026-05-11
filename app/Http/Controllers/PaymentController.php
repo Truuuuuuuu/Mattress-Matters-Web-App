@@ -270,15 +270,23 @@ class PaymentController extends Controller
 
         // Update all matching payments
         foreach ($payments as $payment) {
-            $payment->update(['status' => $status]);
+
+            $payment->update([
+                'status' => $status
+            ]);
 
             if ($status === 'SUCCEEDED') {
-                if (in_array($payment->payment_type, ['reservation_fee', 'security_deposit'])) {
+
+                if ($payment->payment_type === 'reservation_fee') {
                     $this->handleReservationPayment($payment);
-                } elseif ($payment->payment_type === 'rent') {
+                }
+
+                elseif ($payment->payment_type === 'rent') {
                     $this->handleRentPayment($payment);
                 }
-            } elseif (in_array($status, ['EXPIRED', 'FAILED', 'VOIDED'])) {
+            }
+
+            elseif (in_array($status, ['EXPIRED', 'FAILED', 'VOIDED'])) {
                 $this->handleFailedPayment($payment);
             }
 
