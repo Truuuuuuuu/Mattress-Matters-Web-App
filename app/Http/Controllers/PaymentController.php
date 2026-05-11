@@ -260,7 +260,6 @@ class PaymentController extends Controller
                 Log::info("Xendit webhook: {$chargeId} → {$status} [{$payment->payment_type}] id={$payment->id}");
 
             } catch (\Throwable $e) {
-                // ✅ One payment failure must NEVER block the others
                 Log::error("Webhook handler failed for payment [{$payment->id}]", [
                     'type'      => $payment->payment_type,
                     'status'    => $status,
@@ -273,7 +272,6 @@ class PaymentController extends Controller
         return response()->json(['received' => true]);
     }
 
-// ✅ Add the missing handler
     private function handleSecurityDepositPayment(Payment $payment): void
     {
         $reservation = $payment->reservation;
@@ -288,32 +286,35 @@ class PaymentController extends Controller
 
     private function handleReservationPayment(Payment $payment): void
     {
-        $reservation = $payment->reservation;
+        Log::info("=== handleReservationPayment START ===", ['payment_id' => $payment->id]);
 
-        if (!$reservation) {
-            Log::warning("Reservation fee payment [{$payment->id}] has no reservation.");
-            return;
-        }
+        $reservation = $payment->reservation;
+        Log::info("Reservation", ['value' => $reservation?->id ?? 'NULL']);
+
+        if (!$reservation) return;
 
         $reservation->update(['payment_status' => 'paid']);
 
+        Log::info("Rental check", ['has_rental' => $reservation->rental ? 'YES' : 'NO']);
+
         if (!$reservation->rental) {
+            Log::info("Creating rental...");
             Rental::create([
                 'tenant_id'      => $reservation->tenant_id,
                 'listing_id'     => $reservation->listing_id,
                 'reservation_id' => $reservation->id,
                 'status'         => 'active',
             ]);
+            Log::info("Rental created.");
         }
 
         $host = $reservation->listing?->host;
+        Log::info("Host", ['value' => $host?->id ?? 'NULL']);
 
-        if (!$host) {
-            Log::warning("No host found for reservation [{$reservation->id}]");
-            return;
-        }
+        if (!$host) return;
 
         $host->increment('balance', $payment->amount);
+        Log::info("=== handleReservationPayment DONE ===");
     }
 
 
