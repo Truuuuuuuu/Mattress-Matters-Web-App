@@ -207,113 +207,97 @@ class PaymentController extends Controller
         Log::warning("Payment {$payment->reference_id} marked {$payment->status} — invoice {$payment->invoice_id} remains unpaid.");
     }
 
-    /*public function webhook(Request $request)
+    public function webhook(Request $request)
     {
         $token = $request->header('x-callback-token');
         if ($token !== config('services.xendit.webhook_token')) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        $payload  = $request->all();
-        $status   = $payload['data']['status'] ?? null;
-        $chargeId = $payload['data']['id'] ?? null;
+        $payload     = $request->all();
+        $status      = $payload['data']['status'] ?? null;
+        $chargeId    = $payload['data']['id'] ?? null;
         $referenceId = $payload['data']['reference_id'] ?? null;
 
-        if ($chargeId) {
-            $payment = Payment::where('xendit_id', $chargeId)
-                ->orWhere('reference_id', $referenceId)
-                ->first();
+        if (!$chargeId) return response()->json(['received' => true]);
 
-            if ($payment) {
+        // Both payments share the same xendit_id, so this correctly returns both
+        $query = Payment::where('xendit_id', $chargeId);
+
+        // Only extend to reference_id if non-null to avoid matching NULLs
+        if ($referenceId) {
+            $query->orWhere('reference_id', $referenceId);
+        }
+
+        $payments = $query->get();
+
+        if ($payments->isEmpty()) {
+            Log::warning("Xendit webhook: No payments found", compact('chargeId', 'referenceId'));
+            return response()->json(['received' => true]);
+        }
+
+        foreach ($payments as $payment) {
+            try {
+                // Skip if already in this status (idempotency guard)
+                if ($payment->status === $status) {
+                    Log::info("Webhook: Skipping already-{$status} payment [{$payment->id}]");
+                    continue;
+                }
+
                 $payment->update(['status' => $status]);
 
                 if ($status === 'SUCCEEDED') {
-
-                        Reservation::where('id', $payment->reservation_id)
-                                ->update(['payment_status' => 'paid']);
-
-                        Rental::create([
-                           'tenant_id' => $payment->reservation->tenant_id,
-                           'listing_id' => $payment->reservation->listing_id,
-                           'reservation_id' => $payment->reservation_id,
-                           'status' => 'active'
-                       ]);
+                    match ($payment->payment_type) {
+                        'reservation_fee'  => $this->handleReservationPayment($payment),
+                        'security_deposit' => $this->handleSecurityDepositPayment($payment),
+                        'rent'             => $this->payRent($payment),
+                        default => Log::warning("Unhandled payment_type: {$payment->payment_type} [{$payment->id}]"),
+                    };
+                } elseif (in_array($status, ['EXPIRED', 'FAILED', 'VOIDED'])) {
+                    $this->handleFailedPayment($payment);
                 }
 
-                Log::info("Xendit webhook: {$chargeId} → {$status}");
+                Log::info("Xendit webhook: {$chargeId} → {$status} [{$payment->payment_type}] id={$payment->id}");
+
+            } catch (\Throwable $e) {
+                // ✅ One payment failure must NEVER block the others
+                Log::error("Webhook handler failed for payment [{$payment->id}]", [
+                    'type'      => $payment->payment_type,
+                    'status'    => $status,
+                    'exception' => $e->getMessage(),
+                    'trace'     => $e->getTraceAsString(),
+                ]);
             }
         }
 
         return response()->json(['received' => true]);
-    }*/
+    }
 
-    public function webhook(Request $request)
+// ✅ Add the missing handler
+    private function handleSecurityDepositPayment(Payment $payment): void
     {
-        try {
+        $reservation = $payment->reservation;
 
-            $token = $request->header('x-callback-token');
-
-            if ($token !== config('services.xendit.webhook_token')) {
-                return response()->json(['error' => 'Unauthorized'], 401);
-            }
-
-            $payload     = $request->all();
-
-            Log::info('Webhook payload', $payload);
-
-            $status      = $payload['data']['status'] ?? null;
-            $chargeId    = $payload['data']['id'] ?? null;
-
-            $payments = Payment::where('xendit_id', $chargeId)->get();
-
-            Log::info('Payments found', [
-                'count' => $payments->count()
-            ]);
-
-            foreach ($payments as $payment) {
-
-                Log::info('Processing payment', [
-                    'type' => $payment->payment_type,
-                    'id' => $payment->id,
-                ]);
-
-                $payment->update([
-                    'status' => $status
-                ]);
-
-                if ($status === 'SUCCEEDED') {
-
-                    if ($payment->payment_type === 'reservation_fee') {
-                        $this->handleReservationPayment($payment);
-                    }
-                }
-            }
-
-            return response()->json(['received' => true]);
-
-        } catch (\Exception $e) {
-
-            Log::error('Webhook crash', [
-                'message' => $e->getMessage(),
-                'trace' => $e->getTraceAsString(),
-            ]);
-
-            return response()->json([
-                'error' => $e->getMessage()
-            ], 500);
+        if (!$reservation) {
+            Log::warning("Security deposit payment [{$payment->id}] has no reservation.");
+            return;
         }
+
+        Log::info("Security deposit paid for reservation [{$reservation->id}]");
     }
 
     private function handleReservationPayment(Payment $payment): void
     {
         $reservation = $payment->reservation;
 
-        $reservation->update([
-            'payment_status' => 'paid'
-        ]);
+        if (!$reservation) {
+            Log::warning("Reservation fee payment [{$payment->id}] has no reservation.");
+            return;
+        }
+
+        $reservation->update(['payment_status' => 'paid']);
 
         if (!$reservation->rental) {
-
             Rental::create([
                 'tenant_id'      => $reservation->tenant_id,
                 'listing_id'     => $reservation->listing_id,
@@ -322,50 +306,17 @@ class PaymentController extends Controller
             ]);
         }
 
-        $host = $reservation->listing->host;
+        $host = $reservation->listing?->host;
+
+        if (!$host) {
+            Log::warning("No host found for reservation [{$reservation->id}]");
+            return;
+        }
 
         $host->increment('balance', $payment->amount);
     }
-    private function handleRentPayment(Payment $payment): void
-    {
-        $invoice = $payment->invoice;
-
-        if (!$invoice) return;
-
-        $invoice->update(['status' => 'paid']);
-
-        $host = $payment->invoice->rental->listing->host;
-        $host->update([
-            'balance' => $host->balance + $payment->amount,
-        ]);
-
-        // optional: notify tenant their payment was confirmed
-        $invoice->rental->tenant->user->notify(new RentPaidNotification($invoice));
-    }
-    /*stored incase of an issue with alphine js*/
-    /*public function soa()
-    {
-        $tenant  = auth()->user()->tenant;
-        $rental  = $tenant->rental;
-
-        if (!$rental) {
-            return view('tenant.myUnit.soa', ['invoices' => collect(), 'rental' => null, 'nextDue' => null]);
-        }
-
-        $nextDue = $rental->invoices()
-            ->where('status', 'unpaid')
-            ->orderBy('due_date')
-            ->first()
-            ?->due_date;
-
-        $invoices = $rental->invoices()
-            ->orderBy('due_date', 'desc')
-            ->get();
 
 
-
-        return view('tenant.myUnit.soa', compact('invoices', 'rental', 'nextDue'));
-    }*/
 
     public function payRent(Invoice $invoice)
     {
