@@ -7,7 +7,7 @@
                     <div class="px-5 justify-center">
                         <div class=" flex flex-col xs:flex-row items-center gap-2">
                             <h1 class="m-0 text-3xl lg:text-5xl font-bold text-base-content/70 leading-none">
-                                Find Yourasdf
+                                Find Your
                             </h1>
 
                             <div>

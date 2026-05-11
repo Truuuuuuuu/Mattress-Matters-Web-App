@@ -9,12 +9,10 @@
         .sort((a, b) => a - b)
         .join('.');
 
-    console.log('Subscribing to:', channelName);
+
 
     window.Echo.private(channelName)
         .listen('.message.sent', (data) => {
-            console.log('Realtime event:', data);
-
             if (data.sender_id === authUserId) return;
 
             appendMessage(
