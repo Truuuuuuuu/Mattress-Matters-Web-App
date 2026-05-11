@@ -45,7 +45,7 @@ class MoveOutReversalController extends Controller
     public function approve(Request $request, MoveOutReversal $reversal)
     {
         // 1. Authorize: Only the host who owns the listing can approve
-        abort_if($reversal->moveOutNotice->rental->listing->host_id !== $request->user()->id, 403, 'Unauthorized action.');
+        abort_if($reversal->moveOutNotice->rental->listing->host_id !== auth()->user()->host->id, 403, 'Unauthorized action.');
 
         // 2. Validate
         $validated = $request->validate([

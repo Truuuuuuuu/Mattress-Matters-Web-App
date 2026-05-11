@@ -341,12 +341,12 @@
             {{-- Warning messages span full width below --}}
             <div>
                 @if ($myUnit->moveOutNotice?->isActive() && !$myUnit->moveOutNotice->isCancellable())
-                    @if($myUnit->moveOutNotice->latestReversal->isCooldown())
+                    @if($myUnit->moveOutNotice->latestReversal?->isCooldown())
                         <div class="badge badge-soft badge-primary italic py-6 text-sm w-full mt-5 flex items-center">
                             <x-lucide-info class="w-5 h-5"/>
                             <p>You can submit another request in 3 days </p>
                         </div>
-                    @elseif($myUnit->moveOutNotice->latestReversal->isPending())
+                    @elseif($myUnit->moveOutNotice->latestReversal?->isPending())
                         <div class="badge badge-soft badge-primary italic py-6 text-sm w-full mt-5 flex items-center">
                             <x-lucide-info class="w-5 h-5"/>
                             <p>Your move-out reversal request has been submitted and is awaiting approval.</p>
