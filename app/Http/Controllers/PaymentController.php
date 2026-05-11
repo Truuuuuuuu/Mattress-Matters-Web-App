@@ -249,52 +249,59 @@ class PaymentController extends Controller
 
     public function webhook(Request $request)
     {
-        $token = $request->header('x-callback-token');
-        if ($token !== config('services.xendit.webhook_token')) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
+        try {
 
-        $payload     = $request->all();
-        $status      = $payload['data']['status'] ?? null;
-        $chargeId    = $payload['data']['id'] ?? null;
-        $referenceId = $payload['data']['reference_id'] ?? null;
+            $token = $request->header('x-callback-token');
 
-        if (!$chargeId) return response()->json(['received' => true]);
+            if ($token !== config('services.xendit.webhook_token')) {
+                return response()->json(['error' => 'Unauthorized'], 401);
+            }
 
-        // Get all payments with this xendit_id
-        $payments = Payment::where('xendit_id', $chargeId)
-            ->orWhere('reference_id', $referenceId)
-            ->get();
+            $payload     = $request->all();
 
-        if ($payments->isEmpty()) return response()->json(['received' => true]);
+            Log::info('Webhook payload', $payload);
 
-        // Update all matching payments
-        foreach ($payments as $payment) {
+            $status      = $payload['data']['status'] ?? null;
+            $chargeId    = $payload['data']['id'] ?? null;
 
-            $payment->update([
-                'status' => $status
+            $payments = Payment::where('xendit_id', $chargeId)->get();
+
+            Log::info('Payments found', [
+                'count' => $payments->count()
             ]);
 
-            if ($status === 'SUCCEEDED') {
+            foreach ($payments as $payment) {
 
-                if ($payment->payment_type === 'reservation_fee') {
-                    $this->handleReservationPayment($payment);
-                }
+                Log::info('Processing payment', [
+                    'type' => $payment->payment_type,
+                    'id' => $payment->id,
+                ]);
 
-                elseif ($payment->payment_type === 'rent') {
-                    $this->handleRentPayment($payment);
+                $payment->update([
+                    'status' => $status
+                ]);
+
+                if ($status === 'SUCCEEDED') {
+
+                    if ($payment->payment_type === 'reservation_fee') {
+                        $this->handleReservationPayment($payment);
+                    }
                 }
             }
 
-            elseif (in_array($status, ['EXPIRED', 'FAILED', 'VOIDED'])) {
-                $this->handleFailedPayment($payment);
-            }
+            return response()->json(['received' => true]);
 
-            Log::info("Xendit webhook: {$chargeId} → {$status} [{$payment->payment_type}]");
+        } catch (\Exception $e) {
+
+            Log::error('Webhook crash', [
+                'message' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+
+            return response()->json([
+                'error' => $e->getMessage()
+            ], 500);
         }
-
-
-        return response()->json(['received' => true]);
     }
 
     private function handleReservationPayment(Payment $payment): void
