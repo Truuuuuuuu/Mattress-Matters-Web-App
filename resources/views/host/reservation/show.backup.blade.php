@@ -101,7 +101,7 @@
                     </div>
                     <div class="flex flex-col justify-end items-center gap-2 mt-5">
                         <div class="w-full bg-green-500 text-center py-2 rounded-xl italic">
-                            <p>Please complete your payment within 48 hours</p>
+                            <p>Please complete your payment to secure rental</p>
                             <div id="error-msg" class="hidden text-red-500 mt-2"></div>
                         </div>
 

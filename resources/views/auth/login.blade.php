@@ -26,21 +26,6 @@
                         Continue with Google
                     </a>
 
-                    <!-- Facebook -->
-                    <a href="{{route('social.redirect', 'facebook')}}" class="btn bg-white text-base-content rounded-3xl hover:opacity-80 gap-2">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            width="20"
-                            height="20"
-                        >
-                            <path
-                                fill="#1877F2"
-                                d="M24 12a12 12 0 1 0-13.875 11.875v-8.4H7.078V12h3.047V9.356c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953h-1.513c-1.49 0-1.953.925-1.953 1.874V12h3.328l-.532 3.475h-2.796v8.4A12 12 0 0 0 24 12z"
-                            />
-                        </svg>
-                        Continue with Facebook
-                    </a>
                 </div>
                 <p class="text-center text-sm mt-5">Don't have an account? <a href="/email-register" class="text-primary font-semibold hover:underline">Sign up</a></p>
             </div>

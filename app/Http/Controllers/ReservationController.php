@@ -197,6 +197,10 @@ class ReservationController extends Controller
            'status' => 'accepted'
         ]);
 
+        $reservation->listing->update([
+            'slot' => $reservation->listing->slot - 1,
+        ]);
+
         return redirect()->route('reservation.index')->with('success', 'Reservation accepted');
     }
 

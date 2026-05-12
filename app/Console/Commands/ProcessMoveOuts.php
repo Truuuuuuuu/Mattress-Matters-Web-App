@@ -33,6 +33,11 @@ class ProcessMoveOuts extends Command
                     'status' => 'ended',
                     'ended_at' => $now,
                 ]);
+
+                //add slot back
+                $notice->rental->listing->update([
+                    'slot' => $notice->rental->listing->slot + 1,
+                ]);
             }
         }
 

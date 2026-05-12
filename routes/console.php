@@ -8,8 +8,9 @@ use Illuminate\Support\Facades\Schedule;
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');*/
 
-Schedule::command('invoices:generate-monthly')->daily();
-Schedule::command('payments:expire-pending')->everyFiveMinutes();
-Schedule::command('rental:process-moveouts')->everyMinute();
-Schedule::command('invoices:mark-overdue')->everySecond();
+Schedule::command('invoices:generate-monthly')->daily()->withoutOverlapping()->runInBackground();
+Schedule::command('payments:expire-pending')->everyFiveMinutes()->withoutOverlapping()->runInBackground();
+Schedule::command('rental:process-moveouts')->daily()->withoutOverlapping()->runInBackground();
+Schedule::command('invoices:mark-overdue')->hourly()->withoutOverlapping()->runInBackground();
+Schedule::command('reservation:expire')->hourly()->withoutOverlapping()->runInBackground();
 

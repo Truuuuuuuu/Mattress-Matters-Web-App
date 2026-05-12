@@ -1,7 +1,7 @@
 <x-layout>
     <x-slot:heading>Mattress Matters | {{$listing->title}}</x-slot:heading>
 
-    <div class="px-3 w-full max-w-7xl mx-auto bg-base-200 min-h-[calc(100vh-5rem)] py-10">
+    <div class="px-3 w-full max-w-[1440px] mx-auto bg-base-200 min-h-[calc(100vh-5rem)] py-10">
         {{--Main content--}}
         <section class="mb-10">
             <div class="flex justify-between  items-center  ">
@@ -50,7 +50,7 @@
                     @endphp
                     {{--big photo--}}
                     <div >
-                        <img src="{{ $cover->url }}" alt="" class="w-full h-full object-cover">
+                        <img src="{{ $cover->url }}" alt="" class="w-full h-full max-h-96  object-cover">
                     </div>
 
                     {{--smaller photo--}}
@@ -61,7 +61,7 @@
                             </div>
                         @empty
                             {{-- Empty State --}}
-                            <div id="empty-cover" class="flex flex-col items-center justify-center gap-2 text-stone-400 group-hover:text-primary transition-colors duration-200 border border-black/20 p-5 mb-5">
+                            <div id="empty-cover" class="flex flex-col items-center justify-center gap-2 text-stone-400 group-hover:text-primary transition-colors duration-200 bg-base-300 p-5 mb-5">
                                 <div class="w-14 h-14 rounded-full bg-stone-200 group-hover:bg-primary/20 transition-colors duration-200 flex items-center justify-center">
                                     <x-lucide-image class="w-6 h-6"/>
                                 </div>
@@ -70,7 +70,7 @@
                                 </div>
                             </div>
                             {{-- Empty State --}}
-                            <div id="empty-cover" class="flex flex-col items-center justify-center gap-2 text-stone-400 group-hover:text-primary transition-colors duration-200 border border-black/20 p-5 mb-5">
+                            <div id="empty-cover" class="flex flex-col items-center justify-center gap-2 text-stone-400 group-hover:text-primary transition-colors duration-200 bg-base-300 p-5 mb-5">
                                 <div class="w-14 h-14 rounded-full bg-stone-200 group-hover:bg-primary/20 transition-colors duration-200 flex items-center justify-center">
                                     <x-lucide-image class="w-6 h-6"/>
                                 </div>
@@ -83,19 +83,16 @@
 
                 </div>
                 <div class="px-5 text-base-content">
-                    <h1 class="text-2xl font-semibold">{{$listing->title}}</h1>
+                    <h1 class="text-2xl font-semibold text-primary">{{$listing->title}}</h1>
                     <div class="flex gap-1  items-center ">
                         <x-lucide-map-pin class="w-4 h-4"/>
                         <p class="text-base-content/70"><span>{{$listing->address}}</p>
                     </div>
 
-                    <div class="flex items-center gap-1 mb-5">
-                        <x-lucide-star class="w-3 h-3 fill-black"/>
-                        <p><strong>4.9</strong> • <span class="underline text-base-content/50 cursor-pointer">10 reviews</span></p>
-                    </div>
 
                     {{--reserve card--}}
-                    <div class="rounded-xl mt-8  border border-black/30 py-5 mb-10 grid grid-cols-2 place-items-center">
+                    <div class="rounded-xl mt-8 bg-base-100  backdrop-blur-lg
+            border border-white/20 shadow-xs py-5 mb-10 grid grid-cols-2 place-items-center">
                         <div >
                             <h1 class="text-2xl font-semibold">₱{{number_format($listing->rent_cost)}} <span class="text-base-content/70 text-lg font-normal">monthly</span></h1>
                         </div>
@@ -135,7 +132,7 @@
                         {{--show all modal btn--}}
                         <div class="mt-5">
                             <!-- Open the modal using ID.showModal() method -->
-                            <button class="btn border-base-content/70 rounded-2xl px-9" onclick="amenities_modal.showModal()">Show all</button>
+                            <button class="btn btn-primary btn-soft rounded-2xl px-9" onclick="amenities_modal.showModal()">Show all</button>
                             <dialog id="amenities_modal" class="modal modal-bottom  sm:modal-middle">
                                 <div class="modal-box max-w-lg">
                                     {{--content--}}
@@ -197,7 +194,6 @@
                         @empty
                             <p>Not specified</p>
                         @endforelse
-                        <p class="underline cursor-pointer text-blue-900">Learn more</p>
                     </div>
                 </div>
 
@@ -211,7 +207,6 @@
                         @empty
                             <p>Not specified</p>
                         @endforelse
-                        <p class="underline cursor-pointer text-blue-900">Learn more</p>
                     </div>
                 </div>
             </div>

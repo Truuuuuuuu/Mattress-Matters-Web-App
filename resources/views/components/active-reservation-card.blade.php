@@ -52,7 +52,7 @@
         @if($activeReservation->status === 'accepted' && $activeReservation->payment_status === 'unpaid')
             <div class="badge badge-warning badge-soft  gap-1 flex items-center w-full">
                 <x-lucide-info class="text-warning w-3 h-3"/>
-                <p class="text-xs font-semibold"> Please complete your payment within 48 hrs</p>
+                <p class="text-xs font-semibold"> Please complete your payment within 48 hrs to avoid auto cancellation</p>
             </div>
 
         @elseif($activeReservation->status === 'accepted' && $activeReservation->payment_status === 'paid')

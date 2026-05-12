@@ -57,8 +57,8 @@
     </section>
 
     {{--STEP 2--}}
-    <section>
-        <div class="space-y-10 px-25 text-base-content/50">
+    <section class="w-full ">
+        <div class="space-y-10 text-base-content/50">
             <div class="flex items-center gap-4 my-6">
                 <div class="flex-1 h-px bg-base-content"></div>
                 <span class="text-sm font-semibold text-base-content">
@@ -70,15 +70,15 @@
                 <h1 class="text-3xl font-semibold mt-5">Set your monthly rent</h1>
                 <div class="grid lg:grid-cols-2 mt-15 ">
 
-                    <div class="overflow-hidden h-32 ">
-                        <img src="{{asset('images/house-rent.svg')}}" alt="" class="w-full h-full object-fit">
+                    <div class="overflow-hidden h-32 w-full">
+                        <img src="{{asset('images/house-rent.svg')}}" alt="" class="w-full h-full object-contain">
                     </div>
                     <div class=" px-10 py-6 flex flex-col justify-center">
                         <label for="price" class="text-base-content/50 text-lg ">Monthly</label>
                         <div class="flex justify-start gap-5">
                             <H1 class="text-3xl font-bold leading-none">PHP</H1>
                             <input type="number" id="review_rent_cost"  min="1" tabindex="-1"  readonly
-                                   class="text-3xl w-64 border-b-3 text-base-content/40 focus:ring-0 focus:outline-none block" required>
+                                   class="text-3xl w-full max-w-64 border-b-3 text-base-content/40 focus:ring-0 focus:outline-none block" required>
                         </div>
                         <p class="text-sm text-gray-500 mt-2">
                             Enter the monthly rent amount for this listing.
@@ -90,9 +90,9 @@
             {{--additional fee--}}
             <section>
                 <h1 class="text-3xl font-semibold mt-5">Utility Charges <span class="text-base-content text-xl font-light italic">(optional)</span></h1>
-                <div class="grid lg:grid-cols-2 mt-5 ">
+                <div class="grid lg:grid-cols-2 mt-5 w-full">
 
-                    <div class=" px-10 py-6 flex flex-col-2 justify-center  items-center gap-5">
+                    <div class=" w-full py-6 flex flex-col-2 justify-center  items-center gap-5">
                         <div class="bg-primary/10 rounded-3xl text-primary/70 p-3">
                             <x-lucide-zap class="h-20 stroke-1"/>
                         </div>
@@ -117,7 +117,7 @@
 
 
 
-                    <div class=" px-10 py-6 flex flex-col-2 justify-center items-center gap-5">
+                    <div class=" w-full py-6 flex flex-col-2 justify-center items-center gap-5">
                         <div class="bg-primary/10 rounded-3xl text-primary/70 p-3">
                             <x-lucide-droplet class="h-20 stroke-1"/>
                         </div>
@@ -148,7 +148,7 @@
             <section>
                 <div>
                     <h1 class="text-3xl font-semibold">What does your place offer?</h1>
-                    <div id="review_amenities" class="grid grid-cols-4 gap-4 mt-5">
+                    <div id="review_amenities" class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mt-5">
                         <span class="text-stone-400 text-sm">—</span>
                     </div>
                 </div>
@@ -160,14 +160,16 @@
     {{-- Step 3 --}}
     <section>
         <div class="flex justify-center">
-            <div class="flex items-center gap-4 my-6 lg:w-xl ">
+            <div class="flex items-center w-full max-w-xl gap-4 my-6">
                 <div class="flex-1 h-px bg-base-content"></div>
-                <span class="text-sm font-semibold text-base-content">STEP 3</span>
+                <span class="text-sm font-semibold text-base-content">
+                        STEP 3
+                    </span>
                 <div class="flex-1 h-px bg-base-content"></div>
             </div>
         </div>
-        <div class="flex space-y-10 px-25 text-base-content/50  justify-center items-center">
-            <div class="flex flex-col gap-3 lg:w-xl  ">
+        <div class="flex space-y-10  text-base-content/50  justify-center items-center">
+            <div class="flex flex-col gap-3 lg:w-xl w-full ">
                 <h1 class="text-3xl font-semibold">Uploaded Images</h1>
                 {{-- Cover Photo --}}
                 <div class="relative rounded-2xl overflow-hidden h-72 bg-stone-100 flex items-center justify-center">
@@ -194,18 +196,18 @@
     </section>
 
     {{--Step 4--}}
-    <section>
+    <section >
         @php
             $review_rules = ['review_gender_rule' => 'Gender', 'review_guest_rule' => 'Guest', 'review_pet_rule' => 'Pet', 'review_curfew_rule' => 'Curfew', 'review_smoking_rule' => 'Smoking'];
         @endphp
         <div class="flex justify-center">
-            <div class="flex items-center gap-4 my-6 lg:w-xl ">
+            <div class="flex items-center gap-4 my-6 w-full lg:w-xl ">
                 <div class="flex-1 h-px bg-base-content"></div>
                 <span class="text-sm font-semibold text-base-content">STEP 4</span>
                 <div class="flex-1 h-px bg-base-content"></div>
             </div>
         </div>
-        <div class="flex justify-center">
+        <div class="flex justify-start w-full max-w-xl  mx-auto">
             <div class="flex flex-col space-y-10 text-base-content/50  lg:w-lg">
                 @foreach($review_rules as $review_rule => $header)
                     <section>
@@ -221,7 +223,7 @@
         </div>
     </section>
 
-    <div class="bg-green-100 py-5">
+    <div class="badge badge-soft badge-success w-full p-2">
         <p class="text-center font-semibold italic">Please ensure that all information provided is accurate and true before submitting.</p>
     </div>
 </div>
