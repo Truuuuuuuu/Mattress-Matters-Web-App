@@ -8,7 +8,7 @@
                 <p class="text-xs font-semibold text-base-content/70 mt-2">Monitor users, listings, and activity</p>
             </div>
             <div class="flex gap-2">
-                <x-avatar-squircle :user="auth()->user()"/>
+                <x-avatar-squircle :user="auth()->user()" :link="false"/>
                 <div>
                     <p class="font-semibold">Admin</p>
                     <p class="text-xs text-base-content/70">{{ auth()->user()->email }}</p>

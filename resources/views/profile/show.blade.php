@@ -1,5 +1,5 @@
 <x-layout>
-    <x-slot:heading>My Profile</x-slot:heading>
+    <x-slot:heading> {{$profile->user->name }}| Profile</x-slot:heading>
 
     <div class="w-full max-w-7xl mx-auto px-3 lg:px-8 mt-10 text-base-content bg-base-200 min-h-[calc(100vh-5rem)]" >
         <div class="grid gap-4 md:grid-cols-[1fr_2fr] place-self-center w-full">

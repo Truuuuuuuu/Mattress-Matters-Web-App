@@ -68,13 +68,13 @@
                         </td>
 
                         <td class="flex gap-3">
-                            <a href="{{route('profile.show', $user)}}" class="btn btn-sm btn-error rounded-3xl">
+                            <a href="#" class="btn btn-sm btn-error rounded-3xl">
                                 <x-lucide-ban class="w-3 h-3"/> <span>Ban</span>
                             </a>
-                            <a href="{{route('profile.show', $user)}}" class="btn btn-sm btn-warning rounded-3xl">
+                            <a href="#" class="btn btn-sm btn-warning rounded-3xl">
                                 <x-lucide-triangle-alert class="w-3 h-3"/> <span>Restrict</span>
                             </a>
-                            <a href="{{route('profile.show', $user)}}" class="btn btn-sm btn-neutral rounded-3xl">
+                            <a href="#" class="btn btn-sm btn-neutral rounded-3xl">
                                 <x-lucide-cog class="w-3 h-3"/> <span>Modify</span>
                             </a>
                         </td>

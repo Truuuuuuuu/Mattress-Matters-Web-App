@@ -91,7 +91,7 @@
                             <a href="#" class="btn btn-sm btn-error rounded-3xl">
                                 <x-lucide-octagon-minus class="w-3 h-3"/> <span>Disable</span>
                             </a>
-                            <a href="#" class="btn btn-sm btn-neutral rounded-3xl">
+                            <a href="{{route('listings.show', $listing)}}" class="btn btn-sm btn-neutral rounded-3xl">
                                 <x-lucide-eye class="w-3 h-3"/> <span>View Details</span>
                             </a>
                         </td>
