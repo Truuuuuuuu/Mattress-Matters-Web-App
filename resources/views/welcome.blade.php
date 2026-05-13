@@ -116,7 +116,7 @@
                     <p class="text-center px-5 lg:px-10">Join thousands of renters and property owners using Mattress Matters</p>
                 </div>
                 <div class="flex justify-center p-4  gap-x-5 mt-3">
-                    <a href="{{ route('email.register') }}" class="items-center px-4 py-2 btn btn-default">Register Now</a>
+                    <a href="{{ route('google.register') }}" class="items-center px-4 py-2 btn btn-default">Register Now</a>
                 </div>
             </div>
         </section>
